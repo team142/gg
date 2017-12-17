@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+    <!-- Babylon.js -->
+    <script src="https://www.babylonjs.com/hand.minified-1.2.js"></script>
+    <script src="https://preview.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <script src="https://preview.babylonjs.com/cannon.js"></script>
+    <script src="https://preview.babylonjs.com/oimo.js"></script>
+
+    <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+
+
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="view-servers">
+        <h1>Server list</h1>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <form>
+                        <fieldset>
+                            <legend>Legend</legend>
+                            <div class="form-group">
+                                <label for="exampleInputName">Name</label>
+                                <input type="name" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Enter a nick or name">
+                                <small id="nameHelp" class="form-text text-muted">Your name in the game.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleSelect1">Server</label>
+                                <select class="form-control" id="exampleSelect1">
+                                    <option>localhost</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Join</button>
+                        </fieldset>
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    <div id="view-games">
+        <h1>Game list</h1>
+    </div>
+
+
+
+
+    <canvas id="renderCanvas"></canvas>
+
+    <script>
+
+        function joinServer(url, name) {
+            console.log(url, name);
+        }
+
+
+        function toggleElement(id, toggle) {
+            if (toggle) {
+                document.getElementById(id).style.visibility = "visible";
+            } else {
+                document.getElementById(id).style.visibility = "hidden";
+            }
+
+        }
+
+        toggleElement("renderCanvas", false)
+        toggleElement("view-games", false)
+
+    </script>
+
+
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+        var sphere;
+
+        var DIR = {
+            x: 0,
+            y: 0,
+            z: 0
+        }
+
+        var createScene = function () {
+
+            // This creates a basic Babylon Scene object (non-mesh)
+            var scene = new BABYLON.Scene(engine);
+
+            // This creates and positions a free camera (non-mesh)
+            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+
+            // This targets the camera to scene origin
+            camera.setTarget(BABYLON.Vector3.Zero());
+
+            // This attaches the camera to the canvas
+            camera.attachControl(canvas, true);
+
+            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+
+            // Default intensity is 1. Let's dim the light a small amount
+            light.intensity = 0.7;
+
+            // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
+            // var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+            sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+
+            // Move the sphere upward 1/2 its height
+            sphere.position.y = 1;
+
+            // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
+            var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+
+            // GUI
+            var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+            var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Up");
+            button1.width = "75px"
+            button1.height = "40px";
+            button1.color = "white";
+            button1.cornerRadius = 20;
+            button1.background = "green";
+            button1.top = "0px";
+            button1.left = "-85px";
+            button1.onPointerUpObservable.add(function () {
+                sphere.position.y = sphere.position.y + 0.1
+                // alert("you did it!");
+            });
+            advancedTexture.addControl(button1);
+
+            var button2 = BABYLON.GUI.Button.CreateSimpleButton("but2", "Down");
+            button2.width = "75px"
+            button2.height = "40px";
+            button2.color = "white";
+            button2.cornerRadius = 20;
+            button2.background = "green";
+            button2.top = "0px";
+            button2.left = "10px";
+            button2.onPointerUpObservable.add(function () {
+
+                sphere.position.y = sphere.position.y - 0.1
+                // alert("you did it!");
+            });
+            advancedTexture.addControl(button2);
+
+            // button2.position.y += button2.position.y + 1;
+
+
+
+            return scene;
+
+        };
+
+        var scene = createScene()
+
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+
+        window.addEventListener("keyup", function (data) {
+            var key = data.key;
+            if (key === "a" || key === "A") {
+                DIR.x = 0;
+            } else if (key === "d" || key === "D") {
+                DIR.x = 0;
+            } else if (key === "s" || key === "S") {
+                DIR.z = 0;
+            } else if (key === "w" || key === "W") {
+                DIR.z = 0;
+            }
+        });
+
+        window.addEventListener("keydown", function (data) {
+            var key = data.key;
+            if (key === "a" || key === "A") {
+                DIR.x = -1;
+            } else if (key === "d" || key === "D") {
+                DIR.x = 1;
+            } else if (key === "s" || key === "S") {
+                DIR.z = -1;
+            } else if (key === "w" || key === "W") {
+                DIR.z = 1;
+            }
+        });
+
+        // window.addEventListener("keypress", function(data) {
+        //     var key = data.key;
+        //     if (key === "a" || key === "A") {
+
+        //         sphere.position.x -= 0.1;
+        //     } else if (key === "d" || key === "D") {
+        //         sphere.position.x += 0.1;
+        //     } else if (key === "s" || key === "S") {
+        //         sphere.position.z -= 0.1;
+        //     } else if (key === "w" || key === "W") {
+        //         sphere.position.z += 0.1;
+        //     }
+        //     console.log(key);
+        // });
+
+        function tick() {
+            console.log("Tick")
+
+            sphere.position.x += (0.05 * DIR.x);
+            sphere.position.y += (0.05 * DIR.y);
+            sphere.position.z += (0.05 * DIR.z);
+        }
+
+        var t = setInterval(tick, 20);
+
+
+    </script>
+</body>
+
+</html>
