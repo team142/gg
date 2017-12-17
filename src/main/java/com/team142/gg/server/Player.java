@@ -5,10 +5,20 @@
  */
 package com.team142.gg.server;
 
+import lombok.Data;
+
 /**
  *
  * @author just1689
  */
+@Data
 public class Player {
-    
+
+    private String id;
+    private String name;
+
+    public Player(String id) {
+        this.id = id;
+    }
+
 }
