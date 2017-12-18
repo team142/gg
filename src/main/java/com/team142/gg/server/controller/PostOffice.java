@@ -45,6 +45,7 @@ public class PostOffice {
         try {
             MessageJoinServer body = JsonUtils.OBJECT_MAPPER.readValue(message, MessageJoinServer.class);
             Server.PLAYERS_ON_SERVER.get(session.getId()).setName(body.getName());
+            System.out.println("Player has a name! " + body.getName());
         } catch (IOException ex) {
             Logger.getLogger(PostOffice.class.getName()).log(Level.SEVERE, null, ex);
         }

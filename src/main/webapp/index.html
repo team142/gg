@@ -13,6 +13,7 @@
     <script src="https://preview.babylonjs.com/oimo.js"></script>
 
     <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+    
 
 
     <style>
@@ -34,6 +35,14 @@
 </head>
 
 <body>
+    <div id="view-debug">
+        <form>
+                <input type="text" class="form-control" id="inputDebug" aria-describedby="inputDebug" placeholder="">            <button type="button" onclick="buttonSendWebsocket();" class="btn btn-primary btn-sm">Send</button>
+        </form>
+            
+    </div>
+
+
     <div id="view-servers">
         <h1>Server list</h1>
         <div class="container">
@@ -45,7 +54,7 @@
                             <legend>Legend</legend>
                             <div class="form-group">
                                 <label for="inputName">Name</label>
-                                <input type="name" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter a nick or name">
+                                <input type="name" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter a nick or name" />
                                 <small id="nameHelp" class="form-text text-muted">Your name in the game.</small>
                             </div>
                             <div class="form-group">
@@ -79,6 +88,10 @@
         var username;
         var socket;
 
+        function buttonSendWebsocket() {
+            socket.send(document.getElementById("inputDebug").value);
+        }
+
 
         function buttonJoinServer() {
             var url = ""; // TODO
@@ -95,15 +108,21 @@
             socket = new WebSocket("ws://localhost/websocket");
             assignMethods();
 
-            
+
         }
 
         function assignMethods() {
-            socket.onopen = function(event) {
-                alert("Socket open!");
+            socket.onopen = function (event) {
+                var body = {
+                    conversation: "P_REQUEST_JOIN_SERVER", 
+                    name: username
+                }
+                var json = JSON.stringify(body);
+                socket.send(json);
+
             }
-            socket.onmessage = function(event) {
-                alert("Socket message!");
+            socket.onmessage = function (event) {
+                alert("Socket message! " + event.data);
             }
         }
 

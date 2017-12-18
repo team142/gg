@@ -24,6 +24,7 @@ public class Websocket {
 
     @OnOpen
     public void onOpen(Session session) {
+        System.out.println("New player! " + session.getId());
         Player player = new Player(session.getId());
         Server.newPlayer(player);
     }
@@ -35,6 +36,7 @@ public class Websocket {
 
     @OnMessage
     public void onMessage(Session session, String message) {
+        System.out.println("New message! " + message);
         PostOffice.handleIncoming(session, message);
     }
 
