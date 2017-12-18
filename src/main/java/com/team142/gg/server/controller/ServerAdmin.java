@@ -7,8 +7,10 @@ package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.messages.MessageChangeView;
 import com.team142.gg.server.model.messages.MessageGameSummary;
 import com.team142.gg.server.model.messages.MessageListOfGames;
+import com.team142.gg.server.model.messages.ViewType;
 import javax.websocket.Session;
 
 /**
@@ -16,6 +18,12 @@ import javax.websocket.Session;
  * @author just1689
  */
 public class ServerAdmin {
+
+    public static void changePlayerView(String playerId, ViewType view) {
+        MessageChangeView message = new MessageChangeView(view);
+        PostOffice.sendObjectToPlayer(playerId, message);
+
+    }
 
     public static void notifyPlayerOfGames(String playerId) {
         MessageListOfGames message = new MessageListOfGames();
@@ -48,5 +56,8 @@ public class ServerAdmin {
 
     public static void playerHasAName(String id, String name) {
         Server.PLAYERS_ON_SERVER.get(id).setName(name);
+        changePlayerView(id, ViewType.VIEW_GAMES);
+        ServerAdmin.notifyPlayerOfGames(id);
+
     }
 }

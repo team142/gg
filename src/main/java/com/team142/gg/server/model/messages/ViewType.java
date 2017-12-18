@@ -9,12 +9,9 @@ package com.team142.gg.server.model.messages;
  *
  * @author just1689
  */
-public enum ConversationType {
-
-    P_REQUEST_JOIN_SERVER
-    , P_REQUEST_LIST_GAMES
-    , P_REQUEST_JOIN_GAME
-    , S_ANSWER_LIST_OF_GAMES
-    , S_CHANGE_VIEW
-
+public enum ViewType {
+    VIEW_SERVERS
+    , VIEW_GAMES
+    , VIEW_CANVAS
+    
 }

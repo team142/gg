@@ -26,7 +26,7 @@
             padding: 0;
         }
 
-        #renderCanvas {
+        #VIEW_CANVAS {
             width: 100%;
             height: 100%;
             touch-action: none;
@@ -43,7 +43,7 @@
     </div>
 
 
-    <div id="view-servers">
+    <div id="VIEW_SERVERS">
         <h1>Server list</h1>
         <div class="container">
 
@@ -74,14 +74,14 @@
         </div>
 
     </div>
-    <div id="view-games">
+    <div id="VIEW_GAMES">
         <h1>Game list</h1>
     </div>
 
 
 
 
-    <canvas id="renderCanvas"></canvas>
+    <canvas id="VIEW_CANVAS"></canvas>
 
     <script>
 
@@ -122,6 +122,12 @@
 
             }
             socket.onmessage = function (event) {
+                var conversation = event.data.conversation;
+                if (conversation == "S_ANSWER_LIST_OF_GAMES") {
+                    alert("got a list of games!");
+
+                    return;
+                }
                 alert("Socket message! " + event.data);
             }
         }
@@ -136,14 +142,14 @@
 
         }
 
-        toggleElement("renderCanvas", false)
+        toggleElement("VIEW_CANVAS", false)
         toggleElement("view-games", false)
 
     </script>
 
 
     <script>
-        var canvas = document.getElementById("renderCanvas");
+        var canvas = document.getElementById("VIEW_CANVAS");
         var engine = new BABYLON.Engine(canvas, true);
 
         var sphere;
