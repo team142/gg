@@ -24,6 +24,7 @@ public class Game {
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
     private Player owner;
     private final ConcurrentHashMap<String, Session> SESSIONS = new ConcurrentHashMap<>(40);
+    private String name;
 
     public Game(Player owner) {
         this.id = UUID.randomUUID().toString();

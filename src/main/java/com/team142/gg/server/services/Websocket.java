@@ -6,7 +6,7 @@
 package com.team142.gg.server.services;
 
 import com.team142.gg.server.controller.PostOffice;
-import com.team142.gg.server.model.Player;
+import com.team142.gg.server.controller.ServerAdmin;
 import com.team142.gg.server.model.Server;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -24,9 +24,7 @@ public class Websocket {
 
     @OnOpen
     public void onOpen(Session session) {
-        System.out.println("New player! " + session.getId());
-        Player player = new Player(session.getId());
-        Server.newPlayer(player);
+        ServerAdmin.notifyNewConnection(session);
     }
 
     @OnError
@@ -36,13 +34,12 @@ public class Websocket {
 
     @OnMessage
     public void onMessage(Session session, String message) {
-        System.out.println("New message! " + message);
         PostOffice.handleIncoming(session, message);
     }
 
     @OnClose
     public void onClose(Session session) {
-        Server.playerDisconnects(session.getId());
+        ServerAdmin.notifyDisconnection(session);
 
     }
 

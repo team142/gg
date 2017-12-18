@@ -3,19 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.model.client;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
+package com.team142.gg.server.model.messages;
 
 /**
  *
  * @author just1689
  */
-@Data
-@NoArgsConstructor
-public class MessageJoinGame {
+public enum ConversationType {
 
-    private String id;
+    P_REQUEST_JOIN_SERVER,
+    P_REQUEST_LIST_GAMES,
+    P_REQUEST_JOIN_GAME,
+    S_ANSWER_LIST_OF_GAMES
 
 }

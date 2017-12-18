@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.model.client;
+package com.team142.gg.server.model.messages;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
