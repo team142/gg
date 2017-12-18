@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server;
+package com.team142.gg.server.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +21,7 @@ import lombok.Data;
 public class Game {
 
     private String id;
-    private final List<Player> players = Collections.synchronizedList(new ArrayList<Player>());
+    private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
     private Player owner;
     private final ConcurrentHashMap<String, Session> SESSIONS = new ConcurrentHashMap<>(40);
 
@@ -33,12 +33,12 @@ public class Game {
     }
 
     public boolean hasPlayer(String id) {
-        for (Player player : players) {
-            if (player.getId().equals(id)) {
-                return true;
-            }
-        }
-        return false;
+        return players.stream().anyMatch((player) -> (player.getId().equals(id)));
+    }
+
+    public void removePlayer(String id) {
+        players.removeIf(player -> player.getId().equals(id));
+
     }
 
 }

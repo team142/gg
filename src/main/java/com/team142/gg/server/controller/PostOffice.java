@@ -3,22 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server;
+package com.team142.gg.server.controller;
 
-import lombok.Data;
+import javax.websocket.Session;
 
 /**
  *
  * @author just1689
  */
-@Data
-public class Player {
+public class PostOffice {
 
-    private String id;
-    private String name;
+    public static void handleIncoming(Session session, String message) {
 
-    public Player(String id) {
-        this.id = id;
     }
 
 }

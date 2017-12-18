@@ -44,17 +44,17 @@
                         <fieldset>
                             <legend>Legend</legend>
                             <div class="form-group">
-                                <label for="exampleInputName">Name</label>
-                                <input type="name" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Enter a nick or name">
+                                <label for="inputName">Name</label>
+                                <input type="name" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter a nick or name">
                                 <small id="nameHelp" class="form-text text-muted">Your name in the game.</small>
                             </div>
                             <div class="form-group">
                                 <label for="exampleSelect1">Server</label>
                                 <select class="form-control" id="exampleSelect1">
-                                    <option>localhost</option>
+                                    <option>http://localhost</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Join</button>
+                            <button type="button" onclick="buttonJoinServer();" id="btnJoinServer" class="btn btn-primary">Join</button>
                         </fieldset>
                     </form>
                 </div>
@@ -76,8 +76,35 @@
 
     <script>
 
+        var username;
+        var socket;
+
+
+        function buttonJoinServer() {
+            var url = ""; // TODO
+            var name = document.getElementById("inputName").value;
+            if (name) {
+                document.getElementById("btnJoinServer").enabled = false;
+                joinServer(url, name);
+            }
+        }
+
         function joinServer(url, name) {
-            console.log(url, name);
+            //Join on websocket...
+            username = name;
+            socket = new WebSocket("ws://localhost/websocket");
+            assignMethods();
+
+            
+        }
+
+        function assignMethods() {
+            socket.onopen = function(event) {
+                alert("Socket open!");
+            }
+            socket.onmessage = function(event) {
+                alert("Socket message!");
+            }
         }
 
 
@@ -238,7 +265,7 @@
             sphere.position.z += (0.05 * DIR.z);
         }
 
-        var t = setInterval(tick, 20);
+        // var t = setInterval(tick, 20);
 
 
     </script>

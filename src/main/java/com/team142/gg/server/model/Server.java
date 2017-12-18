@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server;
+package com.team142.gg.server.model;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,7 +17,15 @@ public class Server {
     public static final ConcurrentHashMap<String, Player> PLAYERS_ON_SERVER = new ConcurrentHashMap<String, Player>();
     public static final ConcurrentHashMap<String, Game> GAMES_ON_SERVER = new ConcurrentHashMap<String, Game>();
 
-    public Game getGameByPlayer(String id) {
+    public static void playerDisconnects(String id) {
+        Server.PLAYERS_ON_SERVER.remove(id);
+        Game game = getGameByPlayer(id);
+        if (game != null) {
+            game.removePlayer(id);
+        }
+    }
+
+    public static Game getGameByPlayer(String id) {
         for (Map.Entry<String, Game> entry : GAMES_ON_SERVER.entrySet()) {
             if (entry.getValue().hasPlayer(id)) {
                 return entry.getValue();
@@ -25,6 +33,10 @@ public class Server {
         }
         //TODO: log no game found by player
         return null;
+    }
+
+    public static void newPlayer(Player player) {
+        PLAYERS_ON_SERVER.put(player.getId(), player);
     }
 
     public Game getGameByPlayer(Player player) {
