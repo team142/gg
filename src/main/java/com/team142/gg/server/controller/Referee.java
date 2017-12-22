@@ -14,22 +14,22 @@ import com.team142.gg.server.model.Server;
  * @author just1689
  */
 public class Referee {
-    
+
     public static void playerJoinsGame(String playerId, String gameId) {
         Game game = Server.GAMES_ON_SERVER.get(gameId);
         if (game == null) {
             //TODO: tell the user that the game does not exist
             return;
         }
-        
+
         Player player = Server.PLAYERS_ON_SERVER.get(playerId);
         if (player == null) {
             //TODO: log no player found...
             return;
         }
-        
-        game.getPlayers().add(player);
-        
+
+        game.playerJoins(player);
+
     }
-    
+
 }

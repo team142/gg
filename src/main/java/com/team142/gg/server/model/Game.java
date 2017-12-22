@@ -42,4 +42,11 @@ public class Game {
 
     }
 
+    public void playerJoins(Player player) {
+        //TODO: announce
+
+        players.add(player);
+
+    }
+
 }

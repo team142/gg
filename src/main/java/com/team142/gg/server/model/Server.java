@@ -36,13 +36,11 @@ public class Server {
     }
 
     public static Game getGameByPlayer(String id) {
-        for (Map.Entry<String, Game> entry : GAMES_ON_SERVER.entrySet()) {
-            if (entry.getValue().hasPlayer(id)) {
-                return entry.getValue();
-            }
-        }
-        //TODO: log no game found by player
-        return null;
+        return GAMES_ON_SERVER.entrySet().stream()
+                .filter(e -> e.getValue().getId().equals(id))
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .orElse(null);
     }
 
     public static void newPlayer(Player player) {
