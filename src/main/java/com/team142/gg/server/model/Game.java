@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.model.messages.MessageGameSummary;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +32,10 @@ public class Game {
         this.id = UUID.randomUUID().toString();
         this.name = name;
 
+    }
+
+    public MessageGameSummary generateGameSummary() {
+        return new MessageGameSummary(id, name, players.size());
     }
 
     public boolean hasPlayer(String id) {
