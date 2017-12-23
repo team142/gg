@@ -53,7 +53,13 @@ function assignMethods() {
 }
 
 function showListOfGames(games) {
-    
+    var body = {
+        conversation: "P_REQUEST_JOIN_GAME", 
+        id: games[0].id
+    }
+    var json = JSON.stringify(body);
+    socket.send(json);
+
 }
 
 function changeView(view) {
