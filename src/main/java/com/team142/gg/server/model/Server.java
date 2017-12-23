@@ -20,6 +20,11 @@ public class Server {
     public static final ConcurrentHashMap<String, Session> SESSIONS_ON_SERVER = new ConcurrentHashMap<String, Session>();
 
     static {
+        createDefaultGame();
+
+    }
+
+    private static void createDefaultGame() {
         System.out.println("Creating a default game");
 //        Game game = new Game(new Player("0"));
         Game game = new Game();
