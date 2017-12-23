@@ -24,14 +24,14 @@ public class Game {
 
     private String id;
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
-    private Player owner;
+//    private Player owner;
     private final ConcurrentHashMap<String, Session> SESSIONS = new ConcurrentHashMap<>(40);
     private String name;
 
-    public Game(Player owner) {
+    public Game() {
         this.id = UUID.randomUUID().toString();
-        this.owner = owner;
-        this.players.add(owner);
+//        this.owner = owner;
+//        this.players.add(owner);
 
     }
 
