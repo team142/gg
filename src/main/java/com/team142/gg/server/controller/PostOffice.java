@@ -63,10 +63,10 @@ public class PostOffice {
         }
     }
 
-    static void sendObjectToPlayer(String playerId, Object object) {
+    static void sendObjectToPlayer(String playerId, Message message) {
         try {
             Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Sending message to player: {0}", playerId);
-            String json = OBJECT_MAPPER.writeValueAsString(object);
+            String json = OBJECT_MAPPER.writeValueAsString(message);
             Server.SESSIONS_ON_SERVER.get(playerId).getAsyncRemote().sendText(json);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(PostOffice.class.getName()).log(Level.SEVERE, null, ex);
