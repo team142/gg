@@ -40,7 +40,7 @@ public class Referee {
     }
 
     private static void welcomePlayerToGame(String playerId) {
-        
+        Logger.getLogger(Referee.class.getName()).log(Level.INFO, "Welcoming player ({0}) to game", new String[]{playerId});
         //Tell player
         MessageChangeView message = new MessageChangeView(ViewType.VIEW_CANVAS);
         PostOffice.sendObjectToPlayer(playerId, message);
