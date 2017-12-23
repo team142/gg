@@ -47,4 +47,14 @@
 ````
 
 
+# Client to server communication
+
+### Join game
+````
+    {
+        "conversation": "P_REQUEST_JOIN_GAME",
+        "id": "$GAME_UUID$"
+    }
+````
+
 
