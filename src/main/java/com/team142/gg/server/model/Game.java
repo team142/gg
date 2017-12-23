@@ -34,7 +34,7 @@ public class Game {
 
     }
 
-    public MessageGameSummary generateGameSummary() {
+    public MessageGameSummary toGameSummary() {
         return new MessageGameSummary(id, name, players.size());
     }
 
