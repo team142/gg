@@ -27,7 +27,7 @@ function joinServer(url, name) {
 function assignMethods() {
     socket.onopen = function (event) {
         var body = {
-            conversation: "P_REQUEST_JOIN_SERVER", 
+            conversation: "P_REQUEST_JOIN_SERVER",
             name: username
         }
         var json = JSON.stringify(body);
@@ -54,7 +54,7 @@ function assignMethods() {
 
 function showListOfGames(games) {
     var body = {
-        conversation: "P_REQUEST_JOIN_GAME", 
+        conversation: "P_REQUEST_JOIN_GAME",
         id: games[0].id
     }
     var json = JSON.stringify(body);
@@ -63,33 +63,44 @@ function showListOfGames(games) {
 }
 
 function changeView(view) {
+    console.log("Chaning view: " + view)
     toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
     toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
     toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
+
+    if (view == "VIEW_CANVAS") {
+        console.log("Setup 3D");
+        setup3D();
+    }
 
 }
 
 
 function toggleElement(id, toggle) {
     if (toggle) {
+        document.getElementById(id).style.display = "block"
         document.getElementById(id).style.visibility = "visible";
     } else {
         document.getElementById(id).style.visibility = "hidden";
+        document.getElementById(id).style.display = "none"
     }
 
 }
 
-
-var canvas = document.getElementById("VIEW_CANVAS");
-var engine = new BABYLON.Engine(canvas, true);
-
+//Declare
+var canvas;
+var engine;
 var sphere;
-
 var DIR = {
     x: 0,
     y: 0,
     z: 0
 }
+var scene;
+
+
+
+
 
 var createScene = function () {
 
@@ -161,16 +172,23 @@ var createScene = function () {
 
 };
 
-var scene = createScene()
+function setup3D() {
+    canvas = document.getElementById("VIEW_CANVAS");
+    engine = new BABYLON.Engine(canvas, true);
+    scene = createScene()
 
-engine.runRenderLoop(function () {
-    scene.render();
-});
+    engine.runRenderLoop(function () {
+        scene.render();
+    });
 
-// Resize
-window.addEventListener("resize", function () {
-    engine.resize();
-});
+    // Resize
+    window.addEventListener("resize", function () {
+        engine.resize();
+    });
+
+    var t = setInterval(tick, 20);
+}
+
 
 window.addEventListener("keyup", function (data) {
     var key = data.key;
@@ -214,11 +232,11 @@ window.addEventListener("keydown", function (data) {
 // });
 
 function tick() {
-    console.log("Tick")
+    // console.log("Tick")
 
     sphere.position.x += (0.05 * DIR.x);
     sphere.position.y += (0.05 * DIR.y);
     sphere.position.z += (0.05 * DIR.z);
 }
 
-// var t = setInterval(tick, 20);
+
