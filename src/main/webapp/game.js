@@ -18,7 +18,7 @@ function buttonJoinServer() {
 function joinServer(url, name) {
     //Join on websocket...
     username = name;
-    socket = new WebSocket("ws://localhost/websocket");
+    socket = new WebSocket("ws://localhost:8080/websocket");
     assignMethods();
 
 
@@ -41,7 +41,7 @@ function assignMethods() {
         if (conversation == "S_CHANGE_VIEW") {
             changeView(obj.view);
             return;
-        } else if (conversation == "S_ANSWER_LIST_OF_GAMES") {
+        } else if (conversation == "S_LIST_OF_GAMES") {
             showListOfGames(obj.games);
             return;
         }
