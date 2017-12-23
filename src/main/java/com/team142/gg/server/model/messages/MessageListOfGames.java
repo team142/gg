@@ -6,20 +6,20 @@
 package com.team142.gg.server.model.messages;
 
 import java.util.ArrayList;
-import lombok.Data;
+import lombok.Getter;
 
 /**
  *
  * @author just1689
  */
-@Data
 public class MessageListOfGames extends Message {
-    
-    private ArrayList<MessageGameSummary> games;
-    
+
+    @Getter
+    private final ArrayList<MessageGameSummary> GAMES;
+
     public MessageListOfGames() {
-        this.games = new ArrayList<>();
+        this.GAMES = new ArrayList<>();
         setConversation(ConversationType.S_ANSWER_LIST_OF_GAMES.name());
     }
-    
+
 }

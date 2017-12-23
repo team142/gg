@@ -28,7 +28,7 @@ public class ServerAdmin {
     public static void notifyPlayerOfGames(String playerId) {
         MessageListOfGames message = new MessageListOfGames();
         Server.GAMES_ON_SERVER.entrySet().forEach((entry) -> {
-            message.getGames().add(new MessageGameSummary(entry.getValue()));
+            message.getGAMES().add(new MessageGameSummary(entry.getValue()));
         });
         System.out.println("Telling player about games: ");
         PostOffice.sendObjectToPlayer(playerId, message);
