@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.controller;
+package com.team142.gg.server.workers;
 
+import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.Game;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
@@ -22,6 +23,10 @@ public class GameTicker implements Runnable {
 
     public GameTicker(Game GAME) {
         this.GAME = GAME;
+    }
+
+    public void stopNow() {
+        RUNNING.set(false);
     }
 
     @Override
