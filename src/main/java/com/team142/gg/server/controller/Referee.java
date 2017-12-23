@@ -8,6 +8,8 @@ package com.team142.gg.server.controller;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,15 +18,17 @@ import com.team142.gg.server.model.Server;
 public class Referee {
 
     public static void playerJoinsGame(String playerId, String gameId) {
+
         Game game = Server.GAMES_ON_SERVER.get(gameId);
+
         if (game == null) {
-            //TODO: tell the user that the game does not exist
+            Logger.getLogger(Referee.class.getName()).log(Level.SEVERE, "Player ({0}) tried to join null game ({1}) ", new String[]{playerId, gameId});
             return;
         }
 
         Player player = Server.PLAYERS_ON_SERVER.get(playerId);
         if (player == null) {
-            //TODO: log no player found...
+            Logger.getLogger(Referee.class.getName()).log(Level.SEVERE, "Null Player ({0}) tried to game ({1}) ", new String[]{playerId, gameId});
             return;
         }
 
