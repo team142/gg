@@ -8,6 +8,9 @@
 
 The goal of this project is to a MMO tank game with tanking getting special upgrades implemented in Java & JS with Babylon.js
 
+## Road map
+[Trello Roadmap](https://trello.com/b/kTa2O4Ya/good-game)
+
 
 ## Building the server (client inside)
 
