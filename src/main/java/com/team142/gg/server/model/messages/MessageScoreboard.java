@@ -5,6 +5,8 @@
  */
 package com.team142.gg.server.model.messages;
 
+import com.team142.gg.server.model.messages.base.ConversationType;
+import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.Game;
 import java.util.HashMap;
 import java.util.Map;

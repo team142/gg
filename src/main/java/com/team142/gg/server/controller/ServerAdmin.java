@@ -9,7 +9,7 @@ import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.MessageChangeView;
 import com.team142.gg.server.model.messages.MessageListOfGames;
-import com.team142.gg.server.model.messages.ViewType;
+import com.team142.gg.server.model.messages.base.ViewType;
 import javax.websocket.Session;
 
 /**

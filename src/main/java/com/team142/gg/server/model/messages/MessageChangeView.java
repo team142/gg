@@ -5,7 +5,9 @@
  */
 package com.team142.gg.server.model.messages;
 
-import static com.team142.gg.server.model.messages.ConversationType.S_CHANGE_VIEW;
+import com.team142.gg.server.model.messages.base.ViewType;
+import com.team142.gg.server.model.messages.base.Message;
+import static com.team142.gg.server.model.messages.base.ConversationType.S_CHANGE_VIEW;
 
 /**
  *

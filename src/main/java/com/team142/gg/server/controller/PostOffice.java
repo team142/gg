@@ -7,8 +7,8 @@ package com.team142.gg.server.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.team142.gg.server.model.Server;
-import com.team142.gg.server.model.messages.ConversationType;
-import com.team142.gg.server.model.messages.Message;
+import com.team142.gg.server.model.messages.base.ConversationType;
+import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.messages.MessageJoinGame;
 import com.team142.gg.server.model.messages.MessageJoinServer;
 import static com.team142.gg.server.utils.JsonUtils.OBJECT_MAPPER;

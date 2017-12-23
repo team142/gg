@@ -5,6 +5,8 @@
  */
 package com.team142.gg.server.model.messages;
 
+import com.team142.gg.server.model.messages.base.ConversationType;
+import com.team142.gg.server.model.messages.base.Message;
 import java.util.ArrayList;
 import lombok.Getter;
 
