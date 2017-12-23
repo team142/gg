@@ -16,6 +16,8 @@ import lombok.Data;
 /**
  *
  * @author just1689
+ * 
+ * A game will be where game state is managed.
  */
 @Data
 public class Game {

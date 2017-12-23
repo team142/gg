@@ -7,7 +7,6 @@ package com.team142.gg.server.services;
 
 import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.ServerAdmin;
-import com.team142.gg.server.model.Server;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
