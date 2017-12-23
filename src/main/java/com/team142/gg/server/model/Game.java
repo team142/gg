@@ -11,27 +11,25 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.websocket.Session;
-import lombok.Data;
+import lombok.Value;
 
 /**
  *
  * @author just1689
- * 
+ *
  * A game will be where game state is managed.
  */
-@Data
+@Value
 public class Game {
 
-    private String id;
+    private final String id;
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
-//    private Player owner;
     private final ConcurrentHashMap<String, Session> SESSIONS = new ConcurrentHashMap<>(40);
-    private String name;
+    private final String name;
 
-    public Game() {
+    public Game(String name) {
         this.id = UUID.randomUUID().toString();
-//        this.owner = owner;
-//        this.players.add(owner);
+        this.name = name;
 
     }
 

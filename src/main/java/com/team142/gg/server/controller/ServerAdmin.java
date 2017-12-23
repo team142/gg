@@ -39,7 +39,6 @@ public class ServerAdmin {
         String id = session.getId();
         System.out.println("Added player: " + id);
         Server.SESSIONS_ON_SERVER.put(id, session);
-
         Player player = new Player(id);
         Server.newPlayer(player);
     }
@@ -47,9 +46,7 @@ public class ServerAdmin {
     public static void notifyDisconnection(Session session) {
         String id = session.getId();
         System.out.println("Removed player: " + id);
-
         Server.SESSIONS_ON_SERVER.remove(id);
-
         Server.playerDisconnects(id);
 
     }

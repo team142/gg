@@ -25,10 +25,8 @@ public class Server {
     }
 
     private static void createDefaultGame() {
-        System.out.println("Creating a default game");
-//        Game game = new Game(new Player("0"));
-        Game game = new Game();
-        game.setName("Default");
+        System.out.println("Creating the default game");
+        Game game = new Game("Default Game");
         GAMES_ON_SERVER.put(game.getId(), game);
 
     }
