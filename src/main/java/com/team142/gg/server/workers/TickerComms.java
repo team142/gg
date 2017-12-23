@@ -6,22 +6,21 @@
 package com.team142.gg.server.workers;
 
 import com.team142.gg.server.model.Game;
+import com.team142.gg.server.workers.base.AbstractTickerWorker;
 
 /**
  *
  * @author just1689
  */
-public class GameCommunicator implements Runnable {
+public class TickerComms extends AbstractTickerWorker {
 
-    private final Game GAME;
-
-    public GameCommunicator(Game GAME) {
-        this.GAME = GAME;
+    public TickerComms(Game game) {
+        super(game);
     }
 
     @Override
-    public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void doTick() {
+
     }
 
 }

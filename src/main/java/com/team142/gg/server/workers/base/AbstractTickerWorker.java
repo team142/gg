@@ -8,7 +8,7 @@ package com.team142.gg.server.workers.base;
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Server;
-import com.team142.gg.server.workers.GameTicker;
+import com.team142.gg.server.workers.TickerPhysics;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,8 +36,7 @@ public abstract class AbstractTickerWorker implements Runnable {
         while (RUNNING.get()) {
             long startTime = System.currentTimeMillis();
 
-            //Move things
-            moveThings();
+            doTick();
 
             long endTime = System.currentTimeMillis();
             long duration = endTime - startTime;
@@ -51,21 +50,13 @@ public abstract class AbstractTickerWorker implements Runnable {
         }
     }
 
-    private void moveThings() {
-        //TODO: implement
-
-        try {
-            Thread.sleep(20); //Meh
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GameTicker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    public abstract void doTick();
 
     private void nap() {
         try {
             Thread.sleep(nextSleepTimeMs);
         } catch (InterruptedException ex) {
-            Logger.getLogger(GameTicker.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TickerPhysics.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
