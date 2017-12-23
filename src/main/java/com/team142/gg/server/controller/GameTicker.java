@@ -18,6 +18,7 @@ public class GameTicker implements Runnable {
 
     private final Game GAME;
     private final AtomicBoolean RUNNING = new AtomicBoolean(true);
+    private long nextSleepTimeMs;
 
     public GameTicker(Game GAME) {
         this.GAME = GAME;
@@ -33,7 +34,11 @@ public class GameTicker implements Runnable {
 
             long endTime = System.currentTimeMillis();
             long duration = endTime - startTime;
-            if (duration > 50) {
+
+            if (duration < 50) {
+                nextSleepTimeMs = 50 - duration;
+                nap();
+            } else if (duration > 50) {
                 Logger.getLogger(Referee.class.getName()).log(Level.WARNING, "Game ticker took: {0} ms", duration);
             }
         }
@@ -41,8 +46,17 @@ public class GameTicker implements Runnable {
 
     private void moveThings() {
         //TODO: implement
+
         try {
-            Thread.sleep(20);
+            Thread.sleep(20); //Meh
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameTicker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void nap() {
+        try {
+            Thread.sleep(nextSleepTimeMs);
         } catch (InterruptedException ex) {
             Logger.getLogger(GameTicker.class.getName()).log(Level.SEVERE, null, ex);
         }
