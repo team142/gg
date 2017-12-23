@@ -32,7 +32,7 @@ public class TickerPhysics extends AbstractTickerWorker {
 
     @Override
     public void doTick() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        moveThings();
     }
 
 }
