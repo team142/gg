@@ -7,6 +7,7 @@ package com.team142.gg.server.workers;
 
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.Server;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,11 +41,11 @@ public class GameTicker implements Runnable {
             long endTime = System.currentTimeMillis();
             long duration = endTime - startTime;
 
-            if (duration < 50) {
-                nextSleepTimeMs = 50 - duration;
+            if (duration < Server.TICK_MS) {
+                nextSleepTimeMs = Server.TICK_MS - duration;
                 nap();
-            } else if (duration > 50) {
-                Logger.getLogger(Referee.class.getName()).log(Level.WARNING, "Game ticker took: {0} ms", duration);
+            } else if (duration > Server.TICK_MS) {
+                Logger.getLogger(Referee.class.getName()).log(Level.WARNING, "Game ticker took long! Time taken: {0} ms", duration);
             }
         }
     }

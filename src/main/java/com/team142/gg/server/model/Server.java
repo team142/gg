@@ -19,6 +19,8 @@ public class Server {
     public static final ConcurrentHashMap<String, Game> GAMES_ON_SERVER = new ConcurrentHashMap<String, Game>();
     public static final ConcurrentHashMap<String, Session> SESSIONS_ON_SERVER = new ConcurrentHashMap<String, Session>();
 
+    public static final int TICK_MS = 50;
+
     static {
         createDefaultGame();
 
