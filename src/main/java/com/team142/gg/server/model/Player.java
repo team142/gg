@@ -14,11 +14,13 @@ import lombok.Data;
 @Data
 public class Player {
 
-    private String id;
+    private final String id;
     private String name;
+    private final long joinTimeMs;
 
     public Player(String id) {
         this.id = id;
+        this.joinTimeMs = System.currentTimeMillis();
     }
 
 }
