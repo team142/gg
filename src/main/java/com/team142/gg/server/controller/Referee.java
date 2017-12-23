@@ -8,6 +8,8 @@ package com.team142.gg.server.controller;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.messages.MessageChangeView;
+import com.team142.gg.server.model.messages.base.ViewType;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +35,15 @@ public class Referee {
         }
 
         game.playerJoins(player);
+
+        welcomePlayerToGame(playerId);
+    }
+
+    private static void welcomePlayerToGame(String playerId) {
+        
+        //Tell player
+        MessageChangeView message = new MessageChangeView(ViewType.VIEW_CANVAS);
+        PostOffice.sendObjectToPlayer(playerId, message);
 
     }
 
