@@ -17,7 +17,8 @@ public enum ConversationType {
     , P_REQUEST_JOIN_GAME
     
     //From the server to the client
-    , S_ANSWER_LIST_OF_GAMES
+    , S_LIST_OF_GAMES
     , S_CHANGE_VIEW
+    , S_SCOREBOARD
 
 }
