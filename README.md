@@ -1,8 +1,8 @@
 # Good Game - A game with no name
 
-[![Build Status](https://travis-ci.org/team142/jgrest.svg?branch=master)](https://travis-ci.org/team142/jgrest)
-[![Pending Pull-Requests](http://githubbadges.herokuapp.com/team142/jgrest/pulls.svg?style=flat)](https://github.com/team142/jgrest/pulls)
-[![Github Issues](http://githubbadges.herokuapp.com/team142/jgrest/issues.svg?style=flat)](https://github.com/team142/jgrest/issues)
+[![Build Status](https://travis-ci.org/team142/gg.svg?branch=master)](https://travis-ci.org/team142/gg)
+[![Pending Pull-Requests](http://githubbadges.herokuapp.com/team142/gg/pulls.svg?style=flat)](https://github.com/team142/gg/pulls)
+[![Github Issues](http://githubbadges.herokuapp.com/team142/gg/issues.svg?style=flat)](https://github.com/team142/gg/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](http://badges.mit-license.org)
 
 
