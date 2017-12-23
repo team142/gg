@@ -19,7 +19,7 @@ public class MessageListOfGames extends Message {
 
     public MessageListOfGames() {
         this.GAMES = new ArrayList<>();
-        setConversation(ConversationType.S_ANSWER_LIST_OF_GAMES.name());
+        setConversation(ConversationType.S_LIST_OF_GAMES.name());
     }
 
 }
