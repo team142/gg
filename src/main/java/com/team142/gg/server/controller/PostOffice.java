@@ -47,7 +47,7 @@ public class PostOffice {
         try {
             MessageJoinServer body = OBJECT_MAPPER.readValue(message, MessageJoinServer.class);
             ServerAdmin.playerHasAName(id, body.getName());
-            System.out.println("Player has a name! " + body.getName());
+            Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Message is join server: {0}", body.getName());
         } catch (IOException ex) {
             Logger.getLogger(PostOffice.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,6 +55,7 @@ public class PostOffice {
 
     private static void handleIncomingRequestJoinGame(String id, String message) {
         try {
+            Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Message is join game: {0}", id);
             MessageJoinGame body = OBJECT_MAPPER.readValue(message, MessageJoinGame.class);
             Referee.playerJoinsGame(id, body.getId());
         } catch (IOException ex) {
@@ -64,6 +65,7 @@ public class PostOffice {
 
     static void sendObjectToPlayer(String playerId, Object object) {
         try {
+            Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Sending message to player: {0}", playerId);
             String json = OBJECT_MAPPER.writeValueAsString(object);
             Server.SESSIONS_ON_SERVER.get(playerId).getAsyncRemote().sendText(json);
         } catch (JsonProcessingException ex) {
