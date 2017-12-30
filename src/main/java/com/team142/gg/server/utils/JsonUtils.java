@@ -27,7 +27,7 @@ public class JsonUtils {
     static {
         OBJECT_MAPPER = new ObjectMapper();
         OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        OBJECT_MAPPER.setVisibilityChecker(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+        OBJECT_MAPPER.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
         OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
 
     }
@@ -43,6 +43,21 @@ public class JsonUtils {
             Logger.getLogger(JsonUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
+    }
+
+    public static Object jsonToObject(String json, Class clazz) {
+        try {
+            Object result = OBJECT_MAPPER.readValue(json, clazz);
+            return result;
+        } catch (IOException ex) {
+            Logger.getLogger(JsonUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            return clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(JsonUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

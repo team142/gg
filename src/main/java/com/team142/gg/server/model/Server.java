@@ -7,6 +7,8 @@ package com.team142.gg.server.model;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.websocket.Session;
 
 /**
@@ -28,6 +30,7 @@ public class Server {
 
     private static void createDefaultGame() {
         System.out.println("Creating the default game");
+        Logger.getLogger(Server.class.getName()).log(Level.INFO, "Creating the default game");
         Game game = new Game("Default Game");
         GAMES_ON_SERVER.put(game.getId(), game);
 
@@ -35,10 +38,12 @@ public class Server {
 
     public static void playerDisconnects(String id) {
         Server.PLAYERS_ON_SERVER.remove(id);
-        Game game = getGameByPlayer(id);
-        if (game != null) {
-            game.removePlayer(id);
-        }
+        GAMES_ON_SERVER.entrySet().stream()
+                .filter(e -> e.getValue().getId().equals(id))
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .ifPresent((game) -> game.removePlayer(id));
+
     }
 
     public static Game getGameByPlayer(String id) {

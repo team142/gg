@@ -20,6 +20,7 @@ public class TickerComms extends AbstractTickerWorker {
 
     @Override
     public void doTick() {
+        //TODO: Send positions of things
 
     }
 

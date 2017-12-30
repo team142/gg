@@ -20,19 +20,14 @@ public class TickerPhysics extends AbstractTickerWorker {
         super(game);
     }
 
-    private void moveThings() {
+    @Override
+    public void doTick() {
         //TODO: implement
-
         try {
             Thread.sleep(20); //Meh
         } catch (InterruptedException ex) {
             Logger.getLogger(TickerPhysics.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public void doTick() {
-        moveThings();
     }
 
 }

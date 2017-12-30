@@ -33,7 +33,8 @@ public class Websocket {
 
     @OnMessage
     public void onMessage(Session session, String message) {
-        PostOffice.handleIncoming(session, message);
+        String id = session.getId();
+        PostOffice.handleIncoming(id, message);
     }
 
     @OnClose

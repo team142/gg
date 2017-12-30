@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.messages.MessageGameSummary;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,8 +50,8 @@ public class Game {
 
     public void playerJoins(Player player) {
         //TODO: announce
-
         players.add(player);
+        Referee.announcePlayerJoins(this, player);
 
     }
 

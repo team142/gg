@@ -5,14 +5,14 @@
  */
 package com.team142.gg.server.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.messages.MessageJoinGame;
 import com.team142.gg.server.model.messages.MessageJoinServer;
-import static com.team142.gg.server.utils.JsonUtils.OBJECT_MAPPER;
-import java.io.IOException;
+import com.team142.gg.server.model.messages.MessageListOfPlayers;
+import com.team142.gg.server.utils.JsonUtils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.websocket.Session;
@@ -23,54 +23,35 @@ import javax.websocket.Session;
  */
 public class PostOffice {
 
-    public static void handleIncoming(Session session, String message) {
-        String id = session.getId();
-        try {
-            //Find the type of message
-            Message messageType = OBJECT_MAPPER.readValue(message, Message.class);
-            postIncomingMessage(id, message, messageType.getConversation());
-        } catch (IOException ex) {
-            Logger.getLogger(PostOffice.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static void handleIncoming(String id, String message) {
+        Message messageType = (Message) JsonUtils.jsonToObject(message, Message.class);
+        postIncomingMessage(id, message, messageType.getConversation());
 
     }
 
     private static void postIncomingMessage(String id, String message, String conversation) {
-        if (conversation.equals(ConversationType.P_REQUEST_JOIN_SERVER.name())) {
-            handleIncomingRequestJoinServer(id, message);
-        } else if (conversation.equals(ConversationType.P_REQUEST_JOIN_GAME.name())) {
-            handleIncomingRequestJoinGame(id, message);
-        }
-    }
-
-    private static void handleIncomingRequestJoinServer(String id, String message) {
-        try {
-            MessageJoinServer body = OBJECT_MAPPER.readValue(message, MessageJoinServer.class);
-            ServerAdmin.playerHasAName(id, body.getName());
+        if (ConversationType.P_REQUEST_JOIN_SERVER.name().equals(conversation)) {
+            MessageJoinServer body = (MessageJoinServer) JsonUtils.jsonToObject(message, MessageJoinServer.class);
             Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Message is join server: {0}", body.getName());
-        } catch (IOException ex) {
-            Logger.getLogger(PostOffice.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private static void handleIncomingRequestJoinGame(String id, String message) {
-        try {
+            ServerAdmin.handle(id, body);
+        } else if (ConversationType.P_REQUEST_JOIN_GAME.name().equals(conversation)) {
+            MessageJoinGame body = (MessageJoinGame) JsonUtils.jsonToObject(message, MessageJoinGame.class);
             Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Message is join game: {0}", id);
-            MessageJoinGame body = OBJECT_MAPPER.readValue(message, MessageJoinGame.class);
             Referee.playerJoinsGame(id, body.getId());
-        } catch (IOException ex) {
-            Logger.getLogger(PostOffice.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    static void sendObjectToPlayer(String playerId, Message message) {
-        try {
-            Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Sending message to player: {0}", playerId);
-            String json = OBJECT_MAPPER.writeValueAsString(message);
-            Server.SESSIONS_ON_SERVER.get(playerId).getAsyncRemote().sendText(json);
-        } catch (JsonProcessingException ex) {
-            Logger.getLogger(PostOffice.class.getName()).log(Level.SEVERE, null, ex);
+    public static void sendObjectToPlayer(String playerId, Message message) {
+        Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Sending message to player: {0}", playerId);
+        String json = JsonUtils.toJson(message);
+        Session session = Server.SESSIONS_ON_SERVER.get(playerId);
+        if (session != null) {
+            session.getAsyncRemote().sendText(json);
         }
+    }
+
+    static void sendObjectToPlayers(Game game, MessageListOfPlayers messageListOfPlayers) {
+        game.getPlayers().forEach((player) -> sendObjectToPlayer(player.getId(), messageListOfPlayers));
     }
 
 }

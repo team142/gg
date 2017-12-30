@@ -5,23 +5,22 @@
  */
 package com.team142.gg.server.model.messages;
 
+import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
-import com.team142.gg.server.model.Game;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
  * @author just1689
  */
-public class MessageScoreboard extends Message {
+public class MessageListOfPlayers extends Message {
 
-    private final Map<String, Integer> SCORES = new HashMap<>();
+    private final HashMap<String, Integer> PLAYERS = new HashMap<>();
 
-    public MessageScoreboard(Game game) {
-        this.setConversation(ConversationType.S_SCOREBOARD.name());
-        game.getPlayers().forEach((player) -> player.addScoreToBoard(SCORES));
+    public MessageListOfPlayers(Game game) {
+        this.setConversation(ConversationType.S_LIST_OF_PLAYERS.name());
+        game.getPlayers().forEach((player) -> PLAYERS.put(player.getName(), player.getScore()));
     }
 
 }

@@ -50,7 +50,7 @@ public abstract class AbstractTickerWorker implements Runnable {
         }
     }
 
-    public abstract void doTick();
+    public abstract void doTick(); // The work happens here
 
     private void nap() {
         try {
