@@ -23,7 +23,7 @@ public class MessageShareThingsDynamic extends Message {
 
     public MessageShareThingsDynamic(Game game) {
         setConversation(ConversationType.S_SHARE_DYNAMIC_THINGS.name());
-        this.THINGS.addAll(game.getElements().values());
+        this.THINGS.addAll(game.getTANKS().values());
     }
 
 }

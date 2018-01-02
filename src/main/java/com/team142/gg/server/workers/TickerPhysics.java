@@ -20,7 +20,7 @@ public class TickerPhysics extends AbstractTickerWorker {
 
     @Override
     public void doTick() {
-        getGAME().getElements().values().forEach((item) -> item.movementTick());
+        getGAME().getTANKS().values().forEach((item) -> item.movementTick());
     }
 
 }

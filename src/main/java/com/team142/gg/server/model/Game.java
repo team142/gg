@@ -29,13 +29,13 @@ public class Game {
     private final String id;
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
     private final String name;
-    private final ConcurrentHashMap<String, MovableElement> elements = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<String, MapTileElement> map = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, MovableElement> TANKS = new ConcurrentHashMap<>();
+    private final List<MapTileElement> MAP;
 
     public Game(String name) {
+        this.MAP = Collections.synchronizedList(new ArrayList<>());
         this.id = UUID.randomUUID().toString();
         this.name = name;
-
     }
 
     public MessageGameSummary toGameSummary() {
@@ -54,7 +54,7 @@ public class Game {
     public void playerJoins(Player player) {
 
         MovableElement tank = new MovableElement(BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ZERO, "default", BigDecimal.ZERO);
-        elements.put(player.getId(), tank);
+        TANKS.put(player.getId(), tank);
 
         players.add(player);
         Referee.announcePlayerJoins(this, player);
