@@ -5,7 +5,8 @@
  */
 package com.team142.gg.server.model;
 
-import java.util.Map;
+import com.team142.gg.server.controller.map.MapMaker;
+import com.team142.gg.server.controller.map.MapSettings;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,25 +31,32 @@ public class Server {
 
     private static void createDefaultGame() {
         Logger.getLogger(Server.class.getName()).log(Level.INFO, "Creating the default game");
-        Game game = new Game("Default Game");
+        createGame("Default game", new MapSettings("meh"));
+
+    }
+
+    public static Game createGame(String name, MapSettings settings) {
+        Logger.getLogger(Server.class.getName()).log(Level.INFO, "Creating a new game");
+        Game game = new Game(name);
+        MapMaker.generateMap(settings, game);
         GAMES_ON_SERVER.put(game.getId(), game);
+        game.start();
+        return game;
 
     }
 
     public static void playerDisconnects(String id) {
         Server.PLAYERS_ON_SERVER.remove(id);
-        GAMES_ON_SERVER.entrySet().stream()
-                .filter(e -> e.getValue().getId().equals(id))
-                .map(Map.Entry::getValue)
+        GAMES_ON_SERVER.values().stream()
+                .filter(e -> e.getId().equals(id))
                 .findFirst()
                 .ifPresent((game) -> game.removePlayer(id));
 
     }
 
     public static Game getGameByPlayer(String id) {
-        return GAMES_ON_SERVER.entrySet().stream()
-                .filter(e -> e.getValue().hasPlayer(id))
-                .map(Map.Entry::getValue)
+        return GAMES_ON_SERVER.values().stream()
+                .filter(e -> e.hasPlayer(id))
                 .findFirst()
                 .orElse(null);
     }
