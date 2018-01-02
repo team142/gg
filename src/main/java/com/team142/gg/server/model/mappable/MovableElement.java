@@ -17,20 +17,32 @@ public class MovableElement extends PlaceableElement {
     @Getter
     private final BigDecimal speed;
 
-    @Getter
-    private final int changeX, changeY, changeZ;
-
     public MovableElement(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal speed) {
         super(x, y, z, skin, 0);
         this.speed = speed;
-        this.changeX = 0;
-        this.changeY = 0;
-        this.changeZ = 0;
 
     }
 
     public void movementTick() {
-        //TODO
+        if (speed.compareTo(BigDecimal.ZERO) == 0) {
+            return;
+        }
+        switch (getRotation()) {
+            case 0:
+                getY().add(speed);
+                break;
+            case 180:
+                getY().subtract(speed);
+                break;
+            case 90:
+                getX().add(speed);
+                break;
+            case 270:
+                getX().subtract(speed);
+                break;
+            default:
+                break;
+        }
 
     }
 }
