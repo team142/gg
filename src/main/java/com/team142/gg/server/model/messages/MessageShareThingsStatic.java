@@ -5,8 +5,8 @@
  */
 package com.team142.gg.server.model.messages;
 
+import com.team142.gg.server.model.mappable.Placeable;
 import com.team142.gg.server.model.messages.base.ConversationType;
-import com.team142.gg.server.model.messages.base.Item;
 import com.team142.gg.server.model.messages.base.Message;
 import java.util.ArrayList;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import lombok.Getter;
 public class MessageShareThingsStatic extends Message {
 
     @Getter
-    private final ArrayList<Item> THINGS = new ArrayList<>();
+    private final ArrayList<Placeable> THINGS = new ArrayList<>();
 
     public MessageShareThingsStatic() {
         setConversation(ConversationType.S_SHARE_STATIC_THINGS.name());

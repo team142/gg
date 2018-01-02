@@ -25,4 +25,8 @@ public class Placeable {
     @Setter
     private String skin;
 
+    @Getter
+    @Setter
+    private int rotation;
+
 }

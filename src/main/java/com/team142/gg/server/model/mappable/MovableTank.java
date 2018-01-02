@@ -20,7 +20,7 @@ public class MovableTank extends Placeable {
     private final int changeX, changeY, changeZ;
 
     public MovableTank(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal horizontalTravel, int changeX, int changeY, int changeZ) {
-        super(x, y, z, skin);
+        super(x, y, z, skin, 0);
         this.horizontalTravel = horizontalTravel;
         this.changeX = changeX;
         this.changeY = changeY;
