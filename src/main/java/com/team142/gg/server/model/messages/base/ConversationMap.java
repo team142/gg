@@ -7,6 +7,8 @@ package com.team142.gg.server.model.messages.base;
 
 import com.team142.gg.server.model.messages.incoming.MessageJoinGame;
 import com.team142.gg.server.model.messages.incoming.MessageJoinServer;
+import com.team142.gg.server.model.messages.incoming.MessageKeyDown;
+import com.team142.gg.server.model.messages.incoming.MessageKeyUp;
 import java.util.HashMap;
 
 /**
@@ -20,8 +22,8 @@ public class ConversationMap {
     static {
         MAP.put(ConversationType.P_REQUEST_JOIN_SERVER.name(), MessageJoinServer.class);
         MAP.put(ConversationType.P_REQUEST_JOIN_GAME.name(), MessageJoinGame.class);
-        MAP.put(ConversationType.P_KD.name(), MessageJoinServer.class);
-        MAP.put(ConversationType.P_KU.name(), MessageJoinServer.class);
+        MAP.put(ConversationType.P_KD.name(), MessageKeyDown.class);
+        MAP.put(ConversationType.P_KU.name(), MessageKeyUp.class);
 
         //TBI
         //MAP.put(ConversationType.P_REQUEST_LIST_GAMES.name(), MessageLis.class);
