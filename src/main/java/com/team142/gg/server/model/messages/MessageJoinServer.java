@@ -7,22 +7,24 @@ package com.team142.gg.server.model.messages;
 
 import com.team142.gg.server.controller.ServerAdmin;
 import com.team142.gg.server.model.messages.base.Message;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author just1689
  */
-@Data
 @NoArgsConstructor
 public class MessageJoinServer extends Message implements Runnable {
 
+    @Setter
+    @Getter
     private String name;
 
     @Override
     public void run() {
-        ServerAdmin.handle(getFrom(), this);
+        ServerAdmin.handle(this);
 
     }
 

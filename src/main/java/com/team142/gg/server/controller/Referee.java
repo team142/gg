@@ -21,24 +21,22 @@ import java.util.logging.Logger;
  */
 public class Referee {
 
-    public static void handle(String playerId, MessageJoinGame body) {
+    public static void handle(MessageJoinGame body) {
 
         Game game = Server.GAMES_ON_SERVER.get(body.getId());
 
         if (game == null) {
-            Logger.getLogger(Referee.class.getName()).log(Level.SEVERE, "Player ({0}) tried to join null game ({1}) ", new String[]{playerId, body.getId()});
+            Logger.getLogger(Referee.class.getName()).log(Level.SEVERE, "Player ({0}) tried to join null game ({1}) ", new String[]{body.getFrom(), body.getId()});
             return;
         }
 
-        Player player = Server.PLAYERS_ON_SERVER.get(playerId);
+        Player player = Server.PLAYERS_ON_SERVER.get(body.getFrom());
         if (player == null) {
-            Logger.getLogger(Referee.class.getName()).log(Level.SEVERE, "Null Player ({0}) tried to game ({1}) ", new String[]{playerId, body.getId()});
+            Logger.getLogger(Referee.class.getName()).log(Level.SEVERE, "Null Player ({0}) tried to game ({1}) ", new String[]{body.getFrom(), body.getId()});
             return;
         }
-
         game.playerJoins(player);
-
-        welcomePlayerToGame(playerId);
+        welcomePlayerToGame(body.getFrom());
     }
 
     private static void welcomePlayerToGame(String playerId) {

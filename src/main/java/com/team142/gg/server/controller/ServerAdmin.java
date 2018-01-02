@@ -25,10 +25,11 @@ public class ServerAdmin {
 
     }
 
-    public static void handle(String playerId, MessageJoinServer body) {
-        Server.PLAYERS_ON_SERVER.get(playerId).setName(body.getName());
-        changePlayerView(playerId, ViewType.VIEW_GAMES);
-        ServerAdmin.notifyPlayerOfGames(playerId);
+    public static void handle(MessageJoinServer body) {
+        Server.PLAYERS_ON_SERVER.get(body.getFrom()).setName(body.getName());
+        changePlayerView(body.getFrom(), ViewType.VIEW_GAMES);
+        ServerAdmin.notifyPlayerOfGames(body.getFrom());
+        
     }
 
     public static void notifyPlayerOfGames(String playerId) {
@@ -47,6 +48,7 @@ public class ServerAdmin {
         Server.SESSIONS_ON_SERVER.put(id, session);
         Player player = new Player(id);
         Server.newPlayer(player);
+        
     }
 
     public static void notifyDisconnection(Session session) {
