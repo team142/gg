@@ -15,12 +15,12 @@ import lombok.Getter;
  *
  * @author just1689
  */
-public class MessageShareDynamicThings extends Message {
+public class MessageShareThingsDynamic extends Message {
 
     @Getter
-    private final ArrayList<Item> things = new ArrayList<>();
+    private final ArrayList<Item> THINGS = new ArrayList<>();
 
-    public MessageShareDynamicThings() {
+    public MessageShareThingsDynamic() {
         setConversation(ConversationType.S_SHARE_DYNAMIC_THINGS.name());
     }
 
