@@ -6,6 +6,7 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.model.mappable.MapTileElement;
 import com.team142.gg.server.model.mappable.MovableElement;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
 import java.math.BigDecimal;
@@ -29,6 +30,7 @@ public class Game {
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
     private final String name;
     private final ConcurrentHashMap<String, MovableElement> elements = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, MapTileElement> map = new ConcurrentHashMap<>();
 
     public Game(String name) {
         this.id = UUID.randomUUID().toString();

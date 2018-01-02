@@ -42,15 +42,12 @@ public class Referee {
 
     private static void welcomePlayerToGame(String playerId) {
         LOG.log(Level.INFO, "Welcoming player ({0}) to game", new String[]{playerId});
-        //Tell player
-        MessageChangeView message = new MessageChangeView(ViewType.VIEW_CANVAS);
-        PostOffice.sendPlayerAMessage(playerId, message);
+        PostOffice.sendPlayerAMessage(playerId, new MessageChangeView(ViewType.VIEW_CANVAS));
 
     }
 
     public static void announcePlayerJoins(Game game, Player player) {
-        MessageScoreboard message = new MessageScoreboard(game);
-        PostOffice.sendPlayersAMessage(game, message);
+        PostOffice.sendPlayersAMessage(game, new MessageScoreboard(game));
 
     }
 
