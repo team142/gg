@@ -12,6 +12,7 @@ import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
 import com.team142.gg.server.model.messages.incoming.MessageJoinGame;
 import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
+import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareMap;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,6 +50,14 @@ public class Referee {
     public static void announcePlayerJoins(Game game, Player player) {
         PostOffice.sendPlayersAMessage(game, new MessageScoreboard(game));
 
+    }
+
+    public static void sendMapToPlayer(String playerId, Game game) {
+        PostOffice.sendPlayerAMessage(playerId, new MessageShareMap(game));
+    }
+
+    public static void sendMapToPlayers(Game game) {
+        PostOffice.sendPlayersAMessage(game, new MessageShareMap(game));
     }
 
 }

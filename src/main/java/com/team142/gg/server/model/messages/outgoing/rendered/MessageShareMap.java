@@ -5,8 +5,12 @@
  */
 package com.team142.gg.server.model.messages.outgoing.rendered;
 
+import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.mappable.MapTileElement;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
+import java.util.List;
+import lombok.Getter;
 
 /**
  *
@@ -14,8 +18,13 @@ import com.team142.gg.server.model.messages.base.Message;
  */
 public class MessageShareMap extends Message {
 
-    public MessageShareMap() {
+    @Getter
+    private final List<MapTileElement> MAP;
+
+    public MessageShareMap(Game game) {
         setConversation(ConversationType.S_SHARE_MAP.name());
+        this.MAP = game.getMAP();
+
     }
 
 }
