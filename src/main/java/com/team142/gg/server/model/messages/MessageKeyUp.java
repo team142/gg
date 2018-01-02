@@ -12,10 +12,15 @@ import com.team142.gg.server.model.messages.base.MessageKey;
  *
  * @author just1689
  */
-public class MessageKeyUp extends MessageKey {
+public class MessageKeyUp extends MessageKey implements Runnable {
 
     public MessageKeyUp() {
         super(ConversationType.P_KU);
+    }
+
+    @Override
+    public void run() {
+        //Set player key to up
     }
 
 }
