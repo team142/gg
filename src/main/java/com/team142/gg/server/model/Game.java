@@ -25,40 +25,41 @@ import lombok.Value;
  */
 @Value
 public class Game {
-
+    
     private final String id;
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
     private final String name;
     private final ConcurrentHashMap<String, MovableElement> TANKS = new ConcurrentHashMap<>();
     private final List<MapTileElement> MAP;
-
+    
     public Game(String name) {
         this.MAP = Collections.synchronizedList(new ArrayList<>());
         this.id = UUID.randomUUID().toString();
         this.name = name;
     }
-
+    
     public MessageGameSummary toGameSummary() {
         return new MessageGameSummary(id, name, players.size());
     }
-
+    
     public boolean hasPlayer(String id) {
         return players.stream().anyMatch((player) -> (player.getId().equals(id)));
     }
-
+    
     public void removePlayer(String id) {
         players.removeIf(player -> player.getId().equals(id));
-
+        
     }
-
+    
     public void playerJoins(Player player) {
-
+        
         MovableElement tank = new MovableElement(BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ZERO, "default", BigDecimal.ZERO);
         TANKS.put(player.getId(), tank);
-
+        
         players.add(player);
         Referee.announcePlayerJoins(this, player);
-
+        Referee.sendMapToPlayer(player.getId(), this);
+        
     }
-
+    
 }
