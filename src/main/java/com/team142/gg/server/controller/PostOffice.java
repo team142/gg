@@ -10,17 +10,18 @@ import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.messages.base.ConversationMap;
 import com.team142.gg.server.utils.JsonUtils;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.websocket.Session;
 
 /**
- *
  * @author just1689
  */
 public class PostOffice {
 
     private static final String CONVERSATION_FIELD = "conversation";
+    private static final Logger LOG = Logger.getLogger(PostOffice.class.getName());
 
     public static void handleIncoming(String id, String message) {
         String conversation = JsonUtils.readFieldOrEmptyString(message, CONVERSATION_FIELD);
@@ -32,7 +33,7 @@ public class PostOffice {
 
         Class clazz = ConversationMap.MAP.get(conversation);
         if (clazz == null) {
-            Logger.getLogger(PostOffice.class.getName()).log(Level.SEVERE, "No class for message: {0}", conversation);
+            LOG.log(Level.SEVERE, "No class for message: {0}", conversation);
             return;
         }
 
@@ -40,16 +41,16 @@ public class PostOffice {
         body.setFrom(id);
         if (body instanceof Runnable) {
             ((Runnable) body).run();
-            Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Just ran: {0}", conversation);
+            LOG.log(Level.INFO, "Just ran: {0}", conversation);
             return;
         }
 
-        Logger.getLogger(PostOffice.class.getName()).log(Level.WARNING, "Could not run message: {0}", conversation);
+        LOG.log(Level.WARNING, "Could not run message: {0}", conversation);
 
     }
 
     public static void sendPlayerAMessage(String playerId, Message message) {
-        Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Sending message to player: {0}", playerId);
+        LOG.log(Level.INFO, "Sending message to player: {0}", playerId);
         String json = JsonUtils.toJson(message);
         Session session = Server.SESSIONS_ON_SERVER.get(playerId);
         if (session != null) {
