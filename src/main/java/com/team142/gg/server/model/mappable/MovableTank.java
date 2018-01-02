@@ -29,8 +29,7 @@ public class MovableTank extends Placeable {
     }
 
     public void movementTick() {
-        this.setX(getX().add(speed.multiply(new BigDecimal(changeX))));
-        this.setY(getY().add(speed.multiply(new BigDecimal(changeY))));
-
+        //TODO
+        
     }
 }
