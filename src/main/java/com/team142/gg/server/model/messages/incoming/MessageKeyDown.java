@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.model.messages;
+package com.team142.gg.server.model.messages.incoming;
 
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.base.ConversationType;

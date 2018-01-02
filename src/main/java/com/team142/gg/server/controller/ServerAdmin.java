@@ -7,9 +7,9 @@ package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
-import com.team142.gg.server.model.messages.MessageChangeView;
-import com.team142.gg.server.model.messages.MessageJoinServer;
-import com.team142.gg.server.model.messages.MessageListOfGames;
+import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
+import com.team142.gg.server.model.messages.incoming.MessageJoinServer;
+import com.team142.gg.server.model.messages.outgoing.other.MessageListOfGames;
 import com.team142.gg.server.model.messages.base.ViewType;
 import javax.websocket.Session;
 

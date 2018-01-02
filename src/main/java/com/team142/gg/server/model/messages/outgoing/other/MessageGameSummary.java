@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.model.messages;
+package com.team142.gg.server.model.messages.outgoing.other;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;

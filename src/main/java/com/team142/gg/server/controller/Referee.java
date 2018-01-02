@@ -8,10 +8,10 @@ package com.team142.gg.server.controller;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
-import com.team142.gg.server.model.messages.MessageChangeView;
-import com.team142.gg.server.model.messages.MessageJoinGame;
-import com.team142.gg.server.model.messages.MessageListOfPlayers;
+import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
+import com.team142.gg.server.model.messages.incoming.MessageJoinGame;
 import com.team142.gg.server.model.messages.base.ViewType;
+import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,8 +48,8 @@ public class Referee {
     }
 
     public static void announcePlayerJoins(Game game, Player player) {
-        MessageListOfPlayers messageListOfPlayers = new MessageListOfPlayers(game);
-        PostOffice.sendObjectToPlayers(game, messageListOfPlayers);
+        MessageScoreboard message = new MessageScoreboard(game);
+        PostOffice.sendObjectToPlayers(game, message);
     }
 
 }

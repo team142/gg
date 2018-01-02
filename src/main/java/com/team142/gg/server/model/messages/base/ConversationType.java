@@ -20,7 +20,6 @@ public enum ConversationType {
     
     //From the server to the client
     , S_LIST_OF_GAMES
-    , S_LIST_OF_PLAYERS
     , S_CHANGE_VIEW
     , S_SCOREBOARD
     , S_SHARE_MAP

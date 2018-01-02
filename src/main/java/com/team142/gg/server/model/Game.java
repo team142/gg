@@ -6,7 +6,7 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.Referee;
-import com.team142.gg.server.model.messages.MessageGameSummary;
+import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

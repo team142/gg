@@ -7,11 +7,7 @@ package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Server;
-import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
-import com.team142.gg.server.model.messages.MessageJoinGame;
-import com.team142.gg.server.model.messages.MessageJoinServer;
-import com.team142.gg.server.model.messages.MessageListOfPlayers;
 import com.team142.gg.server.model.messages.base.ConversationMap;
 import com.team142.gg.server.utils.JsonUtils;
 import java.util.logging.Level;
@@ -59,8 +55,8 @@ public class PostOffice {
         }
     }
 
-    static void sendObjectToPlayers(Game game, MessageListOfPlayers messageListOfPlayers) {
-        game.getPlayers().forEach((player) -> sendObjectToPlayer(player.getId(), messageListOfPlayers));
+    static void sendObjectToPlayers(Game game, Message message) {
+        game.getPlayers().forEach((player) -> sendObjectToPlayer(player.getId(), message));
     }
 
 }
