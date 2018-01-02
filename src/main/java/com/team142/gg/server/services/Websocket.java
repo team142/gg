@@ -7,6 +7,9 @@ package com.team142.gg.server.services;
 
 import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.ServerAdmin;
+import com.team142.gg.server.model.Server;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -28,7 +31,7 @@ public class Websocket {
 
     @OnError
     public void onError(Throwable t) {
-        //TODO: impl
+        Logger.getLogger(Server.class.getName()).log(Level.SEVERE, "Error at websocket:", t);
     }
 
     @OnMessage

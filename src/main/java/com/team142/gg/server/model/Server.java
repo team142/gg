@@ -29,7 +29,6 @@ public class Server {
     }
 
     private static void createDefaultGame() {
-        System.out.println("Creating the default game");
         Logger.getLogger(Server.class.getName()).log(Level.INFO, "Creating the default game");
         Game game = new Game("Default Game");
         GAMES_ON_SERVER.put(game.getId(), game);
