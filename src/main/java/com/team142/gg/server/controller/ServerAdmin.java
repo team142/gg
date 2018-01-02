@@ -12,12 +12,16 @@ import com.team142.gg.server.model.messages.incoming.MessageJoinServer;
 import com.team142.gg.server.model.messages.outgoing.other.MessageListOfGames;
 import com.team142.gg.server.model.messages.base.ViewType;
 import javax.websocket.Session;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author just1689
  */
 public class ServerAdmin {
+
+    private static final Logger LOG = Logger.getLogger(ServerAdmin.class.getName());
 
     public static void changePlayerView(String playerId, ViewType view) {
         MessageChangeView message = new MessageChangeView(view);
@@ -29,7 +33,7 @@ public class ServerAdmin {
         Server.PLAYERS_ON_SERVER.get(body.getFrom()).setName(body.getName());
         changePlayerView(body.getFrom(), ViewType.VIEW_GAMES);
         ServerAdmin.notifyPlayerOfGames(body.getFrom());
-        
+
     }
 
     public static void notifyPlayerOfGames(String playerId) {
@@ -37,23 +41,23 @@ public class ServerAdmin {
         Server.GAMES_ON_SERVER.values().forEach((game) -> {
             message.getGAMES().add(game.toGameSummary());
         });
-        System.out.println("Telling player about games: ");
+        LOG.log(Level.INFO, "Telling player about games: ");
         PostOffice.sendPlayerAMessage(playerId, message);
 
     }
 
     public static void notifyNewConnection(Session session) {
         String id = session.getId();
-        System.out.println("Added player: " + id);
+        LOG.log(Level.INFO, "Added player: {0}", id);
         Server.SESSIONS_ON_SERVER.put(id, session);
         Player player = new Player(id);
         Server.newPlayer(player);
-        
+
     }
 
     public static void notifyDisconnection(Session session) {
         String id = session.getId();
-        System.out.println("Removed player: " + id);
+        LOG.log(Level.INFO, "Removed player: {0}", id);
         Server.SESSIONS_ON_SERVER.remove(id);
         Server.playerDisconnects(id);
 
