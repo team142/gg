@@ -26,7 +26,6 @@ public class Game {
 
     private final String id;
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
-    private final ConcurrentHashMap<String, Session> SESSIONS = new ConcurrentHashMap<>(40);
     private final String name;
 
     public Game(String name) {
