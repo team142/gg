@@ -17,5 +17,6 @@ import lombok.NoArgsConstructor;
 public class Message {
 
     private String conversation;
+    private String from;
 
 }
