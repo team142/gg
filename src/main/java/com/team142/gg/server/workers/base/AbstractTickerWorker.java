@@ -8,7 +8,6 @@ package com.team142.gg.server.workers.base;
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Server;
-import com.team142.gg.server.workers.TickerPhysics;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +18,8 @@ import lombok.Getter;
  * @author just1689
  */
 public abstract class AbstractTickerWorker implements Runnable {
+
+    private static final Logger LOG = Logger.getLogger(Referee.class.getName());
 
     @Getter
     private final Game GAME;
@@ -48,7 +49,7 @@ public abstract class AbstractTickerWorker implements Runnable {
                 nextSleepTimeMs = Server.TICK_MS - duration;
                 nap();
             } else if (duration > Server.TICK_MS) {
-                Logger.getLogger(Referee.class.getName()).log(Level.WARNING, "Game ticker took long! Time taken: {0} ms", duration);
+                LOG.log(Level.WARNING, "Game ticker took long! Time taken: {0} ms", duration);
             }
         }
     }
@@ -59,7 +60,7 @@ public abstract class AbstractTickerWorker implements Runnable {
         try {
             Thread.sleep(nextSleepTimeMs);
         } catch (InterruptedException ex) {
-            Logger.getLogger(TickerPhysics.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         }
     }
 
