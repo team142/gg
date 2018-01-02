@@ -51,6 +51,7 @@ public class Game {
     }
 
     public void removePlayer(String id) {
+        TANKS.remove(id);
         players.removeIf(player -> player.getId().equals(id));
 
     }

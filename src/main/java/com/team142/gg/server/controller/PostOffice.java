@@ -50,7 +50,7 @@ public class PostOffice {
     }
 
     public static void sendPlayerAMessage(String playerId, Message message) {
-        LOG.log(Level.INFO, "Sending message to player: {0}", playerId);
+        LOG.log(Level.INFO, "Sending message to player: {0}, conversation: {1}", new String[]{playerId, message.getConversation()});
         String json = JsonUtils.toJson(message);
         Session session = Server.SESSIONS_ON_SERVER.get(playerId);
         if (session != null) {

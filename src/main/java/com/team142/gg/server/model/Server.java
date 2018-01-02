@@ -50,6 +50,7 @@ public class Server {
                 .filter(e -> e.getId().equals(id))
                 .findFirst()
                 .ifPresent((game) -> game.removePlayer(id));
+        SESSIONS_ON_SERVER.remove(id);
 
     }
 
