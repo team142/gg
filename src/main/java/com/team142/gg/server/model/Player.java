@@ -5,10 +5,9 @@
  */
 package com.team142.gg.server.model;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import lombok.Data;
 
 /**
@@ -23,7 +22,7 @@ public class Player {
     private final long joinTimeMs;
     private int score = 0;
 
-    private Set KEYS = Collections.synchronizedSet(new HashSet(4));
+    private Set KEYS = ConcurrentHashMap.newKeySet();
 
     public Player(String id) {
         this.id = id;
