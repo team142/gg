@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.model.messages;
 
+import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.MessageKey;
 
@@ -20,7 +21,7 @@ public class MessageKeyUp extends MessageKey implements Runnable {
 
     @Override
     public void run() {
-        //Set player key to up
+        Server.PLAYERS_ON_SERVER.get(getFrom()).keyDown(getKey());
     }
 
 }
