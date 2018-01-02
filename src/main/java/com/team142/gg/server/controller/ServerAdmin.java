@@ -21,7 +21,7 @@ public class ServerAdmin {
 
     public static void changePlayerView(String playerId, ViewType view) {
         MessageChangeView message = new MessageChangeView(view);
-        PostOffice.sendObjectToPlayer(playerId, message);
+        PostOffice.sendPlayerAMessage(playerId, message);
 
     }
 
@@ -38,7 +38,7 @@ public class ServerAdmin {
             message.getGAMES().add(game.toGameSummary());
         });
         System.out.println("Telling player about games: ");
-        PostOffice.sendObjectToPlayer(playerId, message);
+        PostOffice.sendPlayerAMessage(playerId, message);
 
     }
 

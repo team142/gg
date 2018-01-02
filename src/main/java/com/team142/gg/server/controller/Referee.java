@@ -43,13 +43,13 @@ public class Referee {
         Logger.getLogger(Referee.class.getName()).log(Level.INFO, "Welcoming player ({0}) to game", new String[]{playerId});
         //Tell player
         MessageChangeView message = new MessageChangeView(ViewType.VIEW_CANVAS);
-        PostOffice.sendObjectToPlayer(playerId, message);
+        PostOffice.sendPlayerAMessage(playerId, message);
 
     }
 
     public static void announcePlayerJoins(Game game, Player player) {
         MessageScoreboard message = new MessageScoreboard(game);
-        PostOffice.sendObjectToPlayers(game, message);
+        PostOffice.sendPlayersAMessage(game, message);
     }
 
 }

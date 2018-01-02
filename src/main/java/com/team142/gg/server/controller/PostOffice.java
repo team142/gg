@@ -20,8 +20,10 @@ import javax.websocket.Session;
  */
 public class PostOffice {
 
+    private static final String CONVERSATION_FIELD = "conversation";
+
     public static void handleIncoming(String id, String message) {
-        String conversation = JsonUtils.readFieldOrEmptyString(message, "conversation");
+        String conversation = JsonUtils.readFieldOrEmptyString(message, CONVERSATION_FIELD);
         postIncomingMessage(id, message, conversation);
 
     }
@@ -46,7 +48,7 @@ public class PostOffice {
 
     }
 
-    public static void sendObjectToPlayer(String playerId, Message message) {
+    public static void sendPlayerAMessage(String playerId, Message message) {
         Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Sending message to player: {0}", playerId);
         String json = JsonUtils.toJson(message);
         Session session = Server.SESSIONS_ON_SERVER.get(playerId);
@@ -55,8 +57,8 @@ public class PostOffice {
         }
     }
 
-    static void sendObjectToPlayers(Game game, Message message) {
-        game.getPlayers().forEach((player) -> sendObjectToPlayer(player.getId(), message));
+    static void sendPlayersAMessage(Game game, Message message) {
+        game.getPlayers().forEach((player) -> sendPlayerAMessage(player.getId(), message));
     }
 
 }
