@@ -24,6 +24,14 @@
     }
 ````
 
+### Here is the map
+````
+    {
+        "conversation": "S_SHARE_MAP",
+        ... to do
+    }
+````
+
 ### Scoreboard
 ````
     {
