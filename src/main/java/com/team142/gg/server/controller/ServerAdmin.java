@@ -24,9 +24,7 @@ public class ServerAdmin {
     private static final Logger LOG = Logger.getLogger(ServerAdmin.class.getName());
 
     public static void changePlayerView(String playerId, ViewType view) {
-        MessageChangeView message = new MessageChangeView(view);
-        PostOffice.sendPlayerAMessage(playerId, message);
-
+        PostOffice.sendPlayerAMessage(playerId, new MessageChangeView(view));
     }
 
     public static void handle(MessageJoinServer body) {
