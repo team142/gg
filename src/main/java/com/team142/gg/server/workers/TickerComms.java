@@ -5,7 +5,9 @@
  */
 package com.team142.gg.server.workers;
 
+import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareThingsDynamic;
 import com.team142.gg.server.workers.base.AbstractTickerWorker;
 
 /**
@@ -20,7 +22,8 @@ public class TickerComms extends AbstractTickerWorker {
 
     @Override
     public void doTick() {
-        //TODO: Send positions of things
+        MessageShareThingsDynamic message = new MessageShareThingsDynamic(getGAME());
+        PostOffice.sendPlayersAMessage(getGAME(), message);
 
     }
 

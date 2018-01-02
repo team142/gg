@@ -12,6 +12,7 @@ import com.team142.gg.server.workers.TickerPhysics;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lombok.Getter;
 
 /**
  *
@@ -19,7 +20,9 @@ import java.util.logging.Logger;
  */
 public abstract class AbstractTickerWorker implements Runnable {
 
+    @Getter
     private final Game GAME;
+
     private final AtomicBoolean RUNNING = new AtomicBoolean(true);
     private long nextSleepTimeMs;
 

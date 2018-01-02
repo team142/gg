@@ -57,7 +57,7 @@ public class PostOffice {
         }
     }
 
-    static void sendPlayersAMessage(Game game, Message message) {
+    public static void sendPlayersAMessage(Game game, Message message) {
         game.getPlayers().forEach((player) -> sendPlayerAMessage(player.getId(), message));
     }
 

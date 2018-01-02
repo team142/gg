@@ -7,8 +7,6 @@ package com.team142.gg.server.workers;
 
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.workers.base.AbstractTickerWorker;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,12 +20,7 @@ public class TickerPhysics extends AbstractTickerWorker {
 
     @Override
     public void doTick() {
-        //TODO: implement
-        try {
-            Thread.sleep(20); //Meh
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TickerPhysics.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        getGAME().getElements().values().forEach((item) -> item.movementTick());
     }
 
 }

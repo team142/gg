@@ -19,4 +19,8 @@ public class Message {
     private String conversation;
     private String from;
 
+    public void setConversationType(ConversationType type) {
+        this.conversation = type.name();
+    }
+
 }
