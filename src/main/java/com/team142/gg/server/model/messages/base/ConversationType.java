@@ -13,6 +13,7 @@ public enum ConversationType {
 
     //FROM THE client app
     P_REQUEST_JOIN_SERVER, P_REQUEST_LIST_GAMES, P_REQUEST_JOIN_GAME //From the server to the client
-    , S_LIST_OF_GAMES, S_LIST_OF_PLAYERS, S_CHANGE_VIEW, S_SCOREBOARD
+    , S_LIST_OF_GAMES, S_LIST_OF_PLAYERS, S_CHANGE_VIEW, S_SCOREBOARD,
+    S_SHARE_MAP
 
 }
