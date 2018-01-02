@@ -21,8 +21,8 @@ import javax.websocket.Session;
 public class PostOffice {
 
     public static void handleIncoming(String id, String message) {
-        Message messageType = (Message) JsonUtils.jsonToObject(message, Message.class);
-        postIncomingMessage(id, message, messageType.getConversation());
+        String conversation = JsonUtils.readFieldOrEmptyString(message, "conversation");
+        postIncomingMessage(id, message, conversation);
 
     }
 

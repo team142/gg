@@ -8,9 +8,11 @@ package com.team142.gg.server.utils;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,6 +60,19 @@ public class JsonUtils {
             Logger.getLogger(JsonUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public static String readFieldOrEmptyString(String json, String fieldName) {
+        try {
+            if (fieldName != null) {
+                ObjectNode object = OBJECT_MAPPER.readValue(json, ObjectNode.class);
+                JsonNode node = object.get(fieldName);
+                return (node == null ? "" : node.textValue());
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(JsonUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
     }
 
 }
