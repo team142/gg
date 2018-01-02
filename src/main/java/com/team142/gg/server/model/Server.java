@@ -48,7 +48,7 @@ public class Server {
 
     public static Game getGameByPlayer(String id) {
         return GAMES_ON_SERVER.entrySet().stream()
-                .filter(e -> e.getValue().getId().equals(id))
+                .filter(e -> e.getValue().hasPlayer(id))
                 .map(Map.Entry::getValue)
                 .findFirst()
                 .orElse(null);
