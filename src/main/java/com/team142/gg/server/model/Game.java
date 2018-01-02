@@ -56,10 +56,8 @@ public class Game {
     }
 
     public void playerJoins(Player player) {
-
         MovableElement tank = new MovableElement(BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ZERO, "default", BigDecimal.ZERO);
         TANKS.put(player.getId(), tank);
-
         players.add(player);
         Referee.announcePlayerJoins(this, player);
         Referee.sendMapToPlayer(player.getId(), this);
