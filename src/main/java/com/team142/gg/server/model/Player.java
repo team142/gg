@@ -8,6 +8,7 @@ package com.team142.gg.server.model;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Data;
 
 /**
@@ -20,27 +21,29 @@ public class Player {
     private final String id;
     private String name;
     private final long joinTimeMs;
-    private int score = 0;
+    private final AtomicInteger kills;
+    private final AtomicInteger deaths;
 
     private Set KEYS = ConcurrentHashMap.newKeySet();
 
     public Player(String id) {
         this.id = id;
         this.joinTimeMs = System.currentTimeMillis();
+        this.kills = new AtomicInteger(0);
+        this.deaths = new AtomicInteger(0);
     }
 
     public void addKill() {
-        score++;
+        this.kills.addAndGet(1);
     }
 
     public void addDeath() {
-        if (score > 0) {
-            score--;
-        }
+        this.deaths.addAndGet(1);
     }
 
     public void addScoreToBoard(Map<String, Integer> map) {
-        map.put(name, score);
+        int score = this.kills.get() - this.deaths.get();
+        map.put(name, score < 0 ? 0 : score);
     }
 
     public void keyDown(String key) {
