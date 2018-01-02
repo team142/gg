@@ -37,7 +37,7 @@ public class PostOffice {
         } else if (ConversationType.P_REQUEST_JOIN_GAME.name().equals(conversation)) {
             MessageJoinGame body = (MessageJoinGame) JsonUtils.jsonToObject(message, MessageJoinGame.class);
             Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Message is join game: {0}", id);
-            Referee.playerJoinsGame(id, body.getId());
+            Referee.handle(id, body);
         }
     }
 

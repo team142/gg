@@ -9,6 +9,7 @@ import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.MessageChangeView;
+import com.team142.gg.server.model.messages.MessageJoinGame;
 import com.team142.gg.server.model.messages.MessageListOfPlayers;
 import com.team142.gg.server.model.messages.base.ViewType;
 import java.util.logging.Level;
@@ -20,18 +21,18 @@ import java.util.logging.Logger;
  */
 public class Referee {
 
-    public static void playerJoinsGame(String playerId, String gameId) {
+    public static void handle(String playerId, MessageJoinGame body) {
 
-        Game game = Server.GAMES_ON_SERVER.get(gameId);
+        Game game = Server.GAMES_ON_SERVER.get(body.getId());
 
         if (game == null) {
-            Logger.getLogger(Referee.class.getName()).log(Level.SEVERE, "Player ({0}) tried to join null game ({1}) ", new String[]{playerId, gameId});
+            Logger.getLogger(Referee.class.getName()).log(Level.SEVERE, "Player ({0}) tried to join null game ({1}) ", new String[]{playerId, body.getId()});
             return;
         }
 
         Player player = Server.PLAYERS_ON_SERVER.get(playerId);
         if (player == null) {
-            Logger.getLogger(Referee.class.getName()).log(Level.SEVERE, "Null Player ({0}) tried to game ({1}) ", new String[]{playerId, gameId});
+            Logger.getLogger(Referee.class.getName()).log(Level.SEVERE, "Null Player ({0}) tried to game ({1}) ", new String[]{playerId, body.getId()});
             return;
         }
 
