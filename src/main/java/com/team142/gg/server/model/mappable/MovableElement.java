@@ -14,17 +14,18 @@ import lombok.Getter;
  */
 public class MovableElement extends PlaceableElement {
 
-    private BigDecimal speed;
+    @Getter
+    private final BigDecimal speed;
 
     @Getter
     private final int changeX, changeY, changeZ;
 
-    public MovableElement(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal speed, int changeX, int changeY, int changeZ) {
+    public MovableElement(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal speed) {
         super(x, y, z, skin, 0);
         this.speed = speed;
-        this.changeX = changeX;
-        this.changeY = changeY;
-        this.changeZ = changeZ;
+        this.changeX = 0;
+        this.changeY = 0;
+        this.changeZ = 0;
 
     }
 

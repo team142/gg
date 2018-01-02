@@ -8,6 +8,7 @@ package com.team142.gg.server.model;
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.mappable.MovableElement;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Game {
     private final String id;
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
     private final String name;
-    private ConcurrentHashMap<String, MovableElement> elements = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, MovableElement> elements = new ConcurrentHashMap<>();
 
     public Game(String name) {
         this.id = UUID.randomUUID().toString();
@@ -49,7 +50,10 @@ public class Game {
     }
 
     public void playerJoins(Player player) {
-        //TODO: announce
+
+        MovableElement tank = new MovableElement(BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ZERO, "default", BigDecimal.ZERO);
+        elements.put(player.getId(), tank);
+
         players.add(player);
         Referee.announcePlayerJoins(this, player);
 
