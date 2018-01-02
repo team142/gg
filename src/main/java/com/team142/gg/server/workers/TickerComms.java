@@ -22,9 +22,12 @@ public class TickerComms extends AbstractTickerWorker {
 
     @Override
     public void doTick() {
-        MessageShareThingsDynamic message = new MessageShareThingsDynamic(getGAME());
-        PostOffice.sendPlayersAMessage(getGAME(), message);
+        PostOffice.sendPlayersAMessage(getGAME(), getDynamicThingsMessage());
 
+    }
+
+    private MessageShareThingsDynamic getDynamicThingsMessage() {
+        return new MessageShareThingsDynamic(getGAME());
     }
 
 }
