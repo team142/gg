@@ -12,6 +12,7 @@ import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.messages.MessageJoinGame;
 import com.team142.gg.server.model.messages.MessageJoinServer;
 import com.team142.gg.server.model.messages.MessageListOfPlayers;
+import com.team142.gg.server.model.messages.base.ConversationMap;
 import com.team142.gg.server.utils.JsonUtils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,15 +31,23 @@ public class PostOffice {
     }
 
     private static void postIncomingMessage(String id, String message, String conversation) {
-        if (ConversationType.P_REQUEST_JOIN_SERVER.name().equals(conversation)) {
-            MessageJoinServer body = (MessageJoinServer) JsonUtils.jsonToObject(message, MessageJoinServer.class);
-            Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Message is join server: {0}", body.getName());
-            ServerAdmin.handle(id, body);
-        } else if (ConversationType.P_REQUEST_JOIN_GAME.name().equals(conversation)) {
-            MessageJoinGame body = (MessageJoinGame) JsonUtils.jsonToObject(message, MessageJoinGame.class);
-            Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Message is join game: {0}", id);
-            Referee.handle(id, body);
+
+        Class clazz = ConversationMap.MAP.get(conversation);
+        if (clazz == null) {
+            Logger.getLogger(PostOffice.class.getName()).log(Level.SEVERE, "No class for message: {0}", conversation);
+            return;
         }
+
+        Message body = (Message) JsonUtils.jsonToObject(message, clazz);
+        body.setFrom(id);
+        if (body instanceof Runnable) {
+            ((Runnable) body).run();
+            Logger.getLogger(PostOffice.class.getName()).log(Level.INFO, "Just ran: {0}", conversation);
+            return;
+        }
+
+        Logger.getLogger(PostOffice.class.getName()).log(Level.WARNING, "Could not run message: {0}", conversation);
+
     }
 
     public static void sendObjectToPlayer(String playerId, Message message) {
