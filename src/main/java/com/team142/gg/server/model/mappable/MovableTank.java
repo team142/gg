@@ -14,14 +14,14 @@ import lombok.Getter;
  */
 public class MovableTank extends Placeable {
 
-    private final BigDecimal horizontalTravel;
+    private final BigDecimal speed;
 
     @Getter
     private final int changeX, changeY, changeZ;
 
-    public MovableTank(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal horizontalTravel, int changeX, int changeY, int changeZ) {
+    public MovableTank(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal speed, int changeX, int changeY, int changeZ) {
         super(x, y, z, skin, 0);
-        this.horizontalTravel = horizontalTravel;
+        this.speed = speed;
         this.changeX = changeX;
         this.changeY = changeY;
         this.changeZ = changeZ;
@@ -29,8 +29,8 @@ public class MovableTank extends Placeable {
     }
 
     public void movementTick() {
-        this.setX(getX().add(horizontalTravel.multiply(new BigDecimal(changeX))));
-        this.setY(getY().add(horizontalTravel.multiply(new BigDecimal(changeY))));
+        this.setX(getX().add(speed.multiply(new BigDecimal(changeX))));
+        this.setY(getY().add(speed.multiply(new BigDecimal(changeY))));
 
     }
 }
