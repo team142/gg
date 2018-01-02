@@ -15,7 +15,7 @@ import lombok.Setter;
  * @author just1689
  */
 @AllArgsConstructor
-public class Placeable {
+public class PlaceableElement {
 
     @Getter
     @Setter

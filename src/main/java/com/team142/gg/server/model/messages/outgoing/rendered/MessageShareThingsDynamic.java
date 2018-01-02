@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.model.messages.outgoing.rendered;
 
-import com.team142.gg.server.model.mappable.Placeable;
+import com.team142.gg.server.model.mappable.PlaceableElement;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import lombok.Getter;
 public class MessageShareThingsDynamic extends Message {
 
     @Getter
-    private final ArrayList<Placeable> THINGS = new ArrayList<>();
+    private final ArrayList<PlaceableElement> THINGS = new ArrayList<>();
 
     public MessageShareThingsDynamic() {
         setConversation(ConversationType.S_SHARE_DYNAMIC_THINGS.name());

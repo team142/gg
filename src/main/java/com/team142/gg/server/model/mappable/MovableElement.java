@@ -12,14 +12,14 @@ import lombok.Getter;
  *
  * @author just1689
  */
-public class MovableTank extends Placeable {
+public class MovableElement extends PlaceableElement {
 
-    private final BigDecimal speed;
+    private BigDecimal speed;
 
     @Getter
     private final int changeX, changeY, changeZ;
 
-    public MovableTank(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal speed, int changeX, int changeY, int changeZ) {
+    public MovableElement(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal speed, int changeX, int changeY, int changeZ) {
         super(x, y, z, skin, 0);
         this.speed = speed;
         this.changeX = changeX;
@@ -30,6 +30,6 @@ public class MovableTank extends Placeable {
 
     public void movementTick() {
         //TODO
-        
+
     }
 }

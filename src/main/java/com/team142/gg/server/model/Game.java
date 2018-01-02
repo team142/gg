@@ -6,13 +6,13 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.model.mappable.MovableElement;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import javax.websocket.Session;
 import lombok.Value;
 
 /**
@@ -27,6 +27,7 @@ public class Game {
     private final String id;
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
     private final String name;
+    private ConcurrentHashMap<String, MovableElement> elements = new ConcurrentHashMap<>();
 
     public Game(String name) {
         this.id = UUID.randomUUID().toString();
