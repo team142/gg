@@ -5,7 +5,10 @@
  */
 package com.team142.gg.server.model;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import lombok.Data;
 
 /**
@@ -19,6 +22,8 @@ public class Player {
     private String name;
     private final long joinTimeMs;
     private int score = 0;
+
+    private Set KEYS = Collections.synchronizedSet(new HashSet(4));
 
     public Player(String id) {
         this.id = id;
@@ -37,6 +42,18 @@ public class Player {
 
     public void addScoreToBoard(Map<String, Integer> map) {
         map.put(name, score);
+    }
+
+    public void keyDown(String key) {
+        KEYS.add(key);
+    }
+
+    public void keyUp(String key) {
+        KEYS.remove(key);
+    }
+
+    public boolean isDown(String key) {
+        return KEYS.contains(key);
     }
 
 }
