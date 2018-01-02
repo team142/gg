@@ -5,6 +5,8 @@
  */
 package com.team142.gg.server.model.messages;
 
+import com.team142.gg.server.controller.ServerAdmin;
+import com.team142.gg.server.model.messages.base.Message;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,8 +16,14 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class MessageJoinServer {
+public class MessageJoinServer extends Message implements Runnable {
 
     private String name;
+
+    @Override
+    public void run() {
+        ServerAdmin.handle(getFrom(), this);
+
+    }
 
 }
