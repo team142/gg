@@ -145,28 +145,28 @@ var createScene = function () {
     // GUI
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
-    var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Up");
-    button1.width = "75px"
+    var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Airstrike");
+    button1.width = "125px"
     button1.height = "40px";
     button1.color = "white";
     button1.cornerRadius = 20;
     button1.background = "green";
     button1.top = "0px";
-    button1.left = "-85px";
+    button1.left = "0px";
     button1.onPointerUpObservable.add(function () {
         sphere.position.y = sphere.position.y + 0.1
         // alert("you did it!");
     });
     // advancedTexture.addControl(button1);
 
-    var button2 = BABYLON.GUI.Button.CreateSimpleButton("but2", "Down");
-    button2.width = "75px"
+    var button2 = BABYLON.GUI.Button.CreateSimpleButton("but2", "Radar");
+    button2.width = "125px"
     button2.height = "40px";
     button2.color = "white";
     button2.cornerRadius = 20;
     button2.background = "green";
-    button2.top = "0px";
-    button2.left = "10px";
+    button2.top = "5px";
+    button2.left = "0px";
     button2.onPointerUpObservable.add(function () {
 
         sphere.position.y = sphere.position.y - 0.1
