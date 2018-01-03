@@ -41,7 +41,7 @@ public class PostOffice {
         body.setFrom(id);
         if (body instanceof Runnable) {
             ((Runnable) body).run();
-            LOG.log(Level.INFO, "Just ran: {0}", conversation);
+//            LOG.log(Level.INFO, "Just ran: {0}", conversation);
             return;
         }
 

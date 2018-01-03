@@ -5,6 +5,8 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.model.mappable.MovableElement;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,6 +25,7 @@ public class Player {
     private final long joinTimeMs;
     private final AtomicInteger kills;
     private final AtomicInteger deaths;
+    private final MovableElement TANK;
 
     private Set KEYS = ConcurrentHashMap.newKeySet();
 
@@ -31,6 +34,8 @@ public class Player {
         this.joinTimeMs = System.currentTimeMillis();
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
+        TANK = new MovableElement(BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ZERO, "default", BigDecimal.ZERO);
+
     }
 
     public void addKill() {
@@ -48,14 +53,36 @@ public class Player {
 
     public void keyDown(String key) {
         KEYS.add(key);
+        findDirection();
     }
 
     public void keyUp(String key) {
         KEYS.remove(key);
+        findDirection();
     }
 
     public boolean isDown(String key) {
         return KEYS.contains(key);
+    }
+
+    private void findDirection() {
+        if (KEYS.contains("A")) {
+            TANK.setRotation(2);
+            return;
+        }
+        if (KEYS.contains("W")) {
+            TANK.setSpeed(BigDecimal.ONE);
+            TANK.setRotation(1);
+            return;
+        }
+        if (KEYS.contains("D")) {
+            TANK.setRotation(3);
+            return;
+        }
+        if (KEYS.contains("S")) {
+            TANK.setRotation(4);
+            TANK.setSpeed(BigDecimal.valueOf(-1L));
+        }
     }
 
 }

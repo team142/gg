@@ -11,7 +11,6 @@ import com.team142.gg.server.model.mappable.MovableElement;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
 import com.team142.gg.server.workers.TickerComms;
 import com.team142.gg.server.workers.TickerPhysics;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,8 +56,7 @@ public class Game {
     }
 
     public void playerJoins(Player player) {
-        MovableElement tank = new MovableElement(BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ZERO, "default", BigDecimal.ZERO);
-        TANKS.put(player.getId(), tank);
+        TANKS.put(player.getId(), player.getTANK());
         players.add(player);
         Referee.announcePlayerJoins(this, player);
         Referee.sendMapToPlayer(player.getId(), this);

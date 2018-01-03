@@ -7,6 +7,7 @@ package com.team142.gg.server.model.mappable;
 
 import java.math.BigDecimal;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -15,7 +16,8 @@ import lombok.Getter;
 public class MovableElement extends PlaceableElement {
 
     @Getter
-    private final BigDecimal speed;
+    @Setter
+    private BigDecimal speed;
 
     public MovableElement(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal speed) {
         super(x, y, z, skin, 0);
@@ -24,20 +26,21 @@ public class MovableElement extends PlaceableElement {
     }
 
     public void movementTick() {
+        System.out.println("Speed: " + speed.toPlainString() + ", " + getRotation());
         if (speed.compareTo(BigDecimal.ZERO) == 0) {
             return;
         }
         switch (getRotation()) {
-            case 0:
+            case 2:
                 getY().add(speed);
                 break;
-            case 180:
+            case 4:
                 getY().subtract(speed);
                 break;
-            case 90:
+            case 3:
                 getX().add(speed);
                 break;
-            case 270:
+            case 1:
                 getX().subtract(speed);
                 break;
             default:
