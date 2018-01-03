@@ -31,7 +31,7 @@ public class Player {
         this.joinTimeMs = System.currentTimeMillis();
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
-        TANK = new MovableElement(BigDecimal.ZERO, new BigDecimal(0.5), BigDecimal.ZERO, "default", new BigDecimal(0.5));
+        TANK = new MovableElement(BigDecimal.ZERO, new BigDecimal(0.5), BigDecimal.ZERO, "default", Server.DEFAULT_SPEED);
     }
 
     public void addKill() {

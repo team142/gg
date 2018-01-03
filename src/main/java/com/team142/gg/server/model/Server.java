@@ -7,6 +7,7 @@ package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.map.MapMaker;
 import com.team142.gg.server.controller.map.MapSettings;
+import java.math.BigDecimal;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,8 @@ public class Server {
     public static final ConcurrentHashMap<String, Player> PLAYERS_ON_SERVER = new ConcurrentHashMap<String, Player>();
     public static final ConcurrentHashMap<String, Game> GAMES_ON_SERVER = new ConcurrentHashMap<String, Game>();
     public static final ConcurrentHashMap<String, Session> SESSIONS_ON_SERVER = new ConcurrentHashMap<String, Session>();
-    public static final int TICK_MS = 100;
+    public static final int TICK_MS = 80;
+    public static final BigDecimal DEFAULT_SPEED = new BigDecimal(0.125);
 
     static {
         createDefaultGame();
