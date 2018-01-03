@@ -4,3 +4,6 @@ water3.jpg: https://sketchuptextureclub.com
 grass1.jpg https://sketchuptextureclub.com
 grass2.jpg https://sketchuptextureclub.com
 grass3.jpg https://sketchuptextureclub.com
+rock1.jpg https://sketchuptextureclub.com
+rock2.jpg https://sketchuptextureclub.com
+rock3.jpg https://sketchuptextureclub.com
