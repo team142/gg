@@ -97,6 +97,7 @@ var DIR = {
     z: 0
 }
 var scene;
+var ground;
 
 
 
@@ -106,6 +107,7 @@ var createScene = function () {
 
     // This creates a basic Babylon Scene object (non-mesh)
     var scene = new BABYLON.Scene(engine);
+    scene.name = "scene";
 
     // This creates and positions a free camera (non-mesh)
     var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
@@ -130,7 +132,7 @@ var createScene = function () {
     sphere.position.y = 1;
 
     // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
-    var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+    ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
 
     // GUI
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
@@ -176,6 +178,8 @@ function setup3D() {
     canvas = document.getElementById("VIEW_CANVAS");
     engine = new BABYLON.Engine(canvas, true);
     scene = createScene()
+    var materialPlane = createMaterial("textures/grass1.jpg");
+    ground.material = materialPlane;
 
     engine.runRenderLoop(function () {
         scene.render();
@@ -239,4 +243,12 @@ function tick() {
     sphere.position.z += (0.05 * DIR.z);
 }
 
+function createMaterial(textureFilePath) {
+    var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
+    materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, scene);
+    materialPlane.diffuseTexture.uScale = 5.0;//Repeat 5 times on the Vertical Axes
+    materialPlane.diffuseTexture.vScale = 5.0;//Repeat 5 times on the Horizontal Axes
+    materialPlane.backFaceCulling = false;//Always show the front and the back of an element
+    
+}
 
