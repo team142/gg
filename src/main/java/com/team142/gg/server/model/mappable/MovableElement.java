@@ -43,7 +43,7 @@ public class MovableElement extends PlaceableElement {
         if (direction == 0) {
             return;
         }
-        System.out.println("Direction: " + direction);
+//        System.out.println("Direction: " + direction);
 
         if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
             setZ(getZ().add(speed));
