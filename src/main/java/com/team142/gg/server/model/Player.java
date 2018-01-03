@@ -25,13 +25,15 @@ public class Player {
     private final AtomicInteger kills;
     private final AtomicInteger deaths;
     private final MovableElement TANK;
+    private final int TAG;
 
     public Player(String id) {
         this.id = id;
         this.joinTimeMs = System.currentTimeMillis();
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
-        TANK = new MovableElement(BigDecimal.ZERO, new BigDecimal(0.5), BigDecimal.ZERO, "default", Server.DEFAULT_SPEED);
+        TAG = Server.TAGS.incrementAndGet();
+        TANK = new MovableElement(BigDecimal.ZERO, new BigDecimal(0.5), BigDecimal.ZERO, "default", Server.DEFAULT_SPEED, TAG);
     }
 
     public void addKill() {
@@ -78,43 +80,7 @@ public class Player {
     }
 
     public void keyUp(String key) {
-//        KEYS.remove(key);
-//        findDirection();
         TANK.setDirection(0);
     }
 
-//    private void findDirection() {
-//
-//        System.out.println("-----START-----");
-//        KEYS.forEach(k -> System.out.println(k));
-//
-//        //TODO: more refined implementation
-//        //For now
-//        /*
-//        812
-//        703
-//        654
-//         */
-//        if (KEYS.contains("A")) {
-////            TANK.setDirection(7);
-//            TANK.setRotation(270);
-//            return;
-//        }
-//        if (KEYS.contains("W")) {
-//            TANK.setDirection(1);
-//            return;
-//        }
-//        if (KEYS.contains("D")) {
-////            TANK.setDirection(3);
-//            TANK.setRotation(90);
-//            return;
-//        }
-//        if (KEYS.contains("S")) {
-//            TANK.setDirection(5);
-//            return;
-//        }
-//
-//        TANK.setDirection(0);
-//
-//    }
 }

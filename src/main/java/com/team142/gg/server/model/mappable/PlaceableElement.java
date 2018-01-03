@@ -29,6 +29,9 @@ public class PlaceableElement {
     @Setter
     private String skin;
 
+    @Getter
+    private final int TAG;
+
     public void setRotation(BigDecimal rotation) {
         this.rotation = rotation.setScale(3, RoundingMode.HALF_UP);
     }

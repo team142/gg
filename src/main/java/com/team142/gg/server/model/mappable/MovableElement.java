@@ -29,8 +29,8 @@ public class MovableElement extends PlaceableElement {
     @Setter
     private double direction;
 
-    public MovableElement(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal speed) {
-        super(x, y, z, BigDecimal.ZERO, skin);
+    public MovableElement(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal speed, int tag) {
+        super(x, y, z, BigDecimal.ZERO, skin, tag);
         this.speed = speed;
         this.diagonalSpeed = speed;
         this.diagonalSpeed = this.diagonalSpeed.multiply(speed).divide(new BigDecimal(2));
