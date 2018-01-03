@@ -1,8 +1,24 @@
-var username;
+
+var canvas;
+var engine;
+var sphere;
+var DIR = {
+    x: 0,
+    y: 0,
+    z: 0
+}
+var scene;
+var ground;
 var socket;
+var username;
+let map = new Map([["key1", "value1"], ["key2", "value2"]]);
+map.clear();
+
+
+
 
 function buttonSendWebsocket() {
-    socket.send(document.getElementById("inputDebug").value);
+    networkHandler.send(document.getElementById("inputDebug").value);
 }
 
 
@@ -21,14 +37,13 @@ function joinServer(url, name) {
     socket = new WebSocket("ws://localhost:8080/websocket");
     assignMethods();
 
-
 }
 
 function assignMethods() {
     socket.onopen = function (event) {
         var body = {
             conversation: "P_REQUEST_JOIN_SERVER",
-            name: username
+            name: gameState.username
         }
         var json = JSON.stringify(body);
         socket.send(json);
@@ -62,42 +77,6 @@ function showListOfGames(games) {
 
 }
 
-function changeView(view) {
-    console.log("Chaning view: " + view)
-    toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
-    toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
-    toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
-
-    if (view == "VIEW_CANVAS") {
-        console.log("Setup 3D");
-        setup3D();
-    }
-
-}
-
-
-function toggleElement(id, toggle) {
-    if (toggle) {
-        document.getElementById(id).style.display = "block"
-        document.getElementById(id).style.visibility = "visible";
-    } else {
-        document.getElementById(id).style.visibility = "hidden";
-        document.getElementById(id).style.display = "none"
-    }
-
-}
-
-//Declare
-var canvas;
-var engine;
-var sphere;
-var DIR = {
-    x: 0,
-    y: 0,
-    z: 0
-}
-var scene;
-var ground;
 
 
 
@@ -178,7 +157,7 @@ function setup3D() {
     canvas = document.getElementById("VIEW_CANVAS");
     engine = new BABYLON.Engine(canvas, true);
     scene = createScene()
-    var materialPlane = createMaterial("textures/grass1.jpg");
+    var materialPlane = createMaterial("/textures/grass1.jpg");
     ground.material = materialPlane;
 
     engine.runRenderLoop(function () {
@@ -220,27 +199,12 @@ window.addEventListener("keydown", function (data) {
     }
 });
 
-// window.addEventListener("keypress", function(data) {
-//     var key = data.key;
-//     if (key === "a" || key === "A") {
-
-//         sphere.position.x -= 0.1;
-//     } else if (key === "d" || key === "D") {
-//         sphere.position.x += 0.1;
-//     } else if (key === "s" || key === "S") {
-//         sphere.position.z -= 0.1;
-//     } else if (key === "w" || key === "W") {
-//         sphere.position.z += 0.1;
-//     }
-//     console.log(key);
-// });
 
 function tick() {
-    // console.log("Tick")
-
     sphere.position.x += (0.05 * DIR.x);
     sphere.position.y += (0.05 * DIR.y);
     sphere.position.z += (0.05 * DIR.z);
+
 }
 
 function createMaterial(textureFilePath) {
@@ -249,6 +213,77 @@ function createMaterial(textureFilePath) {
     materialPlane.diffuseTexture.uScale = 5.0;//Repeat 5 times on the Vertical Axes
     materialPlane.diffuseTexture.vScale = 5.0;//Repeat 5 times on the Horizontal Axes
     materialPlane.backFaceCulling = false;//Always show the front and the back of an element
-    
+
 }
+
+
+
+function connectToWebsocket(path) {
+    console.log('Hello');
+}
+
+function joinServer(url, name) {
+    //Join on websocket...
+    username = name;
+    socket = new WebSocket("ws://localhost:8080/websocket");
+    assignMethods();
+}
+
+function assignMethods() {
+    socket.onopen = function (event) {
+        var body = {
+            conversation: "P_REQUEST_JOIN_SERVER",
+            name: username
+        }
+        var json = JSON.stringify(body);
+        socket.send(json);
+
+    }
+    socket.onmessage = function (event) {
+
+        var obj = JSON.parse(event.data);
+        var conversation = obj.conversation;
+        if (conversation == "S_CHANGE_VIEW") {
+            changeView(obj.view);
+            return;
+        } else if (conversation == "S_LIST_OF_GAMES") {
+            showListOfGames(obj.games);
+            return;
+        }
+        // alert("Unhandled message" + event.data);
+    }
+}
+
+function send(msg) {
+    socket.send(msg);
+}
+
+function changeView(view) {
+    console.log("Chaning view: " + view)
+    toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
+    toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
+    toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
+    if (view == "VIEW_CANVAS") {
+        console.log("Setup 3D");
+        setup3D();
+    }
+}
+
+function toggleElement(id, toggle) {
+    if (toggle) {
+        document.getElementById(id).style.display = "block"
+        document.getElementById(id).style.visibility = "visible";
+    } else {
+        document.getElementById(id).style.visibility = "hidden";
+        document.getElementById(id).style.display = "none"
+    }
+}
+
+
+function testSp() {
+    toggleElement("VIEW_CANVAS", false)
+    toggleElement("VIEW_GAMES", false)
+}
+window.onload = testSp;
+
 
