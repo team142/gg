@@ -21,7 +21,7 @@ public class MessageKeyUp extends MessageKey implements Runnable {
 
     @Override
     public void run() {
-        Server.PLAYERS_ON_SERVER.get(getFrom()).keyDown(getKey());
+        Server.PLAYERS_ON_SERVER.get(getFrom()).keyDown(getKey().toUpperCase());
     }
 
 }
