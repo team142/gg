@@ -111,7 +111,34 @@ var createScene = function () {
     sphere.position.y = 1;
 
     // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
-    ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+    // ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+
+    //Creation of a plane
+    var plane = BABYLON.Mesh.CreatePlane("plane", 1, scene);
+    plane.position.y = 0;
+    plane.rotation.x = Math.PI / 2;
+    //Creation of a repeated textured material
+    var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
+    materialPlane.diffuseTexture = new BABYLON.Texture("/textures/grass1.jpg", scene);
+    materialPlane.diffuseTexture.uScale = 5.0;//Repeat 5 times on the Vertical Axes
+    materialPlane.diffuseTexture.vScale = 5.0;//Repeat 5 times on the Horizontal Axes
+    materialPlane.backFaceCulling = false;//Always show the front and the back of an element
+    plane.material = materialPlane;
+    
+    //Creation of a plane
+    var plane2 = BABYLON.Mesh.CreatePlane("plane2", 1, scene);
+    //Creation of a repeated textured material
+    var waterMaterial = new BABYLON.StandardMaterial("texturePlane", scene);
+    waterMaterial.diffuseTexture = new BABYLON.Texture("/textures/water1.jpg", scene);
+    waterMaterial.diffuseTexture.uScale = 5.0;//Repeat 5 times on the Vertical Axes
+    waterMaterial.diffuseTexture.vScale = 5.0;//Repeat 5 times on the Horizontal Axes
+    waterMaterial.backFaceCulling = false;//Always show the front and the back of an element
+    plane2.material = waterMaterial;
+
+    plane.position = new BABYLON.Vector3(0, 0, 0);
+    plane2.position = new BABYLON.Vector3(0, 0, 5);
+    
+
 
     // GUI
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
@@ -157,8 +184,8 @@ function setup3D() {
     canvas = document.getElementById("VIEW_CANVAS");
     engine = new BABYLON.Engine(canvas, true);
     scene = createScene()
-    var materialPlane = createMaterial("/textures/grass1.jpg");
-    ground.material = materialPlane;
+    // var materialPlane = createMaterial("/textures/grass1.jpg");
+    // ground.material = materialPlane;
 
     engine.runRenderLoop(function () {
         scene.render();
