@@ -1,4 +1,24 @@
-var username;
+var UserState = function(){
+    var username;
+    return {
+        username: username
+    }
+}
+var GameState = function(){
+
+    let map = new Map([["key1", "value1"], ["key2", "value2"]]);
+    map.clear();
+
+    return {
+        map: map
+    }
+}
+
+
+var userState = new UserState();  
+var gameState = new GameState();  
+
+
 var socket;
 
 function buttonSendWebsocket() {
@@ -17,7 +37,7 @@ function buttonJoinServer() {
 
 function joinServer(url, name) {
     //Join on websocket...
-    username = name;
+    userState.username = name;
     socket = new WebSocket("ws://localhost:8080/websocket");
     assignMethods();
 
@@ -28,7 +48,7 @@ function assignMethods() {
     socket.onopen = function (event) {
         var body = {
             conversation: "P_REQUEST_JOIN_SERVER",
-            name: username
+            name: userState.username
         }
         var json = JSON.stringify(body);
         socket.send(json);
