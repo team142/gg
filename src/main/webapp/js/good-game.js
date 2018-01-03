@@ -36,7 +36,7 @@ function buttonSendWebsocket() {
 
 
 function buttonJoinServer() {
-    var url = ""; // TODO
+    var url = document.getElementById("selectServer").value;
     var name = document.getElementById("inputName").value;
     if (name) {
         document.getElementById("btnJoinServer").enabled = false;
@@ -47,7 +47,7 @@ function buttonJoinServer() {
 function joinServer(url, name) {
     //Join on websocket...
     username = name;
-    socket = new WebSocket("ws://localhost:8080/websocket");
+    socket = new WebSocket("ws://" + url + "websocket");
     assignMethods();
 
 }
@@ -215,7 +215,7 @@ function createSphereIfNotExists(tagId) {
             if (!scene) {
                 console.log("no scene!!");
             }
-            var item = BABYLON.Mesh.CreateSphere(name, 16, 2, scene);
+            var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, scene);
             item.position.y = 1;
 
             var mapItem = {
@@ -363,12 +363,6 @@ function createMaterial(textureFilePath) {
     return materialPlane;
 }
 
-
-
-function connectToWebsocket(path) {
-    console.log('Hello');
-}
-
 function joinServer(url, name) {
     //Join on websocket...
     username = name;
@@ -399,6 +393,7 @@ function assignMethods() {
 
 
         } else if (conversation == "S_SCOREBOARD") {
+            //First check who is missing from client
             var l = obj.TAGS.length;
             for (var i = 0; i < l; i++) {
                 var item = getPlayerByTag(obj.TAGS[i]);
@@ -413,13 +408,33 @@ function assignMethods() {
             tag = obj.tag;
             // console.log("My tag is:" + tag);
 
+        } else if (conversation == "S_PLAYER_LEFT") {
+
+            var tagToRemove = obj.tag;
+            console.log("Someone left: " + tagToRemove)
+            var l = playerTanks.length;
+            var indexToRemove = -1;
+            for (var i = 0; i < l; i++) {
+                var key = playerTanks[i].key;
+                if (key == tagToRemove) {
+                    console.log("FOUND Someone left: " + tagToRemove)
+                    indexToRemove = i;
+                    playerTanks[i].value.dispose();
+                }
+            }
+            if (indexToRemove > -1) {
+                console.log("REMOVED Someone left: " + tagToRemove)
+                playerTanks.splice(indexToRemove, 1);
+            }
+
+
         } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
             // console.log(obj);
             var l = obj.THINGS.length;
             for (var i = 0; i < l; i++) {
                 if (obj.THINGS[i].tag == tag) {
                     camera.position.x = obj.THINGS[i].x;
-                    camera.position.y = obj.THINGS[i].y;
+                    camera.position.y = obj.THINGS[i].y + 0.25;
                     camera.position.z = obj.THINGS[i].z;
                     camera.rotation.y = obj.THINGS[i].rotation;
                 }
