@@ -5,6 +5,8 @@
  */
 package com.team142.gg.server.model.messages.outgoing.rendered;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.mappable.PlaceableElement;
 import com.team142.gg.server.model.messages.base.ConversationType;
@@ -16,6 +18,7 @@ import lombok.Getter;
  *
  * @author just1689
  */
+@JsonInclude(Include.NON_NULL)
 public class MessageShareThingsDynamic extends Message {
 
     @Getter
