@@ -93,7 +93,7 @@ var createScene = function () {
     scene.name = "scene";
 
     // This creates and positions a free camera (non-mesh)
-    camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -15), scene);
+    camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene);
 
     // This targets the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
