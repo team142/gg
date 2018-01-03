@@ -22,8 +22,11 @@ var camera;
 var x = {
     a: 0
 };
-let players = new Map([["key1", x]]);
-players.clear();
+// var players = new Map();
+// let players = new Map([["key1", x]]);
+// players.clear();
+var playerTanks = [];
+var gameInstance = Math.floor(Math.random() * 1000);
 
 
 
@@ -201,24 +204,51 @@ function getRandomGrassMater() {
 
 }
 
-function createSphereIfNotExists(tag) {
-    var result = players.get(tag);
-    if (!result) {
-        console.log("Created a SPHERE!!! Tag:" + tag)
-        var item = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
-        item.position.y = 1;
-        players.push(tag, item);
+function createSphereIfNotExists(tagId) {
+    if (tagId) {
+        var result = getPlayerByTag(tagId);
+        if (!result) {
+            console.log("Creating a sphere:" + tagId)
+            var name = "player" + gameInstance;
+            name = name + tagId;
+            console.log("Creating sphere with name: " + name);
+            if (!scene) {
+                console.log("no scene!!");
+            }
+            var item = BABYLON.Mesh.CreateSphere(name, 16, 2, scene);
+            item.position.y = 1;
+
+            var mapItem = {
+                key: tagId,
+                value: item
+            }
+
+            playerTanks.push(mapItem);
+
+            // console.log(players);
+        }
+    } else {
+        console.log("No tagId for create sphere");
     }
 }
 
-function getPlayerByTag(tag) {
-    var result = players.get(tag);
-    if (!result) {
-        // setTimeout(createSphereIfNotExists(tag), 250);
-        return;
+function getPlayerByTag(tagId) {
+    var l = playerTanks.length;
+    for (var i = 0; i < l; i++) {
+        if (playerTanks[i].key == tagId) {
+            return playerTanks[i].value;
+        }
     }
-    console.log("Found existing spehere!!! Tag:" + tag)
-    return result;
+    return;
+
+    // var result = players.get(tag);
+    // if (!result) {
+    //     console.log("Did not find speher:" + tag + ", ");
+    //     console.log(players);
+    //     return;
+    // }
+    // console.log("Found existing spehere!!! Tag:" + tag)
+    // return result;
 
 }
 
@@ -363,14 +393,22 @@ function assignMethods() {
         var conversation = obj.conversation;
         if (conversation == "S_CHANGE_VIEW") {
             changeView(obj.view);
-            return;
+
         } else if (conversation == "S_LIST_OF_GAMES") {
             showListOfGames(obj.games);
-            return;
+
+
         } else if (conversation == "S_SCOREBOARD") {
-            console.log(obj);
-            console.log(Object.keys(obj.SCORES))
-            return;
+            var l = obj.TAGS.length;
+            for (var i = 0; i < l; i++) {
+                var item = getPlayerByTag(obj.TAGS[i]);
+                if (!item) {
+                    console.log("Found someone on the scoreboard who is not here: " + obj.TAGS[i]);
+                    createSphereIfNotExists(obj.TAGS[i]);
+                }
+            }
+
+
         } else if (conversation == "S_SHARE_TAG") {
             tag = obj.tag;
             // console.log("My tag is:" + tag);
@@ -385,12 +423,14 @@ function assignMethods() {
                     camera.position.z = obj.THINGS[i].z;
                     camera.rotation.y = obj.THINGS[i].rotation;
                 }
-                var s = getPlayerByTag(tag);
+                var s = getPlayerByTag(obj.THINGS[i].tag);
                 if (s) {
                     s.position.x = obj.THINGS[i].x;
                     s.position.y = obj.THINGS[i].y;
                     s.position.z = obj.THINGS[i].z;
                     s.rotation.y = obj.THINGS[i].rotation;
+                } else {
+                    // console.log("Couldnt move: " + obj.THINGS[i].tag);
                 }
             }
 
