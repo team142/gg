@@ -5,10 +5,12 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.mappable.MapTileElement;
 import com.team142.gg.server.model.mappable.MovableElement;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
+import com.team142.gg.server.model.messages.outgoing.other.MessagePlayerLeft;
 import com.team142.gg.server.workers.TickerComms;
 import com.team142.gg.server.workers.TickerPhysics;
 import java.util.ArrayList;
@@ -49,9 +51,10 @@ public class Game {
         return players.stream().anyMatch((player) -> (player.getId().equals(id)));
     }
 
-    public void removePlayer(String id) {
+    public void removePlayer(Player player) {
         TANKS.remove(id);
-        players.removeIf(player -> player.getId().equals(id));
+        PostOffice.sendPlayersAMessage(this, new MessagePlayerLeft(player.getTAG()));
+        players.removeIf(playerItem -> playerItem.getId().equals(player.getId()));
         Referee.sendScoreBoard(this);
 
     }

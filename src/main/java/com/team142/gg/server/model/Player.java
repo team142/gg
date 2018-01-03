@@ -33,7 +33,7 @@ public class Player {
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
         TAG = Server.TAGS.incrementAndGet();
-        TANK = new MovableElement(BigDecimal.ZERO, new BigDecimal(0.5), BigDecimal.ZERO, "default", Server.DEFAULT_SPEED, TAG);
+        TANK = new MovableElement(BigDecimal.ZERO, new BigDecimal(0.25), BigDecimal.ZERO, "default", Server.DEFAULT_SPEED, TAG);
     }
 
     public void addKill() {
