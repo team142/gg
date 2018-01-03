@@ -99,7 +99,7 @@ var createScene = function () {
     camera.setTarget(BABYLON.Vector3.Zero());
 
     // This attaches the camera to the canvas
-    camera.attachControl(canvas, true);
+    // camera.attachControl(canvas, true);
 
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
@@ -114,9 +114,6 @@ var createScene = function () {
     // Move the sphere upward 1/2 its height
     sphere.position.y = 1;
 
-    camera.position.x = sphere.position.x;
-    camera.position.y = 2;
-    camera.position.z = sphere.position.z;
 
     // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
     // ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
@@ -289,9 +286,11 @@ function tick() {
     sphere.position.y += (0.05 * DIR.y);
     sphere.position.z += (0.05 * DIR.z);
 
-    camera.position.x += (0.05 * DIR.x);
-    camera.position.y += (0.05 * DIR.y);
-    camera.position.z += (0.05 * DIR.z);
+
+    camera.position.x = sphere.position.x;
+    camera.position.y = 2;
+    camera.position.z = sphere.position.z;
+    
 
 }
 
