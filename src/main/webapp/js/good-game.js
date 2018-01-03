@@ -14,6 +14,10 @@ var username;
 let map = new Map([["key1", "value1"], ["key2", "value2"]]);
 map.clear();
 
+var grassMaterials = [];
+var waterMaterials = [];
+var rockMaterials = [];
+
 
 
 
@@ -113,31 +117,55 @@ var createScene = function () {
     // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
     // ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
 
-    //Creation of a plane
-    var plane = BABYLON.Mesh.CreatePlane("plane", 1, scene);
-    plane.position.y = 0;
-    plane.rotation.x = Math.PI / 2;
-    //Creation of a repeated textured material
-    var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
-    materialPlane.diffuseTexture = new BABYLON.Texture("/textures/grass1.jpg", scene);
-    materialPlane.diffuseTexture.uScale = 5.0;//Repeat 5 times on the Vertical Axes
-    materialPlane.diffuseTexture.vScale = 5.0;//Repeat 5 times on the Horizontal Axes
-    materialPlane.backFaceCulling = false;//Always show the front and the back of an element
-    plane.material = materialPlane;
-    
-    //Creation of a plane
-    var plane2 = BABYLON.Mesh.CreatePlane("plane2", 1, scene);
-    //Creation of a repeated textured material
-    var waterMaterial = new BABYLON.StandardMaterial("texturePlane", scene);
-    waterMaterial.diffuseTexture = new BABYLON.Texture("/textures/water1.jpg", scene);
-    waterMaterial.diffuseTexture.uScale = 5.0;//Repeat 5 times on the Vertical Axes
-    waterMaterial.diffuseTexture.vScale = 5.0;//Repeat 5 times on the Horizontal Axes
-    waterMaterial.backFaceCulling = false;//Always show the front and the back of an element
-    plane2.material = waterMaterial;
 
-    plane.position = new BABYLON.Vector3(0, 0, 0);
-    plane2.position = new BABYLON.Vector3(0, 0, 5);
+    grassMaterials.push(createMaterial("/textures/grass1.jpg"));
+    grassMaterials.push(createMaterial("/textures/grass2.jpg"));
+    grassMaterials.push(createMaterial("/textures/grass3.jpg"));
+
+    rockMaterials.push(createMaterial("/textures/rock1.jpg"));
+    rockMaterials.push(createMaterial("/textures/rock2.jpg"));
+    rockMaterials.push(createMaterial("/textures/rock3.jpg"));
     
+    waterMaterials.push(createMaterial("/textures/water1.jpg"));
+    waterMaterials.push(createMaterial("/textures/water2.jpg"));
+    waterMaterials.push(createMaterial("/textures/water2.jpg"));
+    
+    for (var x = 1; x <= 20; x++) {
+        for (var y = 1; y <= 20; y++) {
+            console.log("x: " + x + ", y: " + y);
+            createMapTile(x, y);
+        }
+    }
+
+
+    
+    // plane1.position = new BABYLON.Vector3(0, 0, 0);
+
+    // //Creation of a plane
+    // var plane = BABYLON.Mesh.CreatePlane("plane", 1, scene);
+    // plane.position.y = 0;
+    // plane.rotation.x = Math.PI / 2;
+    // //Creation of a repeated textured material
+    // var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
+    // materialPlane.diffuseTexture = new BABYLON.Texture("/textures/grass1.jpg", scene);
+    // materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
+    // materialPlane.diffuseTexture.vScale = 1.0;//Repeat 5 times on the Horizontal Axes
+    // materialPlane.backFaceCulling = false;//Always show the front and the back of an element
+    // plane.material = materialPlane;
+
+    // //Creation of a plane
+    // var plane2 = BABYLON.Mesh.CreatePlane("plane2", 1, scene);
+    // //Creation of a repeated textured material
+    // var waterMaterial = new BABYLON.StandardMaterial("texturePlane", scene);
+    // waterMaterial.diffuseTexture = new BABYLON.Texture("/textures/water1.jpg", scene);
+    // waterMaterial.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
+    // waterMaterial.diffuseTexture.vScale = 1.0;//Repeat 5 times on the Horizontal Axes
+    // waterMaterial.backFaceCulling = false;//Always show the front and the back of an element
+    // plane2.material = waterMaterial;
+
+    // plane.position = new BABYLON.Vector3(0, 0, 0);
+    // plane2.position = new BABYLON.Vector3(0, 0, 5);
+
 
 
     // GUI
@@ -179,6 +207,31 @@ var createScene = function () {
     return scene;
 
 };
+
+function getRandomGrassMater() {
+    var l = grassMaterials.length;
+    var i = Math.floor((Math.random() * l) + 1);
+    i--;
+    return grassMaterials[i];
+    
+}
+
+
+function createMapTile(x, y) {
+
+    var plane = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene);
+    plane.position.z = (y * 1);
+    plane.position.x = (x * 1);
+    plane.rotation.x = Math.PI / 2;
+    //Creation of a repeated textured material
+    // var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
+    // materialPlane.diffuseTexture = new BABYLON.Texture("/textures/grass1.jpg", scene);
+    // materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
+    // materialPlane.diffuseTexture.vScale = 1.0;//Repeat 5 times on the Horizontal Axes
+    // materialPlane.backFaceCulling = false;//Always show the front and the back of an element
+    plane.material = getRandomGrassMater();
+
+}
 
 function setup3D() {
     canvas = document.getElementById("VIEW_CANVAS");
@@ -232,15 +285,19 @@ function tick() {
     sphere.position.y += (0.05 * DIR.y);
     sphere.position.z += (0.05 * DIR.z);
 
+    camera.position.x += (0.05 * DIR.x);
+    camera.position.y += (0.05 * DIR.y);
+    camera.position.z += (0.05 * DIR.z);
+
 }
 
 function createMaterial(textureFilePath) {
     var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
     materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, scene);
-    materialPlane.diffuseTexture.uScale = 5.0;//Repeat 5 times on the Vertical Axes
-    materialPlane.diffuseTexture.vScale = 5.0;//Repeat 5 times on the Horizontal Axes
+    materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
+    materialPlane.diffuseTexture.vScale = 1.0;//Repeat 5 times on the Horizontal Axes
     materialPlane.backFaceCulling = false;//Always show the front and the back of an element
-
+    return materialPlane;
 }
 
 
