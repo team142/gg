@@ -52,6 +52,7 @@ public class Game {
     public void removePlayer(String id) {
         TANKS.remove(id);
         players.removeIf(player -> player.getId().equals(id));
+        Referee.sendScoreBoard(this);
 
     }
 
@@ -59,7 +60,6 @@ public class Game {
         TANKS.put(player.getId(), player.getTANK());
         players.add(player);
         Referee.sendMapToPlayer(player.getId(), this);
-        
 
     }
 

@@ -49,6 +49,12 @@ public class Referee {
     }
 
     public static void announcePlayerJoins(Game game, Player player) {
+        sendScoreBoard(game);
+        //TODO: announce
+
+    }
+
+    public static void sendScoreBoard(Game game) {
         PostOffice.sendPlayersAMessage(game, new MessageScoreboard(game));
 
     }
