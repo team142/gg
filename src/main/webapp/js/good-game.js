@@ -132,8 +132,8 @@ var createScene = function () {
     waterMaterials.push(createMaterial("/textures/water2.jpg"));
     waterMaterials.push(createMaterial("/textures/water2.jpg"));
 
-    for (var x = 1; x <= 20; x++) {
-        for (var y = 1; y <= 20; y++) {
+    for (var x = 0; x <= 20; x++) {
+        for (var y = 0; y <= 20; y++) {
             // console.log("x: " + x + ", y: " + y);
             createMapTile(x, y);
         }
@@ -183,7 +183,7 @@ var createScene = function () {
     panel3.fontSize = "14px";
     panel3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
     panel3.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-    advancedTexture.addControl(panel3);    
+    advancedTexture.addControl(panel3);
     panel3.addControl(button1);
     panel3.addControl(button2);
 
@@ -233,7 +233,10 @@ function setup3D() {
         engine.resize();
     });
 
-    scene.clearColor = new BABYLON.Color4.FromHexString("#42e8f4");
+    // scene.clearColor = new BABYLON.Color4.FromHexString("#42E8F4");
+    scene.clearColor = new BABYLON.Color3(91 / 255, 203 / 255, 234 / 255);
+
+
 
     // var t = setInterval(tick, 1000);
 
@@ -352,7 +355,7 @@ function assignMethods() {
             sphere.position.y = obj.THINGS[0].y;
             sphere.position.z = obj.THINGS[0].z;
             sphere.rotation.y = obj.THINGS[0].rotation;
-            
+
         }
         // alert("Unhandled message" + event.data);
     }
