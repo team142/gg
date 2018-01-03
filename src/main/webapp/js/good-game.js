@@ -1,15 +1,27 @@
 
 import { UserState } from 'state';
 import { GameState } from 'state';
+import { NetworkHandler } from 'network';
 
 var userState = new UserState();  
 var gameState = new GameState();  
+var networkHandler = new NetworkHandler();
+
+var canvas;
+var engine;
+var sphere;
+var DIR = {
+    x: 0,
+    y: 0,
+    z: 0
+}
+var scene;
+var ground;
 
 
-var socket;
 
 function buttonSendWebsocket() {
-    socket.send(document.getElementById("inputDebug").value);
+    networkHandler.send(document.getElementById("inputDebug").value);
 }
 
 
@@ -69,42 +81,6 @@ function showListOfGames(games) {
 
 }
 
-function changeView(view) {
-    console.log("Chaning view: " + view)
-    toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
-    toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
-    toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
-
-    if (view == "VIEW_CANVAS") {
-        console.log("Setup 3D");
-        setup3D();
-    }
-
-}
-
-
-function toggleElement(id, toggle) {
-    if (toggle) {
-        document.getElementById(id).style.display = "block"
-        document.getElementById(id).style.visibility = "visible";
-    } else {
-        document.getElementById(id).style.visibility = "hidden";
-        document.getElementById(id).style.display = "none"
-    }
-
-}
-
-//Declare
-var canvas;
-var engine;
-var sphere;
-var DIR = {
-    x: 0,
-    y: 0,
-    z: 0
-}
-var scene;
-var ground;
 
 
 
@@ -185,7 +161,7 @@ function setup3D() {
     canvas = document.getElementById("VIEW_CANVAS");
     engine = new BABYLON.Engine(canvas, true);
     scene = createScene()
-    var materialPlane = createMaterial("textures/grass1.jpg");
+    var materialPlane = createMaterial("/textures/grass1.jpg");
     ground.material = materialPlane;
 
     engine.runRenderLoop(function () {
@@ -227,27 +203,12 @@ window.addEventListener("keydown", function (data) {
     }
 });
 
-// window.addEventListener("keypress", function(data) {
-//     var key = data.key;
-//     if (key === "a" || key === "A") {
-
-//         sphere.position.x -= 0.1;
-//     } else if (key === "d" || key === "D") {
-//         sphere.position.x += 0.1;
-//     } else if (key === "s" || key === "S") {
-//         sphere.position.z -= 0.1;
-//     } else if (key === "w" || key === "W") {
-//         sphere.position.z += 0.1;
-//     }
-//     console.log(key);
-// });
 
 function tick() {
-    // console.log("Tick")
-
     sphere.position.x += (0.05 * DIR.x);
     sphere.position.y += (0.05 * DIR.y);
     sphere.position.z += (0.05 * DIR.z);
+
 }
 
 function createMaterial(textureFilePath) {
