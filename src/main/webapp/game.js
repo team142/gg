@@ -1,19 +1,6 @@
-var UserState = function(){
-    var username;
-    return {
-        username: username
-    }
-}
-var GameState = function(){
 
-    let map = new Map([["key1", "value1"], ["key2", "value2"]]);
-    map.clear();
-
-    return {
-        map: map
-    }
-}
-
+import { UserState } from 'state';
+import { GameState } from 'state';
 
 var userState = new UserState();  
 var gameState = new GameState();  
