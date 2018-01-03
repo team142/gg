@@ -17,7 +17,13 @@ map.clear();
 var grassMaterials = [];
 var waterMaterials = [];
 var rockMaterials = [];
-
+var tag = -1;
+var camera;
+var x = {
+    a: 0
+};
+let players = new Map([["key1", x]]);
+players.clear();
 
 
 
@@ -43,33 +49,33 @@ function joinServer(url, name) {
 
 }
 
-function assignMethods() {
-    socket.onopen = function (event) {
-        var body = {
-            conversation: "P_REQUEST_JOIN_SERVER",
-            name: gameState.username
-        }
-        var json = JSON.stringify(body);
-        socket.send(json);
+// function assignMethods() {
+//     socket.onopen = function (event) {
+//         var body = {
+//             conversation: "P_REQUEST_JOIN_SERVER",
+//             name: gameState.username
+//         }
+//         var json = JSON.stringify(body);
+//         socket.send(json);
 
-    }
-    socket.onmessage = function (event) {
+//     }
+//     socket.onmessage = function (event) {
 
-        var obj = JSON.parse(event.data);
-        var conversation = obj.conversation;
-        if (conversation == "S_CHANGE_VIEW") {
-            changeView(obj.view);
-            return;
-        } else if (conversation == "S_LIST_OF_GAMES") {
-            showListOfGames(obj.games);
-            return;
-        }
+//         var obj = JSON.parse(event.data);
+//         var conversation = obj.conversation;
+//         if (conversation == "S_CHANGE_VIEW") {
+//             changeView(obj.view);
+//             return;
+//         } else if (conversation == "S_LIST_OF_GAMES") {
+//             showListOfGames(obj.games);
+//             return;
+//         }
 
 
 
-        // alert("Unhandled message" + event.data);
-    }
-}
+//         // alert("Unhandled message" + event.data);
+//     }
+// }
 
 function showListOfGames(games) {
     var body = {
@@ -80,11 +86,6 @@ function showListOfGames(games) {
     socket.send(json);
 
 }
-
-
-
-
-
 
 var createScene = function () {
 
@@ -197,6 +198,27 @@ function getRandomGrassMater() {
     var i = Math.floor((Math.random() * l) + 1);
     i--;
     return grassMaterials[i];
+
+}
+
+function createSphereIfNotExists(tag) {
+    var result = players.get(tag);
+    if (!result) {
+        console.log("Created a SPHERE!!! Tag:" + tag)
+        var item = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+        item.position.y = 1;
+        players.push(tag, item);
+    }
+}
+
+function getPlayerByTag(tag) {
+    var result = players.get(tag);
+    if (!result) {
+        // setTimeout(createSphereIfNotExists(tag), 250);
+        return;
+    }
+    console.log("Found existing spehere!!! Tag:" + tag)
+    return result;
 
 }
 
@@ -334,6 +356,7 @@ function assignMethods() {
         socket.send(json);
 
     }
+
     socket.onmessage = function (event) {
 
         var obj = JSON.parse(event.data);
@@ -344,17 +367,32 @@ function assignMethods() {
         } else if (conversation == "S_LIST_OF_GAMES") {
             showListOfGames(obj.games);
             return;
+        } else if (conversation == "S_SCOREBOARD") {
+            console.log(obj);
+            console.log(Object.keys(obj.SCORES))
+            return;
+        } else if (conversation == "S_SHARE_TAG") {
+            tag = obj.tag;
+            // console.log("My tag is:" + tag);
+
         } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
             // console.log(obj);
-            camera.position.x = obj.THINGS[0].x;
-            camera.position.y = obj.THINGS[0].y;
-            camera.position.z = obj.THINGS[0].z;
-            camera.rotation.y = obj.THINGS[0].rotation;
-
-            sphere.position.x = obj.THINGS[0].x;
-            sphere.position.y = obj.THINGS[0].y;
-            sphere.position.z = obj.THINGS[0].z;
-            sphere.rotation.y = obj.THINGS[0].rotation;
+            var l = obj.THINGS.length;
+            for (var i = 0; i < l; i++) {
+                if (obj.THINGS[i].tag == tag) {
+                    camera.position.x = obj.THINGS[i].x;
+                    camera.position.y = obj.THINGS[i].y;
+                    camera.position.z = obj.THINGS[i].z;
+                    camera.rotation.y = obj.THINGS[i].rotation;
+                }
+                var s = getPlayerByTag(tag);
+                if (s) {
+                    s.position.x = obj.THINGS[i].x;
+                    s.position.y = obj.THINGS[i].y;
+                    s.position.z = obj.THINGS[i].z;
+                    s.rotation.y = obj.THINGS[i].rotation;
+                }
+            }
 
         }
         // alert("Unhandled message" + event.data);
