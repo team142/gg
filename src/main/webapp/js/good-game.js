@@ -157,7 +157,7 @@ var createScene = function () {
         sphere.position.y = sphere.position.y + 0.1
         // alert("you did it!");
     });
-    advancedTexture.addControl(button1);
+    // advancedTexture.addControl(button1);
 
     var button2 = BABYLON.GUI.Button.CreateSimpleButton("but2", "Down");
     button2.width = "75px"
@@ -172,10 +172,20 @@ var createScene = function () {
         sphere.position.y = sphere.position.y - 0.1
         // alert("you did it!");
     });
-    advancedTexture.addControl(button2);
+    // advancedTexture.addControl(button2);
 
     // button2.position.y += button2.position.y + 1;
 
+
+
+    var panel3 = new BABYLON.GUI.StackPanel();
+    panel3.width = "220px";
+    panel3.fontSize = "14px";
+    panel3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+    panel3.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+    advancedTexture.addControl(panel3);    
+    panel3.addControl(button1);
+    panel3.addControl(button2);
 
 
     return scene;
@@ -223,7 +233,10 @@ function setup3D() {
         engine.resize();
     });
 
-    var t = setInterval(tick, 20);
+    scene.clearColor = new BABYLON.Color4.FromHexString("#42e8f4");
+
+    // var t = setInterval(tick, 1000);
+
 }
 
 
@@ -272,13 +285,16 @@ function sendKeyDown(key) {
 
 
 function tick() {
-    sphere.position.x += (0.05 * DIR.x);
-    sphere.position.y += (0.05 * DIR.y);
-    sphere.position.z += (0.05 * DIR.z);
+    // sphere.position.x += (0.05 * DIR.x);
+    // sphere.position.y += (0.05 * DIR.y);
+    // sphere.position.z += (0.05 * DIR.z);
 
 
-    camera.position.x = sphere.position.x;
-    camera.position.z = sphere.position.z;
+    // camera.position.x = sphere.position.x;
+    // camera.position.z = sphere.position.z;
+
+    camera.rotation.y += 0.1;
+    console.log(camera.rotation.y);
 
 
 }
@@ -325,6 +341,18 @@ function assignMethods() {
         } else if (conversation == "S_LIST_OF_GAMES") {
             showListOfGames(obj.games);
             return;
+        } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
+            // console.log(obj);
+            camera.position.x = obj.THINGS[0].x;
+            camera.position.y = obj.THINGS[0].y;
+            camera.position.z = obj.THINGS[0].z;
+            camera.rotation.y = obj.THINGS[0].rotation;
+
+            sphere.position.x = obj.THINGS[0].x;
+            sphere.position.y = obj.THINGS[0].y;
+            sphere.position.z = obj.THINGS[0].z;
+            sphere.rotation.y = obj.THINGS[0].rotation;
+            
         }
         // alert("Unhandled message" + event.data);
     }
@@ -342,6 +370,7 @@ function changeView(view) {
     if (view == "VIEW_CANVAS") {
         console.log("Setup 3D");
         setup3D();
+        // var t = setInterval(tick, 1000);
     }
 }
 

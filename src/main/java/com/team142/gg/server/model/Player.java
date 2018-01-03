@@ -5,11 +5,10 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.model.mappable.DirectionTypes;
 import com.team142.gg.server.model.mappable.MovableElement;
 import java.math.BigDecimal;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Data;
 
@@ -27,15 +26,12 @@ public class Player {
     private final AtomicInteger deaths;
     private final MovableElement TANK;
 
-    private Set KEYS = ConcurrentHashMap.newKeySet();
-
     public Player(String id) {
         this.id = id;
         this.joinTimeMs = System.currentTimeMillis();
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
-        TANK = new MovableElement(BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ZERO, "default", BigDecimal.ZERO);
-
+        TANK = new MovableElement(BigDecimal.ZERO, new BigDecimal(0.5), BigDecimal.ZERO, "default", new BigDecimal(0.5));
     }
 
     public void addKill() {
@@ -52,37 +48,73 @@ public class Player {
     }
 
     public void keyDown(String key) {
-        KEYS.add(key);
-        findDirection();
+        if (key.equals("A")) {
+            TANK.setRotation(TANK.getRotation().subtract(DirectionTypes.ONE_TICK_ROTATE));
+            if (TANK.getRotation().compareTo(DirectionTypes.DIR0) < 0) {
+                TANK.setRotation(DirectionTypes.DIR7);
+            }
+//            System.out.println("Direction: " + TANK.getRotation().toPlainString());
+            return;
+        }
+        if (key.equals("W")) {
+            TANK.setDirection(1);
+            return;
+        }
+        if (key.equals("D")) {
+            TANK.setRotation(TANK.getRotation().add(DirectionTypes.ONE_TICK_ROTATE));
+            if (TANK.getRotation().compareTo(DirectionTypes.DIR8) >= 0) {
+                TANK.setRotation(DirectionTypes.DIR0);
+            }
+//            System.out.println("Direction: " + TANK.getRotation().toPlainString());
+            return;
+        }
+        if (key.equals("S")) {
+            TANK.setDirection(-1);
+            return;
+        }
+
+        TANK.setDirection(0);
+
     }
 
     public void keyUp(String key) {
-        KEYS.remove(key);
-        findDirection();
+//        KEYS.remove(key);
+//        findDirection();
+        TANK.setDirection(0);
     }
 
-    public boolean isDown(String key) {
-        return KEYS.contains(key);
-    }
-
-    private void findDirection() {
-        if (KEYS.contains("A")) {
-            TANK.setRotation(2);
-            return;
-        }
-        if (KEYS.contains("W")) {
-            TANK.setSpeed(BigDecimal.ONE);
-            TANK.setRotation(1);
-            return;
-        }
-        if (KEYS.contains("D")) {
-            TANK.setRotation(3);
-            return;
-        }
-        if (KEYS.contains("S")) {
-            TANK.setRotation(4);
-            TANK.setSpeed(BigDecimal.valueOf(-1L));
-        }
-    }
-
+//    private void findDirection() {
+//
+//        System.out.println("-----START-----");
+//        KEYS.forEach(k -> System.out.println(k));
+//
+//        //TODO: more refined implementation
+//        //For now
+//        /*
+//        812
+//        703
+//        654
+//         */
+//        if (KEYS.contains("A")) {
+////            TANK.setDirection(7);
+//            TANK.setRotation(270);
+//            return;
+//        }
+//        if (KEYS.contains("W")) {
+//            TANK.setDirection(1);
+//            return;
+//        }
+//        if (KEYS.contains("D")) {
+////            TANK.setDirection(3);
+//            TANK.setRotation(90);
+//            return;
+//        }
+//        if (KEYS.contains("S")) {
+//            TANK.setDirection(5);
+//            return;
+//        }
+//
+//        TANK.setDirection(0);
+//
+//    }
 }
