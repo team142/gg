@@ -93,7 +93,7 @@ var createScene = function () {
     scene.name = "scene";
 
     // This creates and positions a free camera (non-mesh)
-    camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+    camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -15), scene);
 
     // This targets the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
@@ -113,7 +113,8 @@ var createScene = function () {
 
     // Move the sphere upward 1/2 its height
     sphere.position.y = 1;
-
+    camera.position.y = 0.5;
+    
 
     // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
     // ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
@@ -288,7 +289,6 @@ function tick() {
 
 
     camera.position.x = sphere.position.x;
-    camera.position.y = 2;
     camera.position.z = sphere.position.z;
     
 
