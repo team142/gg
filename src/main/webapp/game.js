@@ -48,7 +48,7 @@ function assignMethods() {
 
 
 
-        alert("Unhandled message" + event.data);
+        // alert("Unhandled message" + event.data);
     }
 }
 
