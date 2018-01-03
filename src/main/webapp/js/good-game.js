@@ -228,30 +228,47 @@ function setup3D() {
 
 
 window.addEventListener("keyup", function (data) {
-    var key = data.key;
-    if (key === "a" || key === "A") {
-        DIR.x = 0;
-    } else if (key === "d" || key === "D") {
-        DIR.x = 0;
-    } else if (key === "s" || key === "S") {
-        DIR.z = 0;
-    } else if (key === "w" || key === "W") {
-        DIR.z = 0;
-    }
+    sendKeyUp(data.key);
+    // var key = data.key;
+    // if (key === "a" || key === "A") {
+    //     DIR.x = 0;
+    // } else if (key === "d" || key === "D") {
+    //     DIR.x = 0;
+    // } else if (key === "s" || key === "S") {
+    //     DIR.z = 0;
+    // } else if (key === "w" || key === "W") {
+    //     DIR.z = 0;
+    // }
 });
 
 window.addEventListener("keydown", function (data) {
-    var key = data.key;
-    if (key === "a" || key === "A") {
-        DIR.x = -1;
-    } else if (key === "d" || key === "D") {
-        DIR.x = 1;
-    } else if (key === "s" || key === "S") {
-        DIR.z = -1;
-    } else if (key === "w" || key === "W") {
-        DIR.z = 1;
-    }
+    sendKeyDown(data.key);
+    // var key = data.key;
+    // if (key === "a" || key === "A") {
+    //     DIR.x = -1;
+    // } else if (key === "d" || key === "D") {
+    //     DIR.x = 1;
+    // } else if (key === "s" || key === "S") {
+    //     DIR.z = -1;
+    // } else if (key === "w" || key === "W") {
+    //     DIR.z = 1;
+    // }
 });
+
+function sendKeyUp(key) {
+    var message = {
+        conversation: "P_KU",
+        key: key
+    }
+    send(JSON.stringify(message));
+}
+function sendKeyDown(key) {
+    var message = {
+        conversation: "P_KD",
+        key: key
+    }
+    send(JSON.stringify(message));
+}
 
 
 function tick() {
