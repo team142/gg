@@ -36,7 +36,7 @@ public class MovableElement extends PlaceableElement {
         BigDecimal speedD = new BigDecimal(speed);
         diagSpeed = diagSpeed.multiply(speedD).divide(new BigDecimal(2));
         diagSpeed = MathUtils.sqrt(diagSpeed);
-        diagSpeed.setScale(3, RoundingMode.HALF_UP);
+        diagSpeed = diagSpeed.setScale(3, RoundingMode.HALF_UP);
         this.diagonalSpeed = diagSpeed.doubleValue();
 
     }
