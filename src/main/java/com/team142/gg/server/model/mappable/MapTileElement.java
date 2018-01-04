@@ -19,7 +19,7 @@ public class MapTileElement extends PlaceableElement {
     @Setter
     private String model;
 
-    public MapTileElement(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal rotation, String model) {
+    public MapTileElement(double x, double y, double z, String skin, BigDecimal rotation, String model) {
         super(x, y, z, rotation, skin, 0);
         this.model = model;
 
