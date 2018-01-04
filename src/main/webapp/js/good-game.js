@@ -353,6 +353,7 @@ function assignMethods() {
             for (var i = 0; i < l; i++) {
                 if (obj.THINGS[i].tag == tag) {
                     // if (camera) {
+                    camera.position.x = obj.THINGS[i].x;
                     camera.position.y = obj.THINGS[i].y + 0.25;
                     camera.position.z = obj.THINGS[i].z;
                     camera.rotation.y = obj.THINGS[i].rotation;
