@@ -19,12 +19,6 @@ var waterMaterials = [];
 var rockMaterials = [];
 var tag = -1;
 var camera;
-var x = {
-    a: 0
-};
-// var players = new Map();
-// let players = new Map([["key1", x]]);
-// players.clear();
 var playerTanks = [];
 var gameInstance = Math.floor(Math.random() * 1000);
 
@@ -45,40 +39,11 @@ function buttonJoinServer() {
 }
 
 function joinServer(url, name) {
-    //Join on websocket...
     username = name;
     socket = new WebSocket("ws://" + url + "websocket");
     assignMethods();
 
 }
-
-// function assignMethods() {
-//     socket.onopen = function (event) {
-//         var body = {
-//             conversation: "P_REQUEST_JOIN_SERVER",
-//             name: gameState.username
-//         }
-//         var json = JSON.stringify(body);
-//         socket.send(json);
-
-//     }
-//     socket.onmessage = function (event) {
-
-//         var obj = JSON.parse(event.data);
-//         var conversation = obj.conversation;
-//         if (conversation == "S_CHANGE_VIEW") {
-//             changeView(obj.view);
-//             return;
-//         } else if (conversation == "S_LIST_OF_GAMES") {
-//             showListOfGames(obj.games);
-//             return;
-//         }
-
-
-
-//         // alert("Unhandled message" + event.data);
-//     }
-// }
 
 function showListOfGames(games) {
     var body = {
@@ -92,60 +57,56 @@ function showListOfGames(games) {
 
 var createScene = function () {
 
-    // This creates a basic Babylon Scene object (non-mesh)
     var scene = new BABYLON.Scene(engine);
     scene.name = "scene";
 
-    // This creates and positions a free camera (non-mesh)
     camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene);
-
-    // This targets the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
-
-    // This attaches the camera to the canvas
-    // camera.attachControl(canvas, true);
-
-    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-
-    // Default intensity is 1. Let's dim the light a small amount
-    light.intensity = 0.7;
-
-    // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
-    // var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
-    // sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
-
-    // Move the sphere upward 1/2 its height
-    // sphere.position.y = 1;
     camera.position.y = 0.5;
 
+    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+    light.intensity = 0.7;
 
-    // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
-    // ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+
+    createMaterials();
+    createMap();
+    createGui();
 
 
-    grassMaterials.push(createMaterial("/textures/grass1.jpg"));
-    grassMaterials.push(createMaterial("/textures/grass2.jpg"));
-    grassMaterials.push(createMaterial("/textures/grass3.jpg"));
+    return scene;
 
-    rockMaterials.push(createMaterial("/textures/rock1.jpg"));
-    rockMaterials.push(createMaterial("/textures/rock2.jpg"));
-    rockMaterials.push(createMaterial("/textures/rock3.jpg"));
+};
 
-    waterMaterials.push(createMaterial("/textures/water1.jpg"));
-    waterMaterials.push(createMaterial("/textures/water2.jpg"));
-    waterMaterials.push(createMaterial("/textures/water2.jpg"));
-
+function createMap() {
     for (var x = 0; x <= 20; x++) {
         for (var y = 0; y <= 20; y++) {
-            // console.log("x: " + x + ", y: " + y);
             createMapTile(x, y);
         }
     }
 
+}
+
+function createMaterials() {
+    //Grass
+    grassMaterials.push(createMaterial("/textures/grass1.jpg"));
+    grassMaterials.push(createMaterial("/textures/grass2.jpg"));
+    grassMaterials.push(createMaterial("/textures/grass3.jpg"));
+
+    //Rock
+    rockMaterials.push(createMaterial("/textures/rock1.jpg"));
+    rockMaterials.push(createMaterial("/textures/rock2.jpg"));
+    rockMaterials.push(createMaterial("/textures/rock3.jpg"));
+
+    //Water
+    waterMaterials.push(createMaterial("/textures/water1.jpg"));
+    waterMaterials.push(createMaterial("/textures/water2.jpg"));
+    waterMaterials.push(createMaterial("/textures/water2.jpg"));
 
 
+    
+}
 
+function createGui() {
     // GUI
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
@@ -176,11 +137,6 @@ var createScene = function () {
         sphere.position.y = sphere.position.y - 0.1
         // alert("you did it!");
     });
-    // advancedTexture.addControl(button2);
-
-    // button2.position.y += button2.position.y + 1;
-
-
 
     var panel3 = new BABYLON.GUI.StackPanel();
     panel3.width = "220px";
@@ -192,9 +148,7 @@ var createScene = function () {
     panel3.addControl(button2);
 
 
-    return scene;
-
-};
+}
 
 function getRandomGrassMater() {
     var l = grassMaterials.length;
@@ -208,13 +162,8 @@ function createSphereIfNotExists(tagId) {
     if (tagId) {
         var result = getPlayerByTag(tagId);
         if (!result) {
-            console.log("Creating a sphere:" + tagId)
             var name = "player" + gameInstance;
             name = name + tagId;
-            console.log("Creating sphere with name: " + name);
-            if (!scene) {
-                console.log("no scene!!");
-            }
             var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, scene);
             item.position.y = 1;
 
@@ -225,10 +174,7 @@ function createSphereIfNotExists(tagId) {
 
             playerTanks.push(mapItem);
 
-            // console.log(players);
         }
-    } else {
-        console.log("No tagId for create sphere");
     }
 }
 
@@ -240,15 +186,6 @@ function getPlayerByTag(tagId) {
         }
     }
     return;
-
-    // var result = players.get(tag);
-    // if (!result) {
-    //     console.log("Did not find speher:" + tag + ", ");
-    //     console.log(players);
-    //     return;
-    // }
-    // console.log("Found existing spehere!!! Tag:" + tag)
-    // return result;
 
 }
 
@@ -343,14 +280,8 @@ function tick() {
     // sphere.position.x += (0.05 * DIR.x);
     // sphere.position.y += (0.05 * DIR.y);
     // sphere.position.z += (0.05 * DIR.z);
-
-
     // camera.position.x = sphere.position.x;
     // camera.position.z = sphere.position.z;
-
-    camera.rotation.y += 0.1;
-    console.log(camera.rotation.y);
-
 
 }
 
@@ -398,7 +329,6 @@ function assignMethods() {
             for (var i = 0; i < l; i++) {
                 var item = getPlayerByTag(obj.TAGS[i]);
                 if (!item) {
-                    console.log("Found someone on the scoreboard who is not here: " + obj.TAGS[i]);
                     createSphereIfNotExists(obj.TAGS[i]);
                 }
             }
@@ -406,30 +336,25 @@ function assignMethods() {
 
         } else if (conversation == "S_SHARE_TAG") {
             tag = obj.tag;
-            // console.log("My tag is:" + tag);
 
         } else if (conversation == "S_PLAYER_LEFT") {
 
             var tagToRemove = obj.tag;
-            console.log("Someone left: " + tagToRemove)
             var l = playerTanks.length;
             var indexToRemove = -1;
             for (var i = 0; i < l; i++) {
                 var key = playerTanks[i].key;
                 if (key == tagToRemove) {
-                    console.log("FOUND Someone left: " + tagToRemove)
                     indexToRemove = i;
                     playerTanks[i].value.dispose();
                 }
             }
             if (indexToRemove > -1) {
-                console.log("REMOVED Someone left: " + tagToRemove)
                 playerTanks.splice(indexToRemove, 1);
             }
 
 
         } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
-            // console.log(obj);
             var l = obj.THINGS.length;
             for (var i = 0; i < l; i++) {
                 if (obj.THINGS[i].tag == tag) {
@@ -444,8 +369,7 @@ function assignMethods() {
                     s.position.y = obj.THINGS[i].y;
                     s.position.z = obj.THINGS[i].z;
                     s.rotation.y = obj.THINGS[i].rotation;
-                } else {
-                    // console.log("Couldnt move: " + obj.THINGS[i].tag);
+
                 }
             }
 
@@ -459,12 +383,10 @@ function send(msg) {
 }
 
 function changeView(view) {
-    console.log("Chaning view: " + view)
     toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
     toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
     toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
     if (view == "VIEW_CANVAS") {
-        console.log("Setup 3D");
         setup3D();
         // var t = setInterval(tick, 1000);
     }
@@ -481,10 +403,10 @@ function toggleElement(id, toggle) {
 }
 
 
-function testSp() {
+function appStart() {
     toggleElement("VIEW_CANVAS", false)
     toggleElement("VIEW_GAMES", false)
 }
-window.onload = testSp;
+window.onload = appStart;
 
 
