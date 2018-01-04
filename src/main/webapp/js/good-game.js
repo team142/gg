@@ -84,7 +84,7 @@ function createMapTile(x, y, skin) {
     plane.position.z = (y * 1);
     plane.position.x = (x * 1);
     plane.rotation.x = Math.PI / 2;
-    materials.forEach(function(entry) {
+    materials.forEach(function (entry) {
         if (entry.key == skin) {
             plane.material = entry.value;
         }
@@ -353,10 +353,9 @@ function assignMethods() {
             for (var i = 0; i < l; i++) {
                 if (obj.THINGS[i].tag == tag) {
                     // if (camera) {
-                        camera.position.x = obj.THINGS[i].x;
-                        camera.position.y = obj.THINGS[i].y + 0.25;
-                        camera.position.z = obj.THINGS[i].z;
-                        camera.rotation.y = obj.THINGS[i].rotation;
+                    camera.position.y = obj.THINGS[i].y + 0.25;
+                    camera.position.z = obj.THINGS[i].z;
+                    camera.rotation.y = obj.THINGS[i].rotation;
                     // }
                 }
                 var s = getPlayerByTag(obj.THINGS[i].tag);
@@ -421,3 +420,8 @@ window.addEventListener("keydown", function (evt) {
         gunshot.play();
     }
 });
+
+function playPew() {
+    gunshot.play();
+
+}
