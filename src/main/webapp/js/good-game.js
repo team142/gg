@@ -488,3 +488,18 @@ function testSp() {
 window.onload = testSp;
 
 
+var gunshot = new BABYLON.Sound("gunshot", "sounds/pew.m4a", scene);
+
+// window.addEventListener("mousedown", function (evt) {
+//     // left click to fire
+//     if (evt.button === 0) {
+//         gunshot.play();
+//     }
+// });
+
+window.addEventListener("keydown", function (evt) {
+    // Press space key to fire
+    if (evt.keyCode === 32) {
+        gunshot.play();
+    }
+});
