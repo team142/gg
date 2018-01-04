@@ -41,7 +41,7 @@ public class PostOffice {
         body.setFrom(id);
         if (body instanceof Runnable) {
             ((Runnable) body).run();
-            LOG.log(Level.INFO, "Just ran: {0}", conversation);
+//            LOG.log(Level.INFO, "Just ran: {0}", conversation);
             return;
         }
 
@@ -50,7 +50,7 @@ public class PostOffice {
     }
 
     public static void sendPlayerAMessage(String playerId, Message message) {
-        LOG.log(Level.INFO, "Sending message to player: {0}, conversation: {1}", new String[]{playerId, message.getConversation()});
+//        LOG.log(Level.INFO, "Sending message to player: {0}, conversation: {1}", new String[]{playerId, message.getConversation()});
         String json = JsonUtils.toJson(message);
         Session session = Server.SESSIONS_ON_SERVER.get(playerId);
         if (session != null) {

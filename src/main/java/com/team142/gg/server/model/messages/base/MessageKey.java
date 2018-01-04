@@ -6,7 +6,6 @@
 package com.team142.gg.server.model.messages.base;
 
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  *
@@ -14,12 +13,15 @@ import lombok.Setter;
  */
 public class MessageKey extends Message {
 
-    @Setter
     @Getter
     private String key;
 
     public MessageKey(ConversationType type) {
         setConversation(type.name());
+    }
+
+    public void setKey(String key) {
+        this.key = key.toUpperCase();
     }
 
 }

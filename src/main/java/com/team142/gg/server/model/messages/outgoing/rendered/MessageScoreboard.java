@@ -9,7 +9,10 @@ import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.Game;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import lombok.Getter;
 
 /**
  *
@@ -17,11 +20,16 @@ import java.util.Map;
  */
 public class MessageScoreboard extends Message {
 
+    @Getter
     private final Map<String, Integer> SCORES = new HashMap<>();
+
+    @Getter
+    private final Set<Integer> TAGS = new HashSet();
 
     public MessageScoreboard(Game game) {
         this.setConversation(ConversationType.S_SCOREBOARD.name());
         game.getPlayers().forEach((player) -> player.addScoreToBoard(SCORES));
+        game.getPlayers().forEach((player) -> TAGS.add(player.getTAG()));
     }
 
 }
