@@ -20,13 +20,8 @@ var playerTanks = [];
 var gameInstance = Math.floor(Math.random() * 1000);
 
 
-
-function buttonSendWebsocket() {
-    networkHandler.send(document.getElementById("inputDebug").value);
-}
-
-
 function buttonJoinServer() {
+    document.getElementById("btnJoinServer").disabled = true;
     var url = document.getElementById("selectServer").value;
     var name = document.getElementById("inputName").value;
     if (name) {
