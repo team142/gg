@@ -9,7 +9,6 @@ import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.map.MapMaker;
 import com.team142.gg.server.controller.map.MapSettings;
 import com.team142.gg.server.model.messages.outgoing.other.MessageShareTag;
-import java.math.BigDecimal;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -26,7 +25,7 @@ public class Server {
     public static final ConcurrentHashMap<String, Game> GAMES_ON_SERVER = new ConcurrentHashMap<String, Game>();
     public static final ConcurrentHashMap<String, Session> SESSIONS_ON_SERVER = new ConcurrentHashMap<String, Session>();
     public static final int TICK_MS = 80;
-    public static final BigDecimal DEFAULT_SPEED = new BigDecimal(0.125);
+    public static final double DEFAULT_SPEED = 0.125;
     public static final AtomicInteger TAGS = new AtomicInteger(1000);
 
     static {

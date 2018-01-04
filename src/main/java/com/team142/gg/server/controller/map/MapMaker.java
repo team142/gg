@@ -6,6 +6,8 @@
 package com.team142.gg.server.controller.map;
 
 import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.mappable.DirectionTypes;
+import com.team142.gg.server.model.mappable.MapTileElement;
 
 /**
  *
@@ -15,8 +17,14 @@ public class MapMaker {
 
     public static void generateMap(MapSettings settings, Game game) {
         //TODO
-//        MapTileElement tile = new MapTileElement(BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ZERO, "grass", 0, "flat-panel");
-//        game.getMAP().add(tile);
+
+        //Green map for now
+        for (int x = 0; x < 20; x++) {
+            for (int y = 0; y < 20; y++) {
+                MapTileElement tile = new MapTileElement(x, 1, y, TerrainType.GRASS, DirectionTypes.DIR0, TileType.FLAT_TILE);
+                game.getMAP().add(tile);
+            }
+        }
 
     }
 

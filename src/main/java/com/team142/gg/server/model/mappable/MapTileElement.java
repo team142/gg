@@ -5,6 +5,9 @@
  */
 package com.team142.gg.server.model.mappable;
 
+import com.team142.gg.server.controller.map.TerrainSkins;
+import com.team142.gg.server.controller.map.TerrainType;
+import com.team142.gg.server.controller.map.TileType;
 import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,11 +20,12 @@ public class MapTileElement extends PlaceableElement {
 
     @Getter
     @Setter
-    private String model;
+    private TileType model;
 
-    public MapTileElement(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal rotation, String model) {
-        super(x, y, z, rotation, skin, 0);
+    public MapTileElement(double x, double y, double z, TerrainType type, BigDecimal rotation, TileType model) {
+        super(x, y, z, rotation, TerrainSkins.getRandomSkin(type), 0);
         this.model = model;
+        
 
     }
 
