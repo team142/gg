@@ -69,7 +69,7 @@ var createScene = function () {
 
 
     createMaterials();
-    createMap();
+    // createMap();
     createGui();
 
 
@@ -77,14 +77,31 @@ var createScene = function () {
 
 };
 
-function createMap() {
-    for (var x = 0; x <= 20; x++) {
-        for (var y = 0; y <= 20; y++) {
-            createMapTile(x, y);
-        }
+function createMap(arr) {
+    var l = arr.length;
+    for (var i = 0; i < l; i++) {
+        createMapTile(arr[i].x, arr[i].z);
+
     }
 
 }
+
+function createMapTile(x, y) {
+    var plane = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene);
+    plane.position.z = (y * 1);
+    plane.position.x = (x * 1);
+    plane.rotation.x = Math.PI / 2;
+    //Creation of a repeated textured material
+    // var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
+    // materialPlane.diffuseTexture = new BABYLON.Texture("/textures/grass1.jpg", scene);
+    // materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
+    // materialPlane.diffuseTexture.vScale = 1.0;//Repeat 5 times on the Horizontal Axes
+    // materialPlane.backFaceCulling = false;//Always show the front and the back of an element
+    plane.material = getRandomGrassMater();
+
+}
+
+
 
 function createMaterials() {
     //Grass
@@ -103,7 +120,7 @@ function createMaterials() {
     waterMaterials.push(createMaterial("/textures/water2.jpg"));
 
 
-    
+
 }
 
 function createGui() {
@@ -189,22 +206,6 @@ function getPlayerByTag(tagId) {
 
 }
 
-
-function createMapTile(x, y) {
-
-    var plane = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene);
-    plane.position.z = (y * 1);
-    plane.position.x = (x * 1);
-    plane.rotation.x = Math.PI / 2;
-    //Creation of a repeated textured material
-    // var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
-    // materialPlane.diffuseTexture = new BABYLON.Texture("/textures/grass1.jpg", scene);
-    // materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
-    // materialPlane.diffuseTexture.vScale = 1.0;//Repeat 5 times on the Horizontal Axes
-    // materialPlane.backFaceCulling = false;//Always show the front and the back of an element
-    plane.material = getRandomGrassMater();
-
-}
 
 function setup3D() {
     canvas = document.getElementById("VIEW_CANVAS");
@@ -337,6 +338,9 @@ function assignMethods() {
         } else if (conversation == "S_SHARE_TAG") {
             tag = obj.tag;
 
+        } else if (conversation == "S_SHARE_MAP") {
+            createMap(obj.MAP);
+
         } else if (conversation == "S_PLAYER_LEFT") {
 
             var tagToRemove = obj.tag;
@@ -358,10 +362,12 @@ function assignMethods() {
             var l = obj.THINGS.length;
             for (var i = 0; i < l; i++) {
                 if (obj.THINGS[i].tag == tag) {
-                    camera.position.x = obj.THINGS[i].x;
-                    camera.position.y = obj.THINGS[i].y + 0.25;
-                    camera.position.z = obj.THINGS[i].z;
-                    camera.rotation.y = obj.THINGS[i].rotation;
+                    // if (camera) {
+                        camera.position.x = obj.THINGS[i].x;
+                        camera.position.y = obj.THINGS[i].y + 0.25;
+                        camera.position.z = obj.THINGS[i].z;
+                        camera.rotation.y = obj.THINGS[i].rotation;
+                    // }
                 }
                 var s = getPlayerByTag(obj.THINGS[i].tag);
                 if (s) {
