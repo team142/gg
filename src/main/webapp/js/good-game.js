@@ -18,6 +18,7 @@ var tag = -1;
 var camera;
 var playerTanks = [];
 var gameInstance = Math.floor(Math.random() * 1000);
+var gunshot;
 
 
 function buttonJoinServer() {
@@ -63,6 +64,7 @@ var createScene = function () {
     createMaterials();
     createGui();
 
+    gunshot = new BABYLON.Sound("gunshot", "sounds/pew.mp3", scene);
 
     return scene;
 
@@ -404,7 +406,6 @@ function appStart() {
 window.onload = appStart;
 
 
-var gunshot = new BABYLON.Sound("gunshot", "sounds/pew.m4a", scene);
 
 // window.addEventListener("mousedown", function (evt) {
 //     // left click to fire
@@ -415,6 +416,7 @@ var gunshot = new BABYLON.Sound("gunshot", "sounds/pew.m4a", scene);
 
 window.addEventListener("keydown", function (evt) {
     // Press space key to fire
+    console.log("Trying to play")
     if (evt.keyCode === 32) {
         gunshot.play();
     }
