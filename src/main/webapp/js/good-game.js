@@ -11,12 +11,9 @@ var scene;
 var ground;
 var socket;
 var username;
-let map = new Map([["key1", "value1"], ["key2", "value2"]]);
-map.clear();
 
-var grassMaterials = [];
-var waterMaterials = [];
-var rockMaterials = [];
+let materials = [];
+
 var tag = -1;
 var camera;
 var playerTanks = [];
@@ -69,7 +66,6 @@ var createScene = function () {
 
 
     createMaterials();
-    // createMap();
     createGui();
 
 
@@ -80,46 +76,39 @@ var createScene = function () {
 function createMap(arr) {
     var l = arr.length;
     for (var i = 0; i < l; i++) {
-        createMapTile(arr[i].x, arr[i].z);
+        createMapTile(arr[i].x, arr[i].z, arr[i].skin);
 
     }
 
 }
 
-function createMapTile(x, y) {
+function createMapTile(x, y, skin) {
     var plane = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene);
     plane.position.z = (y * 1);
     plane.position.x = (x * 1);
     plane.rotation.x = Math.PI / 2;
-    //Creation of a repeated textured material
-    // var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
-    // materialPlane.diffuseTexture = new BABYLON.Texture("/textures/grass1.jpg", scene);
-    // materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
-    // materialPlane.diffuseTexture.vScale = 1.0;//Repeat 5 times on the Horizontal Axes
-    // materialPlane.backFaceCulling = false;//Always show the front and the back of an element
-    plane.material = getRandomGrassMater();
-
+    materials.forEach(function(entry) {
+        if (entry.key == skin) {
+            plane.material = entry.value;
+        }
+    });
 }
+
+
 
 
 
 function createMaterials() {
     //Grass
-    grassMaterials.push(createMaterial("/textures/grass1.jpg"));
-    grassMaterials.push(createMaterial("/textures/grass2.jpg"));
-    grassMaterials.push(createMaterial("/textures/grass3.jpg"));
-
-    //Rock
-    rockMaterials.push(createMaterial("/textures/rock1.jpg"));
-    rockMaterials.push(createMaterial("/textures/rock2.jpg"));
-    rockMaterials.push(createMaterial("/textures/rock3.jpg"));
-
-    //Water
-    waterMaterials.push(createMaterial("/textures/water1.jpg"));
-    waterMaterials.push(createMaterial("/textures/water2.jpg"));
-    waterMaterials.push(createMaterial("/textures/water2.jpg"));
-
-
+    createAndSaveMaterial("/textures/grass1.jpg");
+    createAndSaveMaterial("/textures/grass2.jpg");
+    createAndSaveMaterial("/textures/grass3.jpg");
+    createAndSaveMaterial("/textures/rock1.jpg");
+    createAndSaveMaterial("/textures/rock2.jpg");
+    createAndSaveMaterial("/textures/rock3.jpg");
+    createAndSaveMaterial("/textures/water1.jpg");
+    createAndSaveMaterial("/textures/water2.jpg");
+    createAndSaveMaterial("/textures/water3.jpg");
 
 }
 
@@ -167,13 +156,13 @@ function createGui() {
 
 }
 
-function getRandomGrassMater() {
-    var l = grassMaterials.length;
-    var i = Math.floor((Math.random() * l) + 1);
-    i--;
-    return grassMaterials[i];
+// function getRandomGrassMater() {
+//     var l = grassMaterials.length;
+//     var i = Math.floor((Math.random() * l) + 1);
+//     i--;
+//     return grassMaterials[i];
 
-}
+// }
 
 function createSphereIfNotExists(tagId) {
     if (tagId) {
@@ -286,13 +275,17 @@ function tick() {
 
 }
 
-function createMaterial(textureFilePath) {
+function createAndSaveMaterial(textureFilePath) {
     var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
     materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, scene);
     materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
     materialPlane.diffuseTexture.vScale = 1.0;//Repeat 5 times on the Horizontal Axes
     materialPlane.backFaceCulling = false;//Always show the front and the back of an element
-    return materialPlane;
+    var item = {
+        key: textureFilePath,
+        value: materialPlane
+    };
+    materials.push(item);
 }
 
 function joinServer(url, name) {
