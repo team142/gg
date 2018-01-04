@@ -20,7 +20,7 @@ public class PlaceableElement {
 
     @Getter
     @Setter
-    private BigDecimal x, y, z;
+    private double x, y, z;
 
     @Getter
     private BigDecimal rotation;

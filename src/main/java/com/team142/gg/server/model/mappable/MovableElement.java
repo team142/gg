@@ -19,23 +19,25 @@ public class MovableElement extends PlaceableElement {
 
     @Getter
     @Setter
-    private BigDecimal speed;
+    private double speed;
 
     @Getter
     @Setter
-    private BigDecimal diagonalSpeed;
+    private double diagonalSpeed;
 
     @Getter
     @Setter
     private double direction;
 
-    public MovableElement(BigDecimal x, BigDecimal y, BigDecimal z, String skin, BigDecimal speed, int tag) {
+    public MovableElement(double x, double y, double z, String skin, double speed, int tag) {
         super(x, y, z, BigDecimal.ZERO, skin, tag);
         this.speed = speed;
-        this.diagonalSpeed = speed;
-        this.diagonalSpeed = this.diagonalSpeed.multiply(speed).divide(new BigDecimal(2));
-        this.diagonalSpeed = MathUtils.sqrt(this.diagonalSpeed);
-        this.diagonalSpeed.setScale(3, RoundingMode.HALF_UP);
+        BigDecimal diagSpeed = new BigDecimal(speed);
+        BigDecimal speedD = new BigDecimal(speed);
+        diagSpeed = diagSpeed.multiply(speedD).divide(new BigDecimal(2));
+        diagSpeed = MathUtils.sqrt(diagSpeed);
+        diagSpeed.setScale(3, RoundingMode.HALF_UP);
+        this.diagonalSpeed = diagSpeed.doubleValue();
 
     }
 
@@ -46,81 +48,53 @@ public class MovableElement extends PlaceableElement {
 //        System.out.println("Direction: " + direction);
 
         if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
-            setZ(getZ().add(speed));
+            setZ(getZ() + (speed));
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
-            setZ(getZ().subtract(speed));
+            setZ(getZ() - (speed));
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
-            setX(getX().add(diagonalSpeed));
-            setZ(getZ().add(diagonalSpeed));
+            setX(getX() + (diagonalSpeed));
+            setZ(getZ() + (diagonalSpeed));
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
-            setX(getX().subtract(diagonalSpeed));
-            setZ(getZ().subtract(diagonalSpeed));
+            setX(getX() - (diagonalSpeed));
+            setZ(getZ() - (diagonalSpeed));
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
-            setX(getX().add(diagonalSpeed));
+            setX(getX() + (speed));
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
-            setX(getX().subtract(diagonalSpeed));
+            setX(getX() - (speed));
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
-            setX(getX().add(diagonalSpeed));
-            setZ(getZ().subtract(diagonalSpeed));
+            setX(getX() + (diagonalSpeed));
+            setZ(getZ() - (diagonalSpeed));
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
-            setX(getX().subtract(diagonalSpeed));
-            setZ(getZ().add(diagonalSpeed));
+            setX(getX() - (diagonalSpeed));
+            setZ(getZ() + (diagonalSpeed));
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-            setZ(getZ().subtract(diagonalSpeed));
+            setZ(getZ() - (speed));
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-            setZ(getZ().add(diagonalSpeed));
+            setZ(getZ() + (speed));
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-            setX(getX().subtract(diagonalSpeed));
-            setZ(getZ().subtract(diagonalSpeed));
+            setX(getX() - (diagonalSpeed));
+            setZ(getZ() - (diagonalSpeed));
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-            setX(getX().add(diagonalSpeed));
-            setZ(getZ().add(diagonalSpeed));
+            setX(getX() + (diagonalSpeed));
+            setZ(getZ() + (diagonalSpeed));
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
-            setX(getX().subtract(diagonalSpeed));
+            setX(getX() - (speed));
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
-            setX(getX().add(diagonalSpeed));
+            setX(getX() + (speed));
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
-            setX(getX().subtract(diagonalSpeed));
-            setZ(getZ().add(diagonalSpeed));
+            setX(getX() - (diagonalSpeed));
+            setZ(getZ() + (diagonalSpeed));
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
-            setX(getX().add(diagonalSpeed));
-            setZ(getZ().subtract(diagonalSpeed));
+            setX(getX() + (diagonalSpeed));
+            setZ(getZ() - (diagonalSpeed));
         }
 
-//        if (direction == 1 || direction == -1) {
-//            if (getRotation().compareTo(DirectionTypes.DIR0) == 0 || getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-//                System.out.println("Is direction 1");
-//                if (direction == 1) {
-//                    setZ(getZ().add(speed));
-//                } else if (direction == -1) {
-//                    setZ(getZ().subtract(speed));
-//                }
-//
-//            } else if (getRotation().compareTo(DirectionTypes.DIR1) == 0 || getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-//                System.out.println("Is direction 1");
-//                setX(getX().add(diagonalSpeed.multiply(new BigDecimal(direction))));
-//                setZ(getZ().add(diagonalSpeed.multiply(new BigDecimal(direction))));
-//            } else {
-//                System.out.println("Was actually rotation: " + getRotation() + ", " + DirectionTypes.DIR2);
-//
-//            }
-//
-//        }
-//        if (direction == 13) {
-//            setZ(getZ().add(speed));
-//        } else if (direction == 5) {
-//            setZ(getZ().subtract(speed));
-//        } else if (direction == 3) {
-//            setX(getX().add(speed));
-//        } else if (direction == 7) {
-//            setX(getX().subtract(speed));
-//        }
     }
 }
