@@ -39,6 +39,7 @@ public class Referee {
         game.playerJoins(player);
         welcomePlayerToGame(body.getFrom());
         announcePlayerJoins(game, player);
+        Referee.sendMapToPlayer(player.getId(), game);
 
     }
 

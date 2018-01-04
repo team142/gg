@@ -62,7 +62,6 @@ public class Game {
     public void playerJoins(Player player) {
         TANKS.put(player.getId(), player.getTANK());
         players.add(player);
-        Referee.sendMapToPlayer(player.getId(), this);
 
     }
 
