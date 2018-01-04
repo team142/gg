@@ -7,7 +7,6 @@ package com.team142.gg.server.model;
 
 import com.team142.gg.server.model.mappable.DirectionTypes;
 import com.team142.gg.server.model.mappable.MovableElement;
-import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Data;
@@ -33,7 +32,7 @@ public class Player {
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
         TAG = Server.TAGS.incrementAndGet();
-        TANK = new MovableElement(BigDecimal.ZERO, new BigDecimal(0.25), BigDecimal.ZERO, "default", Server.DEFAULT_SPEED, TAG);
+        TANK = new MovableElement(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG);
     }
 
     public void addKill() {
