@@ -25,7 +25,7 @@ function changeView(view) {
     toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
     toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
     if (view == "VIEW_CANVAS") {
-        setup3D();
+        baby.setup3D();
         // var t = setInterval(tick, 1000);
     }
 }
