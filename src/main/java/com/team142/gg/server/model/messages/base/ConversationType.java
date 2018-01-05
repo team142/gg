@@ -27,6 +27,7 @@ public enum ConversationType {
     , S_SHARE_DYNAMIC_THINGS
     , S_SHARE_TAG
     , S_PLAYER_LEFT
+    , S_PLAY_SOUND
     
 
 }
