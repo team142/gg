@@ -13,10 +13,11 @@ import lombok.Getter;
  */
 public enum SoundType {
 
-    PEW("pew.mp3");
+    PEW("sounds/pew.mp3");
 
     @Getter
     private final String FILE;
+
     private SoundType(String FILE) {
         this.FILE = FILE;
     }

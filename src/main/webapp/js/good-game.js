@@ -18,8 +18,9 @@ var tag = -1;
 var camera;
 var playerTanks = [];
 var gameInstance = Math.floor(Math.random() * 1000);
-var gunshot;
 
+
+var sounds = [];
 
 function buttonJoinServer() {
     document.getElementById("btnJoinServer").disabled = true;
@@ -64,11 +65,27 @@ var createScene = function () {
     createMaterials();
     createGui();
 
-    gunshot = new BABYLON.Sound("gunshot", "sounds/pew.mp3", scene);
+    loadSounds();
+
 
     return scene;
 
 };
+
+function loadSounds() {
+    loadSound("sounds/pew.mp3");
+
+}
+
+function loadSound(path) {
+    var sound = new BABYLON.Sound(path, path, scene);
+    var item = {
+        key: path,
+        value: sound
+    }
+    sounds.push(item);
+
+}
 
 function createMap(arr) {
     var l = arr.length;
@@ -342,6 +359,9 @@ function assignMethods() {
         } else if (conversation == "S_SHARE_MAP") {
             createMap(obj.MAP);
 
+        } else if (conversation == "S_PLAY_SOUND") {
+            playSound(obj.FILE);
+
         } else if (conversation == "S_PLAYER_LEFT") {
 
             var tagToRemove = obj.tag;
@@ -417,22 +437,12 @@ function appStart() {
 window.onload = appStart;
 
 
-
-// window.addEventListener("mousedown", function (evt) {
-//     // left click to fire
-//     if (evt.button === 0) {
-//         gunshot.play();
-//     }
-// });
-
-window.addEventListener("keydown", function (evt) {
-    // Press space key to fire
-    if (evt.keyCode === 32) {
-        gunshot.play();
+function playSound(key) {
+    var snd = sounds.find(function (item) {
+        return item.key == key;
+    });
+    if (snd) {
+        snd.play();
     }
-});
-
-function playPew() {
-    gunshot.play();
 
 }
