@@ -51,7 +51,7 @@ function assignMethods() {
             for (var i = 0; i < l; i++) {
                 var item = getPlayerByTag(obj.TAGS[i]);
                 if (!item) {
-                    bUtils.createSphereIfNotExists(obj.TAGS[i]);
+                    baby.createSphereIfNotExists(obj.TAGS[i]);
                 }
             }
 
@@ -60,7 +60,7 @@ function assignMethods() {
             tag = obj.tag;
 
         } else if (conversation == "S_SHARE_MAP") {
-            bUtils.createMap(obj.MAP);
+            baby.createMap(obj.MAP);
 
         } else if (conversation == "S_PLAY_SOUND") {
             GSound.playSound(obj.FILE);
