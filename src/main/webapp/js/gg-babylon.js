@@ -1,5 +1,75 @@
 var bUtils = {};
 
+var canvas;
+var engine;
+var sphere;
+
+var DIR = {
+    x: 0,
+    y: 0,
+    z: 0
+}
+var scene;
+var ground;
+let materials = [];
+var camera;
+
+
+function setup3D() {
+    canvas = document.getElementById("VIEW_CANVAS");
+    engine = new BABYLON.Engine(canvas, true);
+    scene = createScene()
+    engine.runRenderLoop(function () {
+        scene.render();
+    });
+    window.addEventListener("resize", function () {
+        engine.resize();
+    });
+    window.addEventListener("keyup", function (data) {
+        sendKeyUp(data.key);
+        // var key = data.key;
+        // if (key === "a" || key === "A") {
+        //     DIR.x = 0;
+        // } else if (key === "d" || key === "D") {
+        //     DIR.x = 0;
+        // } else if (key === "s" || key === "S") {
+        //     DIR.z = 0;
+        // } else if (key === "w" || key === "W") {
+        //     DIR.z = 0;
+        // }
+    });
+
+    window.addEventListener("keydown", function (data) {
+        sendKeyDown(data.key);
+        // var key = data.key;
+        // if (key === "a" || key === "A") {
+        //     DIR.x = -1;
+        // } else if (key === "d" || key === "D") {
+        //     DIR.x = 1;
+        // } else if (key === "s" || key === "S") {
+        //     DIR.z = -1;
+        // } else if (key === "w" || key === "W") {
+        //     DIR.z = 1;
+        // }
+    });
+
+    // scene.clearColor = new BABYLON.Color3(91 / 255, 203 / 255, 234 / 255);
+    // var t = setInterval(tick, 1000);
+
+    var boxCloud = BABYLON.Mesh.CreateSphere("boxCloud", 100, 100, scene);
+    boxCloud.position = new BABYLON.Vector3(0, 0, 12);
+    var cloudMaterial = new BABYLON.StandardMaterial("cloudMat", scene);
+    var cloudProcText = new BABYLON.CloudProceduralTexture("cloud", 1024, scene);
+    cloudMaterial.emissiveTexture = cloudProcText;
+    cloudMaterial.backFaceCulling = false;
+    cloudMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    boxCloud.material = cloudMaterial;
+
+    GSound.loadSounds();
+
+
+
+}
 
 
 bUtils.createSphereIfNotExists = function (tagId) {
@@ -39,7 +109,7 @@ bUtils.createMaterials = function () {
 }
 
 
-bUtils.createAndSaveMaterial = function(textureFilePath) {
+bUtils.createAndSaveMaterial = function (textureFilePath) {
     var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
     materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, scene);
     materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
@@ -53,7 +123,16 @@ bUtils.createAndSaveMaterial = function(textureFilePath) {
 }
 
 
-bUtils.createMapTile = function(x, y, skin) {
+bUtils.createMap = function (arr) {
+    var l = arr.length;
+    for (var i = 0; i < l; i++) {
+        bUtils.createMapTile(arr[i].x, arr[i].z, arr[i].skin);
+
+    }
+
+}
+
+bUtils.createMapTile = function (x, y, skin) {
     var plane = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene);
     plane.position.z = (y * 1);
     plane.position.x = (x * 1);
@@ -67,7 +146,7 @@ bUtils.createMapTile = function(x, y, skin) {
 
 
 
-bUtils.createGui = function() {
+bUtils.createGui = function () {
     // GUI
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
@@ -114,23 +193,22 @@ bUtils.createGui = function() {
 
 
 var createScene = function () {
-    
-        var scene = new BABYLON.Scene(engine);
-        scene.name = "scene";
-    
-        camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene);
-        camera.setTarget(BABYLON.Vector3.Zero());
-        camera.position.y = 0.5;
-    
-        var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-        light.intensity = 0.7;
-    
-    
-        bUtils.createMaterials();
-        bUtils.createGui();
-    
-    
-        return scene;
-    
-    };
-    
+
+    var scene = new BABYLON.Scene(engine);
+    scene.name = "scene";
+
+    camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene);
+    camera.setTarget(BABYLON.Vector3.Zero());
+    camera.position.y = 0.5;
+
+    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+    light.intensity = 0.7;
+
+
+    bUtils.createMaterials();
+    bUtils.createGui();
+
+
+    return scene;
+
+};
