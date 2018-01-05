@@ -24,9 +24,9 @@ web.showListOfGames = function(games) {
 
 
 web.changeView = function(view) {
-    toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
-    toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
-    toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
+    web.toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
+    web.toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
+    web.toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
     if (view == "VIEW_CANVAS") {
         baby.setup3D();
         // var t = setInterval(tick, 1000);

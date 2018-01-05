@@ -18,7 +18,7 @@ function tick() {
 
 
 function appStart() {
-    toggleElement("VIEW_CANVAS", false)
-    toggleElement("VIEW_GAMES", false)
+    web.toggleElement("VIEW_CANVAS", false)
+    web.toggleElement("VIEW_GAMES", false)
 }
 window.onload = appStart;
