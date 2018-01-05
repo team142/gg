@@ -52,7 +52,7 @@ function showListOfGames(games) {
 function createMap(arr) {
     var l = arr.length;
     for (var i = 0; i < l; i++) {
-        createMapTile(arr[i].x, arr[i].z, arr[i].skin);
+        bUtils.createMapTile(arr[i].x, arr[i].z, arr[i].skin);
 
     }
 
@@ -189,7 +189,7 @@ function assignMethods() {
             for (var i = 0; i < l; i++) {
                 var item = getPlayerByTag(obj.TAGS[i]);
                 if (!item) {
-                    createSphereIfNotExists(obj.TAGS[i]);
+                    bUtils.createSphereIfNotExists(obj.TAGS[i]);
                 }
             }
 

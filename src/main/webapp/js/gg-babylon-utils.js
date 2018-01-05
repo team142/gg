@@ -1,7 +1,8 @@
+var bUtils = {};
 
 
 
-function createSphereIfNotExists(tagId) {
+bUtils.createSphereIfNotExists = function (tagId) {
     if (tagId) {
         var result = getPlayerByTag(tagId);
         if (!result) {
@@ -23,22 +24,22 @@ function createSphereIfNotExists(tagId) {
 
 
 
-function createMaterials() {
+bUtils.createMaterials = function () {
     //Grass
-    createAndSaveMaterial("/textures/grass1.jpg");
-    createAndSaveMaterial("/textures/grass2.jpg");
-    createAndSaveMaterial("/textures/grass3.jpg");
-    createAndSaveMaterial("/textures/rock1.jpg");
-    createAndSaveMaterial("/textures/rock2.jpg");
-    createAndSaveMaterial("/textures/rock3.jpg");
-    createAndSaveMaterial("/textures/water1.jpg");
-    createAndSaveMaterial("/textures/water2.jpg");
-    createAndSaveMaterial("/textures/water3.jpg");
+    bUtils.createAndSaveMaterial("/textures/grass1.jpg");
+    bUtils.createAndSaveMaterial("/textures/grass2.jpg");
+    bUtils.createAndSaveMaterial("/textures/grass3.jpg");
+    bUtils.createAndSaveMaterial("/textures/rock1.jpg");
+    bUtils.createAndSaveMaterial("/textures/rock2.jpg");
+    bUtils.createAndSaveMaterial("/textures/rock3.jpg");
+    bUtils.createAndSaveMaterial("/textures/water1.jpg");
+    bUtils.createAndSaveMaterial("/textures/water2.jpg");
+    bUtils.createAndSaveMaterial("/textures/water3.jpg");
 
 }
 
 
-function createAndSaveMaterial(textureFilePath) {
+bUtils.createAndSaveMaterial = function(textureFilePath) {
     var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
     materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, scene);
     materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
@@ -52,13 +53,13 @@ function createAndSaveMaterial(textureFilePath) {
 }
 
 
-function loadSounds() {
+bUtils.loadSounds = function() {
     var i = 0;
     loadSound(i, "sounds/pew.mp3");
 
 }
 
-function loadSound(name, path) {
+bUtils.loadSound = function(name, path) {
     var sound = new BABYLON.Sound("sound" + name, path, scene);
     var item = {
         key: path,
@@ -68,7 +69,7 @@ function loadSound(name, path) {
 
 }
 
-function createMapTile(x, y, skin) {
+bUtils.createMapTile = function(x, y, skin) {
     var plane = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene);
     plane.position.z = (y * 1);
     plane.position.x = (x * 1);
@@ -82,7 +83,7 @@ function createMapTile(x, y, skin) {
 
 
 
-function createGui() {
+bUtils.createGui = function() {
     // GUI
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
@@ -141,8 +142,8 @@ var createScene = function () {
         light.intensity = 0.7;
     
     
-        createMaterials();
-        createGui();
+        bUtils.createMaterials();
+        bUtils.createGui();
     
     
         return scene;
