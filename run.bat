@@ -1,6 +1,6 @@
 docker stop gg
 docker rm gg
-docker rmi loc/gg:1
+docker rmi team142/gg:local
 mvn clean install
-docker build -t loc/gg:1 .
-docker run --name gg --publish 8080:8080 loc/gg:1
+docker build -t team142/gg:local .
+docker run --name gg --publish 8080:8080 team142/gg:local
