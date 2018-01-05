@@ -65,20 +65,19 @@ var createScene = function () {
     createMaterials();
     createGui();
 
-    loadSounds();
-
 
     return scene;
 
 };
 
 function loadSounds() {
-    loadSound("sounds/pew.mp3");
+    var i = 0;
+    loadSound(i, "sounds/pew.mp3");
 
 }
 
-function loadSound(path) {
-    var sound = new BABYLON.Sound(path, path, scene);
+function loadSound(name, path) {
+    var sound = new BABYLON.Sound("sound" + name, path, scene);
     var item = {
         key: path,
         value: sound
@@ -214,25 +213,42 @@ function setup3D() {
     canvas = document.getElementById("VIEW_CANVAS");
     engine = new BABYLON.Engine(canvas, true);
     scene = createScene()
-    // var materialPlane = createMaterial("/textures/grass1.jpg");
-    // ground.material = materialPlane;
-
     engine.runRenderLoop(function () {
         scene.render();
     });
-
-    // Resize
     window.addEventListener("resize", function () {
         engine.resize();
     });
+    window.addEventListener("keyup", function (data) {
+        sendKeyUp(data.key);
+        // var key = data.key;
+        // if (key === "a" || key === "A") {
+        //     DIR.x = 0;
+        // } else if (key === "d" || key === "D") {
+        //     DIR.x = 0;
+        // } else if (key === "s" || key === "S") {
+        //     DIR.z = 0;
+        // } else if (key === "w" || key === "W") {
+        //     DIR.z = 0;
+        // }
+    });
+
+    window.addEventListener("keydown", function (data) {
+        sendKeyDown(data.key);
+        // var key = data.key;
+        // if (key === "a" || key === "A") {
+        //     DIR.x = -1;
+        // } else if (key === "d" || key === "D") {
+        //     DIR.x = 1;
+        // } else if (key === "s" || key === "S") {
+        //     DIR.z = -1;
+        // } else if (key === "w" || key === "W") {
+        //     DIR.z = 1;
+        // }
+    });
 
     // scene.clearColor = new BABYLON.Color3(91 / 255, 203 / 255, 234 / 255);
-
-
-
     // var t = setInterval(tick, 1000);
-
-
 
     var boxCloud = BABYLON.Mesh.CreateSphere("boxCloud", 100, 100, scene);
     boxCloud.position = new BABYLON.Vector3(0, 0, 12);
@@ -243,37 +259,11 @@ function setup3D() {
     cloudMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
     boxCloud.material = cloudMaterial;
 
+    loadSounds();
+    
+
 
 }
-
-
-window.addEventListener("keyup", function (data) {
-    sendKeyUp(data.key);
-    // var key = data.key;
-    // if (key === "a" || key === "A") {
-    //     DIR.x = 0;
-    // } else if (key === "d" || key === "D") {
-    //     DIR.x = 0;
-    // } else if (key === "s" || key === "S") {
-    //     DIR.z = 0;
-    // } else if (key === "w" || key === "W") {
-    //     DIR.z = 0;
-    // }
-});
-
-window.addEventListener("keydown", function (data) {
-    sendKeyDown(data.key);
-    // var key = data.key;
-    // if (key === "a" || key === "A") {
-    //     DIR.x = -1;
-    // } else if (key === "d" || key === "D") {
-    //     DIR.x = 1;
-    // } else if (key === "s" || key === "S") {
-    //     DIR.z = -1;
-    // } else if (key === "w" || key === "W") {
-    //     DIR.z = 1;
-    // }
-});
 
 function sendKeyUp(key) {
     var message = {
@@ -300,18 +290,6 @@ function tick() {
 
 }
 
-function createAndSaveMaterial(textureFilePath) {
-    var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
-    materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, scene);
-    materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
-    materialPlane.diffuseTexture.vScale = 1.0;//Repeat 5 times on the Horizontal Axes
-    materialPlane.backFaceCulling = false;//Always show the front and the back of an element
-    var item = {
-        key: textureFilePath,
-        value: materialPlane
-    };
-    materials.push(item);
-}
 
 function joinServer(url, name) {
     //Join on websocket...
