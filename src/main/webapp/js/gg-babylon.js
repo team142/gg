@@ -53,22 +53,6 @@ bUtils.createAndSaveMaterial = function(textureFilePath) {
 }
 
 
-bUtils.loadSounds = function() {
-    var i = 0;
-    loadSound(i, "sounds/pew.mp3");
-
-}
-
-bUtils.loadSound = function(name, path) {
-    var sound = new BABYLON.Sound("sound" + name, path, scene);
-    var item = {
-        key: path,
-        value: sound
-    }
-    sounds.push(item);
-
-}
-
 bUtils.createMapTile = function(x, y, skin) {
     var plane = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene);
     plane.position.z = (y * 1);

@@ -20,17 +20,8 @@ var playerTanks = [];
 var gameInstance = Math.floor(Math.random() * 1000);
 
 
-var sounds = [];
 
-function buttonJoinServer() {
-    document.getElementById("btnJoinServer").disabled = true;
-    var url = document.getElementById("selectServer").value;
-    var name = document.getElementById("inputName").value;
-    if (name) {
-        document.getElementById("btnJoinServer").enabled = false;
-        joinServer(url, name);
-    }
-}
+
 
 function joinServer(url, name) {
     username = name;
@@ -39,15 +30,6 @@ function joinServer(url, name) {
 
 }
 
-function showListOfGames(games) {
-    var body = {
-        conversation: "P_REQUEST_JOIN_GAME",
-        id: games[0].id
-    }
-    var json = JSON.stringify(body);
-    socket.send(json);
-
-}
 
 function createMap(arr) {
     var l = arr.length;
@@ -122,7 +104,7 @@ function setup3D() {
     cloudMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
     boxCloud.material = cloudMaterial;
 
-    bUtils.loadSounds();
+    GSound.loadSounds();
 
 
 
@@ -201,7 +183,7 @@ function assignMethods() {
             createMap(obj.MAP);
 
         } else if (conversation == "S_PLAY_SOUND") {
-            playSound(obj.FILE);
+            GSound.playSound(obj.FILE);
 
         } else if (conversation == "S_PLAYER_LEFT") {
 
@@ -250,40 +232,9 @@ function send(msg) {
     socket.send(msg);
 }
 
-function changeView(view) {
-    toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
-    toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
-    toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
-    if (view == "VIEW_CANVAS") {
-        setup3D();
-        // var t = setInterval(tick, 1000);
-    }
-}
-
-function toggleElement(id, toggle) {
-    if (toggle) {
-        document.getElementById(id).style.display = "block"
-        document.getElementById(id).style.visibility = "visible";
-    } else {
-        document.getElementById(id).style.visibility = "hidden";
-        document.getElementById(id).style.display = "none"
-    }
-}
-
 
 function appStart() {
     toggleElement("VIEW_CANVAS", false)
     toggleElement("VIEW_GAMES", false)
 }
 window.onload = appStart;
-
-
-function playSound(key) {
-    var snd = sounds.find(function (item) {
-        return item.key == key;
-    });
-    if (snd) {
-        snd.play();
-    }
-
-}
