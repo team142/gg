@@ -39,10 +39,10 @@ function assignMethods() {
         var obj = JSON.parse(event.data);
         var conversation = obj.conversation;
         if (conversation == "S_CHANGE_VIEW") {
-            changeView(obj.view);
+            web.changeView(obj.view);
 
         } else if (conversation == "S_LIST_OF_GAMES") {
-            showListOfGames(obj.games);
+            web.showListOfGames(obj.games);
 
 
         } else if (conversation == "S_SCOREBOARD") {
