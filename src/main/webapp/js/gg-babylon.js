@@ -1,4 +1,4 @@
-var bUtils = {};
+var baby = {};
 
 var canvas;
 var engine;
@@ -15,10 +15,10 @@ let materials = [];
 var camera;
 
 
-function setup3D() {
+baby.setup3D = function() {
     canvas = document.getElementById("VIEW_CANVAS");
     engine = new BABYLON.Engine(canvas, true);
-    scene = createScene()
+    scene = baby.createScene()
     engine.runRenderLoop(function () {
         scene.render();
     });
@@ -67,12 +67,10 @@ function setup3D() {
 
     GSound.loadSounds();
 
-
-
 }
 
 
-bUtils.createSphereIfNotExists = function (tagId) {
+baby.createSphereIfNotExists = function (tagId) {
     if (tagId) {
         var result = getPlayerByTag(tagId);
         if (!result) {
@@ -92,24 +90,22 @@ bUtils.createSphereIfNotExists = function (tagId) {
     }
 }
 
-
-
-bUtils.createMaterials = function () {
+baby.createMaterials = function () {
     //Grass
-    bUtils.createAndSaveMaterial("/textures/grass1.jpg");
-    bUtils.createAndSaveMaterial("/textures/grass2.jpg");
-    bUtils.createAndSaveMaterial("/textures/grass3.jpg");
-    bUtils.createAndSaveMaterial("/textures/rock1.jpg");
-    bUtils.createAndSaveMaterial("/textures/rock2.jpg");
-    bUtils.createAndSaveMaterial("/textures/rock3.jpg");
-    bUtils.createAndSaveMaterial("/textures/water1.jpg");
-    bUtils.createAndSaveMaterial("/textures/water2.jpg");
-    bUtils.createAndSaveMaterial("/textures/water3.jpg");
+    baby.createAndSaveMaterial("/textures/grass1.jpg");
+    baby.createAndSaveMaterial("/textures/grass2.jpg");
+    baby.createAndSaveMaterial("/textures/grass3.jpg");
+    baby.createAndSaveMaterial("/textures/rock1.jpg");
+    baby.createAndSaveMaterial("/textures/rock2.jpg");
+    baby.createAndSaveMaterial("/textures/rock3.jpg");
+    baby.createAndSaveMaterial("/textures/water1.jpg");
+    baby.createAndSaveMaterial("/textures/water2.jpg");
+    baby.createAndSaveMaterial("/textures/water3.jpg");
 
 }
 
 
-bUtils.createAndSaveMaterial = function (textureFilePath) {
+baby.createAndSaveMaterial = function (textureFilePath) {
     var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
     materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, scene);
     materialPlane.diffuseTexture.uScale = 1.0;//Repeat 5 times on the Vertical Axes
@@ -120,19 +116,19 @@ bUtils.createAndSaveMaterial = function (textureFilePath) {
         value: materialPlane
     };
     materials.push(item);
+
 }
 
-
-bUtils.createMap = function (arr) {
+baby.createMap = function (arr) {
     var l = arr.length;
     for (var i = 0; i < l; i++) {
-        bUtils.createMapTile(arr[i].x, arr[i].z, arr[i].skin);
+        baby.createMapTile(arr[i].x, arr[i].z, arr[i].skin);
 
     }
 
 }
 
-bUtils.createMapTile = function (x, y, skin) {
+baby.createMapTile = function (x, y, skin) {
     var plane = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene);
     plane.position.z = (y * 1);
     plane.position.x = (x * 1);
@@ -142,11 +138,12 @@ bUtils.createMapTile = function (x, y, skin) {
             plane.material = entry.value;
         }
     });
+
 }
 
 
 
-bUtils.createGui = function () {
+baby.createGui = function () {
     // GUI
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
@@ -187,28 +184,18 @@ bUtils.createGui = function () {
     panel3.addControl(button1);
     panel3.addControl(button2);
 
-
 }
 
-
-
-var createScene = function () {
-
+baby.createScene = function () {
     var scene = new BABYLON.Scene(engine);
     scene.name = "scene";
-
     camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene);
     camera.setTarget(BABYLON.Vector3.Zero());
     camera.position.y = 0.5;
-
     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
     light.intensity = 0.7;
-
-
-    bUtils.createMaterials();
-    bUtils.createGui();
-
-
+    baby.createMaterials();
+    baby.createGui();
     return scene;
 
 };
