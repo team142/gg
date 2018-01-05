@@ -7,6 +7,7 @@ package com.team142.gg.server.model.messages.outgoing.other;
 
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
+import com.team142.gg.server.model.messages.base.SoundType;
 import lombok.Getter;
 
 /**
@@ -16,10 +17,11 @@ import lombok.Getter;
 public class MessagePlaySound extends Message {
 
     @Getter
-    private String sound;
+    private final String FILE;
 
-    public MessagePlaySound() {
+    public MessagePlaySound(SoundType type) {
         setConversation(ConversationType.S_PLAY_SOUND.name());
+        this.FILE = type.getFILE();
 
     }
 
