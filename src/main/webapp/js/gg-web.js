@@ -1,4 +1,7 @@
 
+var web = {};
+
+//Called by web
 function buttonJoinServer() {
     document.getElementById("btnJoinServer").disabled = true;
     var url = document.getElementById("selectServer").value;
@@ -9,7 +12,7 @@ function buttonJoinServer() {
     }
 }
 
-function showListOfGames(games) {
+web.showListOfGames = function(games) {
     var body = {
         conversation: "P_REQUEST_JOIN_GAME",
         id: games[0].id
@@ -20,7 +23,7 @@ function showListOfGames(games) {
 }
 
 
-function changeView(view) {
+web.changeView = function(view) {
     toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
     toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
     toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
@@ -30,7 +33,7 @@ function changeView(view) {
     }
 }
 
-function toggleElement(id, toggle) {
+web.toggleElement = function(id, toggle) {
     if (toggle) {
         document.getElementById(id).style.display = "block"
         document.getElementById(id).style.visibility = "visible";
