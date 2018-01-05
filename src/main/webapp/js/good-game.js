@@ -1,8 +1,6 @@
+var game = {};
 
-
-
-
-function tick() {
+game.tick = function() {
     // sphere.position.x += (0.05 * DIR.x);
     // sphere.position.y += (0.05 * DIR.y);
     // sphere.position.z += (0.05 * DIR.z);
@@ -11,14 +9,9 @@ function tick() {
 
 }
 
-
-
-
-
-
-
-function appStart() {
+game.appStart = function() {
     web.toggleElement("VIEW_CANVAS", false)
     web.toggleElement("VIEW_GAMES", false)
+    
 }
-window.onload = appStart;
+window.onload = game.appStart;
