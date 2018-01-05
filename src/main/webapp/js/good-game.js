@@ -18,6 +18,7 @@ var tag = -1;
 var camera;
 var playerTanks = [];
 var gameInstance = Math.floor(Math.random() * 1000);
+var gunshot;
 
 
 function buttonJoinServer() {
@@ -63,6 +64,7 @@ var createScene = function () {
     createMaterials();
     createGui();
 
+    gunshot = new BABYLON.Sound("gunshot", "sounds/pew.mp3", scene);
 
     return scene;
 
@@ -82,7 +84,7 @@ function createMapTile(x, y, skin) {
     plane.position.z = (y * 1);
     plane.position.x = (x * 1);
     plane.rotation.x = Math.PI / 2;
-    materials.forEach(function(entry) {
+    materials.forEach(function (entry) {
         if (entry.key == skin) {
             plane.material = entry.value;
         }
@@ -207,12 +209,23 @@ function setup3D() {
         engine.resize();
     });
 
-    // scene.clearColor = new BABYLON.Color4.FromHexString("#42E8F4");
-    scene.clearColor = new BABYLON.Color3(91 / 255, 203 / 255, 234 / 255);
+    // scene.clearColor = new BABYLON.Color3(91 / 255, 203 / 255, 234 / 255);
 
 
 
     // var t = setInterval(tick, 1000);
+
+
+
+    var boxCloud = BABYLON.Mesh.CreateSphere("boxCloud", 100, 100, scene);
+    boxCloud.position = new BABYLON.Vector3(0, 0, 12);
+    var cloudMaterial = new BABYLON.StandardMaterial("cloudMat", scene);
+    var cloudProcText = new BABYLON.CloudProceduralTexture("cloud", 1024, scene);
+    cloudMaterial.emissiveTexture = cloudProcText;
+    cloudMaterial.backFaceCulling = false;
+    cloudMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    boxCloud.material = cloudMaterial;
+
 
 }
 
@@ -351,10 +364,10 @@ function assignMethods() {
             for (var i = 0; i < l; i++) {
                 if (obj.THINGS[i].tag == tag) {
                     // if (camera) {
-                        camera.position.x = obj.THINGS[i].x;
-                        camera.position.y = obj.THINGS[i].y + 0.25;
-                        camera.position.z = obj.THINGS[i].z;
-                        camera.rotation.y = obj.THINGS[i].rotation;
+                    camera.position.x = obj.THINGS[i].x;
+                    camera.position.y = obj.THINGS[i].y + 0.25;
+                    camera.position.z = obj.THINGS[i].z;
+                    camera.rotation.y = obj.THINGS[i].rotation;
                     // }
                 }
                 var s = getPlayerByTag(obj.THINGS[i].tag);
@@ -404,3 +417,22 @@ function appStart() {
 window.onload = appStart;
 
 
+
+// window.addEventListener("mousedown", function (evt) {
+//     // left click to fire
+//     if (evt.button === 0) {
+//         gunshot.play();
+//     }
+// });
+
+window.addEventListener("keydown", function (evt) {
+    // Press space key to fire
+    if (evt.keyCode === 32) {
+        gunshot.play();
+    }
+});
+
+function playPew() {
+    gunshot.play();
+
+}
