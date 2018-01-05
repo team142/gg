@@ -1,7 +1,6 @@
-var GSound = {};
-
-GSound.sounds = [];
-
+var GSound = {
+    sounds: []
+};
 
 GSound.loadSounds = function () {
     var i = 0;
