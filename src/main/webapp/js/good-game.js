@@ -209,12 +209,23 @@ function setup3D() {
         engine.resize();
     });
 
-    // scene.clearColor = new BABYLON.Color4.FromHexString("#42E8F4");
-    scene.clearColor = new BABYLON.Color3(91 / 255, 203 / 255, 234 / 255);
+    // scene.clearColor = new BABYLON.Color3(91 / 255, 203 / 255, 234 / 255);
 
 
 
     // var t = setInterval(tick, 1000);
+
+
+
+    var boxCloud = BABYLON.Mesh.CreateSphere("boxCloud", 100, 100, scene);
+    boxCloud.position = new BABYLON.Vector3(0, 0, 12);
+    var cloudMaterial = new BABYLON.StandardMaterial("cloudMat", scene);
+    var cloudProcText = new BABYLON.CloudProceduralTexture("cloud", 1024, scene);
+    cloudMaterial.emissiveTexture = cloudProcText;
+    cloudMaterial.backFaceCulling = false;
+    cloudMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    boxCloud.material = cloudMaterial;
+
 
 }
 
@@ -416,7 +427,6 @@ window.onload = appStart;
 
 window.addEventListener("keydown", function (evt) {
     // Press space key to fire
-    console.log("Trying to play")
     if (evt.keyCode === 32) {
         gunshot.play();
     }
