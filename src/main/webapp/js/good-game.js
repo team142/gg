@@ -122,7 +122,7 @@ function setup3D() {
     cloudMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
     boxCloud.material = cloudMaterial;
 
-    loadSounds();
+    bUtils.loadSounds();
 
 
 
