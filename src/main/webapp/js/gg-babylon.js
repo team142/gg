@@ -15,7 +15,7 @@ let materials = [];
 var camera;
 
 
-baby.setup3D = function() {
+baby.setup3D = function () {
     canvas = document.getElementById("VIEW_CANVAS");
     engine = new BABYLON.Engine(canvas, true);
     scene = baby.createScene()
@@ -91,16 +91,20 @@ baby.createSphereIfNotExists = function (tagId) {
 }
 
 baby.createMaterials = function () {
-    //Grass
-    baby.createAndSaveMaterial("/textures/grass1.jpg");
-    baby.createAndSaveMaterial("/textures/grass2.jpg");
-    baby.createAndSaveMaterial("/textures/grass3.jpg");
-    baby.createAndSaveMaterial("/textures/rock1.jpg");
-    baby.createAndSaveMaterial("/textures/rock2.jpg");
-    baby.createAndSaveMaterial("/textures/rock3.jpg");
-    baby.createAndSaveMaterial("/textures/water1.jpg");
-    baby.createAndSaveMaterial("/textures/water2.jpg");
-    baby.createAndSaveMaterial("/textures/water3.jpg");
+    const textureFiles = [
+        "grass1.jpg",
+        "grass2.jpg",
+        "grass3.jpg",
+        "rock1.jpg",
+        "rock2.jpg",
+        "rock3.jpg",
+        "water1.jpg",
+        "water2.jpg",
+        "water3.jpg"
+    ]
+    textureFiles.forEach(file => {
+        baby.createAndSaveMaterial("/textures/" + file)
+    })
 
 }
 

@@ -15,3 +15,51 @@ game.appStart = function() {
     
 }
 window.onload = game.appStart;
+
+function changeView(view) {
+    toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
+    toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
+    toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
+    if (view == "VIEW_CANVAS") {
+        setup3D();
+        // var t = setInterval(tick, 1000);
+    }
+}
+
+function toggleElement(id, toggle) {
+    if (toggle) {
+        document.getElementById(id).style.display = "block"
+        document.getElementById(id).style.visibility = "visible";
+    } else {
+        document.getElementById(id).style.visibility = "hidden";
+        document.getElementById(id).style.display = "none"
+    }
+}
+
+
+function appStart() {
+    toggleElement("VIEW_CANVAS", false)
+    toggleElement("VIEW_GAMES", false)
+}
+window.onload = appStart;
+
+
+
+// window.addEventListener("mousedown", function (evt) {
+//     // left click to fire
+//     if (evt.button === 0) {
+//         gunshot.play();
+//     }
+// });
+
+window.addEventListener("keydown", function (evt) {
+    // Press space key to fire
+    if (evt.keyCode === 32) {
+        gunshot.play();
+    }
+});
+
+function playPew() {
+    gunshot.play();
+
+}
