@@ -1,29 +1,31 @@
+var sio = {};
+
 var socket;
 
 
-function joinServer(url, name) {
+sio.joinServer = function (url, name) {
     username = name;
     socket = new WebSocket("ws://" + url + "websocket");
-    assignMethods();
+    sio.assignMethods();
 
 }
 
-function sendKeyUp(key) {
+sio.sendKeyUp = function (key) {
     var message = {
         conversation: "P_KU",
         key: key
     }
-    send(JSON.stringify(message));
+    sio.send(JSON.stringify(message));
 }
-function sendKeyDown(key) {
+sio.sendKeyDown = function (key) {
     var message = {
         conversation: "P_KD",
         key: key
     }
-    send(JSON.stringify(message));
+    sio.send(JSON.stringify(message));
 }
 
-function assignMethods() {
+sio.assignMethods = function () {
     socket.onopen = function (event) {
         var body = {
             conversation: "P_REQUEST_JOIN_SERVER",
@@ -108,7 +110,7 @@ function assignMethods() {
     }
 }
 
-function send(msg) {
+sio.send = function (msg) {
     socket.send(msg);
 }
 

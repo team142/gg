@@ -8,11 +8,11 @@ function buttonJoinServer() {
     var name = document.getElementById("inputName").value;
     if (name) {
         document.getElementById("btnJoinServer").enabled = false;
-        joinServer(url, name);
+        sio.joinServer(url, name);
     }
 }
 
-web.showListOfGames = function(games) {
+web.showListOfGames = function (games) {
     var body = {
         conversation: "P_REQUEST_JOIN_GAME",
         id: games[0].id
@@ -23,7 +23,7 @@ web.showListOfGames = function(games) {
 }
 
 
-web.changeView = function(view) {
+web.changeView = function (view) {
     web.toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
     web.toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
     web.toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
@@ -33,7 +33,7 @@ web.changeView = function(view) {
     }
 }
 
-web.toggleElement = function(id, toggle) {
+web.toggleElement = function (id, toggle) {
     if (toggle) {
         document.getElementById(id).style.display = "block"
         document.getElementById(id).style.visibility = "visible";

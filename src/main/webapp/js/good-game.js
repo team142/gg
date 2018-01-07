@@ -1,6 +1,6 @@
 var game = {};
 
-game.tick = function() {
+game.tick = function () {
     // sphere.position.x += (0.05 * DIR.x);
     // sphere.position.y += (0.05 * DIR.y);
     // sphere.position.z += (0.05 * DIR.z);
@@ -9,24 +9,24 @@ game.tick = function() {
 
 }
 
-game.appStart = function() {
+game.appStart = function () {
     web.toggleElement("VIEW_CANVAS", false)
     web.toggleElement("VIEW_GAMES", false)
-    
+
 }
 window.onload = game.appStart;
 
-function changeView(view) {
+game.changeView = function (view) {
     toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
     toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
     toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
     if (view == "VIEW_CANVAS") {
-        setup3D();
+        baby.setup3D();
         // var t = setInterval(tick, 1000);
     }
 }
 
-function toggleElement(id, toggle) {
+game.toggleElement = function (id, toggle) {
     if (toggle) {
         document.getElementById(id).style.display = "block"
         document.getElementById(id).style.visibility = "visible";
@@ -35,22 +35,6 @@ function toggleElement(id, toggle) {
         document.getElementById(id).style.display = "none"
     }
 }
-
-
-function appStart() {
-    toggleElement("VIEW_CANVAS", false)
-    toggleElement("VIEW_GAMES", false)
-}
-window.onload = appStart;
-
-
-
-// window.addEventListener("mousedown", function (evt) {
-//     // left click to fire
-//     if (evt.button === 0) {
-//         gunshot.play();
-//     }
-// });
 
 window.addEventListener("keydown", function (evt) {
     // Press space key to fire
