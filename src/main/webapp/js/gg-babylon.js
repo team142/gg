@@ -41,7 +41,7 @@ baby.setup3D = function () {
 
     });
 
-    
+
 
 
     window.addEventListener("keydown", function (data) {
@@ -61,7 +61,6 @@ baby.setup3D = function () {
     });
 
     // scene.clearColor = new BABYLON.Color3(91 / 255, 203 / 255, 234 / 255);
-    // var t = setInterval(tick, 1000);
 
     var boxCloud = BABYLON.Mesh.CreateSphere("boxCloud", 100, 100, scene);
     boxCloud.position = new BABYLON.Vector3(0, 0, 12);
@@ -73,8 +72,26 @@ baby.setup3D = function () {
     boxCloud.material = cloudMaterial;
 
     GSound.loadSounds();
+    // var t = setInterval(movementTick, 40);
 
 }
+
+// function movementTick() {
+//     //TODO
+//     var s = getPlayerByTag(tag);
+//     if (s) {
+//         s.position.x += (0.0625 * DIR.x);
+//         s.position.y += (0.0625 * DIR.y);
+//         s.position.z += (0.0625 * DIR.z);
+
+
+//         camera.position.x += (0.0625 * DIR.x);
+//         camera.position.z += (0.0625 * DIR.z);
+//     }
+
+// }
+
+
 
 
 baby.createSphereIfNotExists = function (tagId) {
