@@ -8,8 +8,8 @@
 
 The goal of this project is to build an MMO tank game implemented in JS with Babylon.js and Java.
 
-## Progress
-[See our Trello board](https://trello.com/b/kTa2O4Ya/good-game)
+## Progress & Planning
+![Trello](docs/trello-logo-blue.png =166x51)
 
 
 ## Running the application
