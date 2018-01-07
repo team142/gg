@@ -96,17 +96,20 @@ function createMapTile(x, y, skin) {
 
 
 function createMaterials() {
-    //Grass
-    createAndSaveMaterial("/textures/grass1.jpg");
-    createAndSaveMaterial("/textures/grass2.jpg");
-    createAndSaveMaterial("/textures/grass3.jpg");
-    createAndSaveMaterial("/textures/rock1.jpg");
-    createAndSaveMaterial("/textures/rock2.jpg");
-    createAndSaveMaterial("/textures/rock3.jpg");
-    createAndSaveMaterial("/textures/water1.jpg");
-    createAndSaveMaterial("/textures/water2.jpg");
-    createAndSaveMaterial("/textures/water3.jpg");
-
+	const textureFiles = [
+        "grass1.jpg",
+		"grass2.jpg",
+		"grass3.jpg",
+		"rock1.jpg",
+		"rock2.jpg",
+		"rock3.jpg",
+		"water1.jpg",
+		"water2.jpg",
+		"water3.jpg"
+	]
+	textureFiles.forEach(file => {
+		createAndSaveMaterial("/textures/" + file)
+	})
 }
 
 function createGui() {
