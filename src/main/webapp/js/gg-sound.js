@@ -23,7 +23,7 @@ GSound.playSound = function (key) {
         return item.key == key;
     });
     if (snd) {
-        snd.play();
+        snd.value.play();
     }
 
 }

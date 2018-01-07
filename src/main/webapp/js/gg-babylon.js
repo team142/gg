@@ -26,7 +26,7 @@ baby.setup3D = function () {
         engine.resize();
     });
     window.addEventListener("keyup", function (data) {
-        sendKeyUp(data.key);
+        sio.sendKeyUp(data.key);
         // var key = data.key;
         // if (key === "a" || key === "A") {
         //     DIR.x = 0;
@@ -40,7 +40,7 @@ baby.setup3D = function () {
     });
 
     window.addEventListener("keydown", function (data) {
-        sendKeyDown(data.key);
+        sio.sendKeyDown(data.key);
         // var key = data.key;
         // if (key === "a" || key === "A") {
         //     DIR.x = -1;

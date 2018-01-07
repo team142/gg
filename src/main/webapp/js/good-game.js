@@ -39,11 +39,12 @@ game.toggleElement = function (id, toggle) {
 window.addEventListener("keydown", function (evt) {
     // Press space key to fire
     if (evt.keyCode === 32) {
-        gunshot.play();
+        // gunshot.play();
+        game.playPew();
     }
 });
 
-function playPew() {
-    gunshot.play();
+game.playPew = function () {
+    GSound.playSound("sounds/pew.mp3")
 
 }
