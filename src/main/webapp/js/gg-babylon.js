@@ -27,30 +27,37 @@ baby.setup3D = function () {
     });
     window.addEventListener("keyup", function (data) {
         sio.sendKeyUp(data.key);
-        // var key = data.key;
-        // if (key === "a" || key === "A") {
-        //     DIR.x = 0;
-        // } else if (key === "d" || key === "D") {
-        //     DIR.x = 0;
-        // } else if (key === "s" || key === "S") {
-        //     DIR.z = 0;
-        // } else if (key === "w" || key === "W") {
-        //     DIR.z = 0;
-        // }
+
+        var key = data.key;
+        if (key === "a" || key === "A") {
+            DIR.x = 0;
+        } else if (key === "d" || key === "D") {
+            DIR.x = 0;
+        } else if (key === "s" || key === "S") {
+            DIR.z = 0;
+        } else if (key === "w" || key === "W") {
+            DIR.z = 0;
+        }
+
     });
+
+    
+
 
     window.addEventListener("keydown", function (data) {
         sio.sendKeyDown(data.key);
-        // var key = data.key;
-        // if (key === "a" || key === "A") {
-        //     DIR.x = -1;
-        // } else if (key === "d" || key === "D") {
-        //     DIR.x = 1;
-        // } else if (key === "s" || key === "S") {
-        //     DIR.z = -1;
-        // } else if (key === "w" || key === "W") {
-        //     DIR.z = 1;
-        // }
+
+        var key = data.key;
+        if (key === "a" || key === "A") {
+            DIR.x = -1;
+        } else if (key === "d" || key === "D") {
+            DIR.x = 1;
+        } else if (key === "s" || key === "S") {
+            DIR.z = -1;
+        } else if (key === "w" || key === "W") {
+            DIR.z = 1;
+        }
+
     });
 
     // scene.clearColor = new BABYLON.Color3(91 / 255, 203 / 255, 234 / 255);
