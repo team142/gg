@@ -23,7 +23,7 @@ The server can be run in a JEE 7 compliant web container. The server serves the 
 
 ### Build and in a docker image
 
-Run `./run.sh` or `./build.bat`. This will remvoe any references to the docker image in your local registry, use maven to build the war, build a docker image and run the image exposing the application locally on port 8080.
+Run `./run.sh` or `./run.bat`. This will remvoe any references to the docker image in your local registry, use maven to build the war, build a docker image and run the image exposing the application locally on port 8080.
 
 
 ## Deploying from Docker Hub
