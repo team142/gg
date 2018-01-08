@@ -19,8 +19,8 @@ public class MapMaker {
         //TODO
 
         //Green map for now
-        for (int x = 0; x < 20; x++) {
-            for (int y = 0; y < 20; y++) {
+        for (int x = 0; x < 50; x++) {
+            for (int y = 0; y < 50; y++) {
                 MapTileElement tile = new MapTileElement(x, 1, y, TerrainType.GRASS, DirectionTypes.DIR0, TileType.FLAT_TILE);
                 game.getMAP().add(tile);
             }
