@@ -23,7 +23,7 @@ public class TerrainSkins {
     }
 
     public static String getRandomSkin(TerrainType type) {
-        return "/textures/" + type.name().toLowerCase() + ThreadLocalRandom.current().nextInt(1, TERRAIN_SKIN_COUNT.get(type) + 1) + ".jpg";
+        return "/textures/" + type.name().toLowerCase() + ThreadLocalRandom.current().nextInt(1, TERRAIN_SKIN_COUNT.get(type) + 1) + "-min" + ".jpg";
 
     }
 

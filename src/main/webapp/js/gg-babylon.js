@@ -116,15 +116,15 @@ baby.createSphereIfNotExists = function (tagId) {
 
 baby.createMaterials = function () {
     const textureFiles = [
-        "grass1.jpg",
-        "grass2.jpg",
-        "grass3.jpg",
-        "rock1.jpg",
-        "rock2.jpg",
-        "rock3.jpg",
-        "water1.jpg",
-        "water2.jpg",
-        "water3.jpg"
+        "grass1-min.jpg",
+        "grass2-min.jpg",
+        "grass3-min.jpg",
+        "rock1-min.jpg",
+        "rock2-min.jpg",
+        "rock3-min.jpg",
+        "water1-min.jpg",
+        "water2-min.jpg",
+        "water3-min.jpg"
     ]
     textureFiles.forEach(file => {
         baby.createAndSaveMaterial("/textures/" + file)
