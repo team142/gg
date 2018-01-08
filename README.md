@@ -35,4 +35,4 @@ While the game has not yet reached beta you can follow our progress by using ima
 ## Discord channel
 
 Any feedback would be appreciated:
-[Discord Server](https://discord.gg/XPzJSR)
+<a href="https://discord.gg/XPzJSR"><img src="docs/discord.png" height="80"></a>
