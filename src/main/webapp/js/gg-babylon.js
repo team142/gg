@@ -135,11 +135,12 @@ baby.createAndSaveMaterial = function (textureFilePath) {
     materialPlane.diffuseTexture.uScale = 1.0//Repeat 5 times on the Vertical Axes
     materialPlane.diffuseTexture.vScale = 1.0//Repeat 5 times on the Horizontal Axes
     materialPlane.backFaceCulling = false//Always show the front and the back of an element
-    var item = {
-        key: textureFilePath,
-        value: materialPlane
-    }
-    materials.push(item)
+    materials.push(
+        {
+            key: textureFilePath,
+            value: materialPlane
+        }
+    )
 
 }
 
