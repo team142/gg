@@ -33,6 +33,4 @@ While the game has not yet reached beta you can follow our progress by using ima
 [Official Docker Hub page](https://hub.docker.com/r/team142/gg/tags/)
 
 ## Discord channel
-
-Any feedback would be appreciated:
 <a href="https://discord.gg/XPzJSR"><img src="docs/discord.png" height="80"></a>
