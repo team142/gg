@@ -9,20 +9,12 @@ game.tick = function () {
 
 }
 
-game.appStart = function () {
-    web.toggleElement("VIEW_CANVAS", false)
-    web.toggleElement("VIEW_GAMES", false)
-
-}
-window.onload = game.appStart
-
 game.changeView = function (view) {
     toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
     toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
     toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
     if (view == "VIEW_CANVAS") {
         baby.setup3D()
-        // var t = setInterval(tick, 1000)
     }
 }
 
@@ -40,11 +32,16 @@ window.addEventListener("keydown", function (evt) {
     // Press space key to fire
     if (evt.keyCode === 32) {
         // gunshot.play()
-        game.playPew()
+        gSound.playPew()
     }
 })
 
-game.playPew = function () {
-    GSound.playSound("sounds/pew.mp3")
+
+game.appStart = function () {
+    web.toggleElement("VIEW_CANVAS", false)
+    web.toggleElement("VIEW_GAMES", false)
 
 }
+
+window.onload = game.appStart
+// var t = setInterval(tick, 1000)

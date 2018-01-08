@@ -65,14 +65,14 @@ sio.assignMethods = function () {
             baby.createMap(obj.MAP)
 
         } else if (conversation == "S_PLAY_SOUND") {
-            GSound.playSound(obj.FILE)
+            gSound.playSound(obj.FILE)
 
         } else if (conversation == "S_PLAYER_LEFT") {
 
             var tagToRemove = obj.tag
             var l = playerTanks.length
             var indexToRemove = -1
-            for (var i = 0 i < l i++) {
+            for (var i = 0; i < l; i++) {
                 var key = playerTanks[i].key
                 if (key == tagToRemove) {
                     indexToRemove = i
@@ -86,7 +86,7 @@ sio.assignMethods = function () {
 
         } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
             var l = obj.THINGS.length
-            for (var i = 0 i < l i++) {
+            for (var i = 0; i < l; i++) {
                 if (obj.THINGS[i].tag == tag) {
                     // if (camera) {
                     camera.position.x = obj.THINGS[i].x

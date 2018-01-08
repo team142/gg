@@ -67,7 +67,7 @@ baby.setup3D = function () {
     cloudMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
     boxCloud.material = cloudMaterial
 
-    GSound.loadSounds()
+    gSound.loadSounds()
     // var t = setInterval(movementTick, 40)
 
 }
@@ -144,11 +144,9 @@ baby.createAndSaveMaterial = function (textureFilePath) {
 }
 
 baby.createMap = function (arr) {
-    var l = arr.length
-    for (var i = 0 i < l i++) {
-        baby.createMapTile(arr[i].x, arr[i].z, arr[i].skin)
-
-    }
+    arr.forEach(t => {
+        baby.createMapTile(t.x, t.z, t.skin)
+    })
 
 }
 
