@@ -16,21 +16,17 @@ The goal of this project is to build an MMO tank game implemented in JS with Bab
 
 For the server you will need Java 8, maven and docker. There are two ways you can run the the project:
 
-### Build and run
-
-Run `mvn clean install`. Maven will retrieve dependencies. The project does require Lombok and Jackson in the project to run. 
-The server can be run in a JEE 7 compliant web container. The server serves the client application written in html + js.
-
-### Build and in a docker image
+### Build and run locally in docker (easy and fast)
 
 Run `./run.sh` or `./run.bat`. This will remvoe any references to the docker image in your local registry, use maven to build the war, build a docker image and run the image exposing the application locally on port 8080.
 
+### Build and run in your own Java servlet container
+
+Run `mvn clean install`. Maven will retrieve dependencies. The project does require Lombok and Jackson in the project to run. 
+The server can be run in a JEE 7 compliant web container running Java 8. The server serves the client application written in html + js.
 
 ## Deploying from Docker Hub
-
-While the game has not yet reached beta you can follow our progress by using images in the official Docker Hub registry:
-
-[Official Docker Hub page](https://hub.docker.com/r/team142/gg/tags/)
+<a href="https://hub.docker.com/r/team142/gg/tags/"><img src="docs/docker.png" height="80"></a>
 
 ## Discord channel
 <a href="https://discord.gg/XPzJSR"><img src="docs/discord.png" height="80"></a>
