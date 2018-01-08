@@ -8,9 +8,8 @@
 
 The goal of this project is to build an MMO tank game implemented in JS with Babylon.js and Java.
 
-## Progress & Planning
+## Planning & progress
 <a href="https://trello.com/b/kTa2O4Ya/gg-board"><img src="docs/trello.png" height="80"></a>
-
 
 ## Running the application
 
@@ -25,8 +24,8 @@ Run `./run.sh` or `./run.bat`. This will remvoe any references to the docker ima
 Run `mvn clean install`. Maven will retrieve dependencies. The project does require Lombok and Jackson in the project to run. 
 The server can be run in a JEE 7 compliant web container running Java 8. The server serves the client application written in html + js.
 
-## Deploying from Docker Hub
+## Official Docker images
 <a href="https://hub.docker.com/r/team142/gg/tags/"><img src="docs/docker.png" height="80"></a>
 
-## Discord channel
+## Community (Dev, Q&A & suggestions)
 <a href="https://discord.gg/XPzJSR"><img src="docs/discord.png" height="80"></a>
