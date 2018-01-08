@@ -10,8 +10,10 @@ var DIR = {
 }
 var scene
 var ground
-var materialsMap = new Map();
+var materialsMap = new Map()
 var camera
+var baseTile
+
 
 
 baby.setup3D = function () {
@@ -66,6 +68,7 @@ baby.setup3D = function () {
     cloudMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
     boxCloud.material = cloudMaterial
 
+    baby.createBaseTile();
     gSound.loadSounds()
     // var t = setInterval(movementTick, 40)
 
@@ -146,15 +149,30 @@ baby.createMap = function (arr) {
 }
 
 baby.createMapTile = function (x, y, skin) {
-    var plane = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene)
+    var plane = baseTile.clone(("plane" + x) + y)
     plane.position.z = (y * 1)
     plane.position.x = (x * 1)
     plane.rotation.x = Math.PI / 2
     var material = materialsMap.get(skin)
     if (material) {
-        plane.material = material;
+        plane.material = material
     }
 
+}
+
+baby.createBaseTile = function () {
+    x = -1
+    y = -1
+    var skin = "/textures/water1-min.jpg"    
+    baseTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene)
+    baseTile.position.z = (y * 1)
+    baseTile.position.x = (x * 1)
+    baseTile.rotation.x = Math.PI / 2
+    var material = materialsMap.get(skin)
+    if (material) {
+        baseTile.material = material;
+    }
+    
 }
 
 
