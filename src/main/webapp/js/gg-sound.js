@@ -1,5 +1,6 @@
 var gSound = {
-    sounds: []
+    soundMap: new Map()
+
 }
 
 gSound.loadSounds = function () {
@@ -10,21 +11,12 @@ gSound.loadSounds = function () {
 
 gSound.loadSound = function (name, path) {
     var sound = new BABYLON.Sound("sound" + name, path, scene)
-    var item = {
-        key: path,
-        value: sound
-    }
-    gSound.sounds.push(item)
+    gSound.soundMap.set(path, sound)
 
 }
 
 gSound.playSound = function (key) {
-    var snd = gSound.sounds.find(function (item) {
-        return item.key == key
-    })
-    if (snd) {
-        snd.value.play()
-    }
+    gSound.soundMap.get(key).play()
 
 }
 

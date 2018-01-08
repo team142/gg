@@ -1,5 +1,4 @@
 var baby = {}
-
 var canvas
 var engine
 var sphere
@@ -11,7 +10,7 @@ var DIR = {
 }
 var scene
 var ground
-let materials = []
+var materialsMap = new Map();
 var camera
 
 
@@ -135,12 +134,7 @@ baby.createAndSaveMaterial = function (textureFilePath) {
     materialPlane.diffuseTexture.uScale = 1.0//Repeat 5 times on the Vertical Axes
     materialPlane.diffuseTexture.vScale = 1.0//Repeat 5 times on the Horizontal Axes
     materialPlane.backFaceCulling = false//Always show the front and the back of an element
-    materials.push(
-        {
-            key: textureFilePath,
-            value: materialPlane
-        }
-    )
+    materialsMap.set(textureFilePath, materialPlane)
 
 }
 
@@ -156,11 +150,10 @@ baby.createMapTile = function (x, y, skin) {
     plane.position.z = (y * 1)
     plane.position.x = (x * 1)
     plane.rotation.x = Math.PI / 2
-    materials.forEach(function (entry) {
-        if (entry.key == skin) {
-            plane.material = entry.value
-        }
-    })
+    var material = materialsMap.get(skin)
+    if (material) {
+        plane.material = material;
+    }
 
 }
 
