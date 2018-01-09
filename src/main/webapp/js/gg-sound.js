@@ -1,16 +1,16 @@
+
 var gSound = {
     soundMap: new Map()
 
 }
 
 gSound.loadSounds = function () {
-    var i = 0
-    gSound.loadSound(i, "sounds/pew.mp3")
+    gSound.loadSound("sounds/pew.mp3")
 
 }
 
-gSound.loadSound = function (name, path) {
-    var sound = new BABYLON.Sound("sound" + name, path, scene)
+gSound.loadSound = function (path) {
+    var sound = new BABYLON.Sound(path, path, scene)
     gSound.soundMap.set(path, sound)
 
 }
