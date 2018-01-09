@@ -1,6 +1,6 @@
+
 var sio = {}
 var socket
-
 
 sio.joinServer = function (url, name) {
     match.username = name
@@ -10,30 +10,33 @@ sio.joinServer = function (url, name) {
 }
 
 sio.sendKeyUp = function (key) {
-    var message = {
-        conversation: "P_KU",
-        key: key
-    }
-    sio.send(JSON.stringify(message))
+    sio.send(JSON.stringify(
+        {
+            conversation: "P_KU",
+            key: key
+        }
+    ))
 
 }
+
 sio.sendKeyDown = function (key) {
-    var message = {
-        conversation: "P_KD",
-        key: key
-    }
-    sio.send(JSON.stringify(message))
+    sio.send(JSON.stringify(
+        {
+            conversation: "P_KD",
+            key: key
+        }
+    ))
 
 }
 
 sio.assignMethods = function () {
     socket.onopen = function (event) {
-        var body = {
-            conversation: "P_REQUEST_JOIN_SERVER",
-            name: match.username
-        }
-        var json = JSON.stringify(body)
-        socket.send(json)
+        socket.send(JSON.stringify(
+            {
+                conversation: "P_REQUEST_JOIN_SERVER",
+                name: match.username
+            }
+        ))
     }
     socket.onmessage = postman.incoming
 
