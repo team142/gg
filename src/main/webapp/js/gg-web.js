@@ -18,7 +18,7 @@ web.showListOfGames = function (games) {
         id: games[0].id
     }
     var json = JSON.stringify(body)
-    socket.send(json)
+    sio.send(json)
 
 }
 
