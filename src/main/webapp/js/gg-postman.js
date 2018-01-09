@@ -41,19 +41,7 @@ postman.scoreboard = function (obj) {
 }
 
 postman.playerLeft = function (obj) {
-    var tagToRemove = obj.tag
-    var l = playerTanks.length
-    var indexToRemove = -1
-    for (var i = 0; i < l; i++) {
-        var key = playerTanks[i].key
-        if (key == tagToRemove) {
-            indexToRemove = i
-            playerTanks[i].value.dispose()
-        }
-    }
-    if (indexToRemove > -1) {
-        playerTanks.splice(indexToRemove, 1)
-    }
+    match.playerTanks.delete(obj.tag)
 
 }
 

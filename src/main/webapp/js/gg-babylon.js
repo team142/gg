@@ -68,7 +68,7 @@ baby.setup3D = function () {
     cloudMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
     boxCloud.material = cloudMaterial
 
-    baby.createBaseTile();
+    baby.createBaseTile()
     gSound.loadSounds()
     // var t = setInterval(movementTick, 40)
 
@@ -100,13 +100,11 @@ baby.createSphereIfNotExists = function (tagId) {
             name = name + tagId
             var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, scene)
             item.position.y = 1
-
-            var mapItem = {
-                key: tagId,
-                value: item
-            }
-
-            playerTanks.push(mapItem)
+            // var mapItem = {
+            //     key: tagId,
+            //     value: item
+            // }
+            match.playerTanks.set(tagId, mapItem)
 
         }
     }
