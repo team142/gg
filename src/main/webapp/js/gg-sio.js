@@ -1,10 +1,11 @@
 
-var sio = {}
-var socket
+var sio = {
+
+}
 
 sio.joinServer = function (url, name) {
     match.username = name
-    socket = new WebSocket("ws://" + url + "websocket")
+    sio.socket = new WebSocket("ws://" + url + "websocket")
     sio.assignMethods()
 
 }
@@ -30,20 +31,20 @@ sio.sendKeyDown = function (key) {
 }
 
 sio.assignMethods = function () {
-    socket.onopen = function (event) {
-        socket.send(JSON.stringify(
+    sio.socket.onopen = function (event) {
+        sio.socket.send(JSON.stringify(
             {
                 conversation: "P_REQUEST_JOIN_SERVER",
                 name: match.username
             }
         ))
     }
-    socket.onmessage = postman.incoming
+    sio.socket.onmessage = postman.incoming
 
 }
 
 sio.send = function (msg) {
-    socket.send(msg)
+    sio.socket.send(msg)
 
 }
 
