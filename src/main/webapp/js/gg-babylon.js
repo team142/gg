@@ -1,3 +1,4 @@
+
 var baby = {}
 var canvas
 var engine
@@ -74,24 +75,6 @@ baby.setup3D = function () {
 
 }
 
-// function movementTick() {
-//     //TODO
-//     var s = getPlayerByTag(tag)
-//     if (s) {
-//         s.position.x += (0.0625 * DIR.x)
-//         s.position.y += (0.0625 * DIR.y)
-//         s.position.z += (0.0625 * DIR.z)
-
-
-//         camera.position.x += (0.0625 * DIR.x)
-//         camera.position.z += (0.0625 * DIR.z)
-//     }
-
-// }
-
-
-
-
 baby.createSphereIfNotExists = function (tagId) {
     if (tagId) {
         var result = getPlayerByTag(tagId)
@@ -155,8 +138,8 @@ baby.createMapTile = function (x, y, skin) {
 }
 
 baby.createBaseTile = function () {
-    x = -1
-    y = -1
+    var x = -1
+    var y = -1
     var skin = "/textures/water1-min.jpg"    
     baseTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene)
     baseTile.position.z = (y * 1)
@@ -219,7 +202,7 @@ baby.createScene = function () {
     scene.name = "scene"
     camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene)
     camera.setTarget(BABYLON.Vector3.Zero())
-    camera.position.y = 0.5
+    camera.position.y = 0.75
     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene)
     light.intensity = 0.7
     baby.createMaterials()
@@ -227,3 +210,18 @@ baby.createScene = function () {
     return scene
 
 }
+
+// function movementTick() {
+//     //TODO
+//     var s = getPlayerByTag(tag)
+//     if (s) {
+//         s.position.x += (0.0625 * DIR.x)
+//         s.position.y += (0.0625 * DIR.y)
+//         s.position.z += (0.0625 * DIR.z)
+
+
+//         camera.position.x += (0.0625 * DIR.x)
+//         camera.position.z += (0.0625 * DIR.z)
+//     }
+
+// }
