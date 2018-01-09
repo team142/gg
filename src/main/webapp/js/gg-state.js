@@ -6,7 +6,6 @@ var match = {
     tag: -1
 }
 
-
 function getPlayerByTag(tagId) {
     return match.playerTanks.get(tagId);
 
