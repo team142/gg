@@ -23,13 +23,16 @@ public class MapMaker {
 
         Tile waterTile = new Tile(SkinType.WATER, ModelType.FLAT_TILE, false, false);
         Tile grassTile = new Tile(SkinType.GRASS, ModelType.FLAT_TILE, true, false);
-        Tile rockTile = new Tile(SkinType.ROCK, ModelType.FLAT_TILE, false, true);
+        Tile rockTile = new Tile(SkinType.ROCK, ModelType.ROCK_TILE, false, true);
 
         //Green map for now
         for (int x = 0; x < 50; x++) {
             for (int y = 0; y < 50; y++) {
-                if (x > 20 && x < 30) {
+                if (x > 20 && x < 30 && y > 20 && y < 30) {
                     MapTileElement tile = new MapTileElement(x, 1, y, rockTile, DirectionTypes.DIR0);
+                    game.getMAP().add(tile);
+                } else if (x == 49 || y == 49) {
+                    MapTileElement tile = new MapTileElement(x, 1, y, waterTile, DirectionTypes.DIR0);
                     game.getMAP().add(tile);
                 } else {
                     MapTileElement tile = new MapTileElement(x, 1, y, grassTile, DirectionTypes.DIR0);

@@ -13,7 +13,9 @@ var scene
 var ground
 var materialsMap = new Map()
 var camera
+
 var baseTile
+var mountainTile
 
 
 
@@ -70,6 +72,7 @@ baby.setup3D = function () {
     boxCloud.material = cloudMaterial
 
     baby.createBaseTile()
+    baby.createMountainTile()
     gSound.loadSounds()
     // var t = setInterval(movementTick, 40)
 
@@ -120,13 +123,18 @@ baby.createAndSaveMaterial = function (textureFilePath) {
 
 baby.createMap = function (arr) {
     arr.forEach(t => {
-        baby.createMapTile(t.x, t.z, t.skin)
+        baby.createMapTile(t.x, t.z, t.skin, t.model)
     })
 
 }
 
-baby.createMapTile = function (x, y, skin) {
-    var plane = baseTile.clone(("plane" + x) + y)
+baby.createMapTile = function (x, y, skin, model) {
+    var plane;
+    if (model == "FLAT_TILE") {
+        plane = baseTile.clone(("plane" + x) + y)
+    } else if (model == "ROCK_TILE") {
+        plane = mountainTile.clone(("plane" + x) + y)
+    }
     plane.position.z = (y * 1)
     plane.position.x = (x * 1)
     plane.rotation.x = Math.PI / 2
@@ -140,7 +148,7 @@ baby.createMapTile = function (x, y, skin) {
 baby.createBaseTile = function () {
     var x = -1
     var y = -1
-    var skin = "/textures/water1-min.jpg"    
+    var skin = "/textures/water1-min.jpg"
     baseTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene)
     baseTile.position.z = (y * 1)
     baseTile.position.x = (x * 1)
@@ -149,10 +157,27 @@ baby.createBaseTile = function () {
     if (material) {
         baseTile.material = material;
     }
-    
+
 }
 
+baby.createMountainTile = function () {
+    var x = -2
+    var y = -2
+    var skin = "/textures/rock1-min.jpg"
 
+    mountainTile = BABYLON.MeshBuilder.CreateBox(("plane" + x) + y, { height: 1, width: 1, depth: 1 }, scene);
+
+    // mountainTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene)
+    mountainTile.position.z = (y * 1)
+    mountainTile.position.x = (x * 1)
+    mountainTile.position.y = 0.5
+    mountainTile.rotation.x = Math.PI / 2
+    var material = materialsMap.get(skin)
+    if (material) {
+        mountainTile.material = material;
+    }
+
+}
 
 baby.createGui = function () {
     // GUI
