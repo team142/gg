@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.controller.map;
+package com.team142.gg.server.controller.map.terrain;
 
 /**
  *
  * @author just1689
  */
-public enum TileType {
-
-    FLAT_TILE
+public enum SkinType {
+    WATER,
+    GRASS,
+    ROCK
 
 }
