@@ -96,14 +96,10 @@ baby.createSphereIfNotExists = function (tagId) {
     if (tagId) {
         var result = getPlayerByTag(tagId)
         if (!result) {
-            var name = "player" + gameInstance
+            var name = "player" + match.gameInstance
             name = name + tagId
             var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, scene)
             item.position.y = 1
-            // var mapItem = {
-            //     key: tagId,
-            //     value: item
-            // }
             match.playerTanks.set(tagId, mapItem)
 
         }

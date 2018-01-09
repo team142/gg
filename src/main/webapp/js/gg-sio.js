@@ -3,7 +3,7 @@ var socket
 
 
 sio.joinServer = function (url, name) {
-    username = name
+    match.username = name
     socket = new WebSocket("ws://" + url + "websocket")
     sio.assignMethods()
 
@@ -30,7 +30,7 @@ sio.assignMethods = function () {
     socket.onopen = function (event) {
         var body = {
             conversation: "P_REQUEST_JOIN_SERVER",
-            name: username
+            name: match.username
         }
         var json = JSON.stringify(body)
         socket.send(json)

@@ -13,7 +13,7 @@ postman.incoming = function (event) {
         postman.scoreboard(obj)
 
     } else if (conversation == "S_SHARE_TAG") {
-        tag = obj.tag
+        match.tag = obj.tag
 
     } else if (conversation == "S_SHARE_MAP") {
         baby.createMap(obj.MAP)
@@ -47,7 +47,7 @@ postman.playerLeft = function (obj) {
 
 postman.recievedDynamicThings = function (obj) {
     obj.THINGS.forEach(t => {
-        if (t.tag == tag) {
+        if (t.tag == match.tag) {
             camera.position.x = t.x
             camera.position.y = t.y + 0.25
             camera.position.z = t.z
