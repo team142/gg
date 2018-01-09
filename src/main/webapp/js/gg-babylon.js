@@ -60,36 +60,27 @@ baby.setup3D = function () {
 
     })
 
-    // scene.clearColor = new BABYLON.Color3(91 / 255, 203 / 255, 234 / 255)
-
-    // var boxCloud = BABYLON.Mesh.CreateSphere("boxCloud", 100, 100, scene)
-    // boxCloud.position = new BABYLON.Vector3(0, 0, 12)
-    // var cloudMaterial = new BABYLON.StandardMaterial("cloudMat", scene)
-    // var cloudProcText = new BABYLON.CloudProceduralTexture("cloud", 1024, scene)
-    // cloudMaterial.emissiveTexture = cloudProcText
-    // cloudMaterial.backFaceCulling = false
-    // cloudMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
-    // boxCloud.material = cloudMaterial
-
     baby.createBaseTile()
     baby.createMountainTile()
     gSound.loadSounds()
+    baby.createSkyBox()
     // var t = setInterval(movementTick, 40)
 
+}
+
+baby.createSkyBox = function () {
     // Skyboxes
-	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
-    skyboxMaterial.backFaceCulling = false;
-    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
-    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-    skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-    skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-    skyboxMaterial.disableLighting = true;
-	
-    var skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50*50, scene);
-    skybox1.material = skyboxMaterial;
-	skybox1.visibility = 0.5;	
-
-
+	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene)
+    skyboxMaterial.backFaceCulling = false
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene)
+    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
+    skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0)
+    skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0)
+    skyboxMaterial.disableLighting = true
+    var skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50*50, scene)
+    skybox1.material = skyboxMaterial
+    skybox1.visibility = 0.5
+    
 }
 
 baby.createSphereIfNotExists = function (tagId) {
