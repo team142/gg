@@ -73,11 +73,4 @@ public class Server {
 
     }
 
-    public Game getGameByPlayer(Player player) {
-        if (player == null) {
-            return null;
-        }
-        return getGameByPlayer(player.getId());
-    }
-
 }
