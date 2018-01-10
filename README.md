@@ -21,8 +21,7 @@ Run `./run.sh` or `./run.bat`. This will remvoe any references to the docker ima
 
 ### Build and run in your own Java servlet container
 
-Run `mvn clean install`. Maven will retrieve dependencies. The project does require Lombok and Jackson in the project to run. 
-The server can be run in a JEE 7 compliant web container running Java 8. The server serves the client application written in html + js.
+Run `mvn clean install`. Deploy the resulting war to a JEE 7 compliant web container running Java 8. 
 
 ## Official Docker images
 <a href="https://hub.docker.com/r/team142/gg/tags/"><img src="docs/docker.png" height="80"></a>
