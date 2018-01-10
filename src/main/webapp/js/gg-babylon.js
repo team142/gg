@@ -82,6 +82,12 @@ baby.createSphereIfNotExists = function (tagId) {
             var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
             item.position.y = 1
             match.playerTanks.set(tagId, item)
+
+            var mat = new BABYLON.StandardMaterial("", baby.scene);
+            mat.diffuseTexture = new BABYLON.Texture("textures/smily.png", baby.scene);
+            item.material = mat;
+        
+
         }
     }
 }
