@@ -40,6 +40,7 @@ postman.scoreboard = function (obj) {
 }
 
 postman.playerLeft = function (obj) {
+    getPlayerByTag(obj.tag).dispose()
     match.playerTanks.delete(obj.tag)
 
 }
