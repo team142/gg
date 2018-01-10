@@ -52,7 +52,7 @@ public class Game {
     }
 
     public void removePlayer(Player player) {
-        TANKS.remove(id);
+        TANKS.remove(player.getId());
         PostOffice.sendPlayersAMessage(this, new MessagePlayerLeft(player.getTAG()));
         players.removeIf(playerItem -> playerItem.getId().equals(player.getId()));
         Referee.sendScoreBoard(this);
