@@ -1,16 +1,12 @@
 
-var baby = {}
-var DIR = {
-    x: 0,
-    y: 0,
-    z: 0
+var baby = {
+    materialsMap: new Map(),
+    DIR: {
+        x: 0,
+        y: 0,
+        z: 0
+    }
 }
-var scene
-var materialsMap = new Map()
-
-var baseTile
-var mountainTile
-
 
 
 baby.setup3D = function () {
@@ -28,13 +24,13 @@ baby.setup3D = function () {
 
         var key = data.key
         if (key === "a" || key === "A") {
-            DIR.x = 0
+            baby.DIR.x = 0
         } else if (key === "d" || key === "D") {
-            DIR.x = 0
+            baby.DIR.x = 0
         } else if (key === "s" || key === "S") {
-            DIR.z = 0
+            baby.DIR.z = 0
         } else if (key === "w" || key === "W") {
-            DIR.z = 0
+            baby.DIR.z = 0
         }
 
     })
@@ -43,13 +39,13 @@ baby.setup3D = function () {
 
         var key = data.key
         if (key === "a" || key === "A") {
-            DIR.x = -1
+            baby.DIR.x = -1
         } else if (key === "d" || key === "D") {
-            DIR.x = 1
+            baby.DIR.x = 1
         } else if (key === "s" || key === "S") {
-            DIR.z = -1
+            baby.DIR.z = -1
         } else if (key === "w" || key === "W") {
-            DIR.z = 1
+            baby.DIR.z = 1
         }
 
     })
@@ -116,7 +112,7 @@ baby.createAndSaveMaterial = function (textureFilePath) {
     materialPlane.diffuseTexture.uScale = 1.0//Repeat 5 times on the Vertical Axes
     materialPlane.diffuseTexture.vScale = 1.0//Repeat 5 times on the Horizontal Axes
     materialPlane.backFaceCulling = false//Always show the front and the back of an element
-    materialsMap.set(textureFilePath, materialPlane)
+    baby.materialsMap.set(textureFilePath, materialPlane)
 
 }
 
@@ -130,14 +126,14 @@ baby.createMap = function (arr) {
 baby.createMapTile = function (x, y, skin, model) {
     var plane;
     if (model == "FLAT_TILE") {
-        plane = baseTile.clone(("plane" + x) + y)
+        plane = baby.baseTile.clone(("plane" + x) + y)
     } else if (model == "ROCK_TILE") {
-        plane = mountainTile.clone(("plane" + x) + y)
+        plane = baby.mountainTile.clone(("plane" + x) + y)
     }
     plane.position.z = (y * 1)
     plane.position.x = (x * 1)
     plane.rotation.x = Math.PI / 2
-    var material = materialsMap.get(skin)
+    var material = baby.materialsMap.get(skin)
     if (material) {
         plane.material = material
     }
@@ -148,13 +144,13 @@ baby.createBaseTile = function () {
     var x = -1
     var y = -1
     var skin = "/textures/water1-min.jpg"
-    baseTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, baby.scene)
-    baseTile.position.z = (y * 1)
-    baseTile.position.x = (x * 1)
-    baseTile.rotation.x = Math.PI / 2
-    var material = materialsMap.get(skin)
+    baby.baseTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, baby.scene)
+    baby.baseTile.position.z = (y * 1)
+    baby.baseTile.position.x = (x * 1)
+    baby.baseTile.rotation.x = Math.PI / 2
+    var material = baby.materialsMap.get(skin)
     if (material) {
-        baseTile.material = material;
+        baby.baseTile.material = material;
     }
 
 }
@@ -164,14 +160,14 @@ baby.createMountainTile = function () {
     var y = -2
     var skin = "/textures/rock1-min.jpg"
 
-    mountainTile = BABYLON.MeshBuilder.CreateBox(("plane" + x) + y, { height: 1, width: 1, depth: 1 }, baby.scene);
-    mountainTile.position.z = (y * 1)
-    mountainTile.position.x = (x * 1)
-    mountainTile.position.y = 0.5
-    mountainTile.rotation.x = Math.PI / 2
-    var material = materialsMap.get(skin)
+    baby.mountainTile = BABYLON.MeshBuilder.CreateBox(("plane" + x) + y, { height: 1, width: 1, depth: 1 }, baby.scene);
+    baby.mountainTile.position.z = (y * 1)
+    baby.mountainTile.position.x = (x * 1)
+    baby.mountainTile.position.y = 0.5
+    baby.mountainTile.rotation.x = Math.PI / 2
+    var material = baby.materialsMap.get(skin)
     if (material) {
-        mountainTile.material = material;
+        baby.mountainTile.material = material;
     }
 
 }
