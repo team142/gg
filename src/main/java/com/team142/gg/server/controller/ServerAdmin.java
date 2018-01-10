@@ -56,7 +56,6 @@ public class ServerAdmin {
     public static void notifyDisconnection(Session session) {
         String id = session.getId();
         LOG.log(Level.INFO, "Removed player: {0}", id);
-        Server.SESSIONS_ON_SERVER.remove(id);
         Server.playerDisconnects(id);
 
     }
