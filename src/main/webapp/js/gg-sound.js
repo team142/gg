@@ -10,7 +10,7 @@ gSound.loadSounds = function () {
 }
 
 gSound.loadSound = function (path) {
-    var sound = new BABYLON.Sound(path, path, scene)
+    var sound = new BABYLON.Sound(path, path, baby.scene)
     gSound.soundMap.set(path, sound)
 
 }
