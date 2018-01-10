@@ -69,7 +69,7 @@ baby.createSkyBox = function () {
     skyboxMaterial.disableLighting = true
     var skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50*50, baby.scene)
     skybox1.material = skyboxMaterial
-    skybox1.visibility = 0.5
+    skybox1.visibility = 1
     
 }
 
@@ -137,7 +137,8 @@ baby.createMapTile = function (x, y, skin, model) {
     if (material) {
         plane.material = material
     }
-
+    plane.visibility = true
+    
 }
 
 baby.createBaseTile = function () {
@@ -152,6 +153,7 @@ baby.createBaseTile = function () {
     if (material) {
         baby.baseTile.material = material;
     }
+    baby.baseTile.visibility = false
 
 }
 
@@ -169,7 +171,8 @@ baby.createMountainTile = function () {
     if (material) {
         baby.mountainTile.material = material;
     }
-
+    baby.mountainTile.visibility = false
+    
 }
 
 baby.createGui = function () {
@@ -221,7 +224,7 @@ baby.createScene = function () {
     baby.camera.setTarget(BABYLON.Vector3.Zero())
     baby.camera.position.y = 0.75
     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene)
-    light.intensity = 0.7
+    light.intensity = 0.9
     baby.createMaterials()
     baby.createGui()
     return scene
