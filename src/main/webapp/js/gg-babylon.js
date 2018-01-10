@@ -1,18 +1,12 @@
 
 var baby = {}
-var canvas
-var engine
-var sphere
-
 var DIR = {
     x: 0,
     y: 0,
     z: 0
 }
 var scene
-var ground
 var materialsMap = new Map()
-var camera
 
 var baseTile
 var mountainTile
@@ -20,14 +14,14 @@ var mountainTile
 
 
 baby.setup3D = function () {
-    canvas = document.getElementById("VIEW_CANVAS")
-    engine = new BABYLON.Engine(canvas, true)
-    scene = baby.createScene()
-    engine.runRenderLoop(function () {
-        scene.render()
+    baby.canvas = document.getElementById("VIEW_CANVAS")
+    baby.engine = new BABYLON.Engine(baby.canvas, true)
+    baby.scene = baby.createScene()
+    baby.engine.runRenderLoop(function () {
+        baby.scene.render()
     })
     window.addEventListener("resize", function () {
-        engine.resize()
+        baby.engine.resize()
     })
     window.addEventListener("keyup", function (data) {
         sio.sendKeyUp(data.key)
@@ -70,14 +64,14 @@ baby.setup3D = function () {
 
 baby.createSkyBox = function () {
     // Skyboxes
-	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene)
+	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene)
     skyboxMaterial.backFaceCulling = false
-    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene)
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", baby.scene)
     skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
     skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0)
     skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0)
     skyboxMaterial.disableLighting = true
-    var skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50*50, scene)
+    var skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50*50, baby.scene)
     skybox1.material = skyboxMaterial
     skybox1.visibility = 0.5
     
@@ -89,7 +83,7 @@ baby.createSphereIfNotExists = function (tagId) {
         if (!result) {
             var name = "player" + match.gameInstance
             name = name + tagId
-            var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, scene)
+            var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
             item.position.y = 1
             match.playerTanks.set(tagId, mapItem)
 
@@ -117,8 +111,8 @@ baby.createMaterials = function () {
 
 
 baby.createAndSaveMaterial = function (textureFilePath) {
-    var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene)
-    materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, scene)
+    var materialPlane = new BABYLON.StandardMaterial("texturePlane", baby.scene)
+    materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, baby.scene)
     materialPlane.diffuseTexture.uScale = 1.0//Repeat 5 times on the Vertical Axes
     materialPlane.diffuseTexture.vScale = 1.0//Repeat 5 times on the Horizontal Axes
     materialPlane.backFaceCulling = false//Always show the front and the back of an element
@@ -154,7 +148,7 @@ baby.createBaseTile = function () {
     var x = -1
     var y = -1
     var skin = "/textures/water1-min.jpg"
-    baseTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene)
+    baseTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, baby.scene)
     baseTile.position.z = (y * 1)
     baseTile.position.x = (x * 1)
     baseTile.rotation.x = Math.PI / 2
@@ -170,9 +164,7 @@ baby.createMountainTile = function () {
     var y = -2
     var skin = "/textures/rock1-min.jpg"
 
-    mountainTile = BABYLON.MeshBuilder.CreateBox(("plane" + x) + y, { height: 1, width: 1, depth: 1 }, scene);
-
-    // mountainTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, scene)
+    mountainTile = BABYLON.MeshBuilder.CreateBox(("plane" + x) + y, { height: 1, width: 1, depth: 1 }, baby.scene);
     mountainTile.position.z = (y * 1)
     mountainTile.position.x = (x * 1)
     mountainTile.position.y = 0.5
@@ -197,7 +189,7 @@ baby.createGui = function () {
     button1.top = "0px"
     button1.left = "0px"
     button1.onPointerUpObservable.add(function () {
-        sphere.position.y = sphere.position.y + 0.1
+        // sphere.position.y = sphere.position.y + 0.1
         // alert("you did it!")
     })
     // advancedTexture.addControl(button1)
@@ -211,8 +203,7 @@ baby.createGui = function () {
     button2.top = "5px"
     button2.left = "0px"
     button2.onPointerUpObservable.add(function () {
-
-        sphere.position.y = sphere.position.y - 0.1
+        // sphere.position.y = sphere.position.y - 0.1
         // alert("you did it!")
     })
 
@@ -228,11 +219,11 @@ baby.createGui = function () {
 }
 
 baby.createScene = function () {
-    var scene = new BABYLON.Scene(engine)
+    var scene = new BABYLON.Scene(baby.engine)
     scene.name = "scene"
-    camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene)
-    camera.setTarget(BABYLON.Vector3.Zero())
-    camera.position.y = 0.75
+    baby.camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene)
+    baby.camera.setTarget(BABYLON.Vector3.Zero())
+    baby.camera.position.y = 0.75
     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene)
     light.intensity = 0.7
     baby.createMaterials()

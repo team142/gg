@@ -49,10 +49,10 @@ postman.playerLeft = function (obj) {
 postman.recievedDynamicThings = function (obj) {
     obj.THINGS.forEach(t => {
         if (t.tag == match.tag) {
-            camera.position.x = t.x
-            camera.position.y = t.y + 0.25
-            camera.position.z = t.z
-            camera.rotation.y = t.rotation
+            baby.camera.position.x = t.x
+            baby.camera.position.y = t.y + 0.25
+            baby.camera.position.z = t.z
+            baby.camera.rotation.y = t.rotation
         }
         var s = getPlayerByTag(t.tag)
         if (s) {
