@@ -24,7 +24,7 @@ public class Server {
     public static final ConcurrentHashMap<String, Player> PLAYERS_ON_SERVER = new ConcurrentHashMap<String, Player>();
     public static final ConcurrentHashMap<String, Game> GAMES_ON_SERVER = new ConcurrentHashMap<String, Game>();
     public static final ConcurrentHashMap<String, Session> SESSIONS_ON_SERVER = new ConcurrentHashMap<String, Session>();
-    public static final int TICK_MS = 80;
+    public static final int TICK_MS = 50;
     public static final double DEFAULT_SPEED = 0.125;
     public static final AtomicInteger TAGS = new AtomicInteger(1000);
 
