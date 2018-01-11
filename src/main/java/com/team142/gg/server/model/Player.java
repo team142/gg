@@ -5,10 +5,16 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.model.mappable.Bullet;
 import com.team142.gg.server.model.mappable.DirectionTypes;
 import com.team142.gg.server.model.mappable.MovableElement;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import lombok.Data;
 
 /**
@@ -25,8 +31,12 @@ public class Player {
     private final AtomicInteger deaths;
     private final MovableElement TANK;
     private final int TAG;
+    private final AtomicLong LAST_BULLET = new AtomicLong(0);
+    private int MS_PER_SHOT = 1000;
+    private final List<Bullet> BULLETS;
 
     public Player(String id) {
+        this.BULLETS = Collections.synchronizedList(new ArrayList<>());
         this.id = id;
         this.joinTimeMs = System.currentTimeMillis();
         this.kills = new AtomicInteger(0);
@@ -90,8 +100,21 @@ public class Player {
 
     private void attemptShoot() {
         //Check last shot
-        
-        
+        if (System.currentTimeMillis() - LAST_BULLET.get() >= MS_PER_SHOT) {
+            //We can shoot
+            LAST_BULLET.set(System.currentTimeMillis());
+
+            //Create a bullet
+            Bullet bullet = new Bullet(this);
+
+            //Add to player (Game will send to players)
+            BULLETS.add(bullet);
+
+            //Tell referee (send to game)
+            Referee.sendBullet(Server.getGameByPlayer(id), bullet);
+
+        }
+
     }
 
 }

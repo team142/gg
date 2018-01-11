@@ -8,9 +8,11 @@ package com.team142.gg.server.controller;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.mappable.Bullet;
 import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
 import com.team142.gg.server.model.messages.incoming.MessageJoinGame;
 import com.team142.gg.server.model.messages.base.ViewType;
+import com.team142.gg.server.model.messages.outgoing.rendered.MessageBullet;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareMap;
 
@@ -66,6 +68,10 @@ public class Referee {
 
     public static void sendMapToPlayers(Game game) {
         PostOffice.sendPlayersAMessage(game, new MessageShareMap(game));
+    }
+
+    public static void sendBullet(Game game, Bullet bullet) {
+        PostOffice.sendPlayersAMessage(game, new MessageBullet(bullet));
     }
 
 }
