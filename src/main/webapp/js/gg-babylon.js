@@ -111,13 +111,13 @@ baby.createSphereIfNotExists = function (tagId, labelText) {
             rectText.addControl(label)
             rectText.linkWithMesh(item)
             rectText.linkOffsetY = -50
-            
+
 
             //For now create a smily for each person
             var mat = new BABYLON.StandardMaterial("", baby.scene);
             mat.diffuseTexture = new BABYLON.Texture("textures/smily.png", baby.scene);
             item.material = mat;
-        
+
 
         }
     }
@@ -161,7 +161,7 @@ baby.createMap = function (arr) {
 }
 
 baby.createBaseBullet = function () {
-    var cone = BABYLON.MeshBuilder.CreateCylinder("cone", { diameterTop: 0, height: 1, tessellation: 96 }, scene)
+    var cone = BABYLON.MeshBuilder.CreateCylinder("cone", { diameterTop: 0, height: 1, tessellation: 96 }, baby.scene)
     var scl = 0.0625 //Much smaller than normal cone
     var scalingFactor = new BABYLON.Vector3(scl, scl, scl)
     cone.scaling = scalingFactor
