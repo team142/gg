@@ -6,6 +6,8 @@ var baby = {
         y: 0,
         z: 0
     }
+    
+    
 }
 
 
@@ -73,7 +75,13 @@ baby.createSkyBox = function () {
 
 }
 
-baby.createSphereIfNotExists = function (tagId) {
+baby.displayScores = function () {
+    game.scores.forEach((row) => {
+        //
+    })
+}
+
+baby.createSphereIfNotExists = function (tagId, labelText) {
     if (tagId) {
         var result = getPlayerByTag(tagId)
         if (!result) {
@@ -82,6 +90,22 @@ baby.createSphereIfNotExists = function (tagId) {
             var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
             item.position.y = 1
             match.playerTanks.set(tagId, item)
+
+
+            var rectText = new BABYLON.GUI.Rectangle()
+            rectText.width = 0.2
+            rectText.height = "100px"
+            rectText.cornerRadius = 20
+            rectText.thickness = 0
+            baby.advancedTexture.addControl(rectText)
+            var label = new BABYLON.GUI.TextBlock()
+            label.text = labelText
+            rectText.addControl(label)
+            rectText.linkWithMesh(item)
+            rectText.linkOffsetY = -50
+
+
+
         }
     }
 }
@@ -176,7 +200,7 @@ baby.createMountainTile = function () {
 
 baby.createGui = function () {
     // GUI
-    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI")
+    baby.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI")
 
     var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Airstrike")
     button1.width = "125px"
@@ -190,7 +214,7 @@ baby.createGui = function () {
         // sphere.position.y = sphere.position.y + 0.1
         // alert("you did it!")
     })
-    // advancedTexture.addControl(button1)
+    // baby.advancedTexture.addControl(button1)
 
     var button2 = BABYLON.GUI.Button.CreateSimpleButton("but2", "Radar")
     button2.width = "125px"
@@ -210,7 +234,7 @@ baby.createGui = function () {
     panel3.fontSize = "14px"
     panel3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
     panel3.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
-    advancedTexture.addControl(panel3)
+    baby.advancedTexture.addControl(panel3)
     panel3.addControl(button1)
     panel3.addControl(button2)
 
