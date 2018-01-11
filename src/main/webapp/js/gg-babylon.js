@@ -5,9 +5,9 @@ var baby = {
         x: 0,
         y: 0,
         z: 0
-    }
-    
-    
+    },
+    textScores: []
+
 }
 
 
@@ -76,8 +76,9 @@ baby.createSkyBox = function () {
 }
 
 baby.displayScores = function () {
-    game.scores.forEach((row) => {
-        //
+
+    game.scores.forEach((row, i) => {
+        baby.createRightText(i, row.key, row.value)
     })
 }
 
@@ -198,45 +199,64 @@ baby.createMountainTile = function () {
 
 }
 
+baby.createRightText = function (num, name, score) {
+    var current
+    if (num < baby.textScores.length) {
+        current = baby.textScores[num]
+        console.log("Using: current from array- " + num + " " + name)
+    } else {
+        current = new BABYLON.GUI.TextBlock()
+        current.text = name + ": " + score
+        current.color = "white"
+        current.fontSize = 24
+        current.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT
+        baby.panelScores.addControl(current)
+        baby.textScores.push(current)
+        console.log("Created: " + num + " " + name)
+    }
+
+}
+
 baby.createGui = function () {
     // GUI
     baby.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI")
 
-    var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Airstrike")
-    button1.width = "125px"
-    button1.height = "40px"
-    button1.color = "white"
-    button1.cornerRadius = 20
-    button1.background = "green"
-    button1.top = "0px"
-    button1.left = "0px"
-    button1.onPointerUpObservable.add(function () {
-        // sphere.position.y = sphere.position.y + 0.1
-        // alert("you did it!")
-    })
-    // baby.advancedTexture.addControl(button1)
+    // var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Airstrike")
+    // button1.width = "125px"
+    // button1.height = "40px"
+    // button1.color = "white"
+    // button1.cornerRadius = 20
+    // button1.background = "green"
+    // button1.top = "0px"
+    // button1.left = "0px"
+    // button1.onPointerUpObservable.add(function () {
+    //     // sphere.position.y = sphere.position.y + 0.1
+    //     // alert("you did it!")
+    // })
+    // // baby.advancedTexture.addControl(button1)
 
-    var button2 = BABYLON.GUI.Button.CreateSimpleButton("but2", "Radar")
-    button2.width = "125px"
-    button2.height = "40px"
-    button2.color = "white"
-    button2.cornerRadius = 20
-    button2.background = "green"
-    button2.top = "5px"
-    button2.left = "0px"
-    button2.onPointerUpObservable.add(function () {
-        // sphere.position.y = sphere.position.y - 0.1
-        // alert("you did it!")
-    })
+    // var button2 = BABYLON.GUI.Button.CreateSimpleButton("but2", "Radar")
+    // button2.width = "125px"
+    // button2.height = "40px"
+    // button2.color = "white"
+    // button2.cornerRadius = 20
+    // button2.background = "green"
+    // button2.top = "5px"
+    // button2.left = "0px"
+    // button2.onPointerUpObservable.add(function () {
+    //     // sphere.position.y = sphere.position.y - 0.1
+    //     // alert("you did it!")
+    // })
 
-    var panel3 = new BABYLON.GUI.StackPanel()
-    panel3.width = "220px"
-    panel3.fontSize = "14px"
-    panel3.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
-    panel3.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
-    baby.advancedTexture.addControl(panel3)
-    panel3.addControl(button1)
-    panel3.addControl(button2)
+    baby.panelScores = new BABYLON.GUI.StackPanel()
+    baby.panelScores.width = "220px"
+    baby.panelScores.height = "100px"
+    baby.panelScores.fontSize = "14px"
+    baby.panelScores.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
+    baby.panelScores.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+    baby.advancedTexture.addControl(baby.panelScores)
+    // baby.panelScores.addControl(button1)
+    // baby.panelScores.addControl(button2)
 
 }
 
