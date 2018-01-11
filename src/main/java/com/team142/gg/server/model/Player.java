@@ -50,6 +50,7 @@ public class Player {
         this.TANK = new MovableElement(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG);
         this.tickerPhysics = new TickerPhysics(this);
         this.tickerComms = new TickerComms(this);
+        this.name = "";
 
     }
 

@@ -71,4 +71,12 @@ public class Server {
 
     }
 
+    public static boolean hasPlayerByName(String name) {
+        return PLAYERS_ON_SERVER
+                .values()
+                .stream()
+                .anyMatch((p) -> (p.getName().equals(name)));
+
+    }
+
 }

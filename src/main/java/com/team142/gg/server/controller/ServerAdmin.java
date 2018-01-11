@@ -28,7 +28,8 @@ public class ServerAdmin {
     }
 
     public static void handle(MessageJoinServer body) {
-        Server.PLAYERS_ON_SERVER.get(body.getFrom()).setName(body.getName());
+        String name = ensureUniqueName(body.getName());
+        Server.PLAYERS_ON_SERVER.get(body.getFrom()).setName(name);
         changePlayerView(body.getFrom(), ViewType.VIEW_GAMES);
         ServerAdmin.notifyPlayerOfGames(body.getFrom());
 
@@ -57,6 +58,19 @@ public class ServerAdmin {
         String id = session.getId();
         LOG.log(Level.INFO, "Removed player: {0}", id);
         Server.playerDisconnects(id);
+
+    }
+
+    public static String ensureUniqueName(String in) {
+        boolean present = true;
+        int num = 0;
+        String test = in;
+        while (present) {
+            test = num == 0 ? in : in + num;
+            present = Server.hasPlayerByName(test);
+            num++;
+        }
+        return test;
 
     }
 
