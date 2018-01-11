@@ -6,18 +6,22 @@
 package com.team142.gg.server.model.messages.outgoing.rendered;
 
 import com.team142.gg.server.model.mappable.Bullet;
+import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
 /**
  *
  * @author just1689
  */
-@Data
-@AllArgsConstructor
 public class MessageBullet extends Message {
 
-    private Bullet BULLET;
+    @Getter
+    private final Bullet BULLET;
+
+    public MessageBullet(Bullet BULLET) {
+        setConversation(ConversationType.S_SHARE_BULLETS.name());
+        this.BULLET = BULLET;
+    }
 
 }
