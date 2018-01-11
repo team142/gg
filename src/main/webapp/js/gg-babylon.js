@@ -6,7 +6,14 @@ var baby = {
         y: 0,
         z: 0
     },
-    textScores: []
+    textScores: [],
+    counter: 0
+
+}
+
+baby.getCounter = function () {
+    baby.counter++
+    return baby.counter
 
 }
 
@@ -56,6 +63,7 @@ baby.setup3D = function () {
     baby.createMountainTile()
     gSound.loadSounds()
     baby.createSkyBox()
+    baby.baseBullet = baby.createBaseBullet()
     // var t = setInterval(movementTick, 40)
 
 }
@@ -76,10 +84,10 @@ baby.createSkyBox = function () {
 }
 
 baby.displayScores = function () {
-
     game.scores.forEach((row, i) => {
         baby.createRightText(i, row.key, row.value)
     })
+
 }
 
 baby.createSphereIfNotExists = function (tagId, labelText) {
@@ -91,7 +99,6 @@ baby.createSphereIfNotExists = function (tagId, labelText) {
             var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
             item.position.y = 1
             match.playerTanks.set(tagId, item)
-
 
             var rectText = new BABYLON.GUI.Rectangle()
             rectText.width = 0.2
@@ -105,10 +112,9 @@ baby.createSphereIfNotExists = function (tagId, labelText) {
             rectText.linkWithMesh(item)
             rectText.linkOffsetY = -50
 
-
-
         }
     }
+
 }
 
 baby.createMaterials = function () {
@@ -145,6 +151,28 @@ baby.createMap = function (arr) {
         baby.createMapTile(t.x, t.z, t.skin, t.model)
     })
 
+}
+
+baby.createBaseBullet = function () {
+    var cone = BABYLON.MeshBuilder.CreateCylinder("cone", { diameterTop: 0, height: 1, tessellation: 96 }, scene)
+    var scl = 0.0625 //Much smaller than normal cone
+    var scalingFactor = new BABYLON.Vector3(scl, scl, scl)
+    cone.scaling = scalingFactor
+    cone.position.multiplyInPlace(scalingFactor)
+    cone.rotation.x = -1.57
+    return cone
+
+}
+
+baby.createBullet = function () {
+
+    var bullet
+    bullet = baby.baseBullet.clone("bullet" + baby.getCounter())
+    //Set start location
+
+    //Set path
+
+    //Start animation?
 }
 
 baby.createMapTile = function (x, y, skin, model) {
