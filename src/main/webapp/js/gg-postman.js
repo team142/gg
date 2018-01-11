@@ -34,14 +34,13 @@ postman.incoming = function (event) {
 
 postman.scoreboard = function (obj) {
     obj.TAGS.forEach(t => {
-        if (getPlayerByTag(t)) {
-            baby.createSphereIfNotExists(t)
-        }
+        baby.createSphereIfNotExists(t)
     })
 
 }
 
 postman.playerLeft = function (obj) {
+    getPlayerByTag(obj.tag).dispose()
     match.playerTanks.delete(obj.tag)
 
 }

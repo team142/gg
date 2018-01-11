@@ -54,9 +54,7 @@ public class Server {
         Server.PLAYERS_ON_SERVER.remove(id);
         SESSIONS_ON_SERVER.remove(id);
         GAMES_ON_SERVER.values().stream()
-                .filter(e -> e.hasPlayer(id))
-                .findFirst()
-                .ifPresent((game) -> game.removePlayer(player));
+                .forEach((game) -> game.removePlayer(player));
 
     }
 

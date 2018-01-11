@@ -60,17 +60,17 @@ baby.setup3D = function () {
 
 baby.createSkyBox = function () {
     // Skyboxes
-	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene)
+    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene)
     skyboxMaterial.backFaceCulling = false
     skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", baby.scene)
     skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
     skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0)
     skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0)
     skyboxMaterial.disableLighting = true
-    var skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50*50, baby.scene)
+    var skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50 * 50, baby.scene)
     skybox1.material = skyboxMaterial
     skybox1.visibility = 1
-    
+
 }
 
 baby.createSphereIfNotExists = function (tagId) {
@@ -81,8 +81,7 @@ baby.createSphereIfNotExists = function (tagId) {
             name = name + tagId
             var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
             item.position.y = 1
-            match.playerTanks.set(tagId, mapItem)
-
+            match.playerTanks.set(tagId, item)
         }
     }
 }
@@ -138,7 +137,7 @@ baby.createMapTile = function (x, y, skin, model) {
         plane.material = material
     }
     plane.visibility = true
-    
+
 }
 
 baby.createBaseTile = function () {
@@ -172,7 +171,7 @@ baby.createMountainTile = function () {
         baby.mountainTile.material = material;
     }
     baby.mountainTile.visibility = false
-    
+
 }
 
 baby.createGui = function () {
