@@ -12,6 +12,7 @@ package com.team142.gg.server.controller.map.terrain;
 public enum SkinType {
     WATER,
     GRASS,
-    ROCK
+    ROCK,
+    BULLET
 
 }
