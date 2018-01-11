@@ -12,5 +12,5 @@ package com.team142.gg.server.controller.map.terrain;
 public enum ModelType {
     FLAT_TILE,
     ROCK_TILE
-    
+
 }
