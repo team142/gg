@@ -6,7 +6,7 @@
 package com.team142.gg.server.workers;
 
 import com.team142.gg.server.controller.PostOffice;
-import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareThingsDynamic;
 import com.team142.gg.server.workers.base.AbstractTickerWorker;
 
@@ -16,18 +16,18 @@ import com.team142.gg.server.workers.base.AbstractTickerWorker;
  */
 public class TickerComms extends AbstractTickerWorker {
 
-    public TickerComms(Game game) {
-        super(game);
+    public TickerComms(Player player) {
+        super(player);
     }
 
     @Override
     public void doTick() {
-        PostOffice.sendPlayersAMessage(getGAME(), getDynamicThingsMessage());
+        PostOffice.sendPlayerAMessage(getPLAYER().getId(), getDynamicThingsMessage());
 
     }
 
     private MessageShareThingsDynamic getDynamicThingsMessage() {
-        return new MessageShareThingsDynamic(getGAME());
+        return new MessageShareThingsDynamic(getPLAYER().getGame());
     }
 
 }

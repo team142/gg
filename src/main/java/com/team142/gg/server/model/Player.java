@@ -10,6 +10,8 @@ import com.team142.gg.server.model.mappable.Bullet;
 import com.team142.gg.server.model.mappable.DirectionTypes;
 import com.team142.gg.server.model.mappable.MovableElement;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
+import com.team142.gg.server.workers.TickerComms;
+import com.team142.gg.server.workers.TickerPhysics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +36,9 @@ public class Player {
     private final AtomicLong LAST_BULLET = new AtomicLong(0);
     private int MS_PER_SHOT = 1000;
     private final List<Bullet> BULLETS;
+    private Game game;
+    private TickerComms tickerComms;
+    private TickerPhysics tickerPhysics;
 
     public Player(String id) {
         this.BULLETS = Collections.synchronizedList(new ArrayList<>());
@@ -41,8 +46,9 @@ public class Player {
         this.joinTimeMs = System.currentTimeMillis();
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
-        TAG = Server.TAGS.incrementAndGet();
-        TANK = new MovableElement(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG);
+        this.TAG = Server.TAGS.incrementAndGet();
+        this.TANK = new MovableElement(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG);
+
     }
 
     public void addKill() {
@@ -114,6 +120,22 @@ public class Player {
             Referee.sendBullet(Server.getGameByPlayer(id), bullet);
 
         }
+
+    }
+
+    public void start() {
+        tickerPhysics = new TickerPhysics(this);
+        Thread threadPhysics = new Thread(tickerPhysics);
+        threadPhysics.start();
+        this.tickerComms = new TickerComms(this);
+        Thread threadComms = new Thread(tickerComms);
+        threadComms.start();
+
+    }
+
+    public void stop() {
+        tickerPhysics.getRUNNING().set(false);
+        tickerComms.getRUNNING().set(false);
 
     }
 

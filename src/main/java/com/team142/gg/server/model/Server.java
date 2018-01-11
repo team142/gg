@@ -44,17 +44,17 @@ public class Server {
         Game game = new Game(name);
         MapMaker.generateMap(settings, game);
         GAMES_ON_SERVER.put(game.getId(), game);
-        game.start();
         return game;
 
     }
 
     public static void playerDisconnects(String id) {
         Player player = PLAYERS_ON_SERVER.get(id);
+        player.getGame().removePlayer(player);
+        player.setGame(null);
+        player.stop();
         Server.PLAYERS_ON_SERVER.remove(id);
         SESSIONS_ON_SERVER.remove(id);
-        GAMES_ON_SERVER.values().stream()
-                .forEach((game) -> game.removePlayer(player));
 
     }
 

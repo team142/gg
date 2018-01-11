@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.workers;
 
-import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.Player;
 import com.team142.gg.server.workers.base.AbstractTickerWorker;
 
 /**
@@ -14,13 +14,13 @@ import com.team142.gg.server.workers.base.AbstractTickerWorker;
  */
 public class TickerPhysics extends AbstractTickerWorker {
 
-    public TickerPhysics(Game game) {
-        super(game);
+    public TickerPhysics(Player player) {
+        super(player);
     }
 
     @Override
     public void doTick() {
-        getGAME().getTANKS().values().forEach((item) -> item.movementTick());
+        getPLAYER().getTANK().movementTick();
     }
 
 }

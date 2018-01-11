@@ -6,7 +6,7 @@
 package com.team142.gg.server.workers.base;
 
 import com.team142.gg.server.controller.Referee;
-import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
@@ -22,13 +22,14 @@ public abstract class AbstractTickerWorker implements Runnable {
     private static final Logger LOG = Logger.getLogger(Referee.class.getName());
 
     @Getter
-    private final Game GAME;
+    private final Player PLAYER;
 
+    @Getter
     private final AtomicBoolean RUNNING = new AtomicBoolean(true);
     private long nextSleepTimeMs;
 
-    public AbstractTickerWorker(Game GAME) {
-        this.GAME = GAME;
+    public AbstractTickerWorker(Player player) {
+        this.PLAYER = player;
     }
 
     public void stopNow() {
