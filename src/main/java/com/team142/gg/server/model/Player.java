@@ -54,29 +54,30 @@ public class Player {
     }
 
     public void keyDown(String key) {
-        if (key.equals("A")) {
-            TANK.setRotation(TANK.getRotation().subtract(DirectionTypes.ONE_TICK_ROTATE));
-            if (TANK.getRotation().compareTo(DirectionTypes.DIR0) < 0) {
-                TANK.setRotation(DirectionTypes.DIR7);
-            }
-//            System.out.println("Direction: " + TANK.getRotation().toPlainString());
-            return;
-        }
-        if (key.equals("W")) {
-            TANK.setDirection(1);
-            return;
-        }
-        if (key.equals("D")) {
-            TANK.setRotation(TANK.getRotation().add(DirectionTypes.ONE_TICK_ROTATE));
-            if (TANK.getRotation().compareTo(DirectionTypes.DIR8) >= 0) {
-                TANK.setRotation(DirectionTypes.DIR0);
-            }
-//            System.out.println("Direction: " + TANK.getRotation().toPlainString());
-            return;
-        }
-        if (key.equals("S")) {
-            TANK.setDirection(-1);
-            return;
+        switch (key) {
+            case "A":
+                TANK.setRotation(TANK.getRotation().subtract(DirectionTypes.ONE_TICK_ROTATE));
+                if (TANK.getRotation().compareTo(DirectionTypes.DIR0) < 0) {
+                    TANK.setRotation(DirectionTypes.DIR7);
+                }
+                return;
+            case "W":
+                TANK.setDirection(1);
+                return;
+            case "D":
+                TANK.setRotation(TANK.getRotation().add(DirectionTypes.ONE_TICK_ROTATE));
+                if (TANK.getRotation().compareTo(DirectionTypes.DIR8) >= 0) {
+                    TANK.setRotation(DirectionTypes.DIR0);
+                }
+                return;
+            case "S":
+                TANK.setDirection(-1);
+                return;
+            case " ":
+                attemptShoot();
+                return;
+            default:
+                break;
         }
 
         TANK.setDirection(0);
@@ -85,6 +86,12 @@ public class Player {
 
     public void keyUp(String key) {
         TANK.setDirection(0);
+    }
+
+    private void attemptShoot() {
+        //Check last shot
+        
+        
     }
 
 }
