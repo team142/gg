@@ -33,9 +33,22 @@ postman.incoming = function (event) {
 }
 
 postman.scoreboard = function (obj) {
-    obj.TAGS.forEach(t => {
-        baby.createSphereIfNotExists(t)
+    
+    Object.keys(obj.TAGS).forEach((key) => {
+        baby.createSphereIfNotExists(obj.TAGS[key], key)
     })
+
+    game.scores = []
+    Object.keys(obj.SCORES).forEach((key) => {
+        game.scores.push({
+            key: key,
+            value: obj.SCORES[key]
+        })
+    })
+    game.scores.sort(function(a, b){
+        return a.value - b.value
+    })
+    baby.displayScores()
 
 }
 

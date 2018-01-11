@@ -7,7 +7,7 @@ package com.team142.gg.server.model;
 
 import com.team142.gg.server.model.mappable.DirectionTypes;
 import com.team142.gg.server.model.mappable.MovableElement;
-import java.util.Map;
+import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Data;
 
@@ -43,9 +43,14 @@ public class Player {
         this.deaths.addAndGet(1);
     }
 
-    public void addScoreToBoard(Map<String, Integer> map) {
+    public void populateScorebord(MessageScoreboard board) {
+        //Add score
         int score = this.kills.get() - this.deaths.get();
-        map.put(name, score < 0 ? 0 : score);
+        board.getSCORES().put(name, score < 0 ? 0 : score);
+
+        //Add tag
+        board.getTAGS().put(name, TAG);
+
     }
 
     public void keyDown(String key) {

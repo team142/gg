@@ -1,4 +1,6 @@
-var game = {}
+var game = {
+    scores: []
+}
 
 game.tick = function () {
     // sphere.position.x += (0.05 * DIR.x)
