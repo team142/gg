@@ -111,6 +111,13 @@ baby.createSphereIfNotExists = function (tagId, labelText) {
             rectText.addControl(label)
             rectText.linkWithMesh(item)
             rectText.linkOffsetY = -50
+            
+
+            //For now create a smily for each person
+            var mat = new BABYLON.StandardMaterial("", baby.scene);
+            mat.diffuseTexture = new BABYLON.Texture("textures/smily.png", baby.scene);
+            item.material = mat;
+        
 
         }
     }
