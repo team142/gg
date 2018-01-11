@@ -37,8 +37,8 @@ public class Player {
     private int MS_PER_SHOT = 1000;
     private final List<Bullet> BULLETS;
     private Game game;
-    private TickerComms tickerComms;
-    private TickerPhysics tickerPhysics;
+    private final TickerComms tickerComms;
+    private final TickerPhysics tickerPhysics;
 
     public Player(String id) {
         this.BULLETS = Collections.synchronizedList(new ArrayList<>());
@@ -48,6 +48,8 @@ public class Player {
         this.deaths = new AtomicInteger(0);
         this.TAG = Server.TAGS.incrementAndGet();
         this.TANK = new MovableElement(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG);
+        this.tickerPhysics = new TickerPhysics(this);
+        this.tickerComms = new TickerComms(this);
 
     }
 
@@ -124,12 +126,9 @@ public class Player {
     }
 
     public void start() {
-        tickerPhysics = new TickerPhysics(this);
-        Thread threadPhysics = new Thread(tickerPhysics);
-        threadPhysics.start();
-        this.tickerComms = new TickerComms(this);
-        Thread threadComms = new Thread(tickerComms);
-        threadComms.start();
+        System.out.println("Starting threads for: " + getName());
+        new Thread(tickerPhysics).start();
+        new Thread(tickerComms).start();
 
     }
 
