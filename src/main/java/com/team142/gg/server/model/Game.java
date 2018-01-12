@@ -8,7 +8,7 @@ package com.team142.gg.server.model;
 import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.mappable.MapTileElement;
-import com.team142.gg.server.model.mappable.MovableElement;
+import com.team142.gg.server.model.mappable.Tank;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlayerLeft;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class Game {
     private final String id;
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
     private final String name;
-    private final ConcurrentHashMap<String, MovableElement> TANKS = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
     private final List<MapTileElement> MAP;
     
     private final double startHealth;
