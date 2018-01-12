@@ -65,8 +65,34 @@ class Bullet {
             this.bBullet.position.z = (this.bBullet.position.z + (this.sBullet.diagonalspeed))
 
         } else {
-            console.log("Arrrghg")
+
         }
+
+        if (this.bBullet.position.x < 0) {
+            this.removeMe()
+            return
+        }
+        if (this.bBullet.position.z < 0) {
+            this.removeMe()
+            return
+        }
+        if (this.bBullet.position.x > 50 + 1) {
+            this.removeMe()
+            return
+        }
+        if (this.bBullet.position.z > 50 + 1) {
+            this.removeMe()
+            return
+        }
+
+    }
+
+    removeMe() {
+        this.bBullet.dispose()
+        const index = bullets.indexOf(this)
+        bullets.splice(index, 1)
+        console.log("removed bullet")
+
     }
 
 }
