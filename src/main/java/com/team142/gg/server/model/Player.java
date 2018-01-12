@@ -8,7 +8,6 @@ package com.team142.gg.server.model;
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.mappable.Bullet;
 import com.team142.gg.server.model.mappable.DirectionTypes;
-import com.team142.gg.server.model.mappable.MovableElement;
 import com.team142.gg.server.model.mappable.Tank;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.workers.TickerComms;

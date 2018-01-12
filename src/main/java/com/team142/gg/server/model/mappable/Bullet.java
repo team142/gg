@@ -10,7 +10,6 @@ import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.utils.PhysicsUtils;
-import java.util.Iterator;
 import lombok.Getter;
 
 /**
