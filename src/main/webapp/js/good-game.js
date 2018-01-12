@@ -43,6 +43,16 @@ game.appStart = function () {
     web.toggleElement("VIEW_CANVAS", false)
     web.toggleElement("VIEW_GAMES", false)
 
+    var localHostname = window.location.hostname
+    var port =  window.location.port
+    var s
+    if (port == 80) {
+        s = localHostname + "/"
+    } else {
+        s = localHostname + ":" + port + "/"
+    }
+    document.querySelector('#selectServer [value="' + s + '"]').selected = true    
+
 }
 
 window.onload = game.appStart
