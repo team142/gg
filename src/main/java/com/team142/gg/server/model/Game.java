@@ -32,7 +32,7 @@ public class Game {
     private final String name;
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
     private final List<MapTileElement> MAP;
-    
+
     private final double startHealth;
 
     public Game(String name) {
@@ -40,7 +40,7 @@ public class Game {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.startHealth = 100;
-        
+
     }
 
     public MessageGameSummary toGameSummary() {
@@ -61,6 +61,8 @@ public class Game {
 
     public void playerJoins(Player player) {
         TANKS.put(player.getId(), player.getTANK());
+        player.getTANK().setMaxHealth(startHealth);
+        player.getTANK().setHealth(startHealth);
         players.add(player);
         player.start();
 
