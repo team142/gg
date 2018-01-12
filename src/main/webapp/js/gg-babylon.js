@@ -136,9 +136,9 @@ baby.createMaterials = function () {
         "water2-min.jpg",
         "water3-min.jpg"
     ]
-    textureFiles.forEach(file => {
+    for (const file of textureFiles) {
         baby.createAndSaveMaterial("/textures/" + file)
-    })
+    }
 
 }
 
@@ -154,9 +154,9 @@ baby.createAndSaveMaterial = function (textureFilePath) {
 }
 
 baby.createMap = function (arr) {
-    arr.forEach(t => {
+    for (const t of arr) {
         baby.createMapTile(t.x, t.z, t.skin, t.model)
-    })
+    }
 
 }
 

@@ -33,19 +33,18 @@ postman.incoming = function (event) {
 }
 
 postman.scoreboard = function (obj) {
-    
-    Object.keys(obj.TAGS).forEach((key) => {
+    for (const key of Object.keys(obj.TAGS)) {
         baby.createSphereIfNotExists(obj.TAGS[key], key)
-    })
+    }
 
     game.scores = []
-    Object.keys(obj.SCORES).forEach((key) => {
+    for (const key of Object.keys(obj.SCORES)) {
         game.scores.push({
             key: key,
             value: obj.SCORES[key]
         })
-    })
-    game.scores.sort(function(a, b){
+    }
+    game.scores.sort(function (a, b) {
         return a.value - b.value
     })
     baby.displayScores()
@@ -59,7 +58,7 @@ postman.playerLeft = function (obj) {
 }
 
 postman.recievedDynamicThings = function (obj) {
-    obj.THINGS.forEach(t => {
+    for (const t of obj.THINGS) {
         if (t.tag == match.tag) {
             baby.camera.position.x = t.x
             baby.camera.position.y = t.y + 0.25
@@ -73,6 +72,6 @@ postman.recievedDynamicThings = function (obj) {
             s.position.z = t.z
             s.rotation.y = t.rotation
         }
-    })
+    }
 
 }
