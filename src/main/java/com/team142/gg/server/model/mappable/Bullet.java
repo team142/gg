@@ -75,8 +75,8 @@ public class Bullet extends MovableElement {
         }
         if (getZ() > 50 + 1) {
             ok = false;
-            return;
         }
+        
     }
 
     public void damage(Tank tank) {
