@@ -111,17 +111,21 @@ public class Player {
         if (System.currentTimeMillis() - LAST_BULLET.get() >= MS_PER_SHOT) {
             //We can shoot
             LAST_BULLET.set(System.currentTimeMillis());
-
-            //Create a bullet
-            Bullet bullet = new Bullet(this);
-
-            //Add to player (Game will send to players)
-            BULLETS.add(bullet);
-
-            //Tell referee (send to game)
-            Referee.sendBullet(Server.getGameByPlayer(id), bullet);
+            shoot();
 
         }
+
+    }
+
+    private void shoot() {
+        //Create a bullet
+        Bullet bullet = new Bullet(this);
+
+        //Add to player (Game will send to players)
+        BULLETS.add(bullet);
+
+        //Tell referee (send to game)
+        Referee.sendBullet(Server.getGameByPlayer(id), bullet);
 
     }
 
