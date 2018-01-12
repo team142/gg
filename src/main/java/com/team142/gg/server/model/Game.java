@@ -32,11 +32,15 @@ public class Game {
     private final String name;
     private final ConcurrentHashMap<String, MovableElement> TANKS = new ConcurrentHashMap<>();
     private final List<MapTileElement> MAP;
+    
+    private final double startHealth;
 
     public Game(String name) {
         this.MAP = Collections.synchronizedList(new ArrayList<>());
         this.id = UUID.randomUUID().toString();
         this.name = name;
+        this.startHealth = 100;
+        
     }
 
     public MessageGameSummary toGameSummary() {
