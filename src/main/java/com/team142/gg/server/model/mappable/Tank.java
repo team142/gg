@@ -5,6 +5,8 @@
  */
 package com.team142.gg.server.model.mappable;
 
+import com.team142.gg.server.model.Player;
+import com.team142.gg.server.model.Server;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,15 +24,28 @@ public class Tank extends MovableElement {
     @Setter
     private double maxHealth;
 
-    public Tank(double x, double y, double z, String skin, double speed, int tag, double hp) {
+    @Getter
+    @Setter
+    private String playerId;
+
+    public Tank(double x, double y, double z, String skin, double speed, int tag, double hp, Player player) {
         super(x, y, z, skin, speed, tag);
         this.health = hp;
         this.maxHealth = hp;
+        this.playerId = player.getId();
     }
 
-    public void damage(double dmg) {
-        System.out.println("Damage! " + dmg);
+    public void damage(double dmg, Player player) {
         health -= dmg;
+        System.out.println(
+                "Damage! "
+                + dmg
+                + " from "
+                + player.getName()
+                + " to "
+                + Server.PLAYERS_ON_SERVER.get(playerId).getName()
+                + " hp now: " + health
+        );
 
     }
 

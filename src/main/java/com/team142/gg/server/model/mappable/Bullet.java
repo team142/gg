@@ -5,8 +5,8 @@
  */
 package com.team142.gg.server.model.mappable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team142.gg.server.controller.map.terrain.SkinType;
-import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.utils.PhysicsUtils;
@@ -20,6 +20,8 @@ import lombok.Setter;
 public class Bullet extends MovableElement {
 
     @Getter
+    @Setter
+    @JsonIgnore
     private Player player;
 
     @Getter
@@ -28,26 +30,52 @@ public class Bullet extends MovableElement {
     @Setter
     private double damage;
 
-    private Game game;
-
     public Bullet(Player player) {
         super(player.getTANK().getX(), player.getTANK().getY(), player.getTANK().getZ(), SkinType.BULLET.name(), Server.DEFAULT_SPEED, -1);
-        this.setDirection(player.getTANK().getDirection());
+        this.setDirection(1);
+        this.setRotation(player.getTANK().getRotation());
         this.player = player;
         this.damage = 50; //WHO KNOWs..
+        this.ok = true;
 
     }
 
     public void movementTickBullet() {
+        if (!ok) {
+            return;
+        }
+//        System.out.println(getX() + ", " + getY() + ", " + getZ() + " Rotation: " + getRotation().toPlainString() + " dir: " + getDirection());
         movementTick();
         player
                 .getGame()
                 .getTANKS()
                 .values()
                 .stream()
+                .filter((tank) -> tank.getTAG() != player.getTAG())
                 .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this))
-                .forEach((tank) -> tank.damage(damage));
+                .forEach((tank) -> damage(tank));
 
+        if (getX() < 0) {
+            ok = false;
+            return;
+        }
+        if (getZ() < 0) {
+            ok = false;
+            return;
+        }
+        if (getX() > 50 + 1) { //NEED TO USE MAP SIZE?
+            ok = false;
+            return;
+        }
+        if (getZ() > 50 + 1) {
+            ok = false;
+            return;
+        }
+    }
+
+    public void damage(Tank tank) {
+        tank.damage(damage, player);
+        ok = false;
     }
 
 }

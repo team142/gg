@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.Data;
@@ -30,7 +31,7 @@ import lombok.Data;
 public class Game {
 
     private final String id;
-    private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
+    private final List<Player> players = new CopyOnWriteArrayList<>();
     private final String name;
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
     private final List<MapTileElement> MAP;
