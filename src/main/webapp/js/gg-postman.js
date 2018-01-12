@@ -29,6 +29,9 @@ postman.incoming = function (event) {
     } else if (conversation == "S_PLAYER_LEFT") {
         postman.playerLeft(obj)
 
+    } else if (conversation == "S_SHARE_BULLETS") {
+        baby.createBullet(obj)
+
     } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
         postman.recievedDynamicThings(obj)
 

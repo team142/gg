@@ -171,11 +171,17 @@ baby.createBaseBullet = function () {
 
 }
 
-baby.createBullet = function () {
+baby.createBullet = function (obj) {
+    console.log(obj.BULLET)
 
     var bullet
     bullet = baby.baseBullet.clone("bullet" + baby.getCounter())
     //Set start location
+
+    bullet.position.x = obj.BULLET.x
+    bullet.position.y = obj.BULLET.y
+    bullet.position.z = obj.BULLET.z
+    bullet.rotation.y = obj.BULLET.rotation + Math.PI
 
     //Set path
 
@@ -276,6 +282,8 @@ baby.createScene = function () {
     return scene
 
 }
+
+
 
 // function movementTick() {
 //     //TODO
