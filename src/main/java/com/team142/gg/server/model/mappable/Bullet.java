@@ -37,6 +37,12 @@ public class Bullet extends MovableElement {
         this.player = player;
         this.damage = 50; //WHO KNOWs..
         this.ok = true;
+        if (getX() < 0) {
+            setX(0);
+        }
+        if (getZ() < 0) {
+            setZ(0);
+        }
 
     }
 

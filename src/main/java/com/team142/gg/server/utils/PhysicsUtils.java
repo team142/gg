@@ -16,8 +16,8 @@ public class PhysicsUtils {
     public static boolean isTinyObjectInLarger(PlaceableElement t, PlaceableElement l) {
 
         boolean isIn
-                = ((t.getX() >= l.getX() && t.getX() <= l.getX() + 1)
-                && (t.getZ() >= l.getZ() && t.getZ() <= l.getZ() + 1));
+                = ((t.getX() >= l.getX() - 0.5 && t.getX() <= l.getX() + 0.5)
+                && (t.getZ() >= l.getZ() - 0.5 && t.getZ() <= l.getZ() + 0.5));
         if (isIn) {
             System.out.println("Tiny in in larger!");
 
