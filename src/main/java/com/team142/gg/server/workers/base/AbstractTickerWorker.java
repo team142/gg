@@ -30,6 +30,7 @@ public abstract class AbstractTickerWorker implements Runnable {
     private long nextSleepTimeMs;
 
     @Setter
+    @Getter
     private int TICK_MS;
 
     public AbstractTickerWorker(Player player) {
