@@ -24,9 +24,17 @@ public class Bullet extends MovableElement {
 
     public Bullet(Player player) {
         super(player.getTANK().getX(), player.getTANK().getY(), player.getTANK().getZ(), SkinType.BULLET.name(), Server.DEFAULT_SPEED, -1);
-        this.playerId = playerId;
+        this.playerId = player.getId();
         this.setDirection(player.getTANK().getDirection());
 
+    }
+
+    public void movementTickBullet() {
+        movementTick();
+
+        //Check for hits
+        //TODO
+        
     }
 
 }
