@@ -12,9 +12,8 @@ import com.team142.gg.server.model.mappable.Tank;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.workers.TickerComms;
 import com.team142.gg.server.workers.TickerPhysics;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.Data;
@@ -41,13 +40,13 @@ public class Player {
     private final TickerPhysics tickerPhysics;
 
     public Player(String id) {
-        this.BULLETS = Collections.synchronizedList(new ArrayList<>());
+        this.BULLETS = new CopyOnWriteArrayList<>();
         this.id = id;
         this.joinTimeMs = System.currentTimeMillis();
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
         this.TAG = Server.TAGS.incrementAndGet();
-        this.TANK = new Tank(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG, 100);
+        this.TANK = new Tank(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG, 100, this);
         this.tickerPhysics = new TickerPhysics(this);
         this.tickerComms = new TickerComms(this);
         this.name = "";
@@ -112,17 +111,21 @@ public class Player {
         if (System.currentTimeMillis() - LAST_BULLET.get() >= MS_PER_SHOT) {
             //We can shoot
             LAST_BULLET.set(System.currentTimeMillis());
-
-            //Create a bullet
-            Bullet bullet = new Bullet(this);
-
-            //Add to player (Game will send to players)
-            BULLETS.add(bullet);
-
-            //Tell referee (send to game)
-            Referee.sendBullet(Server.getGameByPlayer(id), bullet);
+            shoot();
 
         }
+
+    }
+
+    private void shoot() {
+        //Create a bullet
+        Bullet bullet = new Bullet(this);
+
+        //Add to player (Game will send to players)
+        BULLETS.add(bullet);
+
+        //Tell referee (send to game)
+        Referee.sendBullet(Server.getGameByPlayer(id), bullet);
 
     }
 
@@ -137,6 +140,12 @@ public class Player {
         tickerPhysics.getRUNNING().set(false);
         tickerComms.getRUNNING().set(false);
 
+    }
+
+    public void removeBullet(Bullet bullet) {
+        System.out.println("Removed bullet");
+        BULLETS.remove(bullet);
+        bullet.setPlayer(null);
     }
 
 }

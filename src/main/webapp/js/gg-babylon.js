@@ -84,9 +84,27 @@ baby.createSkyBox = function () {
 }
 
 baby.displayScores = function () {
+    baby.textScores.forEach((ro) => {
+        ro.dispose()
+    })
+
     game.scores.forEach((row, i) => {
         baby.createRightText(i, row.key, row.value)
     })
+
+}
+
+baby.createRightText = function (num, name, score) {
+
+    var current
+    current = BABYLON.GUI.Button.CreateSimpleButton("but" + baby.getCounter(), name + ": " + score)
+    current.width = 1
+    current.height = "50px"
+    current.color = "green"
+    current.background = "white"
+    baby.panelScores.addControl(current)
+    baby.textScores.push(current)
+
 
 }
 
@@ -171,15 +189,11 @@ baby.createBaseBullet = function () {
 
 }
 
-baby.createBullet = function () {
+baby.createBullet = function (obj) {
+    var b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + baby.getCounter()))
+    bullets.push(b)
+    gSound.playPew()
 
-    var bullet
-    bullet = baby.baseBullet.clone("bullet" + baby.getCounter())
-    //Set start location
-
-    //Set path
-
-    //Start animation?
 }
 
 baby.createMapTile = function (x, y, skin, model) {
@@ -234,32 +248,32 @@ baby.createMountainTile = function () {
 
 }
 
-baby.createRightText = function (num, name, score) {
-    var current
-    if (num < baby.textScores.length) {
-        current = baby.textScores[num]
-    } else {
-        current = new BABYLON.GUI.TextBlock()
-        current.color = "white"
-        current.fontSize = 24
-        current.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
-        baby.panelScores.addControl(current)
-        baby.textScores.push(current)
-    }
-    current.text = name + ": " + score
-
-}
-
 baby.createGui = function () {
     baby.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI")
 
     baby.panelScores = new BABYLON.GUI.StackPanel()
     baby.panelScores.width = "220px"
-    baby.panelScores.height = "100px"
+    baby.panelScores.height = "200px"
     baby.panelScores.fontSize = "14px"
     baby.panelScores.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
     baby.panelScores.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
     baby.advancedTexture.addControl(baby.panelScores)
+
+
+    // var button = BABYLON.GUI.Button.CreateSimpleButton("but", "Click Me");
+    // button.width = 0.2;
+    // button.height = "40px";
+    // button.color = "white";
+    // button.background = "green";
+    // baby.panelScores.addControl(button);
+
+    // var button2 = BABYLON.GUI.Button.CreateSimpleButton("but2", "Click Me also!");
+    // button2.width = 0.2;
+    // button2.height = "40px";
+    // button2.color = "white";
+    // button2.background = "green";
+    // baby.panelScores.addControl(button2);
+
 
 }
 
@@ -276,6 +290,8 @@ baby.createScene = function () {
     return scene
 
 }
+
+
 
 // function movementTick() {
 //     //TODO

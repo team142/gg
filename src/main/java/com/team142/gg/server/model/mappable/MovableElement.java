@@ -96,5 +96,18 @@ public class MovableElement extends PlaceableElement {
             setZ(getZ() - (diagonalSpeed));
         }
 
+        if (getX() < 0) {
+            setX(0);
+        }
+        if (getX() > 49 + 1) {
+            setX(49);
+        }
+        if (getZ() < 0) {
+            setZ(0);
+        }
+        if (getZ() > 49 + 1) {
+            setZ(49);
+        }
+
     }
 }
