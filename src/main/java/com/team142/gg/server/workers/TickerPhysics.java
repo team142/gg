@@ -22,6 +22,7 @@ public class TickerPhysics extends AbstractTickerWorker {
     public void doTick() {
         getPLAYER().getTANK().movementTick();
         getPLAYER().getBULLETS().forEach((bullet) -> bullet.movementTickBullet());
+        
     }
 
 }

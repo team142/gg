@@ -1,6 +1,11 @@
 var postman = {}
 
 postman.incoming = function (event) {
+    if (event.data == "0") {
+        sio.send("1")
+        return
+    }
+
     var obj = JSON.parse(event.data)
     var conversation = obj.conversation
     if (conversation == "S_CHANGE_VIEW") {

@@ -24,6 +24,10 @@ public class PostOffice {
     private static final Logger LOG = Logger.getLogger(PostOffice.class.getName());
 
     public static void handleIncoming(String id, String message) {
+        if (message.equals("1")) {
+            Server.PLAYERS_ON_SERVER.get(id).getTickerComms().pong();
+            return;
+        }
         String conversation = JsonUtils.readFieldOrEmptyString(message, CONVERSATION_FIELD);
         postIncomingMessage(id, message, conversation);
 

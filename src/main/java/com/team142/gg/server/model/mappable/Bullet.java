@@ -11,6 +11,7 @@ import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.utils.PhysicsUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -24,6 +25,7 @@ public class Bullet extends MovableElement {
     @Getter
     private boolean ok;
 
+    @Setter
     private double damage;
 
     private Game game;
