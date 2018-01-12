@@ -37,6 +37,13 @@ public class Tank extends MovableElement {
 
     public void damage(double dmg, Player player) {
         health -= dmg;
+
+        if (health <= 0) {
+            Server.PLAYERS_ON_SERVER.get(playerId).addDeath();
+            Server.getGameByPlayer(playerId).spawn(Server.PLAYERS_ON_SERVER.get(playerId));
+            player.addKill();
+        }
+
         System.out.println(
                 "Damage! "
                 + dmg

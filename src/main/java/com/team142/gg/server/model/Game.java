@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.Data;
@@ -47,6 +48,18 @@ public class Game {
 
     }
 
+    public void spawn(Player player) {
+        int x = ThreadLocalRandom.current().nextInt(1, 48 + 1);
+        int z = ThreadLocalRandom.current().nextInt(1, 48 + 1);
+
+        //TODO: check that not water or mountian
+        player.getTANK().setHealth(startHealth);
+        player.getTANK().setMaxHealth(startHealth);
+        player.getTANK().setX(x);
+        player.getTANK().setZ(z);
+
+    }
+
     public MessageGameSummary toGameSummary() {
         return new MessageGameSummary(id, name, players.size());
     }
@@ -69,6 +82,7 @@ public class Game {
         player.getTANK().setHealth(startHealth);
         players.add(player);
         player.start();
+        spawn(player);
 
     }
 
