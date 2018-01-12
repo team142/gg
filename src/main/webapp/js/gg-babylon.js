@@ -172,20 +172,10 @@ baby.createBaseBullet = function () {
 }
 
 baby.createBullet = function (obj) {
-    console.log(obj.BULLET)
+    var b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + baby.getCounter()))
+    bullets.push(b)
+    gSound.playPew()
 
-    var bullet
-    bullet = baby.baseBullet.clone("bullet" + baby.getCounter())
-    //Set start location
-
-    bullet.position.x = obj.BULLET.x
-    bullet.position.y = obj.BULLET.y
-    bullet.position.z = obj.BULLET.z
-    bullet.rotation.y = obj.BULLET.rotation + Math.PI
-
-    //Set path
-
-    //Start animation?
 }
 
 baby.createMapTile = function (x, y, skin, model) {
