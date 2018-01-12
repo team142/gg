@@ -30,6 +30,10 @@ class Bullet {
         this.bBullet.position.z = obj.z
         this.bBullet.rotation.y = obj.rotation + Math.PI
 
+        this.tick()
+        this.tick()
+        this.tick()
+
     }
 
     tick() {
