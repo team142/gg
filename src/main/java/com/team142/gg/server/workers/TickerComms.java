@@ -36,14 +36,38 @@ public class TickerComms extends AbstractTickerWorker {
 
     private void checkPing() {
         if (lastPing == 0) {
-            lastPing = System.currentTimeMillis();
-            Server.SESSIONS_ON_SERVER.get(getPLAYER().getId()).getAsyncRemote().sendText("0");
+            ping();
         }
+
+    }
+
+    public void ping() {
+        lastPing = System.currentTimeMillis();
+        Server.SESSIONS_ON_SERVER.get(getPLAYER().getId()).getAsyncRemote().sendText("0");
+
     }
 
     public void pong() {
         long lag = System.currentTimeMillis() - lastPing;
         System.out.println("PING roundtrip: " + lag);
+        
+        
+        lag = lag / 2;
+        if (lag < 20) {
+            setTICK_MS(20);
+        } else if (lag < 30) {
+            setTICK_MS(30);
+        } else if (lag < 50) {
+            setTICK_MS(50);
+        } else if (lag < 80) {
+            setTICK_MS(80);
+        } else if (lag < 100) {
+            setTICK_MS(100);
+        } else if (lag >= 100) {
+            setTICK_MS(125);
+        }
+//        System.out.println("Now: " + getTICK_MS());
+        
     }
 
 }

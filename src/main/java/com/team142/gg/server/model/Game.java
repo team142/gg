@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lombok.Data;
 
 /**
@@ -40,6 +42,7 @@ public class Game {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.startHealth = 100;
+        startPinger();
 
     }
 
@@ -66,6 +69,19 @@ public class Game {
         players.add(player);
         player.start();
 
+    }
+
+    private void startPinger() {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    getPlayers().forEach((player) -> player.getTickerComms().ping());
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }).start();
     }
 
 }
