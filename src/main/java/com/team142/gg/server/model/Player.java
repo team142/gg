@@ -9,6 +9,7 @@ import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.mappable.Bullet;
 import com.team142.gg.server.model.mappable.DirectionTypes;
 import com.team142.gg.server.model.mappable.MovableElement;
+import com.team142.gg.server.model.mappable.Tank;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.workers.TickerComms;
 import com.team142.gg.server.workers.TickerPhysics;
@@ -31,7 +32,7 @@ public class Player {
     private final long joinTimeMs;
     private final AtomicInteger kills;
     private final AtomicInteger deaths;
-    private final MovableElement TANK;
+    private final Tank TANK;
     private final int TAG;
     private final AtomicLong LAST_BULLET = new AtomicLong(0);
     private int MS_PER_SHOT = 1000;
@@ -47,7 +48,7 @@ public class Player {
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
         this.TAG = Server.TAGS.incrementAndGet();
-        this.TANK = new MovableElement(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG);
+        this.TANK = new Tank(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG, game.getStartHealth());
         this.tickerPhysics = new TickerPhysics(this);
         this.tickerComms = new TickerComms(this);
         this.name = "";
