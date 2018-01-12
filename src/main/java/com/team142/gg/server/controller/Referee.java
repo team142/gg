@@ -15,7 +15,6 @@ import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageBullet;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareMap;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

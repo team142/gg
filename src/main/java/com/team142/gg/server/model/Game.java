@@ -8,7 +8,7 @@ package com.team142.gg.server.model;
 import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.mappable.MapTileElement;
-import com.team142.gg.server.model.mappable.MovableElement;
+import com.team142.gg.server.model.mappable.Tank;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlayerLeft;
 import java.util.ArrayList;
@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lombok.Data;
 
 /**
@@ -30,13 +32,18 @@ public class Game {
     private final String id;
     private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
     private final String name;
-    private final ConcurrentHashMap<String, MovableElement> TANKS = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
     private final List<MapTileElement> MAP;
+
+    private final double startHealth;
 
     public Game(String name) {
         this.MAP = Collections.synchronizedList(new ArrayList<>());
         this.id = UUID.randomUUID().toString();
         this.name = name;
+        this.startHealth = 100;
+        startPinger();
+
     }
 
     public MessageGameSummary toGameSummary() {
@@ -57,9 +64,24 @@ public class Game {
 
     public void playerJoins(Player player) {
         TANKS.put(player.getId(), player.getTANK());
+        player.getTANK().setMaxHealth(startHealth);
+        player.getTANK().setHealth(startHealth);
         players.add(player);
         player.start();
 
+    }
+
+    private void startPinger() {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    getPlayers().forEach((player) -> player.getTickerComms().ping());
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }).start();
     }
 
 }
