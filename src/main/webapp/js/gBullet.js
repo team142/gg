@@ -32,8 +32,6 @@ class Bullet {
 
     }
 
-
-
     tick() {
 
         if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR0)) {
@@ -91,7 +89,6 @@ class Bullet {
         this.bBullet.dispose()
         const index = bullets.indexOf(this)
         bullets.splice(index, 1)
-        console.log("removed bullet")
 
     }
 
