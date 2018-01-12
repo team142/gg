@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.model.mappable;
 
+import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
 import lombok.Getter;
@@ -42,6 +43,7 @@ public class Tank extends MovableElement {
             Server.PLAYERS_ON_SERVER.get(playerId).addDeath();
             Server.getGameByPlayer(playerId).spawn(Server.PLAYERS_ON_SERVER.get(playerId));
             player.addKill();
+            Referee.sendScoreBoard(Server.getGameByPlayer(playerId));
         }
 
         System.out.println(
