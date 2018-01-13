@@ -11,7 +11,7 @@ var DirectionTypes = {
 
 var bullets = []
 
-this.timer = setInterval(moveBullets, 17)
+this.timer = setInterval(moveBullets, 45)
 
 function moveBullets() {
     bullets.forEach((bullet) => bullet.tick())
@@ -38,33 +38,35 @@ class Bullet {
 
     tick() {
 
+        var multi = 3;
+
         if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR0)) {
-            this.bBullet.position.z = (this.bBullet.position.z + (this.sBullet.speed))
+            this.bBullet.position.z = (this.bBullet.position.z + (this.sBullet.speed * multi))
 
         } else if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR1)) {
-            this.bBullet.position.x = (this.bBullet.position.x + (this.sBullet.diagonalspeed))
-            this.bBullet.position.z = (this.bBullet.position.z + (this.sBullet.diagonalspeed))
+            this.bBullet.position.x = (this.bBullet.position.x + (this.sBullet.diagonalspeed * multi))
+            this.bBullet.position.z = (this.bBullet.position.z + (this.sBullet.diagonalspeed * multi))
 
         } else if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR2)) {
-            this.bBullet.position.x = (this.bBullet.position.x + (this.sBullet.speed))
+            this.bBullet.position.x = (this.bBullet.position.x + (this.sBullet.speed * multi))
 
         } else if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR3)) {
-            this.bBullet.position.x = (this.bBullet.position.x + (this.sBullet.diagonalspeed))
-            this.bBullet.position.z = (this.bBullet.position.z - (this.sBullet.diagonalspeed))
+            this.bBullet.position.x = (this.bBullet.position.x + (this.sBullet.diagonalspeed * multi))
+            this.bBullet.position.z = (this.bBullet.position.z - (this.sBullet.diagonalspeed * multi))
 
         } else if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR4)) {
-            this.bBullet.position.z = (this.bBullet.position.z - (this.sBullet.speed))
+            this.bBullet.position.z = (this.bBullet.position.z - (this.sBullet.speed * multi))
 
         } else if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR5)) {
-            this.bBullet.position.x = (this.bBullet.position.x - (this.sBullet.diagonalspeed))
-            this.bBullet.position.z = (this.bBullet.position.z - (this.sBullet.diagonalspeed))
+            this.bBullet.position.x = (this.bBullet.position.x - (this.sBullet.diagonalspeed * multi))
+            this.bBullet.position.z = (this.bBullet.position.z - (this.sBullet.diagonalspeed * multi))
 
         } else if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR6)) {
-            this.bBullet.position.x = (this.bBullet.position.x - (this.sBullet.speed))
+            this.bBullet.position.x = (this.bBullet.position.x - (this.sBullet.speed * multi))
 
         } else if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR7)) {
-            this.bBullet.position.x = (this.bBullet.position.x - (this.sBullet.diagonalspeed))
-            this.bBullet.position.z = (this.bBullet.position.z + (this.sBullet.diagonalspeed))
+            this.bBullet.position.x = (this.bBullet.position.x - (this.sBullet.diagonalspeed * multi))
+            this.bBullet.position.z = (this.bBullet.position.z + (this.sBullet.diagonalspeed * multi))
 
         } else {
 
