@@ -5,9 +5,12 @@
  */
 package com.team142.gg.server.model.mappable;
 
+import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.messages.outgoing.rendered.MessageSpray;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,9 +44,12 @@ public class Tank extends MovableElement {
 
         if (health <= 0) {
             Server.PLAYERS_ON_SERVER.get(playerId).addDeath();
-            Server.getGameByPlayer(playerId).spawn(Server.PLAYERS_ON_SERVER.get(playerId));
+            Game game = Server.getGameByPlayer(playerId);
+            game.spawn(Server.PLAYERS_ON_SERVER.get(playerId), false);
             player.addKill();
             Referee.sendScoreBoard(Server.getGameByPlayer(playerId));
+            PostOffice.sendPlayersAMessage(game, new MessageSpray(player.getTAG(), 1200));
+
         }
 
         System.out.println(
