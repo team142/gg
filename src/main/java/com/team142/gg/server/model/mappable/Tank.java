@@ -39,16 +39,16 @@ public class Tank extends MovableElement {
         this.playerId = player.getId();
     }
 
-    public void damage(double dmg, Player player) {
+    public void damage(double dmg, Player fromPlayer) {
         health -= dmg;
 
         if (health <= 0) {
             Server.PLAYERS_ON_SERVER.get(playerId).addDeath();
             Game game = Server.getGameByPlayer(playerId);
             game.spawn(Server.PLAYERS_ON_SERVER.get(playerId));
-            player.addKill();
+            fromPlayer.addKill();
             Referee.sendScoreBoard(Server.getGameByPlayer(playerId));
-            PostOffice.sendPlayersAMessage(game, new MessageSpray(player.getTAG(), 1200));
+            PostOffice.sendPlayersAMessage(game, new MessageSpray(Server.PLAYERS_ON_SERVER.get(playerId).getTAG(), 1200));
 
         }
 
@@ -56,7 +56,7 @@ public class Tank extends MovableElement {
                 "Damage! "
                 + dmg
                 + " from "
-                + player.getName()
+                + fromPlayer.getName()
                 + " to "
                 + Server.PLAYERS_ON_SERVER.get(playerId).getName()
                 + " hp now: " + health
