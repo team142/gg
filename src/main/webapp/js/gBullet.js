@@ -69,6 +69,7 @@ class Bullet {
             this.bBullet.position.z = (this.bBullet.position.z + (this.sBullet.diagonalspeed * multi))
 
         } else {
+            console.log("Not sure what to do with direction: " + this.sBullet.direction + ", rotation: " + this.sBullet.rotation)
 
         }
 
