@@ -45,7 +45,7 @@ public class Tank extends MovableElement {
         if (health <= 0) {
             Server.PLAYERS_ON_SERVER.get(playerId).addDeath();
             Game game = Server.getGameByPlayer(playerId);
-            game.spawn(Server.PLAYERS_ON_SERVER.get(playerId), false);
+            game.spawn(Server.PLAYERS_ON_SERVER.get(playerId));
             player.addKill();
             Referee.sendScoreBoard(Server.getGameByPlayer(playerId));
             PostOffice.sendPlayersAMessage(game, new MessageSpray(player.getTAG(), 1200));
