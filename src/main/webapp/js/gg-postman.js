@@ -32,9 +32,15 @@ postman.incoming = function (event) {
     } else if (conversation == "S_SHARE_BULLETS") {
         baby.createBullet(obj)
 
+    } else if (conversation == "S_SHARE_SPRAY") {
+        baby.createSpray(obj.tagId, obj.ms)
+
     } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
         postman.recievedDynamicThings(obj)
 
+    } else {
+        console.log("Dont know what to do with this:")
+        console.log(obj)
     }
     // alert("Unhandled message" + event.data)
 
