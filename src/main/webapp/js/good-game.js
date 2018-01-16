@@ -30,28 +30,19 @@ game.toggleElement = function (id, toggle) {
     }
 }
 
-window.addEventListener("keydown", function (evt) {
-    // Press space key to fire
-    if (evt.keyCode === 32) {
-        // gunshot.play()
-        gSound.playPew()
-    }
-})
-
-
 game.appStart = function () {
     web.toggleElement("VIEW_CANVAS", false)
     web.toggleElement("VIEW_GAMES", false)
 
     var localHostname = window.location.hostname
-    var port =  window.location.port
+    var port = window.location.port
     var s
     if (port == 80) {
         s = localHostname + "/"
     } else {
         s = localHostname + ":" + port + "/"
     }
-    document.querySelector('#selectServer [value="' + s + '"]').selected = true    
+    document.querySelector('#selectServer [value="' + s + '"]').selected = true
 
 }
 

@@ -49,7 +49,7 @@ public class TickerComms extends AbstractTickerWorker {
 
     public void pong() {
         long lag = System.currentTimeMillis() - lastPing;
-        System.out.println("PING roundtrip: " + lag);
+//        System.out.println("PING roundtrip: " + lag);
         
         
         lag = lag / 2;

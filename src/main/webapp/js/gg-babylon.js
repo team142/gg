@@ -84,9 +84,27 @@ baby.createSkyBox = function () {
 }
 
 baby.displayScores = function () {
+    baby.textScores.forEach((ro) => {
+        ro.dispose()
+    })
+
     game.scores.forEach((row, i) => {
         baby.createRightText(i, row.key, row.value)
     })
+
+}
+
+baby.createRightText = function (num, name, score) {
+
+    var current
+    current = BABYLON.GUI.Button.CreateSimpleButton("but" + baby.getCounter(), name + ": " + score)
+    current.width = 1
+    current.height = "50px"
+    current.color = "green"
+    current.background = "white"
+    baby.panelScores.addControl(current)
+    baby.textScores.push(current)
+
 
 }
 
@@ -117,6 +135,7 @@ baby.createSphereIfNotExists = function (tagId, labelText) {
             var mat = new BABYLON.StandardMaterial("", baby.scene);
             mat.diffuseTexture = new BABYLON.Texture("textures/smily.png", baby.scene);
             item.material = mat;
+
 
 
         }
@@ -171,15 +190,11 @@ baby.createBaseBullet = function () {
 
 }
 
-baby.createBullet = function () {
+baby.createBullet = function (obj) {
+    var b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + baby.getCounter()))
+    bullets.push(b)
+    gSound.playPew()
 
-    var bullet
-    bullet = baby.baseBullet.clone("bullet" + baby.getCounter())
-    //Set start location
-
-    //Set path
-
-    //Start animation?
 }
 
 baby.createMapTile = function (x, y, skin, model) {
@@ -234,32 +249,129 @@ baby.createMountainTile = function () {
 
 }
 
-baby.createRightText = function (num, name, score) {
-    var current
-    if (num < baby.textScores.length) {
-        current = baby.textScores[num]
-    } else {
-        current = new BABYLON.GUI.TextBlock()
-        current.color = "white"
-        current.fontSize = 24
-        current.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
-        baby.panelScores.addControl(current)
-        baby.textScores.push(current)
-    }
-    current.text = name + ": " + score
-
-}
-
 baby.createGui = function () {
     baby.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI")
 
     baby.panelScores = new BABYLON.GUI.StackPanel()
     baby.panelScores.width = "220px"
-    baby.panelScores.height = "100px"
+    baby.panelScores.height = "200px"
     baby.panelScores.fontSize = "14px"
     baby.panelScores.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
     baby.panelScores.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
     baby.advancedTexture.addControl(baby.panelScores)
+
+
+    // var button = BABYLON.GUI.Button.CreateSimpleButton("but", "Click Me");
+    // button.width = 0.2;
+    // button.height = "40px";
+    // button.color = "white";
+    // button.background = "green";
+    // baby.panelScores.addControl(button);
+
+    // var button2 = BABYLON.GUI.Button.CreateSimpleButton("but2", "Click Me also!");
+    // button2.width = 0.2;
+    // button2.height = "40px";
+    // button2.color = "white";
+    // button2.background = "green";
+    // baby.panelScores.addControl(button2);
+
+
+}
+
+baby.createSpray = function (tankId, ms) {
+
+    var tank = getPlayerByTag(tankId)
+
+    // Create a particle system
+    var particleSystem = new BABYLON.ParticleSystem("particles", 2000, baby.scene);
+
+    //Texture of each particle
+    particleSystem.particleTexture = new BABYLON.Texture("textures/flare.png", baby.scene);
+
+    // Where the particles come from
+    particleSystem.emitter = tank; // the starting object, the emitter
+    particleSystem.minEmitBox = new BABYLON.Vector3(-1, 0, 0); // Starting all from
+    particleSystem.maxEmitBox = new BABYLON.Vector3(1, 0, 0); // To...
+
+    // Colors of all particles
+    particleSystem.color1 = new BABYLON.Color4(0.7, 0.8, 1.0, 1.0);
+    particleSystem.color2 = new BABYLON.Color4(0.2, 0.5, 1.0, 1.0);
+    particleSystem.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
+
+    // Size of each particle (random between...
+    particleSystem.minSize = 0.1;
+    particleSystem.maxSize = 0.5;
+
+    // Life time of each particle (random between...
+    particleSystem.minLifeTime = 0.3;
+    particleSystem.maxLifeTime = 1.5;
+
+    // Emission rate
+    particleSystem.emitRate = 1500;
+
+    // Blend mode : BLENDMODE_ONEONE, or BLENDMODE_STANDARD
+    particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
+
+    // Set the gravity of all particles
+    particleSystem.gravity = new BABYLON.Vector3(0, -9.81, 0);
+
+    // Direction of each particle after it has been emitted
+    particleSystem.direction1 = new BABYLON.Vector3(-7, 8, 3);
+    particleSystem.direction2 = new BABYLON.Vector3(7, 8, -3);
+
+    // Angular speed, in radians
+    particleSystem.minAngularSpeed = 0;
+    particleSystem.maxAngularSpeed = Math.PI;
+
+    // Speed
+    particleSystem.minEmitPower = 1;
+    particleSystem.maxEmitPower = 3;
+    particleSystem.updateSpeed = 0.005;
+
+    var updateFunction = function (particles) {
+        for (var index = 0; index < particles.length; index++) {
+            var particle = particles[index];
+            particle.age += this._scaledUpdateSpeed;
+
+            // change direction to return to emitter
+            if (particle.age >= particle.lifeTime / 2) {
+                var oldLength = particle.direction.length();
+                var newDirection = this.emitter.position.subtract(particle.position);
+                particle.direction = newDirection.scale(3);
+            }
+
+            if (particle.age >= particle.lifeTime) { // Recycle
+                particles.splice(index, 1);
+                this._stockParticles.push(particle);
+                index--;
+                continue;
+            } else {
+                particle.colorStep.scaleToRef(this._scaledUpdateSpeed, this._scaledColorStep);
+                particle.color.addInPlace(this._scaledColorStep);
+
+                if (particle.color.a < 0)
+                    particle.color.a = 0;
+
+                particle.angle += particle.angularSpeed * this._scaledUpdateSpeed;
+
+                particle.direction.scaleToRef(this._scaledUpdateSpeed, this._scaledDirection);
+                particle.position.addInPlace(this._scaledDirection);
+
+                this.gravity.scaleToRef(this._scaledUpdateSpeed, this._scaledGravity);
+                particle.direction.addInPlace(this._scaledGravity);
+            }
+        }
+    }
+
+    particleSystem.updateFunction = updateFunction;
+
+    // Start the particle system
+    particleSystem.start();
+    function stop() {
+        particleSystem.stop()
+    }
+    setTimeout(stop, ms);
+
 
 }
 
@@ -276,6 +388,8 @@ baby.createScene = function () {
     return scene
 
 }
+
+
 
 // function movementTick() {
 //     //TODO

@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.Data;
@@ -30,7 +32,7 @@ import lombok.Data;
 public class Game {
 
     private final String id;
-    private final List<Player> players = Collections.synchronizedList(new ArrayList<>());
+    private final List<Player> players = new CopyOnWriteArrayList<>();
     private final String name;
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
     private final List<MapTileElement> MAP;
@@ -43,6 +45,18 @@ public class Game {
         this.name = name;
         this.startHealth = 100;
         startPinger();
+
+    }
+
+    public void spawn(Player player) {
+        int x = ThreadLocalRandom.current().nextInt(1, 48 + 1);
+        int z = ThreadLocalRandom.current().nextInt(1, 48 + 1);
+
+        //TODO: check that not water or mountian
+        player.getTANK().setHealth(startHealth);
+        player.getTANK().setMaxHealth(startHealth);
+        player.getTANK().setX(x);
+        player.getTANK().setZ(z);
 
     }
 
@@ -68,6 +82,7 @@ public class Game {
         player.getTANK().setHealth(startHealth);
         players.add(player);
         player.start();
+        spawn(player);
 
     }
 
