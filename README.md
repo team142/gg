@@ -27,4 +27,4 @@ Run `mvn clean install`. Deploy the resulting war to a JEE 7 compliant web conta
 <a href="https://hub.docker.com/r/team142/gg/tags/"><img src="docs/docker.png" height="80"></a>
 
 ## Community (Dev, Q&A & suggestions)
-<a href="https://discord.gg/XPzJSR"><img src="docs/discord.png" height="80"></a>
+<a href="https://discord.gg/QaagkDh"><img src="docs/discord.png" height="80"></a>
