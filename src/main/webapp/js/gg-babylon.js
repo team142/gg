@@ -34,7 +34,7 @@ class BabylonUtils {
         window.addEventListener("keyup", function (data) {
             sio.sendKeyUp(data.key)
 
-            var key = data.key
+            const key = data.key
             if (key === "a" || key === "A") {
                 baby.DIR.x = 0
             } else if (key === "d" || key === "D") {
@@ -49,7 +49,7 @@ class BabylonUtils {
         window.addEventListener("keydown", function (data) {
             sio.sendKeyDown(data.key)
 
-            var key = data.key
+            const key = data.key
             if (key === "a" || key === "A") {
                 baby.DIR.x = -1
             } else if (key === "d" || key === "D") {
@@ -73,14 +73,14 @@ class BabylonUtils {
 
     static createSkyBox() {
         // Skyboxes
-        var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene)
+        const skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene)
         skyboxMaterial.backFaceCulling = false
         skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", baby.scene)
         skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
         skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0)
         skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0)
         skyboxMaterial.disableLighting = true
-        var skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50 * 50, baby.scene)
+        const skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50 * 50, baby.scene)
         skybox1.material = skyboxMaterial
         skybox1.visibility = 1
 
@@ -98,9 +98,7 @@ class BabylonUtils {
     }
 
     static createRightText(num, name, score) {
-
-        var current
-        current = BABYLON.GUI.Button.CreateSimpleButton("but" + BabylonUtils.getCounter(), name + ": " + score)
+        const current = BABYLON.GUI.Button.CreateSimpleButton("but" + BabylonUtils.getCounter(), name + ": " + score)
         current.width = 1
         current.height = "50px"
         current.color = "green"
@@ -108,26 +106,25 @@ class BabylonUtils {
         baby.panelScores.addControl(current)
         baby.textScores.push(current)
 
-
     }
 
     static createSphereIfNotExists(tagId, labelText) {
         if (tagId) {
             var result = getPlayerByTag(tagId)
             if (!result) {
-                var name = "player" + match.gameInstance
+                const name = "player" + match.gameInstance
                 name = name + tagId
-                var item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
+                const item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
                 item.position.y = 1
                 match.playerTanks.set(tagId, item)
 
-                var rectText = new BABYLON.GUI.Rectangle()
+                const rectText = new BABYLON.GUI.Rectangle()
                 rectText.width = 0.2
                 rectText.height = "100px"
                 rectText.cornerRadius = 20
                 rectText.thickness = 0
                 baby.advancedTexture.addControl(rectText)
-                var label = new BABYLON.GUI.TextBlock()
+                const label = new BABYLON.GUI.TextBlock()
                 label.text = labelText
                 rectText.addControl(label)
                 rectText.linkWithMesh(item)
@@ -135,7 +132,7 @@ class BabylonUtils {
 
 
                 //For now create a smily for each person
-                var mat = new BABYLON.StandardMaterial("", baby.scene);
+                const mat = new BABYLON.StandardMaterial("", baby.scene);
                 mat.diffuseTexture = new BABYLON.Texture("textures/smily.png", baby.scene);
                 item.material = mat;
 
@@ -166,7 +163,7 @@ class BabylonUtils {
 
 
     static createAndSaveMaterial(textureFilePath) {
-        var materialPlane = new BABYLON.StandardMaterial("texturePlane", baby.scene)
+        const materialPlane = new BABYLON.StandardMaterial("texturePlane", baby.scene)
         materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, baby.scene)
         materialPlane.diffuseTexture.uScale = 1.0//Repeat 5 times on the Vertical Axes
         materialPlane.diffuseTexture.vScale = 1.0//Repeat 5 times on the Horizontal Axes
@@ -183,9 +180,9 @@ class BabylonUtils {
     }
 
     static createBaseBullet() {
-        var cone = BABYLON.MeshBuilder.CreateCylinder("cone", { diameterTop: 0, height: 1, tessellation: 96 }, baby.scene)
-        var scl = 0.0625 //Much smaller than normal cone
-        var scalingFactor = new BABYLON.Vector3(scl, scl, scl)
+        const cone = BABYLON.MeshBuilder.CreateCylinder("cone", { diameterTop: 0, height: 1, tessellation: 96 }, baby.scene)
+        const scl = 0.0625 //Much smaller than normal cone
+        const scalingFactor = new BABYLON.Vector3(scl, scl, scl)
         cone.scaling = scalingFactor
         cone.position.multiplyInPlace(scalingFactor)
         cone.rotation.x = -1.57
@@ -194,14 +191,14 @@ class BabylonUtils {
     }
 
     static createBullet(obj) {
-        var b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
+        const b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
         bullets.push(b)
         gSound.playPew()
 
     }
 
     static createMapTile(x, y, skin, model) {
-        var plane;
+        let plane;
         if (model == "FLAT_TILE") {
             plane = baby.baseTile.clone(("plane" + x) + y)
         } else if (model == "ROCK_TILE") {
@@ -219,14 +216,14 @@ class BabylonUtils {
     }
 
     static createBaseTile() {
-        var x = -1
-        var y = -1
-        var skin = "/textures/water1-min.jpg"
+        const x = -1
+        const y = -1
+        const skin = "/textures/water1-min.jpg"
         baby.baseTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, baby.scene)
         baby.baseTile.position.z = (y * 1)
         baby.baseTile.position.x = (x * 1)
         baby.baseTile.rotation.x = Math.PI / 2
-        var material = baby.materialsMap.get(skin)
+        const material = baby.materialsMap.get(skin)
         if (material) {
             baby.baseTile.material = material;
         }
@@ -235,16 +232,16 @@ class BabylonUtils {
     }
 
     static createMountainTile() {
-        var x = -2
-        var y = -2
-        var skin = "/textures/rock1-min.jpg"
+        const x = -2
+        const y = -2
+        const skin = "/textures/rock1-min.jpg"
 
         baby.mountainTile = BABYLON.MeshBuilder.CreateBox(("plane" + x) + y, { height: 1, width: 1, depth: 1 }, baby.scene);
         baby.mountainTile.position.z = (y * 1)
         baby.mountainTile.position.x = (x * 1)
         baby.mountainTile.position.y = 0.5
         baby.mountainTile.rotation.x = Math.PI / 2
-        var material = baby.materialsMap.get(skin)
+        const material = baby.materialsMap.get(skin)
         if (material) {
             baby.mountainTile.material = material;
         }
@@ -254,7 +251,6 @@ class BabylonUtils {
 
     static createGui() {
         baby.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI")
-
         baby.panelScores = new BABYLON.GUI.StackPanel()
         baby.panelScores.width = "220px"
         baby.panelScores.height = "200px"
@@ -263,15 +259,14 @@ class BabylonUtils {
         baby.panelScores.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
         baby.advancedTexture.addControl(baby.panelScores)
 
-
     }
 
     static createSpray(tankId, ms) {
 
-        var tank = getPlayerByTag(tankId)
+        const tank = getPlayerByTag(tankId)
 
         // Create a particle system
-        var particleSystem = new BABYLON.ParticleSystem("particles", 2000, baby.scene);
+        const particleSystem = new BABYLON.ParticleSystem("particles", 2000, baby.scene);
 
         //Texture of each particle
         particleSystem.particleTexture = new BABYLON.Texture("textures/flare.png", baby.scene);
@@ -369,7 +364,7 @@ class BabylonUtils {
         baby.camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene)
         baby.camera.setTarget(BABYLON.Vector3.Zero())
         baby.camera.position.y = 0.75
-        var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene)
+        const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene)
         light.intensity = 0.9
         baby.createMaterials()
         baby.createGui()
