@@ -9,10 +9,10 @@ postman.incoming = function (event) {
     var obj = JSON.parse(event.data)
     var conversation = obj.conversation
     if (conversation == "S_CHANGE_VIEW") {
-        web.changeView(obj.view)
+        Web.changeView(obj.view)
 
     } else if (conversation == "S_LIST_OF_GAMES") {
-        web.showListOfGames(obj.games)
+        Web.showListOfGames(obj.games)
 
     } else if (conversation == "S_SCOREBOARD") {
         postman.scoreboard(obj)

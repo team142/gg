@@ -32,8 +32,8 @@ game.toggleElement = function (id, toggle) {
 }
 
 game.appStart = function () {
-    web.toggleElement("VIEW_CANVAS", false)
-    web.toggleElement("VIEW_GAMES", false)
+    Web.toggleElement("VIEW_CANVAS", false)
+    Web.toggleElement("VIEW_GAMES", false)
 
     const localHostname = window.location.hostname
     const port = window.location.port
