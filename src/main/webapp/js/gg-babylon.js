@@ -348,7 +348,7 @@ class BabylonUtils {
     }
 
     static createScene() {
-        var scene = new BABYLON.Scene(baby.engine)
+        const scene = new BABYLON.Scene(baby.engine)
         scene.name = "scene"
         baby.camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene)
         baby.camera.setTarget(BABYLON.Vector3.Zero())
