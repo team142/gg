@@ -19,10 +19,6 @@ this.timer = setInterval(() => {
     }
 }, 45)
 
-// function moveBullets() {
-// }
-
-
 class Bullet {
 
 
