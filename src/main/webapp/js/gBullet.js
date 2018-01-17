@@ -1,4 +1,5 @@
-var DirectionTypes = {
+
+const DirectionTypes = {
     DIR0: 0,
     DIR1: 0.785,
     DIR2: 1.57,
@@ -7,21 +8,22 @@ var DirectionTypes = {
     DIR5: 3.925,
     DIR6: 4.71,
     DIR7: 5.495
+
 }
 
-var bullets = []
+const bullets = []
 
-this.timer = setInterval(moveBullets, 45)
-
-function moveBullets() {
-    bullets.forEach((bullet) => bullet.tick())
-}
-
+this.timer = setInterval(() => {
+    for (const bullet of bullets) {
+        bullet.tick()
+    }
+}, 45)
 
 class Bullet {
 
+
     constructor(obj, babylonObject) {
-        this.id = baby.getCounter()
+        this.id = BabylonUtils.getCounter()
         this.sBullet = obj
         this.bBullet = babylonObject
 
@@ -38,7 +40,7 @@ class Bullet {
 
     tick() {
 
-        var multi = 3;
+        const multi = 3;
 
         if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR0)) {
             this.bBullet.position.z = (this.bBullet.position.z + (this.sBullet.speed * multi))
