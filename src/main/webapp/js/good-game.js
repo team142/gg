@@ -1,4 +1,5 @@
-var game = {
+
+const game = {
     scores: []
 }
 
@@ -34,9 +35,9 @@ game.appStart = function () {
     web.toggleElement("VIEW_CANVAS", false)
     web.toggleElement("VIEW_GAMES", false)
 
-    var localHostname = window.location.hostname
-    var port = window.location.port
-    var s
+    const localHostname = window.location.hostname
+    const port = window.location.port
+    let s
     if (port == 80) {
         s = localHostname + "/"
     } else {

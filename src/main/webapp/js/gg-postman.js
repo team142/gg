@@ -79,7 +79,7 @@ postman.recievedDynamicThings = function (obj) {
             baby.camera.position.z = t.z
             baby.camera.rotation.y = t.rotation
         }
-        var s = getPlayerByTag(t.tag)
+        const s = getPlayerByTag(t.tag)
         if (s) {
             s.position.x = t.x
             s.position.y = t.y

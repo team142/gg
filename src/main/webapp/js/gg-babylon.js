@@ -19,8 +19,6 @@ class BabylonUtils {
 
     }
 
-
-
     static setup3D() {
         baby.canvas = document.getElementById("VIEW_CANVAS")
         baby.engine = new BABYLON.Engine(baby.canvas, true)
@@ -33,7 +31,6 @@ class BabylonUtils {
         })
         window.addEventListener("keyup", function (data) {
             sio.sendKeyUp(data.key)
-
             const key = data.key
             if (key === "a" || key === "A") {
                 baby.DIR.x = 0
@@ -48,7 +45,6 @@ class BabylonUtils {
         })
         window.addEventListener("keydown", function (data) {
             sio.sendKeyDown(data.key)
-
             const key = data.key
             if (key === "a" || key === "A") {
                 baby.DIR.x = -1
@@ -59,9 +55,7 @@ class BabylonUtils {
             } else if (key === "w" || key === "W") {
                 baby.DIR.z = 1
             }
-
         })
-
         BabylonUtils.createBaseTile()
         BabylonUtils.createMountainTile()
         SoundUtils.loadSounds()
@@ -90,7 +84,6 @@ class BabylonUtils {
         baby.textScores.forEach((ro) => {
             ro.dispose()
         })
-
         game.scores.forEach((row, i) => {
             BabylonUtils.createRightText(i, row.key, row.value)
         })
@@ -129,13 +122,10 @@ class BabylonUtils {
                 rectText.linkWithMesh(item)
                 rectText.linkOffsetY = -50
 
-
                 //For now create a smily for each person
                 const mat = new BABYLON.StandardMaterial("", baby.scene);
                 mat.diffuseTexture = new BABYLON.Texture("textures/smily.png", baby.scene);
                 item.material = mat;
-
-
 
             }
         }
@@ -192,7 +182,7 @@ class BabylonUtils {
     static createBullet(obj) {
         const b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
         bullets.push(b)
-        gSound.playPew()
+        SoundUtils.playPew()
 
     }
 
@@ -206,7 +196,7 @@ class BabylonUtils {
         plane.position.z = (y * 1)
         plane.position.x = (x * 1)
         plane.rotation.x = Math.PI / 2
-        var material = baby.materialsMap.get(skin)
+        const material = baby.materialsMap.get(skin)
         if (material) {
             plane.material = material
         }
@@ -327,6 +317,7 @@ class BabylonUtils {
                     this._stockParticles.push(particle);
                     index--;
                     continue;
+
                 } else {
                     particle.colorStep.scaleToRef(this._scaledUpdateSpeed, this._scaledColorStep);
                     particle.color.addInPlace(this._scaledColorStep);
@@ -343,11 +334,10 @@ class BabylonUtils {
                     particle.direction.addInPlace(this._scaledGravity);
                 }
             }
+
         }
 
         particleSystem.updateFunction = updateFunction;
-
-        // Start the particle system
         particleSystem.start();
         function stop() {
             particleSystem.stop()

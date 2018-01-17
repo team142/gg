@@ -23,7 +23,7 @@ function moveBullets() {
 class Bullet {
 
     constructor(obj, babylonObject) {
-        this.id = baby.getCounter()
+        this.id = BabylonUtils.getCounter()
         this.sBullet = obj
         this.bBullet = babylonObject
 
