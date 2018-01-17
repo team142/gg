@@ -1,3 +1,4 @@
+
 const DirectionTypes = {
     DIR0: 0,
     DIR1: 0.785,
@@ -7,9 +8,10 @@ const DirectionTypes = {
     DIR5: 3.925,
     DIR6: 4.71,
     DIR7: 5.495
+
 }
 
-var bullets = []
+const bullets = []
 
 this.timer = setInterval(moveBullets, 45)
 
@@ -21,6 +23,7 @@ function moveBullets() {
 
 
 class Bullet {
+
 
     constructor(obj, babylonObject) {
         this.id = BabylonUtils.getCounter()
