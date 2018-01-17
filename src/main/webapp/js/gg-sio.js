@@ -39,7 +39,7 @@ sio.assignMethods = function () {
             }
         ))
     }
-    sio.socket.onmessage = postman.incoming
+    sio.socket.onmessage = Postman.incoming
 
 }
 
