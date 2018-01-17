@@ -9,6 +9,7 @@ class Web {
             document.getElementById("btnJoinServer").enabled = false
             sio.joinServer(url, name)
         }
+
     }
 
     static showListOfGames(games) {
@@ -21,15 +22,14 @@ class Web {
 
     }
 
-
     static changeView(view) {
         Web.toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
         Web.toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
         Web.toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
         if (view == "VIEW_CANVAS") {
             BabylonUtils.setup3D()
-            // var t = setInterval(tick, 1000)
         }
+
     }
 
     static toggleElement(id, toggle) {
@@ -40,7 +40,7 @@ class Web {
             document.getElementById(id).style.visibility = "hidden"
             document.getElementById(id).style.display = "none"
         }
+        
     }
-
 
 }
