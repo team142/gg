@@ -30,7 +30,7 @@ class BabylonUtils {
             baby.engine.resize()
         })
         window.addEventListener("keyup", function (data) {
-            sio.sendKeyUp(data.key)
+            ServerIO.sendKeyUp(data.key)
             const key = data.key
             if (key === "a" || key === "A") {
                 baby.DIR.x = 0
@@ -44,7 +44,7 @@ class BabylonUtils {
 
         })
         window.addEventListener("keydown", function (data) {
-            sio.sendKeyDown(data.key)
+            ServerIO.sendKeyDown(data.key)
             const key = data.key
             if (key === "a" || key === "A") {
                 baby.DIR.x = -1

@@ -4,7 +4,7 @@ class Postman {
     static incoming(event) {
 
         if (event.data == "0") {
-            sio.send("1")
+            ServerIO.send("1")
             return
         }
 

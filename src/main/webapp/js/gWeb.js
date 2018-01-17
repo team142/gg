@@ -7,7 +7,7 @@ class Web {
         const name = document.getElementById("inputName").value
         if (name) {
             document.getElementById("btnJoinServer").enabled = false
-            sio.joinServer(url, name)
+            ServerIO.joinServer(url, name)
         }
 
     }
@@ -18,7 +18,7 @@ class Web {
             id: games[0].id
         }
         const json = JSON.stringify(body)
-        sio.send(json)
+        ServerIO.send(json)
 
     }
 
