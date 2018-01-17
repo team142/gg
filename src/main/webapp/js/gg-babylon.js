@@ -13,7 +13,7 @@ const baby = {
 
 class BabylonUtils {
 
-    static getCount() {
+    static getCounter() {
         baby.counter++
         return baby.counter
 
@@ -24,7 +24,7 @@ class BabylonUtils {
     static setup3D() {
         baby.canvas = document.getElementById("VIEW_CANVAS")
         baby.engine = new BABYLON.Engine(baby.canvas, true)
-        baby.scene = baby.createScene()
+        baby.scene = BabylonUtils.createScene()
         baby.engine.runRenderLoop(function () {
             baby.scene.render()
         })
@@ -64,9 +64,9 @@ class BabylonUtils {
 
         BabylonUtils.createBaseTile()
         BabylonUtils.createMountainTile()
-        gSound.loadSounds()
+        SoundUtils.loadSounds()
         BabylonUtils.createSkyBox()
-        BabylonUtils.baseBullet = baby.createBaseBullet()
+        baby.baseBullet = BabylonUtils.createBaseBullet()
         // var t = setInterval(movementTick, 40)
 
     }
@@ -92,7 +92,7 @@ class BabylonUtils {
         })
 
         game.scores.forEach((row, i) => {
-            baby.createRightText(i, row.key, row.value)
+            BabylonUtils.createRightText(i, row.key, row.value)
         })
 
     }
@@ -112,8 +112,7 @@ class BabylonUtils {
         if (tagId) {
             var result = getPlayerByTag(tagId)
             if (!result) {
-                const name = "player" + match.gameInstance
-                name = name + tagId
+                const name = "player" + match.gameInstance + tagId
                 const item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
                 item.position.y = 1
                 match.playerTanks.set(tagId, item)
@@ -156,7 +155,7 @@ class BabylonUtils {
             "water3-min.jpg"
         ]
         for (const file of textureFiles) {
-            baby.createAndSaveMaterial("/textures/" + file)
+            BabylonUtils.createAndSaveMaterial("/textures/" + file)
         }
 
     }
@@ -174,7 +173,7 @@ class BabylonUtils {
 
     static createMap(arr) {
         for (const t of arr) {
-            baby.createMapTile(t.x, t.z, t.skin, t.model)
+            BabylonUtils.createMapTile(t.x, t.z, t.skin, t.model)
         }
 
     }
@@ -366,8 +365,8 @@ class BabylonUtils {
         baby.camera.position.y = 0.75
         const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene)
         light.intensity = 0.9
-        baby.createMaterials()
-        baby.createGui()
+        BabylonUtils.createMaterials()
+        BabylonUtils.createGui()
         return scene
 
     }

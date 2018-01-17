@@ -28,7 +28,7 @@ web.changeView = function (view) {
     web.toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
     web.toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
     if (view == "VIEW_CANVAS") {
-        baby.setup3D()
+        BabylonUtils.setup3D()
         // var t = setInterval(tick, 1000)
     }
 }

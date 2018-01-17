@@ -21,7 +21,7 @@ postman.incoming = function (event) {
         match.tag = obj.tag
 
     } else if (conversation == "S_SHARE_MAP") {
-        baby.createMap(obj.MAP)
+        BabylonUtils.createMap(obj.MAP)
 
     } else if (conversation == "S_PLAY_SOUND") {
         SoundUtils.playSound(obj.FILE)
@@ -30,10 +30,10 @@ postman.incoming = function (event) {
         postman.playerLeft(obj)
 
     } else if (conversation == "S_SHARE_BULLETS") {
-        baby.createBullet(obj)
+        BabylonUtils.createBullet(obj)
 
     } else if (conversation == "S_SHARE_SPRAY") {
-        baby.createSpray(obj.tagId, obj.ms)
+        BabylonUtils.createSpray(obj.tagId, obj.ms)
 
     } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
         postman.recievedDynamicThings(obj)
@@ -48,7 +48,7 @@ postman.incoming = function (event) {
 
 postman.scoreboard = function (obj) {
     for (const key of Object.keys(obj.TAGS)) {
-        baby.createSphereIfNotExists(obj.TAGS[key], key)
+        BabylonUtils.createSphereIfNotExists(obj.TAGS[key], key)
     }
 
     game.scores = []
@@ -61,7 +61,7 @@ postman.scoreboard = function (obj) {
     game.scores.sort(function (a, b) {
         return a.value - b.value
     })
-    baby.displayScores()
+    BabylonUtils.displayScores()
 
 }
 
