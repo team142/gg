@@ -103,7 +103,7 @@ class BabylonUtils {
 
     static createSphereIfNotExists(tagId, labelText) {
         if (tagId) {
-            var result = Match.getPlayerByTag(tagId)
+            const result = Match.getPlayerByTag(tagId)
             if (!result) {
                 const name = "player" + match.gameInstance + tagId
                 const item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)

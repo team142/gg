@@ -40,7 +40,7 @@ class Bullet {
 
     tick() {
 
-        var multi = 3;
+        const multi = 3;
 
         if (this.sBullet.direction == 1 && this.sBullet.rotation == (DirectionTypes.DIR0)) {
             this.bBullet.position.z = (this.bBullet.position.z + (this.sBullet.speed * multi))
