@@ -24,7 +24,7 @@ postman.incoming = function (event) {
         baby.createMap(obj.MAP)
 
     } else if (conversation == "S_PLAY_SOUND") {
-        gSound.playSound(obj.FILE)
+        SoundUtils.playSound(obj.FILE)
 
     } else if (conversation == "S_PLAYER_LEFT") {
         postman.playerLeft(obj)
