@@ -1,5 +1,5 @@
 
-const gSound = {
+const soundData = {
     soundMap: new Map()
 
 }
@@ -12,12 +12,12 @@ class SoundUtils {
 
     static loadSound(path) {
         var sound = new BABYLON.Sound(path, path, baby.scene)
-        gSound.soundMap.set(path, sound)
+        soundData.soundMap.set(path, sound)
 
     }
 
     static playSound(key) {
-        gSound.soundMap.get(key).play()
+        soundData.soundMap.get(key).play()
 
     }
 
