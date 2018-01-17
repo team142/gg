@@ -13,13 +13,14 @@ const DirectionTypes = {
 
 const bullets = []
 
-this.timer = setInterval(moveBullets, 45)
-
-function moveBullets() {
+this.timer = setInterval(() => {
     for (const bullet of bullets) {
         bullet.tick()
     }
-}
+}, 45)
+
+// function moveBullets() {
+// }
 
 
 class Bullet {
