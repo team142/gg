@@ -1,4 +1,4 @@
-var DirectionTypes = {
+const DirectionTypes = {
     DIR0: 0,
     DIR1: 0.785,
     DIR2: 1.57,
@@ -14,7 +14,9 @@ var bullets = []
 this.timer = setInterval(moveBullets, 45)
 
 function moveBullets() {
-    bullets.forEach((bullet) => bullet.tick())
+    for (const bullet of bullets) {
+        bullet.tick()
+    }
 }
 
 

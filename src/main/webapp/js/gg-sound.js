@@ -1,28 +1,29 @@
 
-var gSound = {
+const gSound = {
     soundMap: new Map()
 
 }
 
-gSound.loadSounds = function () {
-    gSound.loadSound("sounds/pew.mp3")
+class SoundUtils {
+    static loadSounds() {
+        SoundUtils.loadSound("sounds/pew.mp3")
+
+    }
+
+    static loadSound(path) {
+        var sound = new BABYLON.Sound(path, path, baby.scene)
+        gSound.soundMap.set(path, sound)
+
+    }
+
+    static playSound(key) {
+        gSound.soundMap.get(key).play()
+
+    }
+
+    static playPew() {
+        SoundUtils.playSound("sounds/pew.mp3")
+
+    }
 
 }
-
-gSound.loadSound = function (path) {
-    var sound = new BABYLON.Sound(path, path, baby.scene)
-    gSound.soundMap.set(path, sound)
-
-}
-
-gSound.playSound = function (key) {
-    gSound.soundMap.get(key).play()
-
-}
-
-gSound.playPew = function () {
-    gSound.playSound("sounds/pew.mp3")
-
-}
-
-
