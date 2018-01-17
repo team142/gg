@@ -68,7 +68,7 @@ class Postman {
     }
 
     static playerLeft(obj) {
-        getPlayerByTag(obj.tag).dispose()
+        Match.getPlayerByTag(obj.tag).dispose()
         match.playerTanks.delete(obj.tag)
 
     }
@@ -81,7 +81,7 @@ class Postman {
                 baby.camera.position.z = t.z
                 baby.camera.rotation.y = t.rotation
             }
-            const s = getPlayerByTag(t.tag)
+            const s = Match.getPlayerByTag(t.tag)
             if (s) {
                 s.position.x = t.x
                 s.position.y = t.y

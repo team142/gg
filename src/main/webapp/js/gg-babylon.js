@@ -103,7 +103,7 @@ class BabylonUtils {
 
     static createSphereIfNotExists(tagId, labelText) {
         if (tagId) {
-            var result = getPlayerByTag(tagId)
+            var result = Match.getPlayerByTag(tagId)
             if (!result) {
                 const name = "player" + match.gameInstance + tagId
                 const item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
@@ -252,7 +252,7 @@ class BabylonUtils {
 
     static createSpray(tankId, ms) {
 
-        const tank = getPlayerByTag(tankId)
+        const tank = Match.getPlayerByTag(tankId)
 
         // Create a particle system
         const particleSystem = new BABYLON.ParticleSystem("particles", 2000, baby.scene);
