@@ -103,32 +103,37 @@ class BabylonUtils {
 
     static createSphereIfNotExists(tagId, labelText) {
         if (tagId) {
+
+            //Ignore players I know of
             const result = Match.getPlayerByTag(tagId)
-            if (!result) {
-                const name = "player" + match.gameInstance + tagId
-                const item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
-                item.position.y = 1
-                match.playerTanks.set(tagId, item)
-
-                const rectText = new BABYLON.GUI.Rectangle()
-                rectText.width = 0.2
-                rectText.height = "100px"
-                rectText.cornerRadius = 20
-                rectText.thickness = 0
-                baby.advancedTexture.addControl(rectText)
-                match.playerRectangles.set(tagId, rectText)
-
-                const label = new BABYLON.GUI.TextBlock()
-                label.text = labelText
-                match.playerLabels.set(tagId, label)
-
-                rectText.addControl(label)
-                rectText.linkWithMesh(item)
-                rectText.linkOffsetY = -50
-                
-                item.material = baby.smileyMaterial
-
+            if (result) {
+                return
             }
+
+            const name = "player" + match.gameInstance + tagId
+            const item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
+            item.position.y = 1
+            match.playerTanks.set(tagId, item)
+
+            const rectText = new BABYLON.GUI.Rectangle()
+            rectText.width = 0.2
+            rectText.height = "100px"
+            rectText.cornerRadius = 20
+            rectText.thickness = 0
+            baby.advancedTexture.addControl(rectText)
+            match.playerRectangles.set(tagId, rectText)
+
+            const label = new BABYLON.GUI.TextBlock()
+            label.text = labelText
+            match.playerLabels.set(tagId, label)
+
+            rectText.addControl(label)
+            rectText.linkWithMesh(item)
+            rectText.linkOffsetY = -50
+
+            item.material = baby.smileyMaterial
+
+
         }
 
     }

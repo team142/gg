@@ -68,7 +68,7 @@ class Postman {
     }
 
     static playerLeft(obj) {
-        match.playerLeaves(obj.tag)
+        Match.playerLeaves(obj.tag)
     }
 
     static recievedDynamicThings(obj) {
