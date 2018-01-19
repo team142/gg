@@ -60,7 +60,7 @@ class Postman {
                 value: obj.SCORES[key]
             })
         }
-        game.scores.sort(function (a, b) {
+        game.scores.sort((a, b) => {
             return a.value - b.value
         })
         BabylonUtils.displayScores()
