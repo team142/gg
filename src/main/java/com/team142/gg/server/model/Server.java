@@ -28,8 +28,22 @@ public class Server {
     public static final double DEFAULT_SPEED = 0.125;
     public static final AtomicInteger TAGS = new AtomicInteger(1000);
 
+    public static String SERVER_NAME;
+    public static boolean REPORT_STATS;
+    public static final String REPORT_URL = "https://us-central1-good-game-192610.cloudfunctions.net/function-newPlayer-v1";
+
     static {
         createDefaultGame();
+
+        Logger.getLogger(Server.class.getName()).log(Level.INFO, "Checking for env");
+        String env = System.getenv("REPORT_SERVER_STATS_AS");
+        if (env != null && !env.isEmpty()) {
+            SERVER_NAME = env;
+            REPORT_STATS = true;
+            Logger.getLogger(Server.class.getName()).log(Level.INFO, "Stats reporting is on: {0}", SERVER_NAME);
+        } else {
+            Logger.getLogger(Server.class.getName()).log(Level.INFO, "No reporting to stats server");
+        }
 
     }
 
