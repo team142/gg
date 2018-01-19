@@ -22,7 +22,7 @@ class BabylonUtils {
     static setup3D() {
         baby.canvas = document.getElementById("VIEW_CANVAS")
         baby.engine = new BABYLON.Engine(baby.canvas, true)
-        baby.scene = BabylonUtils.createScene()
+        BabylonUtils.createScene()
         baby.engine.runRenderLoop(function () {
             baby.scene.render()
         })
@@ -349,16 +349,15 @@ class BabylonUtils {
     }
 
     static createScene() {
-        const scene = new BABYLON.Scene(baby.engine)
-        scene.name = "scene"
-        baby.camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), scene)
+        baby.scene = new BABYLON.Scene(baby.engine)
+        baby.scene.name = "scene"
+        baby.camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), baby.scene)
         baby.camera.setTarget(BABYLON.Vector3.Zero())
         baby.camera.position.y = 0.75
-        const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene)
+        const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), baby.scene)
         light.intensity = 0.9
         BabylonUtils.createMaterials()
         BabylonUtils.createGui()
-        return scene
 
     }
 
