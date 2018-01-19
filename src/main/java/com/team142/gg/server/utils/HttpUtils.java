@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.utils;
 
+import com.team142.gg.server.controller.PostOffice;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,14 +36,18 @@ public class HttpUtils {
 
     }
 
+    public static void postSilently(String url, String json) {
+        try {
+            post(url, json);
+        } catch (IOException ex) {
+            Logger.getLogger(HttpUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
     public static void postSilentlyAsync(String url, String json) {
-        new Thread(() -> {
-            try {
-                post(url, json);
-            } catch (IOException ex) {
-                Logger.getLogger(HttpUtils.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }).start();
+        Reporter.REPORT_THREAD_POOL.execute(() -> postSilently(url, json));
+
     }
 
 }
