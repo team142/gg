@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 public class Reporter {
 
     public static final Executor REPORT_THREAD_POOL = Executors.newFixedThreadPool(2, (Runnable r) -> {
-        Thread thread = new Thread();
+        Thread thread = new Thread(r);
         thread.setDaemon(true);
         return thread;
     });
