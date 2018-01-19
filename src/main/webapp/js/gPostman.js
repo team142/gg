@@ -68,9 +68,7 @@ class Postman {
     }
 
     static playerLeft(obj) {
-        Match.getPlayerByTag(obj.tag).dispose()
-        match.playerTanks.delete(obj.tag)
-
+        match.playerLeaves(obj.tag)
     }
 
     static recievedDynamicThings(obj) {

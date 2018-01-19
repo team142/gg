@@ -116,12 +116,16 @@ class BabylonUtils {
                 rectText.cornerRadius = 20
                 rectText.thickness = 0
                 baby.advancedTexture.addControl(rectText)
+                match.playerRectangles.set(tagId, rectText)
+
                 const label = new BABYLON.GUI.TextBlock()
                 label.text = labelText
+                match.playerLabels.set(tagId, label)
+
                 rectText.addControl(label)
                 rectText.linkWithMesh(item)
                 rectText.linkOffsetY = -50
-
+                
                 item.material = baby.smileyMaterial
 
             }
