@@ -122,10 +122,7 @@ class BabylonUtils {
                 rectText.linkWithMesh(item)
                 rectText.linkOffsetY = -50
 
-                //For now create a smily for each person
-                const mat = new BABYLON.StandardMaterial("", baby.scene);
-                mat.diffuseTexture = new BABYLON.Texture("textures/smily.png", baby.scene);
-                item.material = mat;
+                item.material = baby.smileyMaterial
 
             }
         }
@@ -147,6 +144,10 @@ class BabylonUtils {
         for (const file of textureFiles) {
             BabylonUtils.createAndSaveMaterial("/textures/" + file)
         }
+
+        //For now create a smiley-face for each person
+        baby.smileyMaterial = new BABYLON.StandardMaterial("", baby.scene)
+        baby.smileyMaterial.diffuseTexture = new BABYLON.Texture("textures/smily.png", baby.scene)
 
     }
 
