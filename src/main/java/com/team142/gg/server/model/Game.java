@@ -7,6 +7,7 @@ package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.controller.map.TileBitmap;
 import com.team142.gg.server.model.mappable.MapTileElement;
 import com.team142.gg.server.model.mappable.Tank;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
@@ -36,6 +37,7 @@ public class Game {
     private final String name;
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
     private final List<MapTileElement> MAP;
+    private TileBitmap[][] bitmap;
 
     private final double startHealth;
 

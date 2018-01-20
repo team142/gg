@@ -25,18 +25,26 @@ public class MapMaker {
         Tile grassTile = new Tile(SkinType.GRASS, ModelType.FLAT_TILE, true, false);
         Tile rockTile = new Tile(SkinType.ROCK, ModelType.ROCK_TILE, false, true);
 
+        int width = 50;
+        int length = 50;
+
+        game.setBitmap(new TileBitmap[width][length]);
+
         //Green map for now
-        for (int x = 0; x < 50; x++) {
-            for (int y = 0; y < 50; y++) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < length; y++) {
                 if (x > 20 && x < 30 && y > 20 && y < 30) {
                     MapTileElement tile = new MapTileElement(x, 1, y, rockTile, DirectionTypes.DIR0);
                     game.getMAP().add(tile);
+                    game.getBitmap()[x][y] = new TileBitmap(false, false);
                 } else if (x == 49 || y == 49) {
                     MapTileElement tile = new MapTileElement(x, 1, y, waterTile, DirectionTypes.DIR0);
                     game.getMAP().add(tile);
+                    game.getBitmap()[x][y] = new TileBitmap(false, false);
                 } else {
                     MapTileElement tile = new MapTileElement(x, 1, y, grassTile, DirectionTypes.DIR0);
                     game.getMAP().add(tile);
+                    game.getBitmap()[x][y] = new TileBitmap(true, true);
                 }
             }
         }
