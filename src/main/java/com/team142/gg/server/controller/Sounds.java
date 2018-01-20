@@ -8,6 +8,8 @@ package com.team142.gg.server.controller;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.messages.base.SoundType;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlaySound;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  *
@@ -15,27 +17,33 @@ import com.team142.gg.server.model.messages.outgoing.other.MessagePlaySound;
  */
 public class Sounds {
 
-    public static void sendSound(Game game, String sound) {
+    public static final Executor SOUND_MSG_THREAD_POOL = Executors.newFixedThreadPool(10, (Runnable r) -> {
+        Thread thread = new Thread(r);
+        thread.setDaemon(true);
+        return thread;
+    });
 
+    public static void sendSound(Game game, SoundType type) {
+        SOUND_MSG_THREAD_POOL.execute(() -> PostOffice.sendPlayersAMessage(game, new MessagePlaySound(type)));
     }
 
     public static void sendShoot(Game game) {
-        PostOffice.sendPlayersAMessage(game, new MessagePlaySound(SoundType.PEW));
+        sendSound(game, SoundType.PEW);
 
     }
 
     public static void sendDing(Game game) {
-        PostOffice.sendPlayersAMessage(game, new MessagePlaySound(SoundType.DING));
+        sendSound(game, SoundType.DING);
 
     }
 
     public static void sendExplode(Game game) {
-        PostOffice.sendPlayersAMessage(game, new MessagePlaySound(SoundType.EXPLODE));
+        sendSound(game, SoundType.EXPLODE);
 
     }
 
     public static void sendSpawn(Game game) {
-        PostOffice.sendPlayersAMessage(game, new MessagePlaySound(SoundType.SHHHA));
+        sendSound(game, SoundType.SHHHA);
 
     }
 

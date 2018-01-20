@@ -44,6 +44,7 @@ public class Referee {
         announcePlayerJoins(game, player);
         Referee.sendMapToPlayer(player.getId(), game);
         Reporter.REPORT_THREAD_POOL.execute(() -> PostOffice.reportNewPlayerForStats(player.getId()));
+        Sounds.sendSpawn(game);
 
     }
 
