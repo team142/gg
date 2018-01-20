@@ -5,10 +5,13 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.mappable.Bullet;
 import com.team142.gg.server.model.mappable.DirectionTypes;
 import com.team142.gg.server.model.mappable.Tank;
+import com.team142.gg.server.model.messages.base.SoundType;
+import com.team142.gg.server.model.messages.outgoing.other.MessagePlaySound;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.workers.TickerComms;
 import com.team142.gg.server.workers.TickerPhysics;
@@ -24,7 +27,7 @@ import lombok.Data;
  */
 @Data
 public class Player {
-
+    
     private final String id;
     private String name;
     private final long joinTimeMs;
@@ -38,7 +41,7 @@ public class Player {
     private Game game;
     private final TickerComms tickerComms;
     private final TickerPhysics tickerPhysics;
-
+    
     public Player(String id) {
         this.BULLETS = new CopyOnWriteArrayList<>();
         this.id = id;
@@ -50,17 +53,17 @@ public class Player {
         this.tickerPhysics = new TickerPhysics(this);
         this.tickerComms = new TickerComms(this);
         this.name = "";
-
+        
     }
-
+    
     public void addKill() {
         this.kills.addAndGet(1);
     }
-
+    
     public void addDeath() {
         this.deaths.addAndGet(1);
     }
-
+    
     public void populateScorebord(MessageScoreboard board) {
         //Add score
         int score = this.kills.get() - this.deaths.get();
@@ -68,9 +71,9 @@ public class Player {
 
         //Add tag
         board.getTAGS().put(name, TAG);
-
+        
     }
-
+    
     public void keyDown(String key) {
         switch (key) {
             case "A":
@@ -97,26 +100,26 @@ public class Player {
             default:
                 break;
         }
-
+        
         TANK.setDirection(0);
-
+        
     }
-
+    
     public void keyUp(String key) {
         TANK.setDirection(0);
     }
-
+    
     private void attemptShoot() {
         //Check last shot
         if (System.currentTimeMillis() - LAST_BULLET.get() >= MS_PER_SHOT) {
             //We can shoot
             LAST_BULLET.set(System.currentTimeMillis());
             shoot();
-
+            
         }
-
+        
     }
-
+    
     private void shoot() {
         //Create a bullet
         Bullet bullet = new Bullet(this);
@@ -125,27 +128,29 @@ public class Player {
         BULLETS.add(bullet);
 
         //Tell referee (send to game)
-        Referee.sendBullet(Server.getGameByPlayer(id), bullet);
-
+        Referee.sendBullet(game, bullet);
+        
+        PostOffice.sendPlayersAMessage(game, new MessagePlaySound(SoundType.PEW));
+        
     }
-
+    
     public void start() {
         System.out.println("Starting threads for: " + getName());
         new Thread(tickerPhysics).start();
         new Thread(tickerComms).start();
-
+        
     }
-
+    
     public void stop() {
         tickerPhysics.getRUNNING().set(false);
         tickerComms.getRUNNING().set(false);
-
+        
     }
-
+    
     public void removeBullet(Bullet bullet) {
         System.out.println("Removed bullet");
         BULLETS.remove(bullet);
         bullet.setPlayer(null);
     }
-
+    
 }

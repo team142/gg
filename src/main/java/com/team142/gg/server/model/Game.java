@@ -9,7 +9,9 @@ import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.mappable.MapTileElement;
 import com.team142.gg.server.model.mappable.Tank;
+import com.team142.gg.server.model.messages.base.SoundType;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
+import com.team142.gg.server.model.messages.outgoing.other.MessagePlaySound;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlayerLeft;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,24 +32,24 @@ import lombok.Data;
  */
 @Data
 public class Game {
-
+    
     private final String id;
     private final List<Player> players = new CopyOnWriteArrayList<>();
     private final String name;
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
     private final List<MapTileElement> MAP;
-
+    
     private final double startHealth;
-
+    
     public Game(String name) {
         this.MAP = Collections.synchronizedList(new ArrayList<>());
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.startHealth = 100;
         startPinger();
-
+        
     }
-
+    
     public void spawn(Player player) {
         int x = ThreadLocalRandom.current().nextInt(1, 48 + 1);
         int z = ThreadLocalRandom.current().nextInt(1, 48 + 1);
@@ -57,25 +59,27 @@ public class Game {
         player.getTANK().setMaxHealth(startHealth);
         player.getTANK().setX(x);
         player.getTANK().setZ(z);
-
+        
+        PostOffice.sendPlayersAMessage(this, new MessagePlaySound(SoundType.SHHHA));
+        
     }
-
+    
     public MessageGameSummary toGameSummary() {
         return new MessageGameSummary(id, name, players.size());
     }
-
+    
     public boolean hasPlayer(String id) {
         return players.stream().anyMatch((player) -> (player.getId().equals(id)));
     }
-
+    
     public void removePlayer(Player player) {
         TANKS.remove(player.getId());
         PostOffice.sendPlayersAMessage(this, new MessagePlayerLeft(player.getTAG()));
         players.removeIf(playerItem -> playerItem.getId().equals(player.getId()));
         Referee.sendScoreBoard(this);
-
+        
     }
-
+    
     public void playerJoins(Player player) {
         TANKS.put(player.getId(), player.getTANK());
         player.getTANK().setMaxHealth(startHealth);
@@ -83,9 +87,9 @@ public class Game {
         players.add(player);
         player.start();
         spawn(player);
-
+        
     }
-
+    
     private void startPinger() {
         new Thread(() -> {
             while (true) {
@@ -98,5 +102,5 @@ public class Game {
             }
         }).start();
     }
-
+    
 }
