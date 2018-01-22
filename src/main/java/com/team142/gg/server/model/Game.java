@@ -7,6 +7,7 @@ package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.controller.SoundManager;
 import com.team142.gg.server.controller.map.TileBitmap;
 import com.team142.gg.server.model.mappable.MapTileElement;
 import com.team142.gg.server.model.mappable.Tank;
@@ -38,12 +39,14 @@ public class Game {
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
     private final List<MapTileElement> MAP;
     private TileBitmap[][] bitmap;
+    private SoundManager soundManager;
 
     private final double startHealth;
 
     public Game(String name) {
         this.MAP = Collections.synchronizedList(new ArrayList<>());
         this.id = UUID.randomUUID().toString();
+        this.soundManager = new SoundManager(this.id);
         this.name = name;
         this.startHealth = 100;
         startPinger();

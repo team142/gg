@@ -6,7 +6,6 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.Referee;
-import com.team142.gg.server.controller.Sounds;
 import com.team142.gg.server.model.mappable.Bullet;
 import com.team142.gg.server.model.mappable.DirectionTypes;
 import com.team142.gg.server.model.mappable.Tank;
@@ -128,7 +127,7 @@ public class Player {
         //Tell referee (send to game)
         Referee.sendBullet(game, bullet);
 
-        Sounds.sendShoot(game);
+        game.getSoundManager().sendShoot();
 
     }
 

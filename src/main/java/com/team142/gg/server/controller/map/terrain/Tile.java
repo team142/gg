@@ -23,7 +23,11 @@ public class Tile {
     private boolean high;
 
     public String getSkin() {
-        return "/textures/" + skinType.name().toLowerCase() + ThreadLocalRandom.current().nextInt(1, SkinTypeLibrary.TERRAIN_SKIN_COUNT.get(skinType) + 1) + "-min" + ".jpg";
+        return "/textures/"
+                + skinType.name().toLowerCase()
+                + ThreadLocalRandom.current().nextInt(1, SkinTypeLibrary.TERRAIN_SKIN_COUNT.get(skinType) + 1)
+                + "-min"
+                + ".jpg";
 
     }
 
