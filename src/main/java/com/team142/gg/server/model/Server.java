@@ -6,7 +6,7 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.MessageManager;
-import com.team142.gg.server.controller.map.MapMaker;
+import com.team142.gg.server.controller.MapManager;
 import com.team142.gg.server.model.mappable.organic.MapSettings;
 import com.team142.gg.server.model.messages.outgoing.other.MessageShareTag;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -51,7 +51,7 @@ public class Server {
     public static Game createGame(String name, MapSettings settings) {
         Logger.getLogger(Server.class.getName()).log(Level.INFO, "Creating a new game");
         Game game = new Game(name);
-        MapMaker.generateMap(settings, game);
+        MapManager.generateMap(settings, game);
         Repository.GAMES_ON_SERVER.put(game.getId(), game);
         return game;
 

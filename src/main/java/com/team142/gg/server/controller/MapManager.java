@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.controller.map;
+package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.mappable.organic.MapSettings;
 import com.team142.gg.server.model.mappable.organic.TileBitmap;
@@ -18,7 +18,7 @@ import com.team142.gg.server.model.mappable.organic.MapTileElement;
  *
  * @author just1689
  */
-public class MapMaker {
+public class MapManager {
 
     public static void generateMap(MapSettings settings, Game game) {
         //TODO

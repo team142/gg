@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.services;
+package com.team142.gg.server.controller.services;
 
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.utils.JsonUtils;
