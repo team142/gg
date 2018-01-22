@@ -12,6 +12,8 @@ import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
 import com.team142.gg.server.model.messages.incoming.MessageJoinGame;
 import com.team142.gg.server.model.messages.base.ViewType;
+import com.team142.gg.server.model.messages.incoming.MessageKeyDown;
+import com.team142.gg.server.model.messages.incoming.MessageKeyUp;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageBullet;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareMap;
@@ -25,6 +27,14 @@ import java.util.logging.Logger;
 public class GameManager {
 
     private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
+
+    public static void handle(MessageKeyDown messageKeyDown) {
+        Repository.PLAYERS_ON_SERVER.get(messageKeyDown.getFrom()).keyUp(messageKeyDown.getKey());
+    }
+
+    public static void handle(MessageKeyUp messageKeyUp) {
+        Repository.PLAYERS_ON_SERVER.get(messageKeyUp.getFrom()).keyUp(messageKeyUp.getKey());
+    }
 
     public static void handle(MessageJoinGame body) {
         Game game = Repository.GAMES_ON_SERVER.get(body.getId());
