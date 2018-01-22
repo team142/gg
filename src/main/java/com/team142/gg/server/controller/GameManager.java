@@ -29,7 +29,7 @@ public class GameManager {
     private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
 
     public static void handle(MessageKeyDown messageKeyDown) {
-        Repository.PLAYERS_ON_SERVER.get(messageKeyDown.getFrom()).keyUp(messageKeyDown.getKey());
+        Repository.PLAYERS_ON_SERVER.get(messageKeyDown.getFrom()).keyDown(messageKeyDown.getKey());
     }
 
     public static void handle(MessageKeyUp messageKeyUp) {
