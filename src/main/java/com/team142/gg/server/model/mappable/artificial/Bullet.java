@@ -6,12 +6,16 @@
 package com.team142.gg.server.model.mappable.artificial;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.team142.gg.server.controller.GameManager;
+import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.utils.PhysicsUtils;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -82,7 +86,24 @@ public class Bullet extends MovableElement {
     }
 
     public void damage(Tank tank) {
-        tank.damage(damage, player);
+        BulletHitResult result = tank.damage(damage, player);
+
+        Game game = Repository.GAMES_ON_SERVER.get(player.getGameId());
+        game.getSoundManager().sendDing();
+        Player toPlayer = Repository.PLAYERS_ON_SERVER.get(tank.getPlayerId());
+
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "{0}{1} hit ", new String[]{toPlayer.getName(), player.getName()});
+        System.out.println(
+                "Damage! "
+                + result.getDamage()
+                + " from "
+                + player.getName()
+                + " to "
+                + toPlayer.getName()
+        );
+        if (result.isLethal()) {
+            GameManager.recordKill(game, player, toPlayer);
+        }
         ok = false;
     }
 

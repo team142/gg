@@ -5,13 +5,8 @@
  */
 package com.team142.gg.server.model.mappable.artificial;
 
-import com.team142.gg.server.controller.MessageManager;
-import com.team142.gg.server.controller.GameManager;
-import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
-import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
-import com.team142.gg.server.model.messages.outgoing.rendered.MessageSpray;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,31 +35,9 @@ public class Tank extends MovableElement {
         this.playerId = player.getId();
     }
 
-    public void damage(double dmg, Player fromPlayer) {
+    public BulletHitResult damage(double dmg, Player fromPlayer) {
         health -= dmg;
-
-        Game game = Repository.getGameByPlayer(playerId);
-        game.getSoundManager().sendDing();
-
-        if (health <= 0) {
-            Repository.PLAYERS_ON_SERVER.get(playerId).addDeath();
-            GameManager.spawn(game, Repository.PLAYERS_ON_SERVER.get(playerId));
-            fromPlayer.addKill();
-            GameManager.sendScoreBoard(Repository.getGameByPlayer(playerId));
-            MessageManager.sendPlayersAMessage(game, new MessageSpray(Repository.PLAYERS_ON_SERVER.get(playerId).getTAG(), 1200));
-            game.getSoundManager().sendExplode();
-
-        }
-
-        System.out.println(
-                "Damage! "
-                + dmg
-                + " from "
-                + fromPlayer.getName()
-                + " to "
-                + Repository.PLAYERS_ON_SERVER.get(playerId).getName()
-                + " hp now: " + health
-        );
+        return new BulletHitResult(true, dmg, health <= 0);
 
     }
 

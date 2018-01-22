@@ -51,14 +51,6 @@ public class Player {
 
     }
 
-    public void addKill() {
-        this.kills.addAndGet(1);
-    }
-
-    public void addDeath() {
-        this.deaths.addAndGet(1);
-    }
-
     public void populateScorebord(MessageScoreboard board) {
         //Add score
         int score = this.kills.get() - this.deaths.get();

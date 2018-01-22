@@ -17,6 +17,7 @@ import com.team142.gg.server.model.messages.incoming.MessageKeyUp;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageBullet;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareMap;
+import com.team142.gg.server.model.messages.outgoing.rendered.MessageSpray;
 import com.team142.gg.server.utils.Reporter;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
@@ -108,6 +109,13 @@ public class GameManager {
 
     public static void sendBullet(Game game, Bullet bullet) {
         MessageManager.sendPlayersAMessage(game, new MessageBullet(bullet));
+    }
+
+    public static void recordKill(Game game, Player fromPlayer, Player player) {
+        GameManager.spawn(game, player);
+        GameManager.sendScoreBoard(game);
+        MessageManager.sendPlayersAMessage(game, new MessageSpray(player.getTAG(), 1200));
+        game.getSoundManager().sendExplode();
     }
 
 }
