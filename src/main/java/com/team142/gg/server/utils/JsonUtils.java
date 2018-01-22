@@ -30,7 +30,7 @@ public class JsonUtils {
         OBJECT_MAPPER = new ObjectMapper();
         OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         OBJECT_MAPPER.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
-        OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
+        // OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
 
     }
 
