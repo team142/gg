@@ -18,4 +18,21 @@ public class Repository {
     public static final ConcurrentHashMap<String, Game> GAMES_ON_SERVER = new ConcurrentHashMap<String, Game>();
     public static final ConcurrentHashMap<String, Session> SESSIONS_ON_SERVER = new ConcurrentHashMap<String, Session>();
 
+    public static Game getGameByPlayer(String id) {
+        return GAMES_ON_SERVER
+                .values()
+                .stream()
+                .filter(e -> e.hasPlayer(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static boolean hasPlayerByName(String name) {
+        return Repository.PLAYERS_ON_SERVER
+                .values()
+                .stream()
+                .anyMatch((p) -> (p.getName().equals(name)));
+
+    }
+
 }

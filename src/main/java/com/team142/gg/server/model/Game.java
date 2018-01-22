@@ -40,6 +40,7 @@ public class Game {
     private final List<MapTileElement> MAP;
     private TileBitmap[][] bitmap;
     private SoundManager soundManager;
+    private Thread pingThread;
 
     private final double startHealth;
 
@@ -92,7 +93,7 @@ public class Game {
     }
 
     private void startPinger() {
-        new Thread(() -> {
+        this.pingThread = new Thread(() -> {
             while (true) {
                 try {
                     getPlayers().forEach((player) -> player.getTickerComms().ping());
@@ -101,7 +102,8 @@ public class Game {
                     Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }).start();
+        });
+        pingThread.start();
     }
 
 }

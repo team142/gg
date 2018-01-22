@@ -7,7 +7,6 @@ package com.team142.gg.server.model.mappable.artificial;
 
 import com.team142.gg.server.controller.MessageManager;
 import com.team142.gg.server.controller.GameManager;
-import com.team142.gg.server.controller.ServerManager;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
@@ -44,18 +43,17 @@ public class Tank extends MovableElement {
     public void damage(double dmg, Player fromPlayer) {
         health -= dmg;
 
+        Game game = Repository.getGameByPlayer(playerId);
+        game.getSoundManager().sendDing();
+
         if (health <= 0) {
             Repository.PLAYERS_ON_SERVER.get(playerId).addDeath();
-            Game game = ServerManager.getGameByPlayer(playerId);
             game.spawn(Repository.PLAYERS_ON_SERVER.get(playerId));
             fromPlayer.addKill();
-            GameManager.sendScoreBoard(ServerManager.getGameByPlayer(playerId));
+            GameManager.sendScoreBoard(Repository.getGameByPlayer(playerId));
             MessageManager.sendPlayersAMessage(game, new MessageSpray(Repository.PLAYERS_ON_SERVER.get(playerId).getTAG(), 1200));
-            game.getSoundManager().sendDing();
             game.getSoundManager().sendExplode();
 
-        } else {
-            ServerManager.getGameByPlayer(playerId).getSoundManager().sendDing();
         }
 
         System.out.println(

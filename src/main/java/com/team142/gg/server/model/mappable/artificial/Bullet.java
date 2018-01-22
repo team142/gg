@@ -6,9 +6,9 @@
 package com.team142.gg.server.model.mappable.artificial;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.team142.gg.server.controller.ServerManager;
 import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.Player;
+import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.utils.PhysicsUtils;
@@ -54,7 +54,7 @@ public class Bullet extends MovableElement {
         }
 //        System.out.println(getX() + ", " + getY() + ", " + getZ() + " Rotation: " + getRotation().toPlainString() + " dir: " + getDirection());
         movementTick();
-        ServerManager
+        Repository
                 .getGameByPlayer(player.getId())
                 .getTANKS()
                 .values()

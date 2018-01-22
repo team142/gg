@@ -51,6 +51,7 @@ public class ServerManager {
     public static void handle(MessageJoinServer body) {
         String name = ensureUniqueName(body.getName());
         Repository.PLAYERS_ON_SERVER.get(body.getFrom()).setName(name);
+        LOG.log(Level.INFO, "New person is: {0}", body.getFrom());
         changePlayerView(body.getFrom(), ViewType.VIEW_GAMES);
         ServerManager.notifyPlayerOfGames(body.getFrom());
 
@@ -61,7 +62,7 @@ public class ServerManager {
         Repository.GAMES_ON_SERVER.values().forEach((game) -> {
             message.getGAMES().add(game.toGameSummary());
         });
-        LOG.log(Level.INFO, "Telling player about games: ");
+        LOG.log(Level.INFO, "Telling player about games... ");
         MessageManager.sendPlayerAMessage(playerId, message);
 
     }
@@ -88,7 +89,7 @@ public class ServerManager {
         String test = in;
         while (present) {
             test = num == 0 ? in : in + num;
-            present = hasPlayerByName(test);
+            present = Repository.hasPlayerByName(test);
             num++;
         }
         return test;
@@ -112,7 +113,7 @@ public class ServerManager {
 
     public static void playerDisconnects(String id) {
 
-        Game game = getGameByPlayer(id);
+        Game game = Repository.getGameByPlayer(id);
         Player player = Repository.PLAYERS_ON_SERVER.get(id);
 
         game.removePlayer(player);
@@ -123,24 +124,9 @@ public class ServerManager {
 
     }
 
-    public static Game getGameByPlayer(String id) {
-        return Repository.GAMES_ON_SERVER.values().stream()
-                .filter(e -> e.hasPlayer(id))
-                .findFirst()
-                .orElse(null);
-    }
-
     public static void newPlayer(Player player) {
         Repository.PLAYERS_ON_SERVER.put(player.getId(), player);
         MessageManager.sendPlayerAMessage(player.getId(), new MessageShareTag(player.getTAG()));
-
-    }
-
-    public static boolean hasPlayerByName(String name) {
-        return Repository.PLAYERS_ON_SERVER
-                .values()
-                .stream()
-                .anyMatch((p) -> (p.getName().equals(name)));
 
     }
 
