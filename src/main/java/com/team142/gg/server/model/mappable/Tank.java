@@ -7,6 +7,7 @@ package com.team142.gg.server.model.mappable;
 
 import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.controller.Sounds;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
@@ -49,7 +50,10 @@ public class Tank extends MovableElement {
             fromPlayer.addKill();
             Referee.sendScoreBoard(Server.getGameByPlayer(playerId));
             PostOffice.sendPlayersAMessage(game, new MessageSpray(Server.PLAYERS_ON_SERVER.get(playerId).getTAG(), 1200));
+            Sounds.sendExplode(game);
 
+        } else {
+            Sounds.sendDing(Server.getGameByPlayer(playerId));
         }
 
         System.out.println(
