@@ -6,7 +6,6 @@
 package com.team142.gg.server.controller.runnable.base;
 
 import com.team142.gg.server.controller.GameManager;
-import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
@@ -23,7 +22,10 @@ public abstract class AbstractTickerWorker implements Runnable {
     private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
 
     @Getter
-    private final Player PLAYER;
+    private final String PLAYER_ID;
+
+    @Getter
+    private final String GAME_ID;
 
     @Getter
     private final AtomicBoolean RUNNING = new AtomicBoolean(true);
@@ -33,8 +35,9 @@ public abstract class AbstractTickerWorker implements Runnable {
     @Getter
     private int TICK_MS;
 
-    public AbstractTickerWorker(Player player) {
-        this.PLAYER = player;
+    public AbstractTickerWorker(String playerId, String gameId) {
+        this.GAME_ID = gameId;
+        this.PLAYER_ID = playerId;
         this.TICK_MS = Server.TICK_MS;
     }
 

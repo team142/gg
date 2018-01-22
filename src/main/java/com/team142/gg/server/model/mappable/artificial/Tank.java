@@ -7,10 +7,10 @@ package com.team142.gg.server.model.mappable.artificial;
 
 import com.team142.gg.server.controller.MessageManager;
 import com.team142.gg.server.controller.GameManager;
+import com.team142.gg.server.controller.ServerManager;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
-import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageSpray;
 import lombok.Getter;
@@ -46,16 +46,16 @@ public class Tank extends MovableElement {
 
         if (health <= 0) {
             Repository.PLAYERS_ON_SERVER.get(playerId).addDeath();
-            Game game = Server.getGameByPlayer(playerId);
+            Game game = ServerManager.getGameByPlayer(playerId);
             game.spawn(Repository.PLAYERS_ON_SERVER.get(playerId));
             fromPlayer.addKill();
-            GameManager.sendScoreBoard(Server.getGameByPlayer(playerId));
+            GameManager.sendScoreBoard(ServerManager.getGameByPlayer(playerId));
             MessageManager.sendPlayersAMessage(game, new MessageSpray(Repository.PLAYERS_ON_SERVER.get(playerId).getTAG(), 1200));
             game.getSoundManager().sendDing();
             game.getSoundManager().sendExplode();
 
         } else {
-            Server.getGameByPlayer(playerId).getSoundManager().sendDing();
+            ServerManager.getGameByPlayer(playerId).getSoundManager().sendDing();
         }
 
         System.out.println(

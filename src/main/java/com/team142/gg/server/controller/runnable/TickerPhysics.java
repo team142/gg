@@ -5,8 +5,9 @@
  */
 package com.team142.gg.server.controller.runnable;
 
-import com.team142.gg.server.model.Player;
 import com.team142.gg.server.controller.runnable.base.AbstractTickerWorker;
+import com.team142.gg.server.model.Player;
+import com.team142.gg.server.model.Repository;
 
 /**
  *
@@ -14,15 +15,16 @@ import com.team142.gg.server.controller.runnable.base.AbstractTickerWorker;
  */
 public class TickerPhysics extends AbstractTickerWorker {
 
-    public TickerPhysics(Player player) {
-        super(player);
+    public TickerPhysics(String playerId, String gameId) {
+        super(playerId, gameId);
     }
 
     @Override
     public void doTick() {
-        getPLAYER().getTANK().movementTick();
-        getPLAYER().getBULLETS().forEach((bullet) -> bullet.movementTickBullet());
-        getPLAYER().getBULLETS()
+        Player player = Repository.PLAYERS_ON_SERVER.get(getPLAYER_ID());
+        player.getTANK().movementTick();
+        player.getBULLETS().forEach((bullet) -> bullet.movementTickBullet());
+        player.getBULLETS()
                 .stream()
                 .filter((bullet) -> !bullet.isOk())
                 .forEach((bullet) -> bullet.getPlayer().removeBullet(bullet));

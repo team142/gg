@@ -6,7 +6,6 @@
 package com.team142.gg.server.controller.runnable;
 
 import com.team142.gg.server.controller.MessageManager;
-import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareThingsDynamic;
 import com.team142.gg.server.controller.runnable.base.AbstractTickerWorker;
@@ -19,19 +18,19 @@ public class TickerComms extends AbstractTickerWorker {
 
     private long lastPing = 0;
 
-    public TickerComms(Player player) {
-        super(player);
+    public TickerComms(String playerId, String gameId) {
+        super(playerId, gameId);
     }
 
     @Override
     public void doTick() {
         checkPing();
-        MessageManager.sendPlayerAMessage(getPLAYER().getId(), getDynamicThingsMessage());
+        MessageManager.sendPlayerAMessage(getPLAYER_ID(), getDynamicThingsMessage());
 
     }
 
     private MessageShareThingsDynamic getDynamicThingsMessage() {
-        return new MessageShareThingsDynamic(getPLAYER().getGame());
+        return new MessageShareThingsDynamic(Repository.GAMES_ON_SERVER.get(getGAME_ID()));
     }
 
     private void checkPing() {
@@ -43,7 +42,7 @@ public class TickerComms extends AbstractTickerWorker {
 
     public void ping() {
         lastPing = System.currentTimeMillis();
-        Repository.SESSIONS_ON_SERVER.get(getPLAYER().getId()).getAsyncRemote().sendText("0");
+        Repository.SESSIONS_ON_SERVER.get(getPLAYER_ID()).getAsyncRemote().sendText("0");
 
     }
 

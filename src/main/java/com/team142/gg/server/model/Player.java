@@ -35,9 +35,9 @@ public class Player {
     private final AtomicLong LAST_BULLET = new AtomicLong(0);
     private int MS_PER_SHOT = 1000;
     private final List<Bullet> BULLETS;
-    private Game game;
-    private final TickerComms tickerComms;
-    private final TickerPhysics tickerPhysics;
+    private String gameId;
+    private TickerComms tickerComms;
+    private TickerPhysics tickerPhysics;
 
     public Player(String id) {
         this.BULLETS = new CopyOnWriteArrayList<>();
@@ -47,8 +47,6 @@ public class Player {
         this.deaths = new AtomicInteger(0);
         this.TAG = Server.TAGS.incrementAndGet();
         this.TANK = new Tank(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG, 100, this);
-        this.tickerPhysics = new TickerPhysics(this);
-        this.tickerComms = new TickerComms(this);
         this.name = "";
 
     }
@@ -124,6 +122,8 @@ public class Player {
         //Add to player (Game will send to players)
         BULLETS.add(bullet);
 
+        Game game = Repository.GAMES_ON_SERVER.get(gameId);
+
         //Tell referee (send to game)
         GameManager.sendBullet(game, bullet);
 
@@ -132,7 +132,8 @@ public class Player {
     }
 
     public void start() {
-        System.out.println("Starting threads for: " + getName());
+        this.tickerPhysics = new TickerPhysics(id, gameId);
+        this.tickerComms = new TickerComms(id, gameId);
         new Thread(tickerPhysics).start();
         new Thread(tickerComms).start();
 
@@ -145,7 +146,6 @@ public class Player {
     }
 
     public void removeBullet(Bullet bullet) {
-        System.out.println("Removed bullet");
         BULLETS.remove(bullet);
         bullet.setPlayer(null);
     }

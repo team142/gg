@@ -6,6 +6,7 @@
 package com.team142.gg.server.model.mappable.artificial;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.team142.gg.server.controller.ServerManager;
 import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
@@ -53,8 +54,8 @@ public class Bullet extends MovableElement {
         }
 //        System.out.println(getX() + ", " + getY() + ", " + getZ() + " Rotation: " + getRotation().toPlainString() + " dir: " + getDirection());
         movementTick();
-        player
-                .getGame()
+        ServerManager
+                .getGameByPlayer(player.getId())
                 .getTANKS()
                 .values()
                 .stream()
@@ -77,7 +78,7 @@ public class Bullet extends MovableElement {
         if (getZ() > 50 + 1) {
             ok = false;
         }
-        
+
     }
 
     public void damage(Tank tank) {

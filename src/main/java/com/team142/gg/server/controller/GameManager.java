@@ -38,8 +38,8 @@ public class GameManager {
             LOG.log(Level.SEVERE, "Null Player ({0}) tried to game ({1}) ", new String[]{body.getFrom(), body.getId()});
             return;
         }
+        player.setGameId(game.getId());
         game.playerJoins(player);
-        player.setGame(game);
         welcomePlayerToGame(body.getFrom());
         announcePlayerJoins(game, player);
         GameManager.sendMapToPlayer(player.getId(), game);
