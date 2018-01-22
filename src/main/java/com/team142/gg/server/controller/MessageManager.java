@@ -48,7 +48,6 @@ public class MessageManager {
         body.setFrom(id);
         if (body instanceof Runnable) {
             ((Runnable) body).run();
-//            LOG.log(Level.INFO, "Just ran: {0}", conversation);
             return;
         }
 
@@ -56,23 +55,28 @@ public class MessageManager {
 
     }
 
-    public static void sendPlayerAMessage(String playerId, Message message) {
-//        LOG.log(Level.INFO, "Sending message to player: {0}, conversation: {1}", new String[]{playerId, message.getConversation()});
-        String json = JsonUtils.toJson(message);
-        Session session = Repository.SESSIONS_ON_SERVER.get(playerId);
-        if (session != null) {
-            session.getAsyncRemote().sendText(json);
-        }
-    }
-
-    public static void sendPlayersAMessage(Game game, Message message) {
-        game.getPlayers().forEach((player) -> sendPlayerAMessage(player.getId(), message));
-    }
-
     public static void reportNewPlayerForStats(String playerId) {
         if (Server.REPORT_STATS) {
             String json = JsonUtils.toJson(new MessagePlayerJoinStats(Server.SERVER_NAME));
             HttpUtils.postSilentlyAsync(Server.REPORT_URL, json);
+        }
+    }
+
+    public static void sendPlayersAMessage(Game game, Message message) {
+        String json = JsonUtils.toJson(message);
+        game.getPlayers().forEach((player) -> sendPlayerAMessage(Repository.SESSIONS_ON_SERVER.get(player.getId()), json));
+    }
+
+    public static void sendPlayerAMessage(String playerId, Message message) {
+        String json = JsonUtils.toJson(message);
+        Session session = Repository.SESSIONS_ON_SERVER.get(playerId);
+        sendPlayerAMessage(session, json);
+
+    }
+
+    public static void sendPlayerAMessage(Session session, String json) {
+        if (session != null) {
+            session.getAsyncRemote().sendText(json);
         }
     }
 
