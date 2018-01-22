@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.utils;
 
-import com.team142.gg.server.controller.PostOffice;
+import com.team142.gg.server.controller.MessageManager;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

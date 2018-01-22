@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.model.mappable;
+package com.team142.gg.server.model.mappable.artificial;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.team142.gg.server.controller.map.terrain.SkinType;
+import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.utils.PhysicsUtils;
 import lombok.Getter;
 import lombok.Setter;

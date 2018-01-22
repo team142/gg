@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.controller.map;
+package com.team142.gg.server.model.mappable.organic;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author just1689
  */
 @AllArgsConstructor
-@Data
-public class TileBitmap {
+public class MapSettings {
 
-    private boolean canMoveOver;
-    private boolean canShootOver;
-
+    @Getter
+    @Setter
+    private String something;
 }

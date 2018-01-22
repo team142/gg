@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.model.messages.outgoing.rendered;
 
-import com.team142.gg.server.model.mappable.Bullet;
+import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
 import lombok.Getter;

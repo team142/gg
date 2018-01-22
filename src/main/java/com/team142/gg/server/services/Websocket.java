@@ -5,8 +5,8 @@
  */
 package com.team142.gg.server.services;
 
-import com.team142.gg.server.controller.PostOffice;
-import com.team142.gg.server.controller.ServerAdmin;
+import com.team142.gg.server.controller.MessageManager;
+import com.team142.gg.server.controller.ServerManager;
 import com.team142.gg.server.model.Server;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +26,7 @@ public class Websocket {
 
     @OnOpen
     public void onOpen(Session session) {
-        ServerAdmin.notifyNewConnection(session);
+        ServerManager.notifyNewConnection(session);
     }
 
     @OnError
@@ -37,12 +37,12 @@ public class Websocket {
     @OnMessage
     public void onMessage(Session session, String message) {
         String id = session.getId();
-        PostOffice.handleIncoming(id, message);
+        MessageManager.handleIncoming(id, message);
     }
 
     @OnClose
     public void onClose(Session session) {
-        ServerAdmin.notifyDisconnection(session);
+        ServerManager.notifyDisconnection(session);
 
     }
 

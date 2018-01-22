@@ -5,12 +5,12 @@
  */
 package com.team142.gg.server.model;
 
-import com.team142.gg.server.controller.PostOffice;
-import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.controller.MessageManager;
+import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.controller.SoundManager;
-import com.team142.gg.server.controller.map.TileBitmap;
-import com.team142.gg.server.model.mappable.MapTileElement;
-import com.team142.gg.server.model.mappable.Tank;
+import com.team142.gg.server.model.mappable.organic.TileBitmap;
+import com.team142.gg.server.model.mappable.organic.MapTileElement;
+import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlayerLeft;
 import java.util.ArrayList;
@@ -75,9 +75,9 @@ public class Game {
 
     public void removePlayer(Player player) {
         TANKS.remove(player.getId());
-        PostOffice.sendPlayersAMessage(this, new MessagePlayerLeft(player.getTAG()));
+        MessageManager.sendPlayersAMessage(this, new MessagePlayerLeft(player.getTAG()));
         players.removeIf(playerItem -> playerItem.getId().equals(player.getId()));
-        Referee.sendScoreBoard(this);
+        GameManager.sendScoreBoard(this);
 
     }
 

@@ -5,10 +5,10 @@
  */
 package com.team142.gg.server.model;
 
-import com.team142.gg.server.controller.Referee;
-import com.team142.gg.server.model.mappable.Bullet;
-import com.team142.gg.server.model.mappable.DirectionTypes;
-import com.team142.gg.server.model.mappable.Tank;
+import com.team142.gg.server.controller.GameManager;
+import com.team142.gg.server.model.mappable.artificial.Bullet;
+import com.team142.gg.server.model.mappable.meta.DirectionTypes;
+import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.workers.TickerComms;
 import com.team142.gg.server.workers.TickerPhysics;
@@ -125,7 +125,7 @@ public class Player {
         BULLETS.add(bullet);
 
         //Tell referee (send to game)
-        Referee.sendBullet(game, bullet);
+        GameManager.sendBullet(game, bullet);
 
         game.getSoundManager().sendShoot();
 

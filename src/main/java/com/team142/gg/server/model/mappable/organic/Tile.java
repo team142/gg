@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.controller.map.terrain;
+package com.team142.gg.server.model.mappable.organic;
 
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.AllArgsConstructor;

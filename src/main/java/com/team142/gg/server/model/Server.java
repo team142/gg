@@ -5,9 +5,9 @@
  */
 package com.team142.gg.server.model;
 
-import com.team142.gg.server.controller.PostOffice;
+import com.team142.gg.server.controller.MessageManager;
 import com.team142.gg.server.controller.map.MapMaker;
-import com.team142.gg.server.controller.map.MapSettings;
+import com.team142.gg.server.model.mappable.organic.MapSettings;
 import com.team142.gg.server.model.messages.outgoing.other.MessageShareTag;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -76,7 +76,7 @@ public class Server {
 
     public static void newPlayer(Player player) {
         Repository.PLAYERS_ON_SERVER.put(player.getId(), player);
-        PostOffice.sendPlayerAMessage(player.getId(), new MessageShareTag(player.getTAG()));
+        MessageManager.sendPlayerAMessage(player.getId(), new MessageShareTag(player.getTAG()));
 
     }
 

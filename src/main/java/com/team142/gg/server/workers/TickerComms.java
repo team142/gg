@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.workers;
 
-import com.team142.gg.server.controller.PostOffice;
+import com.team142.gg.server.controller.MessageManager;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareThingsDynamic;
@@ -26,7 +26,7 @@ public class TickerComms extends AbstractTickerWorker {
     @Override
     public void doTick() {
         checkPing();
-        PostOffice.sendPlayerAMessage(getPLAYER().getId(), getDynamicThingsMessage());
+        MessageManager.sendPlayerAMessage(getPLAYER().getId(), getDynamicThingsMessage());
 
     }
 

@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.model.mappable;
+package com.team142.gg.server.model.mappable.artificial;
 
-import com.team142.gg.server.controller.PostOffice;
-import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.controller.MessageManager;
+import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageSpray;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,8 +49,8 @@ public class Tank extends MovableElement {
             Game game = Server.getGameByPlayer(playerId);
             game.spawn(Repository.PLAYERS_ON_SERVER.get(playerId));
             fromPlayer.addKill();
-            Referee.sendScoreBoard(Server.getGameByPlayer(playerId));
-            PostOffice.sendPlayersAMessage(game, new MessageSpray(Repository.PLAYERS_ON_SERVER.get(playerId).getTAG(), 1200));
+            GameManager.sendScoreBoard(Server.getGameByPlayer(playerId));
+            MessageManager.sendPlayersAMessage(game, new MessageSpray(Repository.PLAYERS_ON_SERVER.get(playerId).getTAG(), 1200));
             game.getSoundManager().sendDing();
             game.getSoundManager().sendExplode();
 

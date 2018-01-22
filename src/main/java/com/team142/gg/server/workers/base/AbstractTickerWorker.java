@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.workers.base;
 
-import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Server;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -20,7 +20,7 @@ import lombok.Setter;
  */
 public abstract class AbstractTickerWorker implements Runnable {
 
-    private static final Logger LOG = Logger.getLogger(Referee.class.getName());
+    private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
 
     @Getter
     private final Player PLAYER;

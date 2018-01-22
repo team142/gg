@@ -28,7 +28,7 @@ public class SoundManager {
     });
 
     public void sendSound(SoundType type) {
-        SOUND_MSG_THREAD_POOL.execute(() -> PostOffice.sendPlayersAMessage(Repository.GAMES_ON_SERVER.get(GAME_ID), new MessagePlaySound(type)));
+        SOUND_MSG_THREAD_POOL.execute(() -> MessageManager.sendPlayersAMessage(Repository.GAMES_ON_SERVER.get(GAME_ID), new MessagePlaySound(type)));
     }
 
     public void sendShoot() {

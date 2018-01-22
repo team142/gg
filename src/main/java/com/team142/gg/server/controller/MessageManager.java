@@ -21,10 +21,10 @@ import javax.websocket.Session;
 /**
  * @author just1689
  */
-public class PostOffice {
+public class MessageManager {
 
     private static final String CONVERSATION_FIELD = "conversation";
-    private static final Logger LOG = Logger.getLogger(PostOffice.class.getName());
+    private static final Logger LOG = Logger.getLogger(MessageManager.class.getName());
 
     public static void handleIncoming(String id, String message) {
         if (message.equals("1")) {

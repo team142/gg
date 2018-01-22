@@ -5,12 +5,14 @@
  */
 package com.team142.gg.server.controller.map;
 
-import com.team142.gg.server.controller.map.terrain.ModelType;
-import com.team142.gg.server.controller.map.terrain.SkinType;
-import com.team142.gg.server.controller.map.terrain.Tile;
+import com.team142.gg.server.model.mappable.organic.MapSettings;
+import com.team142.gg.server.model.mappable.organic.TileBitmap;
+import com.team142.gg.server.model.mappable.organic.ModelType;
+import com.team142.gg.server.model.mappable.organic.SkinType;
+import com.team142.gg.server.model.mappable.organic.Tile;
 import com.team142.gg.server.model.Game;
-import com.team142.gg.server.model.mappable.DirectionTypes;
-import com.team142.gg.server.model.mappable.MapTileElement;
+import com.team142.gg.server.model.mappable.meta.DirectionTypes;
+import com.team142.gg.server.model.mappable.organic.MapTileElement;
 
 /**
  *

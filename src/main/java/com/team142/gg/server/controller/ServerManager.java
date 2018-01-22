@@ -20,19 +20,19 @@ import java.util.logging.Logger;
  *
  * @author just1689
  */
-public class ServerAdmin {
+public class ServerManager {
 
-    private static final Logger LOG = Logger.getLogger(ServerAdmin.class.getName());
+    private static final Logger LOG = Logger.getLogger(ServerManager.class.getName());
 
     public static void changePlayerView(String playerId, ViewType view) {
-        PostOffice.sendPlayerAMessage(playerId, new MessageChangeView(view));
+        MessageManager.sendPlayerAMessage(playerId, new MessageChangeView(view));
     }
 
     public static void handle(MessageJoinServer body) {
         String name = ensureUniqueName(body.getName());
         Repository.PLAYERS_ON_SERVER.get(body.getFrom()).setName(name);
         changePlayerView(body.getFrom(), ViewType.VIEW_GAMES);
-        ServerAdmin.notifyPlayerOfGames(body.getFrom());
+        ServerManager.notifyPlayerOfGames(body.getFrom());
 
     }
 
@@ -42,7 +42,7 @@ public class ServerAdmin {
             message.getGAMES().add(game.toGameSummary());
         });
         LOG.log(Level.INFO, "Telling player about games: ");
-        PostOffice.sendPlayerAMessage(playerId, message);
+        MessageManager.sendPlayerAMessage(playerId, message);
 
     }
 
