@@ -18,6 +18,7 @@ import com.team142.gg.server.model.messages.outgoing.rendered.MessageBullet;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareMap;
 import com.team142.gg.server.utils.Reporter;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,12 +50,34 @@ public class GameManager {
             return;
         }
         player.setGameId(game.getId());
-        game.playerJoins(player);
+        playerJoins(game, player);
         welcomePlayerToGame(body.getFrom());
         announcePlayerJoins(game, player);
         GameManager.sendMapToPlayer(player.getId(), game);
         Reporter.REPORT_THREAD_POOL.execute(() -> MessageManager.reportNewPlayerForStats(player.getId()));
         game.getSoundManager().sendSpawn();
+
+    }
+
+    public static void playerJoins(Game game, Player player) {
+        game.getTANKS().put(player.getId(), player.getTANK());
+        player.getTANK().setMaxHealth(game.getStartHealth());
+        player.getTANK().setHealth(game.getStartHealth());
+        game.getPlayers().add(player);
+        player.start();
+        spawn(game, player);
+
+    }
+
+    public static void spawn(Game game, Player player) {
+        int x = ThreadLocalRandom.current().nextInt(1, 48 + 1);
+        int z = ThreadLocalRandom.current().nextInt(1, 48 + 1);
+
+        //TODO: check that not water or mountian
+        player.getTANK().setHealth(game.getStartHealth());
+        player.getTANK().setMaxHealth(game.getStartHealth());
+        player.getTANK().setX(x);
+        player.getTANK().setZ(z);
 
     }
 

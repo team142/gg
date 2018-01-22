@@ -48,7 +48,7 @@ public class Tank extends MovableElement {
 
         if (health <= 0) {
             Repository.PLAYERS_ON_SERVER.get(playerId).addDeath();
-            game.spawn(Repository.PLAYERS_ON_SERVER.get(playerId));
+            GameManager.spawn(game, Repository.PLAYERS_ON_SERVER.get(playerId));
             fromPlayer.addKill();
             GameManager.sendScoreBoard(Repository.getGameByPlayer(playerId));
             MessageManager.sendPlayersAMessage(game, new MessageSpray(Repository.PLAYERS_ON_SERVER.get(playerId).getTAG(), 1200));
