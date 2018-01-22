@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.services;
 
-import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.utils.JsonUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,10 +44,10 @@ public class InfoServlet extends HttpServlet {
             out.println("<body>");
 
             out.println("<h1>Players</h1>");
-            out.println(JsonUtils.toJson(Server.PLAYERS_ON_SERVER.values()));
+            out.println(JsonUtils.toJson(Repository.PLAYERS_ON_SERVER.values()));
 
             out.println("<h1>Games</h1>");
-            out.println(JsonUtils.toJson(Server.GAMES_ON_SERVER.values()));
+            out.println(JsonUtils.toJson(Repository.GAMES_ON_SERVER.values()));
 
             out.println("</body>");
             out.println("</html>");

@@ -9,6 +9,7 @@ import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.Referee;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
+import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageSpray;
 import lombok.Getter;
@@ -43,12 +44,12 @@ public class Tank extends MovableElement {
         health -= dmg;
 
         if (health <= 0) {
-            Server.PLAYERS_ON_SERVER.get(playerId).addDeath();
+            Repository.PLAYERS_ON_SERVER.get(playerId).addDeath();
             Game game = Server.getGameByPlayer(playerId);
-            game.spawn(Server.PLAYERS_ON_SERVER.get(playerId));
+            game.spawn(Repository.PLAYERS_ON_SERVER.get(playerId));
             fromPlayer.addKill();
             Referee.sendScoreBoard(Server.getGameByPlayer(playerId));
-            PostOffice.sendPlayersAMessage(game, new MessageSpray(Server.PLAYERS_ON_SERVER.get(playerId).getTAG(), 1200));
+            PostOffice.sendPlayersAMessage(game, new MessageSpray(Repository.PLAYERS_ON_SERVER.get(playerId).getTAG(), 1200));
             game.getSoundManager().sendDing();
             game.getSoundManager().sendExplode();
 
@@ -62,7 +63,7 @@ public class Tank extends MovableElement {
                 + " from "
                 + fromPlayer.getName()
                 + " to "
-                + Server.PLAYERS_ON_SERVER.get(playerId).getName()
+                + Repository.PLAYERS_ON_SERVER.get(playerId).getName()
                 + " hp now: " + health
         );
 

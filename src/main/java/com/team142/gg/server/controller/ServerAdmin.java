@@ -6,6 +6,7 @@
 package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Player;
+import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
 import com.team142.gg.server.model.messages.incoming.MessageJoinServer;
@@ -29,7 +30,7 @@ public class ServerAdmin {
 
     public static void handle(MessageJoinServer body) {
         String name = ensureUniqueName(body.getName());
-        Server.PLAYERS_ON_SERVER.get(body.getFrom()).setName(name);
+        Repository.PLAYERS_ON_SERVER.get(body.getFrom()).setName(name);
         changePlayerView(body.getFrom(), ViewType.VIEW_GAMES);
         ServerAdmin.notifyPlayerOfGames(body.getFrom());
 
@@ -37,7 +38,7 @@ public class ServerAdmin {
 
     public static void notifyPlayerOfGames(String playerId) {
         MessageListOfGames message = new MessageListOfGames();
-        Server.GAMES_ON_SERVER.values().forEach((game) -> {
+        Repository.GAMES_ON_SERVER.values().forEach((game) -> {
             message.getGAMES().add(game.toGameSummary());
         });
         LOG.log(Level.INFO, "Telling player about games: ");
@@ -48,7 +49,7 @@ public class ServerAdmin {
     public static void notifyNewConnection(Session session) {
         String id = session.getId();
         LOG.log(Level.INFO, "Added player: {0}", id);
-        Server.SESSIONS_ON_SERVER.put(id, session);
+        Repository.SESSIONS_ON_SERVER.put(id, session);
         Player player = new Player(id);
         Server.newPlayer(player);
 

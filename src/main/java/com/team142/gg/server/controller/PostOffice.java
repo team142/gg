@@ -6,6 +6,7 @@
 package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.messages.base.ConversationMap;
@@ -27,7 +28,7 @@ public class PostOffice {
 
     public static void handleIncoming(String id, String message) {
         if (message.equals("1")) {
-            Server.PLAYERS_ON_SERVER.get(id).getTickerComms().pong();
+            Repository.PLAYERS_ON_SERVER.get(id).getTickerComms().pong();
             return;
         }
         String conversation = JsonUtils.readFieldOrEmptyString(message, CONVERSATION_FIELD);
@@ -58,7 +59,7 @@ public class PostOffice {
     public static void sendPlayerAMessage(String playerId, Message message) {
 //        LOG.log(Level.INFO, "Sending message to player: {0}, conversation: {1}", new String[]{playerId, message.getConversation()});
         String json = JsonUtils.toJson(message);
-        Session session = Server.SESSIONS_ON_SERVER.get(playerId);
+        Session session = Repository.SESSIONS_ON_SERVER.get(playerId);
         if (session != null) {
             session.getAsyncRemote().sendText(json);
         }

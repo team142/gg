@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.model.messages.incoming;
 
-import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.MessageKey;
 
@@ -21,7 +21,7 @@ public class MessageKeyDown extends MessageKey implements Runnable {
 
     @Override
     public void run() {
-        Server.PLAYERS_ON_SERVER.get(getFrom()).keyDown(getKey());
+        Repository.PLAYERS_ON_SERVER.get(getFrom()).keyDown(getKey());
     }
 
 }

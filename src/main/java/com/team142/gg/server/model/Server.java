@@ -9,11 +9,9 @@ import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.controller.map.MapMaker;
 import com.team142.gg.server.controller.map.MapSettings;
 import com.team142.gg.server.model.messages.outgoing.other.MessageShareTag;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.websocket.Session;
 
 /**
  *
@@ -21,9 +19,6 @@ import javax.websocket.Session;
  */
 public class Server {
 
-    public static final ConcurrentHashMap<String, Player> PLAYERS_ON_SERVER = new ConcurrentHashMap<String, Player>();
-    public static final ConcurrentHashMap<String, Game> GAMES_ON_SERVER = new ConcurrentHashMap<String, Game>();
-    public static final ConcurrentHashMap<String, Session> SESSIONS_ON_SERVER = new ConcurrentHashMap<String, Session>();
     public static final int TICK_MS = 17;
     public static final double DEFAULT_SPEED = 0.125;
     public static final AtomicInteger TAGS = new AtomicInteger(1000);
@@ -57,36 +52,36 @@ public class Server {
         Logger.getLogger(Server.class.getName()).log(Level.INFO, "Creating a new game");
         Game game = new Game(name);
         MapMaker.generateMap(settings, game);
-        GAMES_ON_SERVER.put(game.getId(), game);
+        Repository.GAMES_ON_SERVER.put(game.getId(), game);
         return game;
 
     }
 
     public static void playerDisconnects(String id) {
-        Player player = PLAYERS_ON_SERVER.get(id);
+        Player player = Repository.PLAYERS_ON_SERVER.get(id);
         player.getGame().removePlayer(player);
         player.setGame(null);
         player.stop();
-        Server.PLAYERS_ON_SERVER.remove(id);
-        SESSIONS_ON_SERVER.remove(id);
+        Repository.PLAYERS_ON_SERVER.remove(id);
+        Repository.SESSIONS_ON_SERVER.remove(id);
 
     }
 
     public static Game getGameByPlayer(String id) {
-        return GAMES_ON_SERVER.values().stream()
+        return Repository.GAMES_ON_SERVER.values().stream()
                 .filter(e -> e.hasPlayer(id))
                 .findFirst()
                 .orElse(null);
     }
 
     public static void newPlayer(Player player) {
-        PLAYERS_ON_SERVER.put(player.getId(), player);
+        Repository.PLAYERS_ON_SERVER.put(player.getId(), player);
         PostOffice.sendPlayerAMessage(player.getId(), new MessageShareTag(player.getTAG()));
 
     }
 
     public static boolean hasPlayerByName(String name) {
-        return PLAYERS_ON_SERVER
+        return Repository.PLAYERS_ON_SERVER
                 .values()
                 .stream()
                 .anyMatch((p) -> (p.getName().equals(name)));

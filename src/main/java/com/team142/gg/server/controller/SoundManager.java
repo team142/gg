@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.controller;
 
-import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.base.SoundType;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlaySound;
 import java.util.concurrent.Executor;
@@ -28,7 +28,7 @@ public class SoundManager {
     });
 
     public void sendSound(SoundType type) {
-        SOUND_MSG_THREAD_POOL.execute(() -> PostOffice.sendPlayersAMessage(Server.GAMES_ON_SERVER.get(GAME_ID), new MessagePlaySound(type)));
+        SOUND_MSG_THREAD_POOL.execute(() -> PostOffice.sendPlayersAMessage(Repository.GAMES_ON_SERVER.get(GAME_ID), new MessagePlaySound(type)));
     }
 
     public void sendShoot() {

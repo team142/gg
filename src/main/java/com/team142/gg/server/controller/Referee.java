@@ -7,7 +7,7 @@ package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
-import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.mappable.Bullet;
 import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
 import com.team142.gg.server.model.messages.incoming.MessageJoinGame;
@@ -27,13 +27,13 @@ public class Referee {
     private static final Logger LOG = Logger.getLogger(Referee.class.getName());
 
     public static void handle(MessageJoinGame body) {
-        Game game = Server.GAMES_ON_SERVER.get(body.getId());
+        Game game = Repository.GAMES_ON_SERVER.get(body.getId());
         if (game == null) {
             LOG.log(Level.SEVERE, "Player ({0}) tried to join null game ({1}) ", new String[]{body.getFrom(), body.getId()});
             return;
         }
 
-        Player player = Server.PLAYERS_ON_SERVER.get(body.getFrom());
+        Player player = Repository.PLAYERS_ON_SERVER.get(body.getFrom());
         if (player == null) {
             LOG.log(Level.SEVERE, "Null Player ({0}) tried to game ({1}) ", new String[]{body.getFrom(), body.getId()});
             return;

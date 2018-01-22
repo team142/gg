@@ -7,7 +7,7 @@ package com.team142.gg.server.workers;
 
 import com.team142.gg.server.controller.PostOffice;
 import com.team142.gg.server.model.Player;
-import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareThingsDynamic;
 import com.team142.gg.server.workers.base.AbstractTickerWorker;
 
@@ -43,15 +43,14 @@ public class TickerComms extends AbstractTickerWorker {
 
     public void ping() {
         lastPing = System.currentTimeMillis();
-        Server.SESSIONS_ON_SERVER.get(getPLAYER().getId()).getAsyncRemote().sendText("0");
+        Repository.SESSIONS_ON_SERVER.get(getPLAYER().getId()).getAsyncRemote().sendText("0");
 
     }
 
     public void pong() {
         long lag = System.currentTimeMillis() - lastPing;
 //        System.out.println("PING roundtrip: " + lag);
-        
-        
+
         lag = lag / 2;
         if (lag < 20) {
             setTICK_MS(20);
@@ -67,7 +66,7 @@ public class TickerComms extends AbstractTickerWorker {
             setTICK_MS(125);
         }
 //        System.out.println("Now: " + getTICK_MS());
-        
+
     }
 
 }
