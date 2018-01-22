@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.workers;
+package com.team142.gg.server.controller.runnable;
 
 import com.team142.gg.server.model.Player;
-import com.team142.gg.server.workers.base.AbstractTickerWorker;
+import com.team142.gg.server.controller.runnable.base.AbstractTickerWorker;
 
 /**
  *
