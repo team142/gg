@@ -18,5 +18,5 @@ public class MapSettings {
 
     @Getter
     @Setter
-    private String something;
+    private int xTiles, zTiles;
 }

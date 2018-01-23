@@ -20,14 +20,13 @@ public class Map {
 
     private final List<MapTileElement> TILES;
     private boolean[][][] bitmap;
+    private int x, z;
 
-    public Map() {
+    public Map(int x, int z) {
         this.TILES = Collections.synchronizedList(new ArrayList<>());
-    }
-
-    public void setBimapSize(int x, int y) {
-        setBitmap(new boolean[x][y][2]);
-
+        this.x = x;
+        this.z = z;
+        setBitmap(new boolean[x][z][2]);
     }
 
     public void setTileBitmapMovable(int x, int y, boolean val) {
