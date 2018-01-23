@@ -114,7 +114,9 @@ public class ServerManager {
         Game game = Repository.getGameByPlayer(id);
         Player player = Repository.PLAYERS_ON_SERVER.get(id);
 
-        game.removePlayer(player);
+        if (game != null) {
+            game.removePlayer(player);
+        }
         player.stop();
 
         Repository.PLAYERS_ON_SERVER.remove(id);
