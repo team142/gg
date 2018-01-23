@@ -31,11 +31,11 @@ public class GameManager {
     private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
 
     public static void handle(MessageKeyDown messageKeyDown) {
-        Repository.PLAYERS_ON_SERVER.get(messageKeyDown.getFrom()).keyDown(messageKeyDown.getKey());
+        PlayerManager.keyUp(Repository.PLAYERS_ON_SERVER.get(messageKeyDown.getFrom()), messageKeyDown.getKey());
     }
 
     public static void handle(MessageKeyUp messageKeyUp) {
-        Repository.PLAYERS_ON_SERVER.get(messageKeyUp.getFrom()).keyUp(messageKeyUp.getKey());
+        PlayerManager.keyUp(Repository.PLAYERS_ON_SERVER.get(messageKeyUp.getFrom()), messageKeyUp.getKey());
     }
 
     public static void handle(MessageJoinGame body) {
@@ -50,23 +50,26 @@ public class GameManager {
             LOG.log(Level.SEVERE, "Null Player ({0}) tried to game ({1}) ", new String[]{body.getFrom(), body.getId()});
             return;
         }
-        player.setGameId(game.getId());
+
         playerJoins(game, player);
-        welcomePlayerToGame(body.getFrom());
-        announcePlayerJoins(game, player);
-        GameManager.sendMapToPlayer(player.getId(), game);
-        Reporter.REPORT_THREAD_POOL.execute(() -> MessageManager.reportNewPlayerForStats(player.getId()));
-        game.getSoundManager().sendSpawn();
 
     }
 
     public static void playerJoins(Game game, Player player) {
+        //Change state
+        player.setGameId(game.getId());
         game.getTANKS().put(player.getId(), player.getTANK());
         player.getTANK().setMaxHealth(game.getStartHealth());
-        player.getTANK().setHealth(game.getStartHealth());
         game.getPlayers().add(player);
-        player.start();
         spawn(game, player);
+
+        player.start();
+
+        welcomePlayerToGame(player.getId());
+        announcePlayerJoins(game, player);
+        sendMapToPlayer(player.getId(), game);
+        game.getSoundManager().sendSpawn();
+        Reporter.report();
 
     }
 
@@ -75,8 +78,7 @@ public class GameManager {
         int z = ThreadLocalRandom.current().nextInt(1, 48 + 1);
 
         //TODO: check that not water or mountian
-        player.getTANK().setHealth(game.getStartHealth());
-        player.getTANK().setMaxHealth(game.getStartHealth());
+        player.getTANK().setHealth(player.getTANK().getMaxHealth());
         player.getTANK().setX(x);
         player.getTANK().setZ(z);
 
@@ -90,7 +92,6 @@ public class GameManager {
 
     public static void announcePlayerJoins(Game game, Player player) {
         sendScoreBoard(game);
-        //TODO: announce
 
     }
 
@@ -111,7 +112,7 @@ public class GameManager {
         MessageManager.sendPlayersAMessage(game, new MessageBullet(bullet));
     }
 
-    public static void recordKill(Game game, Player fromPlayer, Player player) {
+    public static void handleKill(Game game, Player fromPlayer, Player player) {
         GameManager.spawn(game, player);
         GameManager.sendScoreBoard(game);
         MessageManager.sendPlayersAMessage(game, new MessageSpray(player.getTAG(), 1200));

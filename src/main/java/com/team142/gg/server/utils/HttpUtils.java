@@ -5,7 +5,6 @@
  */
 package com.team142.gg.server.utils;
 
-import com.team142.gg.server.controller.MessageManager;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,11 +41,6 @@ public class HttpUtils {
         } catch (IOException ex) {
             Logger.getLogger(HttpUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }
-
-    public static void postSilentlyAsync(String url, String json) {
-        Reporter.REPORT_THREAD_POOL.execute(() -> postSilently(url, json));
 
     }
 

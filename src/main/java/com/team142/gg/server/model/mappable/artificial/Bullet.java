@@ -102,7 +102,7 @@ public class Bullet extends MovableElement {
                 + toPlayer.getName()
         );
         if (result.isLethal()) {
-            GameManager.recordKill(game, player, toPlayer);
+            GameManager.handleKill(game, player, toPlayer);
         }
         ok = false;
     }

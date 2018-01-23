@@ -7,7 +7,6 @@ package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
-import com.team142.gg.server.model.mappable.meta.DirectionTypes;
 import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.controller.runnable.TickerComms;
@@ -61,42 +60,7 @@ public class Player {
 
     }
 
-    public void keyDown(String key) {
-        switch (key) {
-            case "A":
-                TANK.setRotation(TANK.getRotation().subtract(DirectionTypes.ONE_TICK_ROTATE));
-                if (TANK.getRotation().compareTo(DirectionTypes.DIR0) < 0) {
-                    TANK.setRotation(DirectionTypes.DIR7);
-                }
-                return;
-            case "W":
-                TANK.setDirection(1);
-                return;
-            case "D":
-                TANK.setRotation(TANK.getRotation().add(DirectionTypes.ONE_TICK_ROTATE));
-                if (TANK.getRotation().compareTo(DirectionTypes.DIR8) >= 0) {
-                    TANK.setRotation(DirectionTypes.DIR0);
-                }
-                return;
-            case "S":
-                TANK.setDirection(-1);
-                return;
-            case " ":
-                attemptShoot();
-                return;
-            default:
-                break;
-        }
-
-        TANK.setDirection(0);
-
-    }
-
-    public void keyUp(String key) {
-        TANK.setDirection(0);
-    }
-
-    private void attemptShoot() {
+    public void attemptShoot() {
         //Check last shot
         if (System.currentTimeMillis() - LAST_BULLET.get() >= MS_PER_SHOT) {
             //We can shoot
