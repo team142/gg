@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.model.messages.incoming;
 
-import com.team142.gg.server.controller.GameManager;
+import com.team142.gg.server.controller.PlayerManager;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.MessageKey;
 
@@ -21,7 +21,7 @@ public class MessageKeyUp extends MessageKey implements Runnable {
 
     @Override
     public void run() {
-        GameManager.handle(this);
+        PlayerManager.handle(this);
 
     }
 
