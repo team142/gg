@@ -46,4 +46,12 @@ public class Map {
         return this.bitmap[x][y][1];
     }
 
+    public boolean isMovable(double x, double y) {
+        return isMovable((int) x, (int) y);
+    }
+
+    public boolean isShootover(double x, double y) {
+        return isShootover((int) x, (int) y);
+    }
+
 }
