@@ -63,8 +63,14 @@ public class ServerManager {
         String id = session.getId();
         LOG.log(Level.INFO, "Added player: {0}", id);
         Repository.SESSIONS_ON_SERVER.put(id, session);
+        newPlayer(id);
+
+    }
+
+    public static void newPlayer(String id) {
         Player player = new Player(id);
-        newPlayer(player);
+        Repository.PLAYERS_ON_SERVER.put(player.getId(), player);
+        MessageManager.sendPlayerAMessage(player.getId(), new MessageShareTag(player.getTAG()));
 
     }
 
@@ -113,12 +119,6 @@ public class ServerManager {
 
         Repository.PLAYERS_ON_SERVER.remove(id);
         Repository.SESSIONS_ON_SERVER.remove(id);
-
-    }
-
-    public static void newPlayer(Player player) {
-        Repository.PLAYERS_ON_SERVER.put(player.getId(), player);
-        MessageManager.sendPlayerAMessage(player.getId(), new MessageShareTag(player.getTAG()));
 
     }
 
