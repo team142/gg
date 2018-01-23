@@ -12,11 +12,11 @@ import com.team142.gg.server.model.Server;
 import static com.team142.gg.server.model.Server.REPORT_STATS;
 import static com.team142.gg.server.model.Server.SERVER_NAME;
 import com.team142.gg.server.model.mappable.organic.MapSettings;
-import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
 import com.team142.gg.server.model.messages.incoming.MessageJoinServer;
 import com.team142.gg.server.model.messages.outgoing.other.MessageListOfGames;
 import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.outgoing.other.MessageShareTag;
+import com.team142.gg.server.view.ViewManager;
 import javax.websocket.Session;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,26 +44,18 @@ public class ServerManager {
 
     }
 
-    public static void changePlayerView(String playerId, ViewType view) {
-        MessageManager.sendPlayerAMessage(playerId, new MessageChangeView(view));
-    }
-
     public static void handle(MessageJoinServer body) {
         String name = ensureUniqueName(body.getName());
         Repository.PLAYERS_ON_SERVER.get(body.getFrom()).setName(name);
-        LOG.log(Level.INFO, "New person is: {0}", body.getFrom());
-        changePlayerView(body.getFrom(), ViewType.VIEW_GAMES);
+        ViewManager.changePlayerView(body.getFrom(), ViewType.VIEW_GAMES);
         ServerManager.notifyPlayerOfGames(body.getFrom());
+        LOG.log(Level.INFO, "New person on server is: {0}", name);
 
     }
 
     public static void notifyPlayerOfGames(String playerId) {
-        MessageListOfGames message = new MessageListOfGames();
-        Repository.GAMES_ON_SERVER.values().forEach((game) -> {
-            message.getGAMES().add(game.toGameSummary());
-        });
         LOG.log(Level.INFO, "Telling player about games... ");
-        MessageManager.sendPlayerAMessage(playerId, message);
+        MessageManager.sendPlayerAMessage(playerId, new MessageListOfGames(Repository.GAMES_ON_SERVER.values()));
 
     }
 
@@ -71,8 +63,14 @@ public class ServerManager {
         String id = session.getId();
         LOG.log(Level.INFO, "Added player: {0}", id);
         Repository.SESSIONS_ON_SERVER.put(id, session);
+        newPlayer(id);
+
+    }
+
+    public static void newPlayer(String id) {
         Player player = new Player(id);
-        newPlayer(player);
+        Repository.PLAYERS_ON_SERVER.put(player.getId(), player);
+        MessageManager.sendPlayerAMessage(player.getId(), new MessageShareTag(player.getTAG()));
 
     }
 
@@ -116,17 +114,13 @@ public class ServerManager {
         Game game = Repository.getGameByPlayer(id);
         Player player = Repository.PLAYERS_ON_SERVER.get(id);
 
-        game.removePlayer(player);
+        if (game != null) {
+            game.removePlayer(player);
+        }
         player.stop();
 
         Repository.PLAYERS_ON_SERVER.remove(id);
         Repository.SESSIONS_ON_SERVER.remove(id);
-
-    }
-
-    public static void newPlayer(Player player) {
-        Repository.PLAYERS_ON_SERVER.put(player.getId(), player);
-        MessageManager.sendPlayerAMessage(player.getId(), new MessageShareTag(player.getTAG()));
 
     }
 

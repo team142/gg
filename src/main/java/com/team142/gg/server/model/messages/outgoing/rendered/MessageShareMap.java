@@ -23,7 +23,7 @@ public class MessageShareMap extends Message {
 
     public MessageShareMap(Game game) {
         setConversation(ConversationType.S_SHARE_MAP.name());
-        this.MAP = game.getMAP();
+        this.MAP = game.getMap().getTILES();
 
     }
 

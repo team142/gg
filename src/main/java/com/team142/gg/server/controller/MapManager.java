@@ -6,7 +6,6 @@
 package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.mappable.organic.MapSettings;
-import com.team142.gg.server.model.mappable.organic.TileBitmap;
 import com.team142.gg.server.model.mappable.organic.ModelType;
 import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.mappable.organic.Tile;
@@ -30,23 +29,26 @@ public class MapManager {
         int width = 50;
         int length = 50;
 
-        game.setBitmap(new TileBitmap[width][length]);
+        game.getMap().setBimapSize(width, length);
 
         //Green map for now
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < length; y++) {
                 if (x > 20 && x < 30 && y > 20 && y < 30) {
                     MapTileElement tile = new MapTileElement(x, 1, y, rockTile, DirectionTypes.DIR0);
-                    game.getMAP().add(tile);
-                    game.getBitmap()[x][y] = new TileBitmap(false, false);
+                    game.getMap().getTILES().add(tile);
+                    game.getMap().setTileBitmapMovable(x, y, false);
+                    game.getMap().setTileBitmapShootover(x, y, false);
                 } else if (x == 49 || y == 49) {
                     MapTileElement tile = new MapTileElement(x, 1, y, waterTile, DirectionTypes.DIR0);
-                    game.getMAP().add(tile);
-                    game.getBitmap()[x][y] = new TileBitmap(false, false);
+                    game.getMap().getTILES().add(tile);
+                    game.getMap().setTileBitmapMovable(x, y, false);
+                    game.getMap().setTileBitmapShootover(x, y, true);
                 } else {
                     MapTileElement tile = new MapTileElement(x, 1, y, grassTile, DirectionTypes.DIR0);
-                    game.getMAP().add(tile);
-                    game.getBitmap()[x][y] = new TileBitmap(true, true);
+                    game.getMap().getTILES().add(tile);
+                    game.getMap().setTileBitmapMovable(x, y, true);
+                    game.getMap().setTileBitmapShootover(x, y, true);
                 }
             }
         }

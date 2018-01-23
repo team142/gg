@@ -41,8 +41,8 @@ public class TickerComms extends AbstractTickerWorker {
     }
 
     public void ping() {
+        MessageManager.sendPlayerAMessage(Repository.SESSIONS_ON_SERVER.get(getPLAYER_ID()), "0");
         lastPing = System.currentTimeMillis();
-        Repository.SESSIONS_ON_SERVER.get(getPLAYER_ID()).getAsyncRemote().sendText("0");
 
     }
 

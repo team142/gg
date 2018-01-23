@@ -5,6 +5,8 @@
  */
 package com.team142.gg.server.utils;
 
+import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.messages.outgoing.stats.MessagePlayerJoinStats;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -14,10 +16,22 @@ import java.util.concurrent.Executors;
  */
 public class Reporter {
 
-    public static final Executor REPORT_THREAD_POOL = Executors.newFixedThreadPool(2, (Runnable r) -> {
+    private static final Executor REPORT_THREAD_POOL = Executors.newFixedThreadPool(2, (Runnable r) -> {
         Thread thread = new Thread(r);
         thread.setDaemon(true);
         return thread;
     });
+
+    public static void report() {
+        if (Server.REPORT_STATS) {
+            Reporter.REPORT_THREAD_POOL.execute(() -> reportNewPlayerForStats());
+        }
+
+    }
+
+    private static void reportNewPlayerForStats() {
+        String json = JsonUtils.toJson(new MessagePlayerJoinStats(Server.SERVER_NAME));
+        HttpUtils.postSilently(Server.REPORT_URL, json);
+    }
 
 }

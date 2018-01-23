@@ -56,7 +56,6 @@ public class Bullet extends MovableElement {
         if (!ok) {
             return;
         }
-//        System.out.println(getX() + ", " + getY() + ", " + getZ() + " Rotation: " + getRotation().toPlainString() + " dir: " + getDirection());
         movementTick();
         Repository
                 .getGameByPlayer(player.getId())
@@ -92,7 +91,7 @@ public class Bullet extends MovableElement {
         game.getSoundManager().sendDing();
         Player toPlayer = Repository.PLAYERS_ON_SERVER.get(tank.getPlayerId());
 
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "{0}{1} hit ", new String[]{toPlayer.getName(), player.getName()});
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "{0} hit {1}", new String[]{player.getName(), toPlayer.getName()});
         System.out.println(
                 "Damage! "
                 + result.getDamage()
@@ -102,7 +101,7 @@ public class Bullet extends MovableElement {
                 + toPlayer.getName()
         );
         if (result.isLethal()) {
-            GameManager.recordKill(game, player, toPlayer);
+            GameManager.handleKill(game, player, toPlayer);
         }
         ok = false;
     }

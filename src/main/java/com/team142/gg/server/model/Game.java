@@ -8,19 +8,14 @@ package com.team142.gg.server.model;
 import com.team142.gg.server.controller.MessageManager;
 import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.controller.SoundManager;
-import com.team142.gg.server.model.mappable.organic.TileBitmap;
-import com.team142.gg.server.model.mappable.organic.MapTileElement;
+import com.team142.gg.server.controller.runnable.TickerPing;
 import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlayerLeft;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lombok.Data;
 
 /**
@@ -33,21 +28,24 @@ import lombok.Data;
 public class Game {
 
     private final String id;
-    private final List<Player> players = new CopyOnWriteArrayList<>();
     private final String name;
+    private final Map map;
+
+    private final List<Player> players = new CopyOnWriteArrayList<>();
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
-    private final List<MapTileElement> MAP;
-    private TileBitmap[][] bitmap;
+
     private SoundManager soundManager;
     private Thread pingThread;
 
-    private final double startHealth;
+    private double startHealth;
 
     public Game(String name) {
-        this.MAP = Collections.synchronizedList(new ArrayList<>());
         this.id = UUID.randomUUID().toString();
-        this.soundManager = new SoundManager(this.id);
         this.name = name;
+        this.map = new Map();
+
+        this.soundManager = new SoundManager(this.id);
+
         this.startHealth = 100;
         startPinger();
 
@@ -70,16 +68,7 @@ public class Game {
     }
 
     private void startPinger() {
-        this.pingThread = new Thread(() -> {
-            while (true) {
-                try {
-                    getPlayers().forEach((player) -> player.getTickerComms().ping());
-                    Thread.sleep(5000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+        this.pingThread = new Thread(new TickerPing(players));
         pingThread.start();
     }
 

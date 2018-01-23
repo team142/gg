@@ -7,11 +7,8 @@ package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Repository;
-import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.messages.base.ConversationMap;
-import com.team142.gg.server.model.messages.outgoing.stats.MessagePlayerJoinStats;
-import com.team142.gg.server.utils.HttpUtils;
 import com.team142.gg.server.utils.JsonUtils;
 
 import java.util.logging.Level;
@@ -53,13 +50,6 @@ public class MessageManager {
 
         LOG.log(Level.WARNING, "Could not run message: {0}", conversation);
 
-    }
-
-    public static void reportNewPlayerForStats(String playerId) {
-        if (Server.REPORT_STATS) {
-            String json = JsonUtils.toJson(new MessagePlayerJoinStats(Server.SERVER_NAME));
-            HttpUtils.postSilentlyAsync(Server.REPORT_URL, json);
-        }
     }
 
     public static void sendPlayersAMessage(Game game, Message message) {
