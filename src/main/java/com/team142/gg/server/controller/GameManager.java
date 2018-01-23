@@ -9,7 +9,6 @@ import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
-import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
 import com.team142.gg.server.model.messages.incoming.MessageJoinGame;
 import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.incoming.MessageKeyDown;
@@ -19,6 +18,7 @@ import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareMap;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageSpray;
 import com.team142.gg.server.utils.Reporter;
+import com.team142.gg.server.view.ViewManager;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,7 +84,7 @@ public class GameManager {
 
     private static void welcomePlayerToGame(String playerId) {
         LOG.log(Level.INFO, "Welcoming player ({0}) to game", new String[]{playerId});
-        MessageManager.sendPlayerAMessage(playerId, new MessageChangeView(ViewType.VIEW_CANVAS));
+        ViewManager.changePlayerView(playerId, ViewType.VIEW_CANVAS);
 
     }
 

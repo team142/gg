@@ -12,11 +12,11 @@ import com.team142.gg.server.model.Server;
 import static com.team142.gg.server.model.Server.REPORT_STATS;
 import static com.team142.gg.server.model.Server.SERVER_NAME;
 import com.team142.gg.server.model.mappable.organic.MapSettings;
-import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
 import com.team142.gg.server.model.messages.incoming.MessageJoinServer;
 import com.team142.gg.server.model.messages.outgoing.other.MessageListOfGames;
 import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.outgoing.other.MessageShareTag;
+import com.team142.gg.server.view.ViewManager;
 import javax.websocket.Session;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,16 +44,12 @@ public class ServerManager {
 
     }
 
-    public static void changePlayerView(String playerId, ViewType view) {
-        MessageManager.sendPlayerAMessage(playerId, new MessageChangeView(view));
-    }
-
     public static void handle(MessageJoinServer body) {
         String name = ensureUniqueName(body.getName());
         Repository.PLAYERS_ON_SERVER.get(body.getFrom()).setName(name);
-        LOG.log(Level.INFO, "New person is: {0}", body.getFrom());
-        changePlayerView(body.getFrom(), ViewType.VIEW_GAMES);
+        ViewManager.changePlayerView(body.getFrom(), ViewType.VIEW_GAMES);
         ServerManager.notifyPlayerOfGames(body.getFrom());
+        LOG.log(Level.INFO, "New person on server is: {0}", name);
 
     }
 
