@@ -54,12 +54,8 @@ public class ServerManager {
     }
 
     public static void notifyPlayerOfGames(String playerId) {
-        MessageListOfGames message = new MessageListOfGames();
-        Repository.GAMES_ON_SERVER.values().forEach((game) -> {
-            message.getGAMES().add(game.toGameSummary());
-        });
         LOG.log(Level.INFO, "Telling player about games... ");
-        MessageManager.sendPlayerAMessage(playerId, message);
+        MessageManager.sendPlayerAMessage(playerId, new MessageListOfGames(Repository.GAMES_ON_SERVER.values()));
 
     }
 

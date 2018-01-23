@@ -5,9 +5,11 @@
  */
 package com.team142.gg.server.model.messages.outgoing.other;
 
+import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
 import java.util.ArrayList;
+import java.util.Collection;
 import lombok.Getter;
 
 /**
@@ -19,9 +21,10 @@ public class MessageListOfGames extends Message {
     @Getter
     private final ArrayList<MessageGameSummary> GAMES;
 
-    public MessageListOfGames() {
+    public MessageListOfGames(Collection<Game> list) {
         this.GAMES = new ArrayList<>();
         setConversation(ConversationType.S_LIST_OF_GAMES.name());
+        list.forEach((game) -> GAMES.add(game.toGameSummary()));
     }
 
 }
