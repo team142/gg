@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.model.messages.outgoing.rendered;
 
-import com.team142.gg.server.model.mappable.PlaceableElement;
+import com.team142.gg.server.model.mappable.meta.PlaceableElement;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
 import java.util.ArrayList;

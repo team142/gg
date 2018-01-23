@@ -192,7 +192,6 @@ class BabylonUtils {
     static createBullet(obj) {
         const b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
         bullets.push(b)
-        SoundUtils.playPew()
 
     }
 

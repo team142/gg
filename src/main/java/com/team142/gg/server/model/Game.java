@@ -5,22 +5,17 @@
  */
 package com.team142.gg.server.model;
 
-import com.team142.gg.server.controller.PostOffice;
-import com.team142.gg.server.controller.Referee;
-import com.team142.gg.server.controller.map.TileBitmap;
-import com.team142.gg.server.model.mappable.MapTileElement;
-import com.team142.gg.server.model.mappable.Tank;
+import com.team142.gg.server.controller.MessageManager;
+import com.team142.gg.server.controller.GameManager;
+import com.team142.gg.server.controller.SoundManager;
+import com.team142.gg.server.controller.runnable.TickerPing;
+import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlayerLeft;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lombok.Data;
 
 /**
@@ -33,32 +28,26 @@ import lombok.Data;
 public class Game {
 
     private final String id;
-    private final List<Player> players = new CopyOnWriteArrayList<>();
     private final String name;
-    private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
-    private final List<MapTileElement> MAP;
-    private TileBitmap[][] bitmap;
+    private final Map map;
 
-    private final double startHealth;
+    private final List<Player> players = new CopyOnWriteArrayList<>();
+    private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
+
+    private SoundManager soundManager;
+    private Thread pingThread;
+
+    private double startHealth;
 
     public Game(String name) {
-        this.MAP = Collections.synchronizedList(new ArrayList<>());
         this.id = UUID.randomUUID().toString();
         this.name = name;
+        this.map = new Map();
+
+        this.soundManager = new SoundManager(this.id);
+
         this.startHealth = 100;
         startPinger();
-
-    }
-
-    public void spawn(Player player) {
-        int x = ThreadLocalRandom.current().nextInt(1, 48 + 1);
-        int z = ThreadLocalRandom.current().nextInt(1, 48 + 1);
-
-        //TODO: check that not water or mountian
-        player.getTANK().setHealth(startHealth);
-        player.getTANK().setMaxHealth(startHealth);
-        player.getTANK().setX(x);
-        player.getTANK().setZ(z);
 
     }
 
@@ -72,33 +61,15 @@ public class Game {
 
     public void removePlayer(Player player) {
         TANKS.remove(player.getId());
-        PostOffice.sendPlayersAMessage(this, new MessagePlayerLeft(player.getTAG()));
+        MessageManager.sendPlayersAMessage(this, new MessagePlayerLeft(player.getTAG()));
         players.removeIf(playerItem -> playerItem.getId().equals(player.getId()));
-        Referee.sendScoreBoard(this);
-
-    }
-
-    public void playerJoins(Player player) {
-        TANKS.put(player.getId(), player.getTANK());
-        player.getTANK().setMaxHealth(startHealth);
-        player.getTANK().setHealth(startHealth);
-        players.add(player);
-        player.start();
-        spawn(player);
+        GameManager.sendScoreBoard(this);
 
     }
 
     private void startPinger() {
-        new Thread(() -> {
-            while (true) {
-                try {
-                    getPlayers().forEach((player) -> player.getTickerComms().ping());
-                    Thread.sleep(5000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
+        this.pingThread = new Thread(new TickerPing(players));
+        pingThread.start();
     }
 
 }

@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.utils;
 
-import com.team142.gg.server.model.mappable.PlaceableElement;
+import com.team142.gg.server.model.mappable.meta.PlaceableElement;
 
 /**
  *

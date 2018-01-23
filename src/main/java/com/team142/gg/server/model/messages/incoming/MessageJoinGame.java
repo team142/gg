@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.model.messages.incoming;
 
-import com.team142.gg.server.controller.Referee;
+import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.messages.base.Message;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,7 @@ public class MessageJoinGame extends Message implements Runnable {
 
     @Override
     public void run() {
-        Referee.handle(this);
+        GameManager.handle(this);
 
     }
 
