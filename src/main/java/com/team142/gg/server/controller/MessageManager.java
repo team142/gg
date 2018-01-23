@@ -69,5 +69,4 @@ public class MessageManager {
             session.getAsyncRemote().sendText(json);
         }
     }
-
 }
