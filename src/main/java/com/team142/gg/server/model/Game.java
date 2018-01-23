@@ -8,6 +8,7 @@ package com.team142.gg.server.model;
 import com.team142.gg.server.controller.MessageManager;
 import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.controller.SoundManager;
+import com.team142.gg.server.controller.runnable.TickerPing;
 import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.outgoing.other.MessageGameSummary;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlayerLeft;
@@ -15,8 +16,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lombok.Data;
 
 /**
@@ -69,16 +68,7 @@ public class Game {
     }
 
     private void startPinger() {
-        this.pingThread = new Thread(() -> {
-            while (true) {
-                try {
-                    getPlayers().forEach((player) -> player.getTickerComms().ping());
-                    Thread.sleep(5000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+        this.pingThread = new Thread(new TickerPing(players));
         pingThread.start();
     }
 
