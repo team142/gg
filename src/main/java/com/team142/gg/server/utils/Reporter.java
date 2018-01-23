@@ -23,15 +23,15 @@ public class Reporter {
     });
 
     public static void report() {
-        Reporter.REPORT_THREAD_POOL.execute(() -> reportNewPlayerForStats());
+        if (Server.REPORT_STATS) {
+            Reporter.REPORT_THREAD_POOL.execute(() -> reportNewPlayerForStats());
+        }
 
     }
 
     private static void reportNewPlayerForStats() {
-        if (Server.REPORT_STATS) {
-            String json = JsonUtils.toJson(new MessagePlayerJoinStats(Server.SERVER_NAME));
-            HttpUtils.postSilently(Server.REPORT_URL, json);
-        }
+        String json = JsonUtils.toJson(new MessagePlayerJoinStats(Server.SERVER_NAME));
+        HttpUtils.postSilently(Server.REPORT_URL, json);
     }
 
 }
