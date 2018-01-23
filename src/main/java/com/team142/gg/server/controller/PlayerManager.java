@@ -19,40 +19,35 @@ public class PlayerManager {
 
     }
 
-    /**
-     *
-     * @param player
-     * @param key
-     * @return a boolean is returned indicating if the player chooses to shoot
-     */
-    public static boolean keyDown(Player player, String key) {
+    public static void keyDown(Player player, String key) {
         switch (key) {
             case "A":
                 player.getTANK().setRotation(player.getTANK().getRotation().subtract(DirectionTypes.ONE_TICK_ROTATE));
                 if (player.getTANK().getRotation().compareTo(DirectionTypes.DIR0) < 0) {
                     player.getTANK().setRotation(DirectionTypes.DIR7);
                 }
-                return false;
+                return;
             case "W":
                 player.getTANK().setDirection(1);
-                return false;
+                return;
             case "D":
                 player.getTANK().setRotation(player.getTANK().getRotation().add(DirectionTypes.ONE_TICK_ROTATE));
                 if (player.getTANK().getRotation().compareTo(DirectionTypes.DIR8) >= 0) {
                     player.getTANK().setRotation(DirectionTypes.DIR0);
                 }
-                return false;
+                return;
             case "S":
                 player.getTANK().setDirection(-1);
-                return false;
+                return;
             case " ":
-                return true;
+                player.attemptShoot();
+                return;
             default:
                 break;
         }
 
         player.getTANK().setDirection(0);
-        return false;
+        return;
 
     }
 

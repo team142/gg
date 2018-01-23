@@ -30,12 +30,12 @@ public class GameManager {
 
     private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
 
-    public static void handle(MessageKeyDown messageKeyDown) {
-        PlayerManager.keyUp(Repository.PLAYERS_ON_SERVER.get(messageKeyDown.getFrom()), messageKeyDown.getKey());
+    public static void handle(MessageKeyDown message) {
+        PlayerManager.keyDown(Repository.PLAYERS_ON_SERVER.get(message.getFrom()), message.getKey());
     }
 
-    public static void handle(MessageKeyUp messageKeyUp) {
-        PlayerManager.keyUp(Repository.PLAYERS_ON_SERVER.get(messageKeyUp.getFrom()), messageKeyUp.getKey());
+    public static void handle(MessageKeyUp message) {
+        PlayerManager.keyUp(Repository.PLAYERS_ON_SERVER.get(message.getFrom()), message.getKey());
     }
 
     public static void handle(MessageJoinGame body) {
@@ -44,13 +44,11 @@ public class GameManager {
             LOG.log(Level.SEVERE, "Player ({0}) tried to join null game ({1}) ", new String[]{body.getFrom(), body.getId()});
             return;
         }
-
         Player player = Repository.PLAYERS_ON_SERVER.get(body.getFrom());
         if (player == null) {
             LOG.log(Level.SEVERE, "Null Player ({0}) tried to game ({1}) ", new String[]{body.getFrom(), body.getId()});
             return;
         }
-
         playerJoins(game, player);
 
     }
@@ -63,8 +61,10 @@ public class GameManager {
         game.getPlayers().add(player);
         spawn(game, player);
 
+        //Start threads
         player.start();
 
+        //Commnuicate
         welcomePlayerToGame(player.getId());
         announcePlayerJoins(game, player);
         sendMapToPlayer(player.getId(), game);
