@@ -38,4 +38,12 @@ public class Map {
         this.bitmap[x][y][1] = val;
     }
 
+    public boolean isMovable(int x, int y) {
+        return this.bitmap[x][y][0];
+    }
+
+    public boolean isShootover(int x, int y) {
+        return this.bitmap[x][y][1];
+    }
+
 }
