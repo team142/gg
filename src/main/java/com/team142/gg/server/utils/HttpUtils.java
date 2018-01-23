@@ -6,6 +6,7 @@
 package com.team142.gg.server.utils;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import okhttp3.MediaType;
@@ -24,7 +25,11 @@ public class HttpUtils {
             = MediaType.parse("application/json; charset=utf-8");
 
     public static String post(String url, String json) throws IOException {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build();
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
