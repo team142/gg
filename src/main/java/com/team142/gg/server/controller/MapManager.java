@@ -10,6 +10,7 @@ import com.team142.gg.server.model.mappable.organic.ModelType;
 import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.mappable.organic.Tile;
 import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.Map;
 import com.team142.gg.server.model.mappable.meta.DirectionTypes;
 import com.team142.gg.server.model.mappable.organic.MapTileElement;
 
@@ -26,14 +27,14 @@ public class MapManager {
         Tile grassTile = new Tile(SkinType.GRASS, ModelType.FLAT_TILE, true, false);
         Tile rockTile = new Tile(SkinType.ROCK, ModelType.ROCK_TILE, false, true);
 
-        int width = 50;
-        int length = 50;
+        int xTiles = 50;
+        int zTiles = 50;
 
-        game.getMap().setBimapSize(width, length);
+        game.setMap(new Map(xTiles, zTiles));
 
         //Green map for now
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < length; y++) {
+        for (int x = 0; x < xTiles; x++) {
+            for (int y = 0; y < zTiles; y++) {
                 if (x > 20 && x < 30 && y > 20 && y < 30) {
                     MapTileElement tile = new MapTileElement(x, 1, y, rockTile, DirectionTypes.DIR0);
                     game.getMap().getTILES().add(tile);
