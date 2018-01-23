@@ -10,6 +10,7 @@ import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.messages.base.ConversationMap;
 import com.team142.gg.server.utils.JsonUtils;
+import java.nio.ByteBuffer;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,21 +54,37 @@ public class MessageManager {
     }
 
     public static void sendPlayersAMessage(Game game, Message message) {
-        String json = JsonUtils.toJson(message);
-        game.getPlayers().forEach((player) -> sendPlayerAMessage(Repository.SESSIONS_ON_SERVER.get(player.getId()), json));
+        ByteBuffer bytes = JsonUtils.toByteBuffer(message);
+        game.getPlayers().forEach((player) -> sendPlayerAMessage(Repository.SESSIONS_ON_SERVER.get(player.getId()), bytes));
     }
 
     public static void sendPlayerAMessage(String playerId, Message message) {
-        String json = JsonUtils.toJson(message);
+        ByteBuffer bytes = JsonUtils.toByteBuffer(message);
         Session session = Repository.SESSIONS_ON_SERVER.get(playerId);
-        sendPlayerAMessage(session, json);
+        sendPlayerAMessage(session, bytes);
 
     }
 
+    public static void sendPlayerAMessage(Session session, ByteBuffer byteBuffer) {
+        if (session != null) {
+            session.getAsyncRemote().sendBinary(byteBuffer);
+        }
+    }
+
+    /**
+     *
+     * @param session
+     * @param json
+     * @deprecated 
+     * WARNING: try to use *sendPlayerAMessage(Session session, ByteBuffer
+     * byteBuffer)* instead as the overhead of using Strings is really bad
+     * (String pool etc). This will be left in for now as it may be useful
+     * and we would like communications to happen in this class.
+     *
+     */
     public static void sendPlayerAMessage(Session session, String json) {
         if (session != null) {
             session.getAsyncRemote().sendText(json);
         }
     }
-
 }

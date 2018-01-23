@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,9 +23,9 @@ import java.util.logging.Logger;
  * @author just1689
  */
 public class JsonUtils {
-
+    
     public static final ObjectMapper OBJECT_MAPPER;
-
+    
     static {
         OBJECT_MAPPER = new ObjectMapper();
         OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -32,11 +33,11 @@ public class JsonUtils {
         // OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
 
     }
-
+    
     public static List<Object> jsonToList(String json, Class clazz) throws IOException {
         return OBJECT_MAPPER.readValue(json, JsonUtils.OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, clazz));
     }
-
+    
     public static String toJson(Object o) {
         try {
             return OBJECT_MAPPER.writeValueAsString(o);
@@ -45,7 +46,16 @@ public class JsonUtils {
         }
         return "";
     }
-
+    
+    public static ByteBuffer toByteBuffer(Object o) {
+        try {
+            return ByteBuffer.wrap(OBJECT_MAPPER.writeValueAsBytes(o));
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(JsonUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ByteBuffer.wrap("".getBytes());
+    }
+    
     public static Object jsonToObject(String json, Class clazz) {
         try {
             Object result = OBJECT_MAPPER.readValue(json, clazz);
@@ -60,7 +70,7 @@ public class JsonUtils {
         }
         return null;
     }
-
+    
     public static String readFieldOrEmptyString(String json, String fieldName) {
         try {
             if (fieldName != null) {
@@ -73,5 +83,5 @@ public class JsonUtils {
         }
         return "";
     }
-
+    
 }
