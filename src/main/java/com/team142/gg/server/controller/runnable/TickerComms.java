@@ -48,7 +48,6 @@ public class TickerComms extends AbstractTickerWorker {
 
     public void pong() {
         long lag = System.currentTimeMillis() - lastPing;
-//        System.out.println("PING roundtrip: " + lag);
 
         lag = lag / 2;
         if (lag < 20) {
@@ -64,7 +63,6 @@ public class TickerComms extends AbstractTickerWorker {
         } else if (lag >= 100) {
             setTICK_MS(125);
         }
-//        System.out.println("Now: " + getTICK_MS());
 
     }
 
