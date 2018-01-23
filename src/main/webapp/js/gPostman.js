@@ -84,7 +84,7 @@ class Postman {
                 s.position.x = t.x
                 s.position.y = t.y
                 s.position.z = t.z
-                s.rotation.y = t.rotation
+                s.rotation.y = t.rotation - 1.57
             }
         }
 
