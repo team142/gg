@@ -5,7 +5,6 @@
  */
 package com.team142.gg.server.model;
 
-import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
@@ -60,31 +59,11 @@ public class Player {
 
     }
 
-    public void attemptShoot() {
-        //Check last shot
-        if (System.currentTimeMillis() - LAST_BULLET.get() >= MS_PER_SHOT) {
-            //We can shoot
-            LAST_BULLET.set(System.currentTimeMillis());
-            shoot();
-
-        }
-
-    }
-
-    private void shoot() {
-        //Create a bullet
+    public Bullet createBullet() {
         Bullet bullet = new Bullet(this);
-
-        //Add to player (Game will send to players)
         BULLETS.add(bullet);
-
-        Game game = Repository.GAMES_ON_SERVER.get(gameId);
-
-        //Tell referee (send to game)
-        GameManager.sendBullet(game, bullet);
-
-        game.getSoundManager().sendShoot();
-
+        return bullet;
+        
     }
 
     public void start() {

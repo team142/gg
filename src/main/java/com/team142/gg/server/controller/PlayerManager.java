@@ -5,7 +5,10 @@
  */
 package com.team142.gg.server.controller;
 
+import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
+import com.team142.gg.server.model.Repository;
+import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.model.mappable.meta.DirectionTypes;
 
 /**
@@ -40,14 +43,36 @@ public class PlayerManager {
                 player.getTANK().setDirection(-1);
                 return;
             case " ":
-                player.attemptShoot();
+                playerAttemptsToShoot(player);
                 return;
             default:
                 break;
         }
 
         player.getTANK().setDirection(0);
-        return;
+
+    }
+
+    public static void playerAttemptsToShoot(Player player) {
+        //Check last shot
+        if (System.currentTimeMillis() - player.getLAST_BULLET().get() >= player.getMS_PER_SHOT()) {
+            //We can shoot
+            player.getLAST_BULLET().set(System.currentTimeMillis());
+            playerShoots(player);
+
+        }
+
+    }
+
+    public static void playerShoots(Player player) {
+        Game game = Repository.GAMES_ON_SERVER.get(player.getGameId());
+
+        //Change state
+        Bullet bullet = player.createBullet();
+
+        //Communicate
+        GameManager.sendBullet(game, bullet);
+        game.getSoundManager().sendShoot();
 
     }
 
