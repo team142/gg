@@ -96,7 +96,7 @@ public class ServerManager {
 
     public static void createDefaultGame() {
         Logger.getLogger(Server.class.getName()).log(Level.INFO, "Creating the default game");
-        createGame("Default game", new MapSettings("meh"));
+        createGame("Default game", new MapSettings(50, 50));
 
     }
 

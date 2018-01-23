@@ -27,14 +27,11 @@ public class MapManager {
         Tile grassTile = new Tile(SkinType.GRASS, ModelType.FLAT_TILE, true, false);
         Tile rockTile = new Tile(SkinType.ROCK, ModelType.ROCK_TILE, false, true);
 
-        int xTiles = 50;
-        int zTiles = 50;
-
-        game.setMap(new Map(xTiles, zTiles));
+        game.setMap(new Map(settings.getXTiles(), settings.getZTiles()));
 
         //Green map for now
-        for (int x = 0; x < xTiles; x++) {
-            for (int y = 0; y < zTiles; y++) {
+        for (int x = 0; x < settings.getXTiles(); x++) {
+            for (int y = 0; y < settings.getZTiles(); y++) {
                 if (x > 20 && x < 30 && y > 20 && y < 30) {
                     MapTileElement tile = new MapTileElement(x, 1, y, rockTile, DirectionTypes.DIR0);
                     game.getMap().getTILES().add(tile);
