@@ -230,6 +230,7 @@ class BabylonUtils {
         cone.scaling = scalingFactor
         cone.position.multiplyInPlace(scalingFactor)
         cone.rotation.x = -1.57
+        cone.material = baby.matBlack
         return cone
 
     }
