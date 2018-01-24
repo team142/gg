@@ -13,11 +13,11 @@ import com.team142.gg.server.model.mappable.meta.PlaceableElement;
  */
 public class PhysicsUtils {
 
-    public static boolean isTinyObjectInLarger(PlaceableElement t, PlaceableElement l) {
+    public static boolean isTinyObjectInLarger(PlaceableElement t, PlaceableElement l, double width) {
 
         boolean isIn
-                = ((t.getX() >= l.getX() - 0.5 && t.getX() <= l.getX() + 0.5)
-                && (t.getZ() >= l.getZ() - 0.5 && t.getZ() <= l.getZ() + 0.5));
+                = ((t.getX() >= l.getX() - width && t.getX() <= l.getX() + width)
+                && (t.getZ() >= l.getZ() - width && t.getZ() <= l.getZ() + width));
         if (isIn) {
             System.out.println("Tiny in in larger!");
 

@@ -63,7 +63,7 @@ public class Bullet extends MovableElement {
                 .values()
                 .stream()
                 .filter((tank) -> tank.getTAG() != player.getTAG())
-                .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this))
+                .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this, tank.getWidth()))
                 .forEach((tank) -> damage(tank));
 
         if (getX() < 0) {
