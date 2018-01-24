@@ -44,7 +44,7 @@ public class Player {
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
         this.TAG = Server.TAGS.incrementAndGet();
-        this.TANK = new Tank(0, 0.25d, 0, "default", Server.DEFAULT_SPEED, TAG, 100, this);
+        this.TANK = new Tank(0, 0.16d, 0, "default", Server.DEFAULT_SPEED, TAG, 100, this);
         this.name = "";
 
     }
