@@ -111,47 +111,38 @@ class BabylonUtils {
             }
 
             ////////////////////////////////////////////////////////////////
+            ////////////    *** Comes from Tank model project *** //////////
+            ////////////////////////////////////////////////////////////////
 
             const name = "player" + match.gameInstance + tagId
 
             const box = BABYLON.MeshBuilder.CreateBox("box" + name, {height: 0.3, width: 0.6, depth: 0.3}, baby.scene);
             box.position.y = 0.0
-            const matGrey = new BABYLON.StandardMaterial("matGrey", baby.scene);
-            matGrey.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);
-            box.material = matGrey
-    
-            const boxBarrel = BABYLON.MeshBuilder.CreateBox("boxBarrel", {height: 0.05, width: 0.6, depth: 0.05}, baby.scene);
+            box.material = baby.matGrey
+            
+            const boxBarrel = BABYLON.MeshBuilder.CreateBox("boxBarrel" + name, {height: 0.05, width: 0.6, depth: 0.05}, baby.scene);
             boxBarrel.position.y = 0.1
             boxBarrel.position.x = 0.3
-            var matBlack = new BABYLON.StandardMaterial("matBlack", baby.scene);
-            matBlack.diffuseColor = new BABYLON.Color3(0, 0, 0);
-            boxBarrel.material = matBlack
+            boxBarrel.material = baby.matBlack
     
-            var matWing = new BABYLON.StandardMaterial("matWing", baby.scene);
-            matWing.diffuseColor = new BABYLON.Color3(0.2, 0.2, 1);
-    
-            var boxLeftWing = BABYLON.MeshBuilder.CreateBox("boxLeftWing", {height: 0.1, width: 0.65, depth: 0.05}, baby.scene);
+            const boxLeftWing = BABYLON.MeshBuilder.CreateBox("boxLeftWing" + name, {height: 0.1, width: 0.65, depth: 0.05}, baby.scene);
             boxLeftWing.position.y = -0.11
             boxLeftWing.position.z = 0.15
-            boxLeftWing.material = matWing
+            boxLeftWing.material = baby.matWing
     
     
-            var boxRightWing = BABYLON.MeshBuilder.CreateBox("boxRightWing", {height: 0.1, width: 0.65, depth: 0.05}, baby.scene);
+            var boxRightWing = BABYLON.MeshBuilder.CreateBox("boxRightWing" + name, {height: 0.1, width: 0.65, depth: 0.05}, baby.scene);
             boxRightWing.position.y = -0.11
             boxRightWing.position.z = -0.15
-            boxRightWing.material = matGreen
+            boxRightWing.material = baby.matWing
     
             box.addChild(boxBarrel)
             box.addChild(boxLeftWing)
             box.addChild(boxRightWing)
 
-            box.position.y -= 0.3
-
             ////////////////////////////////////////////////////////////////////////////////////
 
-            // const item = BABYLON.Mesh.CreateSphere(name, 16, 0.5, baby.scene)
             const item = box
-            // item.position.y = 1
             match.playerTanks.set(tagId, item)
 
             const rectText = new BABYLON.GUI.Rectangle()
@@ -193,6 +184,17 @@ class BabylonUtils {
         //For now create a smiley-face for each person
         baby.smileyMaterial = new BABYLON.StandardMaterial("", baby.scene)
         baby.smileyMaterial.diffuseTexture = new BABYLON.Texture("textures/smily.png", baby.scene)
+
+        baby.matGrey = new BABYLON.StandardMaterial("matGrey", baby.scene);
+        baby.matGrey.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);
+
+        baby.matBlack = new BABYLON.StandardMaterial("matBlack", baby.scene);
+        baby.matBlack.diffuseColor = new BABYLON.Color3(0, 0, 0);
+
+        baby.matWing = new BABYLON.StandardMaterial("matWing", baby.scene);
+        baby.matWing.diffuseColor = new BABYLON.Color3(0.2, 0.2, 1);
+
+
 
     }
 
