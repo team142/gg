@@ -10,8 +10,6 @@ import com.team142.gg.server.model.messages.outgoing.stats.MessageNotifyPushover
 import com.team142.gg.server.model.messages.outgoing.stats.MessagePlayerJoinStats;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -33,8 +31,6 @@ public class Reporter {
         }
         if (Server.NOTIFY_PUSHOVER_ON_JOIN) {
             Reporter.REPORT_THREAD_POOL.execute(() -> reportNewPlayerForPushOver());
-        } else {
-            Logger.getLogger(Reporter.class.getName()).log(Level.WARNING, "");
         }
 
     }
