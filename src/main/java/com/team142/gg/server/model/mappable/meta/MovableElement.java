@@ -9,6 +9,8 @@ import com.team142.gg.server.model.Map;
 import com.team142.gg.server.utils.MathUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -114,15 +116,21 @@ public class MovableElement extends PlaceableElement {
 
     private void changeZ(double amt, int dir, Map map) {
         double newZ = getZ() + (amt * dir);
-        if (map.isMovable(getX(), newZ)) {
+        if (dir == 1 && map.isMovable(getX(), newZ + 1)) {
+            setZ(newZ);
+        } else if (dir == -1 && map.isMovable(getX(), newZ)) {
             setZ(newZ);
         }
+
     }
 
     private void changeX(double amt, int dir, Map map) {
         double newX = getX() + (amt * dir);
-        if (map.isMovable(newX, getZ())) {
+        if (dir == 1 && map.isMovable(newX + 1, getZ())) {
+            setX(newX);
+        } else if (dir == -1 && map.isMovable(newX, getZ())) {
             setX(newX);
         }
+
     }
 }
