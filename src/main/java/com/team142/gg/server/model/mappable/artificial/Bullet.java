@@ -57,13 +57,13 @@ public class Bullet extends MovableElement {
             return;
         }
         movementTick();
-        Repository
-                .getGameByPlayer(player.getId())
+        Repository.GAMES_ON_SERVER
+                .get(player.getGameId())
                 .getTANKS()
                 .values()
                 .stream()
                 .filter((tank) -> tank.getTAG() != player.getTAG())
-                .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this))
+                .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this, tank.getWidth()))
                 .forEach((tank) -> damage(tank));
 
         if (getX() < 0) {
@@ -82,6 +82,11 @@ public class Bullet extends MovableElement {
             ok = false;
         }
 
+        if (!Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap().isShootover(getX(), getZ())) {
+            Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Bullet is in something.. delete");
+            ok = false;
+        }
+
     }
 
     public void damage(Tank tank) {
@@ -91,15 +96,13 @@ public class Bullet extends MovableElement {
         game.getSoundManager().sendDing();
         Player toPlayer = Repository.PLAYERS_ON_SERVER.get(tank.getPlayerId());
 
-        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "{0} hit {1}", new String[]{player.getName(), toPlayer.getName()});
-        System.out.println(
-                "Damage! "
-                + result.getDamage()
-                + " from "
-                + player.getName()
-                + " to "
-                + toPlayer.getName()
-        );
+        Logger.getLogger(this.getClass().getName())
+                .log(
+                        Level.INFO,
+                        "{0} hit {1}",
+                        new String[]{player.getName(), toPlayer.getName()}
+                );
+
         if (result.isLethal()) {
             GameManager.handleKill(game, player, toPlayer);
         }

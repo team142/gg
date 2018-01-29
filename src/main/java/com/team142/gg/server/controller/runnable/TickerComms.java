@@ -47,23 +47,7 @@ public class TickerComms extends AbstractTickerWorker {
     }
 
     public void pong() {
-        long lag = System.currentTimeMillis() - lastPing;
-
-        lag = lag / 2;
-        if (lag < 20) {
-            setTICK_MS(20);
-        } else if (lag < 30) {
-            setTICK_MS(30);
-        } else if (lag < 50) {
-            setTICK_MS(50);
-        } else if (lag < 80) {
-            setTICK_MS(80);
-        } else if (lag < 100) {
-            setTICK_MS(100);
-        } else if (lag >= 100) {
-            setTICK_MS(125);
-        }
-
+        //
     }
 
 }

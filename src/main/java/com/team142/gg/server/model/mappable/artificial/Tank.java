@@ -27,6 +27,10 @@ public class Tank extends MovableElement {
     @Getter
     @Setter
     private String playerId;
+    
+    @Getter
+    @Setter
+    private double width = 0.3d;
 
     public Tank(double x, double y, double z, String skin, double speed, int tag, double hp, Player player) {
         super(x, y, z, skin, speed, tag);
