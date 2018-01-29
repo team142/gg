@@ -9,8 +9,6 @@ import com.team142.gg.server.model.Map;
 import com.team142.gg.server.utils.MathUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import lombok.Getter;
 import lombok.Setter;
 
