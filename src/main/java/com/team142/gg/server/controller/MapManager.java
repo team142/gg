@@ -37,7 +37,7 @@ public class MapManager {
                     game.getMap().getTILES().add(tile);
                     game.getMap().setTileBitmapMovable(x, y, false);
                     game.getMap().setTileBitmapShootover(x, y, false);
-                } else if (x == 49 || y == 49) {
+                } else if (x == 49 || y == 49 || x == 0 || y == 0) {
                     MapTileElement tile = new MapTileElement(x, 1, y, waterTile, DirectionTypes.DIR0);
                     game.getMap().getTILES().add(tile);
                     game.getMap().setTileBitmapMovable(x, y, false);
