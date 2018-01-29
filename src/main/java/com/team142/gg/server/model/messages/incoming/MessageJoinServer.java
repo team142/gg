@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.model.messages.incoming;
 
-import com.team142.gg.server.controller.ServerAdmin;
+import com.team142.gg.server.controller.ServerManager;
 import com.team142.gg.server.model.messages.base.Message;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,7 @@ public class MessageJoinServer extends Message implements Runnable {
 
     @Override
     public void run() {
-        ServerAdmin.handle(this);
+        ServerManager.handle(this);
 
     }
 
