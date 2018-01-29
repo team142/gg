@@ -111,8 +111,8 @@ public class ServerManager {
 
     public static void playerDisconnects(String id) {
 
-        Game game = Repository.getGameByPlayer(id);
         Player player = Repository.PLAYERS_ON_SERVER.get(id);
+        Game game = Repository.GAMES_ON_SERVER.get(player.getGameId());
 
         if (game != null) {
             game.removePlayer(player);
