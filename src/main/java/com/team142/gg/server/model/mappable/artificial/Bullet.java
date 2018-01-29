@@ -82,6 +82,11 @@ public class Bullet extends MovableElement {
             ok = false;
         }
 
+        if (!Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap().isShootover(getX(), getZ())) {
+            Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Bullet is in something.. delete");
+            ok = false;
+        }
+
     }
 
     public void damage(Tank tank) {
