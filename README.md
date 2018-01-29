@@ -28,3 +28,6 @@ Run `mvn clean install`. Deploy the resulting war to a JEE 7 compliant web conta
 
 ## Community (Dev, Q&A & suggestions)
 <a href="https://discord.gg/QaagkDh"><img src="docs/discord.png" height="80"></a>
+
+
+...
