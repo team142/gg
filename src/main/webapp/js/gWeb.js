@@ -8,6 +8,14 @@ class Web {
         if (name) {
             document.getElementById("btnJoinServer").enabled = false
             ServerIO.joinServer(url, name)
+        } else {
+            swal({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Please choose a nickname',
+                footer: '<a href="https://dictionary.cambridge.org/dictionary/english/nickname">What is a nickname?</a>',
+            })
+            document.getElementById("btnJoinServer").disabled = false
         }
 
     }
@@ -40,7 +48,7 @@ class Web {
             document.getElementById(id).style.visibility = "hidden"
             document.getElementById(id).style.display = "none"
         }
-        
+
     }
 
 }
