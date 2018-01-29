@@ -64,10 +64,16 @@ public class GameManager {
     }
 
     public static void spawn(Game game, Player player) {
-        int x = ThreadLocalRandom.current().nextInt(1, 48 + 1);
-        int z = ThreadLocalRandom.current().nextInt(1, 48 + 1);
+        boolean success = false;
+        int x = 0;
+        int z = 0;
+        
+        while (!success) {
+            x = ThreadLocalRandom.current().nextInt(1, 48 + 1);
+            z = ThreadLocalRandom.current().nextInt(1, 48 + 1);
+            success = game.getMap().isMovable(x, z);
+        }
 
-        //TODO: check that not water or mountian
         player.getTANK().setHealth(player.getTANK().getMaxHealth());
         player.getTANK().setX(x);
         player.getTANK().setZ(z);
