@@ -116,24 +116,20 @@ public class MovableElement extends PlaceableElement {
 
     private void changeZ(double amt, int dir, Map map) {
         double newZ = getZ() + (amt * dir);
-        if (dir == 1 && map.isMovable(getX() + 1, newZ)) {
+        if (dir == 1 && map.isMovable(getX(), newZ + 1)) {
             setZ(newZ);
         } else if (dir == -1 && map.isMovable(getX(), newZ)) {
             setZ(newZ);
-        } else {
-            Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Blocked {0}", dir);
         }
 
     }
 
     private void changeX(double amt, int dir, Map map) {
         double newX = getX() + (amt * dir);
-        if (dir == 1 && map.isMovable(newX, getZ() + 1)) {
+        if (dir == 1 && map.isMovable(newX + 1, getZ())) {
             setX(newX);
         } else if (dir == -1 && map.isMovable(newX, getZ())) {
             setX(newX);
-        } else {
-            Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Blocked {0}", dir);
         }
 
     }
