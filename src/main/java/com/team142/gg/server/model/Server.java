@@ -21,6 +21,7 @@ public class Server {
     public static String SERVER_NAME;
     public static boolean REPORT_STATS;
     public static final String REPORT_URL = "https://us-central1-good-game-192610.cloudfunctions.net/function-newPlayer-v1";
+    public static final boolean DEBUG_ON = System.getenv("DEBUG_ON").equals("TRUE");
 
     public static final String NOTIFY_PUSHOVER_USER = System.getenv("PUSHOVER_USER");
     public static final String NOTIFY_PUSHOVER_TOKEN = System.getenv("PUSHOVER_TOKEN");
