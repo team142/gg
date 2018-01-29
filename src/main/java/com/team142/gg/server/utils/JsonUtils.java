@@ -13,7 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.team142.gg.server.model.Server;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +32,10 @@ public class JsonUtils {
         OBJECT_MAPPER = new ObjectMapper();
         OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         OBJECT_MAPPER.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
-        OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
+
+        if (Server.DEBUG_ON) {
+            OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
+        }
 
     }
 
@@ -45,6 +50,15 @@ public class JsonUtils {
             Logger.getLogger(JsonUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
+    }
+
+    public static ByteBuffer toByteBuffer(Object o) {
+        try {
+            return ByteBuffer.wrap(OBJECT_MAPPER.writeValueAsBytes(o));
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(JsonUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ByteBuffer.wrap("".getBytes());
     }
 
     public static Object jsonToObject(String json, Class clazz) {
