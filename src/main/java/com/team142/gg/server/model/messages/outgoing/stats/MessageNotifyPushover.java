@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.model.mappable.organic;
+package com.team142.gg.server.model.messages.outgoing.stats;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  *
  * @author just1689
  */
+@Data
 @AllArgsConstructor
-public class MapSettings {
+public class MessageNotifyPushover {
 
-    @Getter
-    @Setter
-    private int xTiles, zTiles;
+    private String user;
+    private String token;
+    private String message;
+
 }

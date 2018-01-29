@@ -16,3 +16,5 @@ good-game-server.iml
 .project
 
 .classpath
+
+*.DS_Store

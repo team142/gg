@@ -29,7 +29,7 @@ public class Game {
 
     private final String id;
     private final String name;
-    private final Map map;
+    private Map map;
 
     private final List<Player> players = new CopyOnWriteArrayList<>();
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
@@ -42,7 +42,6 @@ public class Game {
     public Game(String name) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
-        this.map = new Map();
 
         this.soundManager = new SoundManager(this.id);
 

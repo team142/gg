@@ -10,6 +10,11 @@ class Match {
     }
 
     static playerLeaves(tagId) {
+
+        let children = Match.getPlayerByTag(tagId).getChildren()
+        for (const child of children) {
+            child.dispose()
+        }
         Match.getPlayerByTag(tagId).dispose()
         match.playerTanks.delete(tagId)
         

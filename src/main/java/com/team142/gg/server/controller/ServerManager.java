@@ -96,7 +96,7 @@ public class ServerManager {
 
     public static void createDefaultGame() {
         Logger.getLogger(Server.class.getName()).log(Level.INFO, "Creating the default game");
-        createGame("Default game", new MapSettings("meh"));
+        createGame("Default game", new MapSettings(50, 50));
 
     }
 
@@ -111,8 +111,8 @@ public class ServerManager {
 
     public static void playerDisconnects(String id) {
 
-        Game game = Repository.getGameByPlayer(id);
         Player player = Repository.PLAYERS_ON_SERVER.get(id);
+        Game game = Repository.GAMES_ON_SERVER.get(player.getGameId());
 
         if (game != null) {
             game.removePlayer(player);
