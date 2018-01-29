@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.model.mappable.meta;
 
+import com.team142.gg.server.model.Map;
 import com.team142.gg.server.utils.MathUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -41,59 +42,59 @@ public class MovableElement extends PlaceableElement {
 
     }
 
-    public void movementTick() {
+    public void movementTick(Map map) {
         if (direction == 0) {
             return;
         }
 //        System.out.println("Direction: " + direction);
 
         if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
-            setZ(getZ() + (speed));
+            changeZ(speed, 1, map);
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
-            setZ(getZ() - (speed));
+            changeZ(speed, -1, map);
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
-            setX(getX() + (diagonalSpeed));
-            setZ(getZ() + (diagonalSpeed));
+            changeX(diagonalSpeed, 1, map);
+            changeZ(diagonalSpeed, 1, map);
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
-            setX(getX() - (diagonalSpeed));
-            setZ(getZ() - (diagonalSpeed));
+            changeX(diagonalSpeed, -1, map);
+            changeZ(diagonalSpeed, -1, map);
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
-            setX(getX() + (speed));
+            changeX(speed, 1, map);
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
-            setX(getX() - (speed));
+            changeX(speed, -1, map);
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
-            setX(getX() + (diagonalSpeed));
-            setZ(getZ() - (diagonalSpeed));
+            changeX(diagonalSpeed, 1, map);
+            changeZ(diagonalSpeed, -1, map);
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
-            setX(getX() - (diagonalSpeed));
-            setZ(getZ() + (diagonalSpeed));
+            changeX(diagonalSpeed, -1, map);
+            changeZ(diagonalSpeed, 1, map);
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-            setZ(getZ() - (speed));
+            changeZ(speed, -1, map);
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-            setZ(getZ() + (speed));
+            changeZ(speed, 1, map);
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-            setX(getX() - (diagonalSpeed));
-            setZ(getZ() - (diagonalSpeed));
+            changeX(diagonalSpeed, -1, map);
+            changeZ(diagonalSpeed, -1, map);
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-            setX(getX() + (diagonalSpeed));
-            setZ(getZ() + (diagonalSpeed));
+            changeX(diagonalSpeed, 1, map);
+            changeZ(diagonalSpeed, 1, map);
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
-            setX(getX() - (speed));
+            changeX(speed, -1, map);
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
-            setX(getX() + (speed));
+            changeX(speed, 1, map);
 
         } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
-            setX(getX() - (diagonalSpeed));
-            setZ(getZ() + (diagonalSpeed));
+            changeX(diagonalSpeed, -1, map);
+            changeZ(diagonalSpeed, 1, map);
         } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
-            setX(getX() + (diagonalSpeed));
-            setZ(getZ() - (diagonalSpeed));
+            changeX(diagonalSpeed, 1, map);
+            changeZ(diagonalSpeed, -1, map);
         }
 
         if (getX() < 0) {
@@ -109,5 +110,19 @@ public class MovableElement extends PlaceableElement {
             setZ(49);
         }
 
+    }
+
+    private void changeZ(double amt, int dir, Map map) {
+        double newZ = getZ() + (amt * dir);
+        if (map.isMovable(getX(), newZ)) {
+            setZ(newZ);
+        }
+    }
+
+    private void changeX(double amt, int dir, Map map) {
+        double newX = getX() + (amt * dir);
+        if (map.isMovable(newX, getZ())) {
+            setX(newX);
+        }
     }
 }
