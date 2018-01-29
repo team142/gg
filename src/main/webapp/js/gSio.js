@@ -31,7 +31,7 @@ class ServerIO {
     }
 
     static assignMethods() {
-        sio.socket.onopen = function (event) {
+        sio.socket.onopen = (event) => {
             sio.socket.send(JSON.stringify(
                 {
                     conversation: "P_REQUEST_JOIN_SERVER",
