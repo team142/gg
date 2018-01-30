@@ -16,7 +16,7 @@ import lombok.Getter;
 public class MapTileElement extends PlaceableElement {
 
     @Getter
-    private String model;
+    private final String model;
 
     public MapTileElement(double x, double y, double z, Tile tile, BigDecimal rotation) {
         super(x, y, z, rotation, tile.getSkin(), 0);

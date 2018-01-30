@@ -25,8 +25,6 @@ public class ConversationMap {
         MAP.put(ConversationType.P_KD.name(), MessageKeyDown.class);
         MAP.put(ConversationType.P_KU.name(), MessageKeyUp.class);
 
-        //TBI
-        //MAP.put(ConversationType.P_REQUEST_LIST_GAMES.name(), MessageLis.class);
     }
 
 }

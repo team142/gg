@@ -20,36 +20,50 @@ import com.team142.gg.server.model.mappable.organic.MapTileElement;
  */
 public class MapManager {
 
+    private static final Tile WATER_TILE = new Tile(SkinType.WATER, ModelType.FLAT_TILE, false, false);
+    private static final Tile GRASS_TILE = new Tile(SkinType.GRASS, ModelType.FLAT_TILE, true, false);
+    private static final Tile ROCK_TILE = new Tile(SkinType.ROCK, ModelType.ROCK_TILE, false, true);
+
     public static void generateMap(MapSettings settings, Game game) {
         //TODO
 
-        Tile waterTile = new Tile(SkinType.WATER, ModelType.FLAT_TILE, false, false);
-        Tile grassTile = new Tile(SkinType.GRASS, ModelType.FLAT_TILE, true, false);
-        Tile rockTile = new Tile(SkinType.ROCK, ModelType.ROCK_TILE, false, true);
-
         game.setMap(new Map(settings.getXTiles(), settings.getZTiles()));
 
-        //Green map for now
+        //Green map for now, surrounded by water & rock in the middleF
         for (int x = 0; x < settings.getXTiles(); x++) {
             for (int y = 0; y < settings.getZTiles(); y++) {
                 if (x > 20 && x < 30 && y > 20 && y < 30) {
-                    MapTileElement tile = new MapTileElement(x, 1, y, rockTile, DirectionTypes.DIR0);
-                    game.getMap().getTILES().add(tile);
-                    game.getMap().setTileBitmapMovable(x, y, false);
-                    game.getMap().setTileBitmapShootover(x, y, false);
+                    createRock(x, y, game);
                 } else if (x == 49 || y == 49 || x == 0 || y == 0) {
-                    MapTileElement tile = new MapTileElement(x, 1, y, waterTile, DirectionTypes.DIR0);
-                    game.getMap().getTILES().add(tile);
-                    game.getMap().setTileBitmapMovable(x, y, false);
-                    game.getMap().setTileBitmapShootover(x, y, true);
+                    createWater(x, y, game);
                 } else {
-                    MapTileElement tile = new MapTileElement(x, 1, y, grassTile, DirectionTypes.DIR0);
-                    game.getMap().getTILES().add(tile);
-                    game.getMap().setTileBitmapMovable(x, y, true);
-                    game.getMap().setTileBitmapShootover(x, y, true);
+                    createGrass(x, y, game);
                 }
             }
         }
+
+    }
+
+    public static void createGrass(int x, int y, Game game) {
+        createTile(x, y, game, GRASS_TILE, true, true);
+
+    }
+
+    public static void createRock(int x, int y, Game game) {
+        createTile(x, y, game, ROCK_TILE, false, false);
+
+    }
+
+    public static void createWater(int x, int y, Game game) {
+        createTile(x, y, game, WATER_TILE, false, true);
+
+    }
+
+    public static void createTile(int x, int y, Game game, Tile tile, boolean movable, boolean shootover) {
+        MapTileElement mapTileElement = new MapTileElement(x, 1, y, tile, DirectionTypes.DIR0);
+        game.getMap().getTILES().add(mapTileElement);
+        game.getMap().setTileBitmapMovable(x, y, movable);
+        game.getMap().setTileBitmapShootover(x, y, shootover);
 
     }
 

@@ -20,13 +20,14 @@ import lombok.AllArgsConstructor;
 public class TickerPing implements Runnable {
 
     private final List<Player> PLAYERS;
+    private final int SLEEP_SECONDS = 5;
 
     @Override
     public void run() {
         while (true) {
             try {
                 PLAYERS.forEach((player) -> player.getTickerComms().ping());
-                Thread.sleep(5000);
+                Thread.sleep(SLEEP_SECONDS * 1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
