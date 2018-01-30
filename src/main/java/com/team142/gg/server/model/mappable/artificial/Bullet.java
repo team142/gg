@@ -52,9 +52,9 @@ public class Bullet extends MovableElement {
 
     }
 
-    public void movementTickBullet() {
+    public boolean movementTickBullet() {
         if (!ok) {
-            return;
+            return ok;
         }
         movementTick(Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap());
         Repository.GAMES_ON_SERVER
@@ -68,24 +68,26 @@ public class Bullet extends MovableElement {
 
         if (getX() < 0) {
             ok = false;
-            return;
+            return ok;
         }
         if (getZ() < 0) {
             ok = false;
-            return;
+            return ok;
         }
         if (getX() > 50 + 1) { //NEED TO USE MAP SIZE?
             ok = false;
-            return;
+            return ok;
         }
         if (getZ() > 50 + 1) {
             ok = false;
+            return ok;
         }
 
         if (!Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap().isShootover(getX(), getZ())) {
             Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Bullet is in something.. delete");
             ok = false;
         }
+        return ok;
 
     }
 

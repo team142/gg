@@ -51,8 +51,7 @@ public class Player {
 
     public void populateScorebord(MessageScoreboard board) {
         //Add score
-        int score = this.kills.get() - this.deaths.get();
-        board.getSCORES().put(name, score < 0 ? 0 : score);
+        board.getSCORES().put(name, this.kills.get());
 
         //Add tag
         board.getTAGS().put(name, TAG);
@@ -63,7 +62,7 @@ public class Player {
         Bullet bullet = new Bullet(this);
         BULLETS.add(bullet);
         return bullet;
-        
+
     }
 
     public void start() {

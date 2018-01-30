@@ -23,10 +23,10 @@ public class TickerPhysics extends AbstractTickerWorker {
     public void doTick() {
         Player player = Repository.PLAYERS_ON_SERVER.get(getPLAYER_ID());
         player.getTANK().movementTick(Repository.GAMES_ON_SERVER.get(getGAME_ID()).getMap());
-        player.getBULLETS().forEach((bullet) -> bullet.movementTickBullet());
+
         player.getBULLETS()
                 .stream()
-                .filter((bullet) -> !bullet.isOk())
+                .filter((bullet) -> !bullet.movementTickBullet())
                 .forEach((bullet) -> bullet.getPlayer().removeBullet(bullet));
 
     }

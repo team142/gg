@@ -12,13 +12,7 @@ package com.team142.gg.server.utils;
 public class EmptyChecker {
 
     public static boolean checkIfEmpty(String s) {
-        if (s == null) {
-            return true;
-        }
-        if (s.trim().isEmpty()) {
-            return true;
-        }
-        return false;
+        return (s == null || s.trim().isEmpty());
     }
 
 }

@@ -8,8 +8,9 @@ package com.team142.gg.server.model.messages.outgoing.other;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Getter;
 
 /**
@@ -19,12 +20,13 @@ import lombok.Getter;
 public class MessageListOfGames extends Message {
 
     @Getter
-    private final ArrayList<MessageGameSummary> GAMES;
+    private final List<MessageGameSummary> GAMES;
 
     public MessageListOfGames(Collection<Game> list) {
-        this.GAMES = new ArrayList<>();
+        this.GAMES = list.stream().map((game) -> game.toGameSummary()).collect(Collectors.toList());
         setConversation(ConversationType.S_LIST_OF_GAMES.name());
         list.forEach((game) -> GAMES.add(game.toGameSummary()));
+
     }
 
 }

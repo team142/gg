@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
  */
 public class Reporter {
 
-    private static final String PLAYER_JOINS_MESSAGE = "Player joined";
+    private static final String PLAYER_JOINS_MESSAGE = "Player joined ";
 
     private static final Executor REPORT_THREAD_POOL = Executors.newFixedThreadPool(2, (Runnable r) -> {
         Thread thread = new Thread(r);

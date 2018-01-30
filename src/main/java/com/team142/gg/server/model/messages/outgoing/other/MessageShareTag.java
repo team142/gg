@@ -8,7 +8,6 @@ package com.team142.gg.server.model.messages.outgoing.other;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  *
@@ -16,7 +15,6 @@ import lombok.Setter;
  */
 public class MessageShareTag extends Message {
 
-    @Setter
     @Getter
     private int tag;
 

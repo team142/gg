@@ -8,7 +8,6 @@ package com.team142.gg.server.controller;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
-import com.team142.gg.server.model.Server;
 import static com.team142.gg.server.model.Server.REPORT_STATS;
 import static com.team142.gg.server.model.Server.SERVER_NAME;
 import com.team142.gg.server.model.mappable.organic.MapSettings;
@@ -32,15 +31,9 @@ public class ServerManager {
     static {
         ServerManager.createDefaultGame();
 
-        Logger.getLogger(Server.class.getName()).log(Level.INFO, "Checking for env");
-        String env = System.getenv("REPORT_SERVER_STATS_AS");
-        if (env != null && !env.isEmpty()) {
-            SERVER_NAME = env;
-            REPORT_STATS = true;
-            Logger.getLogger(Server.class.getName()).log(Level.INFO, "Stats reporting is on: {0}", SERVER_NAME);
-        } else {
-            Logger.getLogger(Server.class.getName()).log(Level.INFO, "No reporting to stats server");
-        }
+        LOG.log(Level.INFO, "Checking for env");
+        SERVER_NAME = System.getenv("REPORT_SERVER_STATS_AS");
+        REPORT_STATS = SERVER_NAME != null && !SERVER_NAME.isEmpty();
 
     }
 
@@ -95,13 +88,13 @@ public class ServerManager {
     }
 
     public static void createDefaultGame() {
-        Logger.getLogger(Server.class.getName()).log(Level.INFO, "Creating the default game");
+        LOG.log(Level.INFO, "Creating the default game");
         createGame("Default game", new MapSettings(50, 50));
 
     }
 
     public static Game createGame(String name, MapSettings settings) {
-        Logger.getLogger(Server.class.getName()).log(Level.INFO, "Creating a new game");
+        LOG.log(Level.INFO, "Creating a new game");
         Game game = new Game(name);
         MapManager.generateMap(settings, game);
         Repository.GAMES_ON_SERVER.put(game.getId(), game);

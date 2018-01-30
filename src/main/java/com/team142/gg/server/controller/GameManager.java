@@ -67,7 +67,7 @@ public class GameManager {
         boolean success = false;
         int x = 0;
         int z = 0;
-        
+
         while (!success) {
             x = ThreadLocalRandom.current().nextInt(1, 48 + 1);
             z = ThreadLocalRandom.current().nextInt(1, 48 + 1);
@@ -111,7 +111,7 @@ public class GameManager {
     public static void handleKill(Game game, Player fromPlayer, Player player) {
         GameManager.spawn(game, player);
         GameManager.sendScoreBoard(game);
-        MessageManager.sendPlayersAMessage(game, new MessageSpray(player.getTAG(), 1200));
+        MessageManager.sendPlayersAMessage(game, new MessageSpray(player, 1200));
         game.getSoundManager().sendExplode();
     }
 
