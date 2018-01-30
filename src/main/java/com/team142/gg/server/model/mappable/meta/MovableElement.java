@@ -46,7 +46,6 @@ public class MovableElement extends PlaceableElement {
         if (direction == 0) {
             return;
         }
-//        System.out.println("Direction: " + direction);
 
         if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
             changeZ(speed, 1, map);
@@ -112,6 +111,7 @@ public class MovableElement extends PlaceableElement {
 
     }
 
+    //Check before changing...
     private void changeZ(double amt, int dir, Map map) {
         double newZ = getZ() + (amt * dir);
         if (dir == 1 && map.isMovable(getX(), newZ + 1)) {
@@ -122,6 +122,7 @@ public class MovableElement extends PlaceableElement {
 
     }
 
+    //Check before changing...
     private void changeX(double amt, int dir, Map map) {
         double newX = getX() + (amt * dir);
         if (dir == 1 && map.isMovable(newX + 1, getZ())) {
