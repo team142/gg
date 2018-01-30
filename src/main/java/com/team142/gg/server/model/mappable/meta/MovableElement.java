@@ -33,8 +33,8 @@ public class MovableElement extends PlaceableElement {
     public MovableElement(double x, double y, double z, String skin, double speed, int tag) {
         super(x, y, z, BigDecimal.ZERO, skin, tag);
         this.speed = speed;
-        BigDecimal diagSpeed = new BigDecimal(speed);
         BigDecimal speedD = new BigDecimal(speed);
+        BigDecimal diagSpeed = new BigDecimal(speed);
         diagSpeed = diagSpeed.multiply(speedD).divide(new BigDecimal(2));
         diagSpeed = MathUtils.sqrt(diagSpeed);
         diagSpeed = diagSpeed.setScale(3, RoundingMode.HALF_UP);

@@ -41,7 +41,7 @@ public class Bullet extends MovableElement {
         this.setDirection(1);
         this.setRotation(player.getTANK().getRotation());
         this.player = player;
-        this.damage = 50; //WHO KNOWs..
+        this.damage = 35; //WHO KNOWs..
         this.ok = true;
         if (getX() < 0) {
             setX(0);
