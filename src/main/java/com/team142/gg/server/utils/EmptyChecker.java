@@ -15,9 +15,6 @@ public class EmptyChecker {
         if (s == null) {
             return true;
         }
-        if (s.isEmpty()) {
-            return true;
-        }
         if (s.trim().isEmpty()) {
             return true;
         }

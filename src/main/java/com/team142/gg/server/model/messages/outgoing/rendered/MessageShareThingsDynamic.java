@@ -22,11 +22,11 @@ import lombok.Getter;
 public class MessageShareThingsDynamic extends Message {
 
     @Getter
-    private final ArrayList<PlaceableElement> THINGS = new ArrayList<>();
+    private final ArrayList<PlaceableElement> things = new ArrayList<>();
 
     public MessageShareThingsDynamic(Game game) {
         setConversation(ConversationType.S_SHARE_DYNAMIC_THINGS.name());
-        this.THINGS.addAll(game.getTANKS().values());
+        this.things.addAll(game.getTANKS().values());
     }
 
 }

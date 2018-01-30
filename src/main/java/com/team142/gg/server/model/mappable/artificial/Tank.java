@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.model.mappable.artificial;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class Tank extends MovableElement {
 
     @Getter
     @Setter
+    @JsonIgnore
     private String playerId;
     
     @Getter
