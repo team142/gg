@@ -29,7 +29,7 @@ class BabylonUtils {
         window.addEventListener("resize", function () {
             baby.engine.resize()
         })
-        window.addEventListener("keyup", function (data) {
+        window.addEventListener("keyup", (data) => {
             ServerIO.sendKeyUp(data.key)
             const key = data.key
             if (key === "a" || key === "A") {
@@ -43,7 +43,7 @@ class BabylonUtils {
             }
 
         })
-        window.addEventListener("keydown", function (data) {
+        window.addEventListener("keydown", (data) => {
             ServerIO.sendKeyDown(data.key)
             const key = data.key
             if (key === "a" || key === "A") {

@@ -23,9 +23,11 @@ public class MessageListOfGames extends Message {
     private final List<MessageGameSummary> GAMES;
 
     public MessageListOfGames(Collection<Game> list) {
-        this.GAMES = list.stream().map((game) -> game.toGameSummary()).collect(Collectors.toList());
+        this.GAMES = list
+                .stream()
+                .map((game) -> game.toGameSummary())
+                .collect(Collectors.toList());
         setConversation(ConversationType.S_LIST_OF_GAMES.name());
-        list.forEach((game) -> GAMES.add(game.toGameSummary()));
 
     }
 
