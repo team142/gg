@@ -17,7 +17,7 @@ For the server you will need Java 8, maven and docker. There are two ways you ca
 
 ### Build and run locally in docker (easy and fast)
 
-Run `./run.sh` or `./run.bat`. This will remvoe any references to the docker image in your local registry, use maven to build the war, build a docker image and run the image exposing the application locally on port 8080.
+Run `./run.sh` or `./run.bat`. This will remove any references to the docker image in your local registry, use maven to build the war, build a docker image and run the image exposing the application locally on port 8080.
 
 ### Build and run in your own Java servlet container
 
