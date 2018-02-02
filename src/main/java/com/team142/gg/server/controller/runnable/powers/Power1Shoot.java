@@ -23,18 +23,7 @@ public class Power1Shoot extends Power {
 
     @Override
     public void execute() {
-
-    }
-
-    public void playerAttemptsToShoot() {
-
-        //Check last shot
-        if (System.currentTimeMillis() - getPlayer().getLAST_BULLET().get() >= getPlayer().getMS_PER_SHOT()) {
-            //We can shoot
-            getPlayer().getLAST_BULLET().set(System.currentTimeMillis());
-            playerShoots();
-
-        }
+        playerShoots();
 
     }
 

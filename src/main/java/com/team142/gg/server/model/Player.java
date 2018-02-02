@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import lombok.Data;
 
 /**
@@ -33,8 +32,6 @@ public class Player {
     private final AtomicInteger deaths;
     private final Tank TANK;
     private final int TAG;
-    private final AtomicLong LAST_BULLET = new AtomicLong(0);
-    private int MS_PER_SHOT = 1000;
     private final List<Bullet> BULLETS;
     private String gameId;
     private TickerComms tickerComms;
