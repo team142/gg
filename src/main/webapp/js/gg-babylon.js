@@ -69,14 +69,13 @@ class BabylonUtils {
     }
 
     static createPowerBar() {
-        for (var i = 1; i <= 10; i++) {
-            BabylonUtils.createPowerBarItem(i)
-        }
+        BabylonUtils.createPowerBarItem(1, "textures/ico-shoot.jpg")
+        BabylonUtils.createPowerBarItem(2, "textures/ico-missile.jpg")
     }
 
-    static createPowerBarItem(n) {
+    static createPowerBarItem(n, fileImage) {
 
-        var image = new BABYLON.GUI.Image("powerBot" + n, "textures/grass1-min.jpg");
+        var image = new BABYLON.GUI.Image("powerBot" + n, fileImage);
         image.height = "75px";
         image.width = "75px";
         image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
