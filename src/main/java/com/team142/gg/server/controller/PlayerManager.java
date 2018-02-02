@@ -33,26 +33,33 @@ public class PlayerManager {
     }
 
     public static void keyDown(Player player, String key) {
-        switch (key) {
-            case "A":
+
+        char c = key.charAt(0);
+        if (c >= 0 && c <= 9) {
+            PowerManager.handle(player, c);
+            return;
+        }
+
+        switch (c) {
+            case 'A':
                 player.getTANK().setRotation(player.getTANK().getRotation().subtract(DirectionTypes.ONE_TICK_ROTATE));
                 if (player.getTANK().getRotation().compareTo(DirectionTypes.DIR0) < 0) {
                     player.getTANK().setRotation(DirectionTypes.DIR7);
                 }
                 return;
-            case "W":
+            case 'W':
                 player.getTANK().setDirection(1);
                 return;
-            case "D":
+            case 'D':
                 player.getTANK().setRotation(player.getTANK().getRotation().add(DirectionTypes.ONE_TICK_ROTATE));
                 if (player.getTANK().getRotation().compareTo(DirectionTypes.DIR8) >= 0) {
                     player.getTANK().setRotation(DirectionTypes.DIR0);
                 }
                 return;
-            case "S":
+            case 'S':
                 player.getTANK().setDirection(-1);
                 return;
-            case " ":
+            case ' ':
                 playerAttemptsToShoot(player);
                 return;
             default:
