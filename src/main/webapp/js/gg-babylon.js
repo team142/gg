@@ -69,6 +69,19 @@ class BabylonUtils {
     }
 
     static createPowerBar() {
+
+        let powerBack = new BABYLON.GUI.Rectangle();
+        let w = 10 * 80 + 10
+        powerBack.width = w + "px"
+        powerBack.height = "95px"
+        powerBack.cornerRadius = 20
+        powerBack.color = "White"
+        powerBack.thickness = 4
+        powerBack.background = "Black"
+        powerBack.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        powerBack.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        baby.advancedTexture.addControl(powerBack)
+
         const powers = [
             "textures/ico-shoot.jpg",
             "textures/ico-missile.jpg",
@@ -90,18 +103,19 @@ class BabylonUtils {
 
     static createPowerBarItem(n, fileImage) {
 
-        var image = new BABYLON.GUI.Image("powerBot" + n, fileImage);
-        image.height = "75px";
-        image.width = "75px";
-        image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-        image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+        let image = new BABYLON.GUI.Image("powerBot" + n, fileImage)
+        image.height = "75px"
+        image.width = "75px"
+        image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
 
         //Left position
-        let x = (75 + 5) * +n
-        x = x - (80 * 10 / 2)
-        image.left = x + "px";
+        let x = (75 + 5) * +n //Defaul space for a tile
+        x = x - ((75 + 5) * (10 / 2 - 0.5)) //Center in middle
+        image.left = x + "px"
+        image.top = "-10px"
 
-        baby.advancedTexture.addControl(image);
+        baby.advancedTexture.addControl(image)
 
     }
 
