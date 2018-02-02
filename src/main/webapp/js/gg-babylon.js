@@ -61,7 +61,15 @@ class BabylonUtils {
         SoundUtils.loadSounds()
         BabylonUtils.createSkyBox()
         baby.baseBullet = BabylonUtils.createBaseBullet()
+
+        BabylonUtils.createPowerBar()
+
         // var t = setInterval(movementTick, 40)
+
+    }
+
+    static createPowerBar() {
+        
 
     }
 
