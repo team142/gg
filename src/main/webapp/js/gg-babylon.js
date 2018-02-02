@@ -75,20 +75,17 @@ class BabylonUtils {
     }
 
     static createPowerBarItem(n) {
-        var rect1 = new BABYLON.GUI.Rectangle();
-        rect1.width = "75px";
-        rect1.height = "75px";
-        rect1.cornerRadius = 20;
-        rect1.color = "White";
-        rect1.thickness = 4;
-        rect1.background = "Black";
-        rect1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-        rect1.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+
+        var image = new BABYLON.GUI.Image("powerBot" + n, "textures/grass1-min.jpg");
+        image.height = "75px";
+        image.width = "75px";
+        image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
         n = +n - 1
         let x = (75 + 5) * +n
         x = x - (80 * 10 / 2)
-        rect1.left = x + "px";
-        baby.advancedTexture.addControl(rect1);
+        image.left = x + "px";
+        baby.advancedTexture.addControl(image);
 
     }
 
