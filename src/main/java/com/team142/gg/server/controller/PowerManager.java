@@ -6,6 +6,8 @@
 package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Player;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,8 +15,10 @@ import com.team142.gg.server.model.Player;
  */
 public class PowerManager {
 
-    public static void handle(Player player, char key) {
+    private static final Logger LOG = Logger.getLogger(PowerManager.class.getName());
 
+    public static void handle(Player player, char key) {
+        LOG.log(Level.INFO, "POWER TIME: " + player.getName() + ", " + key);
     }
 
 }

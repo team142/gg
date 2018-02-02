@@ -35,7 +35,7 @@ public class PlayerManager {
     public static void keyDown(Player player, String key) {
 
         char c = key.charAt(0);
-        if (c >= 0 && c <= 9) {
+        if (c >= '0' && c <= '9') {
             PowerManager.handle(player, c);
             return;
         }
