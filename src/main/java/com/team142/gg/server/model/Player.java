@@ -10,7 +10,10 @@ import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.controller.runnable.TickerComms;
 import com.team142.gg.server.controller.runnable.TickerPhysics;
+import com.team142.gg.server.controller.runnable.powers.Power;
+import com.team142.gg.server.controller.runnable.powers.Power1Shoot;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -36,6 +39,7 @@ public class Player {
     private String gameId;
     private TickerComms tickerComms;
     private TickerPhysics tickerPhysics;
+    private ConcurrentHashMap<String, Power> powers;
 
     public Player(String id) {
         this.BULLETS = new CopyOnWriteArrayList<>();
@@ -46,6 +50,8 @@ public class Player {
         this.TAG = Server.TAGS.incrementAndGet();
         this.TANK = new Tank(0, 0.16d, 0, "default", Server.DEFAULT_SPEED, TAG, 100, this);
         this.name = "";
+        this.powers = new ConcurrentHashMap<>();
+        this.powers.put("1", new Power1Shoot(this, 1000));
 
     }
 

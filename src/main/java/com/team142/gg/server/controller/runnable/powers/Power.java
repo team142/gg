@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.model.powers;
+package com.team142.gg.server.controller.runnable.powers;
 
 import com.team142.gg.server.model.Player;
 import lombok.AllArgsConstructor;

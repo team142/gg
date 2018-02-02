@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.model.powers;
+package com.team142.gg.server.controller.runnable.powers;
 
 import com.team142.gg.server.model.Player;
 
@@ -11,9 +11,9 @@ import com.team142.gg.server.model.Player;
  *
  * @author just1689
  */
-public class Power3Radar extends Power {
+public class Power6Behind extends Power {
 
-    public Power3Radar(Player player, long refreshTime) {
+    public Power6Behind(Player player, long refreshTime) {
         super(player, 0, refreshTime);
     }
 
