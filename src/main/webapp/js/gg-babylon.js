@@ -69,8 +69,23 @@ class BabylonUtils {
     }
 
     static createPowerBar() {
-        BabylonUtils.createPowerBarItem(1, "textures/ico-shoot.jpg")
-        BabylonUtils.createPowerBarItem(2, "textures/ico-missile.jpg")
+        const powers = [
+            "textures/ico-shoot.jpg",
+            "textures/ico-missile.jpg",
+            "textures/ico-radar.jpg",
+            "textures/ico-seeker.jpg",
+            "textures/ico-safety.jpg",
+            "textures/ico-behind.jpg",
+            "textures/ico-intel.jpg",
+            "textures/ico-tail.jpg",
+            "textures/ico-fog.jpg",
+            "textures/ico-bomb.jpg"
+        ]
+
+        for (const [index, fileImage] of powers.entries()) {
+            BabylonUtils.createPowerBarItem(index, fileImage)
+        }
+
     }
 
     static createPowerBarItem(n, fileImage) {
@@ -80,10 +95,12 @@ class BabylonUtils {
         image.width = "75px";
         image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-        n = +n - 1
+
+        //Left position
         let x = (75 + 5) * +n
         x = x - (80 * 10 / 2)
         image.left = x + "px";
+
         baby.advancedTexture.addControl(image);
 
     }

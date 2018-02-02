@@ -10,3 +10,11 @@ rock2.jpg https://sketchuptextureclub.com
 rock3.jpg https://sketchuptextureclub.com
 ico-shoot.jpg https://www.flaticon.com/authors/dave-gandy
 ico-missile.jpg https://www.flaticon.com/authors/freepik
+ico-radar https://www.flaticon.com/authors/creaticca-creative-agency
+ico-seeker https://www.flaticon.com/authors/smashicons
+ico-safety https://www.flaticon.com/authors/freepik
+ico-behind https://www.flaticon.com/authors/freepik
+ico-intel https://www.flaticon.com/authors/maxim-basinski
+ico-tail https://www.flaticon.com/authors/freepik
+ico-fog https://www.flaticon.com/authors/wissawa-khamsriwath
+ico-bomb https://www.flaticon.com/authors/vectors-market
