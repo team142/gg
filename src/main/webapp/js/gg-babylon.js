@@ -75,7 +75,7 @@ class BabylonUtils {
         powerBack.width = w + "px"
         powerBack.height = "95px"
         powerBack.cornerRadius = 20
-        powerBack.color = "White"
+        powerBack.color = "Black"
         powerBack.thickness = 4
         powerBack.background = "Black"
         powerBack.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
