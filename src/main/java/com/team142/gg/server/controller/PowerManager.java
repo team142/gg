@@ -19,6 +19,7 @@ public class PowerManager {
 
     public static void handle(Player player, char key) {
         LOG.log(Level.INFO, "POWER TIME: " + player.getName() + ", " + key);
+
     }
 
 }
