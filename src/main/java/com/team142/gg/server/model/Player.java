@@ -38,7 +38,7 @@ public class Player {
     private TickerComms tickerComms;
     private TickerPhysics tickerPhysics;
     private ConcurrentHashMap<String, Power> powers;
-    
+
     private ConcurrentSkipListSet<String> keyboard = new ConcurrentSkipListSet<>();
 
     public Player(String id) {
@@ -89,15 +89,15 @@ public class Player {
         BULLETS.remove(bullet);
         bullet.setPlayer(null);
     }
-    
+
     public void keyUp(String key) {
-        keyboard.add(key);
-    }
-    
-    public void keyDown(String key) {
         keyboard.remove(key);
     }
-    
+
+    public void keyDown(String key) {
+        keyboard.add(key);
+    }
+
     public boolean isKeyDown(String key) {
         return keyboard.contains(key);
     }

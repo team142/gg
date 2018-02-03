@@ -7,7 +7,6 @@ package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
-import com.team142.gg.server.model.mappable.meta.DirectionTypes;
 import com.team142.gg.server.model.messages.incoming.MessageKeyDown;
 import com.team142.gg.server.model.messages.incoming.MessageKeyUp;
 

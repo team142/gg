@@ -30,9 +30,10 @@ public class MovableElement extends PlaceableElement {
     @Getter
     @Setter
     private double direction;
-    
+
     public static final float BASE_ROTATE = (float) Math.toRadians(1.25);
     public static final float MAX_ROTATE = (float) (Math.PI * 2);
+    public static final float HALF_PI = (float) (Math.PI / 2);
 
     public MovableElement(double x, double y, double z, String skin, double speed, int tag) {
         super(x, y, z, 0, skin, tag);
@@ -47,48 +48,48 @@ public class MovableElement extends PlaceableElement {
     }
 
     public void rotateLeft() {
-        if(getRotation() <= BASE_ROTATE) {
-            setRotation(getRotation() - BASE_ROTATE);
-        } else {
-            setRotation(MAX_ROTATE);
+        setRotation(getRotation() - BASE_ROTATE);
+        if (getRotation() < 0) {
+            setRotation(MAX_ROTATE - getRotation());
         }
     }
-    
+
     public void rotateRight() {
-        if(getRotation() >= (MAX_ROTATE - BASE_ROTATE)) {
+        if (getRotation() >= (MAX_ROTATE - BASE_ROTATE)) {
             setRotation(0);
         } else {
             setRotation(getRotation() + BASE_ROTATE);
         }
     }
-    
+
     public void moveForward(Map map) {
-        double rotationDegrees = Math.toDegrees(getRotation()) - 90;
-        
+        double rotationDegrees = Math.toDegrees(getRotation() + HALF_PI) - 90;
+
         double coefficientX = Math.sin(rotationDegrees);
         double coefficientZ = Math.cos(rotationDegrees);
-        
+
         double deltaX = coefficientX * getSpeed();
         double deltaZ = coefficientZ * getSpeed();
-        
+
         changeX(deltaX, map);
+        changeZ(deltaZ, map);
     }
-    
+
     public void moveBackward() {
-        
+
     }
 
     public void movementTick(Player player, Map map) {
-        
-        if(player.isKeyDown("A")) {
+
+        if (player.isKeyDown("A")) {
             rotateLeft();
-        } else if(player.isKeyDown("D")) {
+        } else if (player.isKeyDown("D")) {
             rotateRight();
         }
-        
-        if(player.isKeyDown("W")) {
+
+        if (player.isKeyDown("W")) {
             moveForward(map);
-        } else if(player.isKeyDown("S")) {
+        } else if (player.isKeyDown("S")) {
             moveBackward();
         }
 
