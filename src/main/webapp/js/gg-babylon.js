@@ -136,7 +136,7 @@ class BabylonUtils {
         baby.advancedTexture.addControl(healthBarRed)
 
         let healthBarGreen = new BABYLON.GUI.Rectangle();
-        healthBarGreen.width = (w - 20) + "px"
+        healthBarGreen.width = (w) + "px"
         healthBarGreen.height = "10px"
         healthBarGreen.top = "-95px"
         healthBarGreen.cornerRadius = 20
@@ -147,6 +147,17 @@ class BabylonUtils {
         healthBarGreen.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         baby.advancedTexture.addControl(healthBarGreen)
 
+        match.healthBar = healthBarGreen
+
+    }
+
+    static changeMyHealthBar(health, maxHealth) {
+        let potentialWidth = 8 * 80
+        let actualWidth =  health / maxHealth * potentialWidth 
+        let di = potentialWidth - actualWidth
+        
+        match.healthBar.width = actualWidth + "px"
+        match.healthBar.left = 0 - (di / 2)
     }
 
 

@@ -78,6 +78,9 @@ class Postman {
                 baby.camera.position.y = t.y + 0.25
                 baby.camera.position.z = t.z
                 baby.camera.rotation.y = t.rotation
+
+                //Move the healthbar
+                BabylonUtils.changeMyHealthBar(t.health, t.maxHealth)
             }
             const s = Match.getPlayerByTag(t.tag)
             if (s) {
