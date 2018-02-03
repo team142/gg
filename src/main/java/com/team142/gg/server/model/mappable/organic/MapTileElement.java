@@ -18,7 +18,7 @@ public class MapTileElement extends PlaceableElement {
     @Getter
     private final String model;
 
-    public MapTileElement(double x, double y, double z, Tile tile, BigDecimal rotation) {
+    public MapTileElement(double x, double y, double z, Tile tile, float rotation) {
         super(x, y, z, rotation, tile.getSkin(), 0);
         this.model = tile.getModelType().name();
 

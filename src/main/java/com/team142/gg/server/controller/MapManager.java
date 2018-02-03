@@ -60,7 +60,7 @@ public class MapManager {
     }
 
     public static void createTile(int x, int y, Game game, Tile tile, boolean movable, boolean shootover) {
-        MapTileElement mapTileElement = new MapTileElement(x, 1, y, tile, DirectionTypes.DIR0);
+        MapTileElement mapTileElement = new MapTileElement(x, 1, y, tile, 0.0f);
         game.getMap().getTILES().add(mapTileElement);
         game.getMap().setTileBitmapMovable(x, y, movable);
         game.getMap().setTileBitmapShootover(x, y, shootover);

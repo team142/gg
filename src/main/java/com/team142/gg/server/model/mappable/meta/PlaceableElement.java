@@ -5,8 +5,6 @@
  */
 package com.team142.gg.server.model.mappable.meta;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +21,7 @@ public class PlaceableElement {
     private double x, y, z;
 
     @Getter
-    private BigDecimal rotation;
+    private float rotation;
 
     @Getter
     @Setter
@@ -32,8 +30,8 @@ public class PlaceableElement {
     @Getter
     private final int TAG;
 
-    public void setRotation(BigDecimal rotation) {
-        this.rotation = rotation.setScale(3, RoundingMode.HALF_UP);
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
     }
 
 }

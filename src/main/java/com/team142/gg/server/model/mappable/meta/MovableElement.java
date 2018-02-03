@@ -6,6 +6,7 @@
 package com.team142.gg.server.model.mappable.meta;
 
 import com.team142.gg.server.model.Map;
+import com.team142.gg.server.model.Player;
 import com.team142.gg.server.utils.MathUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -31,7 +32,7 @@ public class MovableElement extends PlaceableElement {
     private double direction;
 
     public MovableElement(double x, double y, double z, String skin, double speed, int tag) {
-        super(x, y, z, BigDecimal.ZERO, skin, tag);
+        super(x, y, z, 0, skin, tag);
         this.speed = speed;
         BigDecimal speedD = new BigDecimal(speed);
         BigDecimal diagSpeed = new BigDecimal(speed);
@@ -43,58 +44,61 @@ public class MovableElement extends PlaceableElement {
     }
 
     public void movementTick(Map map) {
+        
+        
+        
         if (direction == 0) {
             return;
         }
 
-        if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
-            changeZ(speed, 1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
-            changeZ(speed, -1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
-            changeX(diagonalSpeed, 1, map);
-            changeZ(diagonalSpeed, 1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
-            changeX(diagonalSpeed, -1, map);
-            changeZ(diagonalSpeed, -1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
-            changeX(speed, 1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
-            changeX(speed, -1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
-            changeX(diagonalSpeed, 1, map);
-            changeZ(diagonalSpeed, -1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
-            changeX(diagonalSpeed, -1, map);
-            changeZ(diagonalSpeed, 1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-            changeZ(speed, -1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-            changeZ(speed, 1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-            changeX(diagonalSpeed, -1, map);
-            changeZ(diagonalSpeed, -1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-            changeX(diagonalSpeed, 1, map);
-            changeZ(diagonalSpeed, 1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
-            changeX(speed, -1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
-            changeX(speed, 1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
-            changeX(diagonalSpeed, -1, map);
-            changeZ(diagonalSpeed, 1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
-            changeX(diagonalSpeed, 1, map);
-            changeZ(diagonalSpeed, -1, map);
-        }
+//        if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
+//            changeZ(speed, 1, map);
+//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
+//            changeZ(speed, -1, map);
+//
+//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
+//            changeX(diagonalSpeed, 1, map);
+//            changeZ(diagonalSpeed, 1, map);
+//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
+//            changeX(diagonalSpeed, -1, map);
+//            changeZ(diagonalSpeed, -1, map);
+//
+//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
+//            changeX(speed, 1, map);
+//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
+//            changeX(speed, -1, map);
+//
+//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
+//            changeX(diagonalSpeed, 1, map);
+//            changeZ(diagonalSpeed, -1, map);
+//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
+//            changeX(diagonalSpeed, -1, map);
+//            changeZ(diagonalSpeed, 1, map);
+//
+//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
+//            changeZ(speed, -1, map);
+//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
+//            changeZ(speed, 1, map);
+//
+//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
+//            changeX(diagonalSpeed, -1, map);
+//            changeZ(diagonalSpeed, -1, map);
+//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
+//            changeX(diagonalSpeed, 1, map);
+//            changeZ(diagonalSpeed, 1, map);
+//
+//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
+//            changeX(speed, -1, map);
+//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
+//            changeX(speed, 1, map);
+//
+//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
+//            changeX(diagonalSpeed, -1, map);
+//            changeZ(diagonalSpeed, 1, map);
+//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
+//            changeX(diagonalSpeed, 1, map);
+//            changeZ(diagonalSpeed, -1, map);
+//        }
 
         if (getX() < 0) {
             setX(0);
