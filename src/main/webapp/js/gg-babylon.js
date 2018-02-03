@@ -119,6 +119,22 @@ class BabylonUtils {
 
     }
 
+    static createOwnHealthBar() {
+
+        let healthBar = new BABYLON.GUI.Rectangle();
+        let w = 8 * 80 
+        healthBar.width = w + "px"
+        healthBar.height = "10px"
+        healthBar.top = "-105px"
+        healthBar.cornerRadius = 20
+        healthBar.color = "Black"
+        healthBar.thickness = 4
+        healthBar.background = "Green"
+        healthBar.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        healthBar.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        baby.advancedTexture.addControl(healthBar)
+
+    }
 
 
 
