@@ -11,7 +11,6 @@ import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.mappable.organic.Tile;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Map;
-import com.team142.gg.server.model.mappable.meta.DirectionTypes;
 import com.team142.gg.server.model.mappable.organic.MapTileElement;
 
 /**
