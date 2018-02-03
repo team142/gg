@@ -14,6 +14,7 @@ import com.team142.gg.server.controller.runnable.powers.Power;
 import com.team142.gg.server.controller.runnable.powers.Power1Shoot;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Data;
@@ -37,6 +38,8 @@ public class Player {
     private TickerComms tickerComms;
     private TickerPhysics tickerPhysics;
     private ConcurrentHashMap<String, Power> powers;
+    
+    private ConcurrentSkipListSet<String> keyboard = new ConcurrentSkipListSet<>();
 
     public Player(String id) {
         this.BULLETS = new CopyOnWriteArrayList<>();
@@ -85,6 +88,18 @@ public class Player {
     public void removeBullet(Bullet bullet) {
         BULLETS.remove(bullet);
         bullet.setPlayer(null);
+    }
+    
+    public void keyUp(String key) {
+        keyboard.add(key);
+    }
+    
+    public void keyDown(String key) {
+        keyboard.remove(key);
+    }
+    
+    public boolean isKeyDown(String key) {
+        return keyboard.contains(key);
     }
 
 }

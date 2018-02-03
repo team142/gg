@@ -30,6 +30,9 @@ public class MovableElement extends PlaceableElement {
     @Getter
     @Setter
     private double direction;
+    
+    public static final float BASE_ROTATE = (float) Math.toRadians(1.25);
+    public static final float MAX_ROTATE = (float) (Math.PI * 2);
 
     public MovableElement(double x, double y, double z, String skin, double speed, int tag) {
         super(x, y, z, 0, skin, tag);
@@ -43,62 +46,43 @@ public class MovableElement extends PlaceableElement {
 
     }
 
-    public void movementTick(Map map) {
-        
-        
-        
-        if (direction == 0) {
-            return;
+    public void rotateLeft() {
+        if(getRotation() <= BASE_ROTATE) {
+            setRotation(getRotation() - BASE_ROTATE);
+        } else {
+            setRotation(MAX_ROTATE);
         }
+    }
+    
+    public void rotateRight() {
+        if(getRotation() >= (MAX_ROTATE - BASE_ROTATE)) {
+            setRotation(0);
+        } else {
+            setRotation(getRotation() + BASE_ROTATE);
+        }
+    }
+    
+    public void moveForward() {
+        
+    }
+    
+    public void moveBackward() {
+        
+    }
 
-//        if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
-//            changeZ(speed, 1, map);
-//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
-//            changeZ(speed, -1, map);
-//
-//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
-//            changeX(diagonalSpeed, 1, map);
-//            changeZ(diagonalSpeed, 1, map);
-//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
-//            changeX(diagonalSpeed, -1, map);
-//            changeZ(diagonalSpeed, -1, map);
-//
-//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
-//            changeX(speed, 1, map);
-//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
-//            changeX(speed, -1, map);
-//
-//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
-//            changeX(diagonalSpeed, 1, map);
-//            changeZ(diagonalSpeed, -1, map);
-//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
-//            changeX(diagonalSpeed, -1, map);
-//            changeZ(diagonalSpeed, 1, map);
-//
-//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-//            changeZ(speed, -1, map);
-//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-//            changeZ(speed, 1, map);
-//
-//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-//            changeX(diagonalSpeed, -1, map);
-//            changeZ(diagonalSpeed, -1, map);
-//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-//            changeX(diagonalSpeed, 1, map);
-//            changeZ(diagonalSpeed, 1, map);
-//
-//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
-//            changeX(speed, -1, map);
-//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
-//            changeX(speed, 1, map);
-//
-//        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
-//            changeX(diagonalSpeed, -1, map);
-//            changeZ(diagonalSpeed, 1, map);
-//        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
-//            changeX(diagonalSpeed, 1, map);
-//            changeZ(diagonalSpeed, -1, map);
-//        }
+    public void movementTick(Player player, Map map) {
+        
+        if(player.isKeyDown("a")) {
+            rotateLeft();
+        } else if(player.isKeyDown("d")) {
+            rotateRight();
+        }
+        
+        if(player.isKeyDown("w")) {
+            moveForward();
+        } else if(player.isKeyDown("d")) {
+            moveBackward();
+        }
 
         if (getX() < 0) {
             setX(0);
