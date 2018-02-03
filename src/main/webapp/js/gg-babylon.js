@@ -225,7 +225,7 @@ class BabylonUtils {
             rectText.linkWithMesh(item)
             rectText.linkOffsetY = -50
 
-            //TestCode
+            //HealthBar Version 1 (only shows)
             setInterval(fu, 125)
             var health = 0
             var totalHealth = 100
