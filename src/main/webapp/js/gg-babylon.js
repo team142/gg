@@ -61,9 +61,66 @@ class BabylonUtils {
         SoundUtils.loadSounds()
         BabylonUtils.createSkyBox()
         baby.baseBullet = BabylonUtils.createBaseBullet()
-        // var t = setInterval(movementTick, 40)
+
+        BabylonUtils.createPowerBar()
+
+        // var t = setInterval(movementTick, 40)        
 
     }
+
+    static createPowerBar() {
+
+        let powerBack = new BABYLON.GUI.Rectangle();
+        let w = 10 * 80 + 10
+        powerBack.width = w + "px"
+        powerBack.height = "95px"
+        powerBack.cornerRadius = 20
+        powerBack.color = "Black"
+        powerBack.thickness = 4
+        powerBack.background = "Black"
+        powerBack.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        powerBack.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        baby.advancedTexture.addControl(powerBack)
+
+        const powers = [
+            "textures/ico-shoot.jpg",
+            "textures/ico-missile.jpg",
+            "textures/ico-radar.jpg",
+            "textures/ico-seeker.jpg",
+            "textures/ico-safety.jpg",
+            "textures/ico-behind.jpg",
+            "textures/ico-intel.jpg",
+            "textures/ico-tail.jpg",
+            "textures/ico-fog.jpg",
+            "textures/ico-bomb.jpg"
+        ]
+
+        for (const [index, fileImage] of powers.entries()) {
+            BabylonUtils.createPowerBarItem(index, fileImage)
+        }
+
+    }
+
+    static createPowerBarItem(n, fileImage) {
+
+        let image = new BABYLON.GUI.Image("powerBot" + n, fileImage)
+        image.height = "75px"
+        image.width = "75px"
+        image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+
+        //Left position
+        let x = (75 + 5) * +n //Defaul space for a tile
+        x = x - ((75 + 5) * (10 / 2 - 0.5)) //Center in middle
+        image.left = x + "px"
+        image.top = "-10px"
+
+        baby.advancedTexture.addControl(image)
+
+    }
+
+
+
 
     static createSkyBox() {
         // Skyboxes
@@ -190,12 +247,7 @@ class BabylonUtils {
             rect1.color = "black";
             rect1.thickness = 3;
             rect1.background = "green";
-            advancedTexture.addControl(rect1);
-
-            var label = new BABYLON.GUI.TextBlock();
-            label.text = "Player Name PH";
-            label.top = "-165px"
-            advancedTexture.addControl(label);
+            baby.advancedTexture.addControl(rect1);
 
             rect1.linkWithMesh(box);
             rect1.linkOffsetY = -80;
