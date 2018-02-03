@@ -102,4 +102,22 @@ public class Player {
         return keyboard.contains(key);
     }
 
+    public void movementTick() {
+        if (isKeyDown("A")) {
+            getTANK().rotateLeft();
+        } else if (isKeyDown("D")) {
+            getTANK().rotateRight();
+        }
+
+        Map map = Repository.GAMES_ON_SERVER.get(gameId).getMap();
+        if (isKeyDown("W")) {
+            getTANK().moveForward(map);
+        } else if (isKeyDown("S")) {
+            getTANK().moveBackward();
+        }
+        
+        getTANK().movementTick(map);
+        
+    }
+
 }

@@ -6,7 +6,6 @@
 package com.team142.gg.server.model.mappable.meta;
 
 import com.team142.gg.server.model.Map;
-import com.team142.gg.server.model.Player;
 import com.team142.gg.server.utils.MathUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -77,23 +76,10 @@ public class MovableElement extends PlaceableElement {
     }
 
     public void moveBackward() {
-        
+
     }
 
-    public void movementTick(Player player, Map map) {
-
-        if (player.isKeyDown("A")) {
-            rotateLeft();
-        } else if (player.isKeyDown("D")) {
-            rotateRight();
-        }
-
-        if (player.isKeyDown("W")) {
-            moveForward(map);
-        } else if (player.isKeyDown("S")) {
-            moveBackward();
-        }
-        
+    public void movementTick(Map map) {
 
         if (getX() < 0) {
             setX(0);

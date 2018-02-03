@@ -56,7 +56,7 @@ public class Bullet extends MovableElement {
         if (!ok) {
             return ok;
         }
-        movementTick(player, Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap());
+        movementTick(Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap());
         Repository.GAMES_ON_SERVER
                 .get(player.getGameId())
                 .getTANKS()

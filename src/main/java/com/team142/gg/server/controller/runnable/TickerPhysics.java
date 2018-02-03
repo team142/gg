@@ -22,7 +22,7 @@ public class TickerPhysics extends AbstractTickerWorker {
     @Override
     public void doTick() {
         Player player = Repository.PLAYERS_ON_SERVER.get(getPLAYER_ID());
-        player.getTANK().movementTick(player, Repository.GAMES_ON_SERVER.get(getGAME_ID()).getMap());
+        player.movementTick();
 
         player.getBULLETS()
                 .stream()
