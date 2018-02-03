@@ -108,9 +108,9 @@ public class MovableElement extends PlaceableElement {
     //Check before changing...
     private void changeZ(double amt, Map map) {
         double newZ = getZ() + amt;
-        if (map.isMovable(getX(), newZ + 1)) {
+        if (amt > 0 && map.isMovable(getX(), newZ + 1)) {
             setZ(newZ);
-        } else if (map.isMovable(getX(), newZ)) {
+        } else if (amt < 0 && map.isMovable(getX(), newZ)) {
             setZ(newZ);
         }
 
@@ -119,9 +119,9 @@ public class MovableElement extends PlaceableElement {
     //Check before changing...
     private void changeX(double amt, Map map) {
         double newX = getX() + amt;
-        if (map.isMovable(newX + 1, getZ())) {
+        if (amt > 0 && map.isMovable(newX + 1, getZ())) {
             setX(newX);
-        } else if (map.isMovable(newX, getZ())) {
+        } else if (amt < 0 && map.isMovable(newX, getZ())) {
             setX(newX);
         }
 
