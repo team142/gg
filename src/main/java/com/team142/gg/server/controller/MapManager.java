@@ -41,6 +41,22 @@ public class MapManager {
             }
         }
 
+        //Draw a line of water down the middle of the map
+        int x = 25;
+        for (int y = 0; y < settings.getZTiles(); y++) {
+            if (!(y >= 10 && y <= 40)) {
+                createWater(x, y, game);
+            }
+        }
+
+        //More water
+        int y = 25;
+        for (x = 0; x < settings.getZTiles(); x++) {
+            if (x >= 10 && x <= 40) {
+                createWater(x, y, game);
+            }
+        }
+
     }
 
     public static void createGrass(int x, int y, Game game) {
