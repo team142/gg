@@ -121,19 +121,31 @@ class BabylonUtils {
     }
 
     static createOwnHealthBar() {
+        let w = 8 * 80
 
-        let healthBar = new BABYLON.GUI.Rectangle();
-        let w = 8 * 80 
-        healthBar.width = w + "px"
-        healthBar.height = "10px"
-        healthBar.top = "-95px"
-        healthBar.cornerRadius = 20
-        healthBar.color = "Black"
-        healthBar.thickness = 8
-        healthBar.background = "Green"
-        healthBar.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
-        healthBar.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
-        baby.advancedTexture.addControl(healthBar)
+        let healthBarRed = new BABYLON.GUI.Rectangle();
+        healthBarRed.width = w + "px"
+        healthBarRed.height = "10px"
+        healthBarRed.top = "-95px"
+        healthBarRed.cornerRadius = 20
+        healthBarRed.color = "Red"
+        healthBarRed.thickness = 1
+        healthBarRed.background = "Red"
+        healthBarRed.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        healthBarRed.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        baby.advancedTexture.addControl(healthBarRed)
+
+        let healthBarGreen = new BABYLON.GUI.Rectangle();
+        healthBarGreen.width = (w - 20) + "px"
+        healthBarGreen.height = "10px"
+        healthBarGreen.top = "-95px"
+        healthBarGreen.cornerRadius = 20
+        healthBarGreen.color = "Green"
+        healthBarGreen.thickness = 1
+        healthBarGreen.background = "Green"
+        healthBarGreen.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        healthBarGreen.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        baby.advancedTexture.addControl(healthBarGreen)
 
     }
 
@@ -177,7 +189,7 @@ class BabylonUtils {
 
     static setHealthRectangle(rect1, health, totalHealth) {
         rect1.width = health / totalHealth * 0.2
-                
+
     }
 
     static createSphereIfNotExists(tagId, labelText) {
@@ -257,7 +269,7 @@ class BabylonUtils {
             rect1.background = "green"
             baby.advancedTexture.addControl(rect1)
             match.playerHealthBars.set(tagId, rect1)
-            
+
             rect1.linkWithMesh(box)
             rect1.linkOffsetY = -80
 
