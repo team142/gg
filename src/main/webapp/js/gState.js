@@ -2,6 +2,7 @@
 class Match {
     constructor() {
         this.playerTanks = new Map()
+        this.playerHealthBars = new Map()
         this.playerLabels = new Map()
         this.playerRectangles = new Map()
         this.gameInstance = Math.floor(Math.random() * 1000)
@@ -28,6 +29,11 @@ class Match {
 
     static getPlayerByTag(tagId) {
         return match.playerTanks.get(tagId)
+
+    }
+
+    static getHealthBarByTag(tagId) {
+        return match.playerHealthBars.get(tagId)
 
     }
 
