@@ -6,9 +6,6 @@
 package com.team142.gg.server.model.mappable.meta;
 
 import com.team142.gg.server.model.Map;
-import com.team142.gg.server.utils.MathUtils;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,10 +21,6 @@ public class MovableElement extends PlaceableElement {
 
     @Getter
     @Setter
-    private double diagonalSpeed;
-
-    @Getter
-    @Setter
     private double direction;
 
     public static final float BASE_ROTATE = (float) Math.toRadians(1.25);
@@ -37,12 +30,6 @@ public class MovableElement extends PlaceableElement {
     public MovableElement(double x, double y, double z, String skin, double speed, int tag) {
         super(x, y, z, 0, skin, tag);
         this.speed = speed;
-        BigDecimal speedD = new BigDecimal(speed);
-        BigDecimal diagSpeed = new BigDecimal(speed);
-        diagSpeed = diagSpeed.multiply(speedD).divide(new BigDecimal(2));
-        diagSpeed = MathUtils.sqrt(diagSpeed);
-        diagSpeed = diagSpeed.setScale(3, RoundingMode.HALF_UP);
-        this.diagonalSpeed = diagSpeed.doubleValue();
 
     }
 
@@ -62,7 +49,7 @@ public class MovableElement extends PlaceableElement {
     }
 
     public void moveForward(Map map) {
-        
+
         double coefficientX = Math.sin(getRotation());
         double coefficientZ = Math.cos(getRotation());
 
@@ -72,20 +59,20 @@ public class MovableElement extends PlaceableElement {
     }
 
     public void moveBackward(Map map) {
-        
+
         double newRotation = getRotation();
         newRotation = newRotation - Math.PI;
-        
-        if(newRotation < 0) {
+
+        if (newRotation < 0) {
             newRotation = MAX_ROTATE + newRotation;
         }
-        
+
         double coefficientX = Math.sin(newRotation);
         double coefficientZ = Math.cos(newRotation);
 
         changeX(coefficientX * getSpeed(), map);
         changeZ(coefficientZ * getSpeed(), map);
-        
+
     }
 
     public void movementTick(Map map) {

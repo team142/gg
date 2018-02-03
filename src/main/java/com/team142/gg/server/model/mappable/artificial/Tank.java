@@ -29,9 +29,10 @@ public class Tank extends MovableElement {
     @Setter
     @JsonIgnore
     private String playerId;
-    
+
     @Getter
     @Setter
+    @JsonIgnore
     private double width = 0.3d;
 
     public Tank(double x, double y, double z, String skin, double speed, int tag, double hp, Player player) {
