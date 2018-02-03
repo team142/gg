@@ -63,16 +63,12 @@ public class MovableElement extends PlaceableElement {
     }
 
     public void moveForward(Map map) {
-        double rotationDegrees = Math.toDegrees(getRotation() + HALF_PI) - 90;
 
-        double coefficientX = Math.sin(rotationDegrees);
-        double coefficientZ = Math.cos(rotationDegrees);
+        double coefficientX = Math.sin(getRotation() - HALF_PI);
+        double coefficientZ = Math.cos(getRotation() - HALF_PI);
 
-        double deltaX = coefficientX * getSpeed();
-        double deltaZ = coefficientZ * getSpeed();
-
-        changeX(deltaX, map);
-        changeZ(deltaZ, map);
+        changeX(coefficientX * getSpeed(), map);
+        changeZ(coefficientZ * getSpeed(), map);
     }
 
     public void moveBackward() {
