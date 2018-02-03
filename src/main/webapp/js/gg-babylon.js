@@ -29,7 +29,7 @@ class BabylonUtils {
         window.addEventListener("resize", function () {
             baby.engine.resize()
         })
-        window.addEventListener("keyup", (data) => {
+        window.addEventListener("keyup", function (data) {
             ServerIO.sendKeyUp(data.key)
             const key = data.key
             if (key === "a" || key === "A") {
@@ -43,7 +43,7 @@ class BabylonUtils {
             }
 
         })
-        window.addEventListener("keydown", (data) => {
+        window.addEventListener("keydown", function (data) {
             ServerIO.sendKeyDown(data.key)
             const key = data.key
             if (key === "a" || key === "A") {
@@ -63,8 +63,9 @@ class BabylonUtils {
         baby.baseBullet = BabylonUtils.createBaseBullet()
 
         BabylonUtils.createPowerBar()
+        BabylonUtils.createOwnHealthBar()
 
-        // var t = setInterval(movementTick, 40)
+        // var t = setInterval(movementTick, 40)        
 
     }
 
@@ -119,6 +120,37 @@ class BabylonUtils {
 
     }
 
+    static createOwnHealthBar() {
+        let w = 8 * 80
+
+        let healthBarRed = new BABYLON.GUI.Rectangle();
+        healthBarRed.width = w + "px"
+        healthBarRed.height = "10px"
+        healthBarRed.top = "-95px"
+        healthBarRed.cornerRadius = 20
+        healthBarRed.color = "Red"
+        healthBarRed.thickness = 1
+        healthBarRed.background = "Red"
+        healthBarRed.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        healthBarRed.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        baby.advancedTexture.addControl(healthBarRed)
+
+        let healthBarGreen = new BABYLON.GUI.Rectangle();
+        healthBarGreen.width = (w - 20) + "px"
+        healthBarGreen.height = "10px"
+        healthBarGreen.top = "-95px"
+        healthBarGreen.cornerRadius = 20
+        healthBarGreen.color = "Green"
+        healthBarGreen.thickness = 1
+        healthBarGreen.background = "Green"
+        healthBarGreen.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        healthBarGreen.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        baby.advancedTexture.addControl(healthBarGreen)
+
+    }
+
+
+
     static createSkyBox() {
         // Skyboxes
         const skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene)
@@ -152,6 +184,11 @@ class BabylonUtils {
         current.background = "white"
         baby.panelScores.addControl(current)
         baby.textScores.push(current)
+
+    }
+
+    static setHealthRectangle(rect1, health, totalHealth) {
+        rect1.width = health / totalHealth * 0.2
 
     }
 
@@ -221,6 +258,20 @@ class BabylonUtils {
             rectText.addControl(label)
             rectText.linkWithMesh(item)
             rectText.linkOffsetY = -50
+
+
+            const rect1 = new BABYLON.GUI.Rectangle()
+            rect1.width = 0.2
+            rect1.height = "25px"
+            rect1.cornerRadius = 20
+            rect1.color = "black"
+            rect1.thickness = 3
+            rect1.background = "green"
+            baby.advancedTexture.addControl(rect1)
+            match.playerHealthBars.set(tagId, rect1)
+
+            rect1.linkWithMesh(box)
+            rect1.linkOffsetY = -80
 
         }
 

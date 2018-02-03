@@ -86,6 +86,12 @@ class Postman {
                 s.position.z = t.z
                 s.rotation.y = t.rotation - 1.57
             }
+            const rect1 = Match.getHealthBarByTag(t.tag)
+            if (rect1) {
+                BabylonUtils.setHealthRectangle(rect1, t.health, t.maxHealth)
+            }
+            
+
         }
 
     }
