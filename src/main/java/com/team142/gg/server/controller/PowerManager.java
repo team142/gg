@@ -23,7 +23,7 @@ public class PowerManager {
         if (power != null) {
             power.run();
         }
-        LOG.log(Level.INFO, "POWER TIME: " + player.getName() + ", " + key);
+        LOG.log(Level.INFO, "POWER TIME: {0}, {1}", new Object[]{player.getName(), key});
 
     }
 
