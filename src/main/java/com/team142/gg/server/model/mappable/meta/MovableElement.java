@@ -63,16 +63,21 @@ public class MovableElement extends PlaceableElement {
     }
 
     public void moveForward(Map map) {
-
-        double coefficientX = Math.sin(getRotation() - HALF_PI);
-        double coefficientZ = Math.cos(getRotation() - HALF_PI);
+//        System.out.println("--------------------");
+//        System.out.println("Sin: " + Math.sin(getRotation()));
+//        System.out.println("Cos: " + Math.cos(getRotation()));
+//        System.out.println("DegX: " + Math.toDegrees(getRotation()));
+        double coefficientX = Math.sin(getRotation());
+        double coefficientZ = Math.cos(getRotation());
 
         changeX(coefficientX * getSpeed(), map);
         changeZ(coefficientZ * getSpeed(), map);
+//        System.out.println("{X;Z} - {" + getX() + ";" + getZ() + "}");
+//        System.out.println("--------------------");
     }
 
     public void moveBackward() {
-
+        
     }
 
     public void movementTick(Player player, Map map) {
@@ -88,6 +93,7 @@ public class MovableElement extends PlaceableElement {
         } else if (player.isKeyDown("S")) {
             moveBackward();
         }
+        
 
         if (getX() < 0) {
             setX(0);
