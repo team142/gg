@@ -158,6 +158,11 @@ class BabylonUtils {
 
     }
 
+    static setHealthRectangle(rect1, health, totalHealth) {
+        rect1.width = health / totalHealth * 0.2
+                
+    }
+
     static createSphereIfNotExists(tagId, labelText) {
         if (tagId) {
 
@@ -225,33 +230,19 @@ class BabylonUtils {
             rectText.linkWithMesh(item)
             rectText.linkOffsetY = -50
 
-            //TestCode
-            setInterval(fu, 125)
-            var health = 0
-            var totalHealth = 100
 
-            function fu() {
-                health = health + 1
-
-                if (health > totalHealth) {
-                    health = 0
-                }
-
-                rect1.width = health / totalHealth * 0.2
-            }
-
-            var rect1 = new BABYLON.GUI.Rectangle();
-            rect1.width = 0.2;
-            rect1.height = "25px";
-            rect1.cornerRadius = 20;
-            rect1.color = "black";
-            rect1.thickness = 3;
-            rect1.background = "green";
-            baby.advancedTexture.addControl(rect1);
-
-            rect1.linkWithMesh(box);
-            rect1.linkOffsetY = -80;
-
+            const rect1 = new BABYLON.GUI.Rectangle()
+            rect1.width = 0.2
+            rect1.height = "25px"
+            rect1.cornerRadius = 20
+            rect1.color = "black"
+            rect1.thickness = 3
+            rect1.background = "green"
+            baby.advancedTexture.addControl(rect1)
+            match.playerHealthBars.set(tagId, rect1)
+            
+            rect1.linkWithMesh(box)
+            rect1.linkOffsetY = -80
 
         }
 
