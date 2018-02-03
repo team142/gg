@@ -8,6 +8,7 @@ package com.team142.gg.server.model.mappable.artificial;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.Map;
 import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
@@ -56,7 +57,10 @@ public class Bullet extends MovableElement {
         if (!ok) {
             return ok;
         }
-        movementTick(Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap());
+
+        Map map = (Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap());
+        moveForward(map);
+        
         Repository.GAMES_ON_SERVER
                 .get(player.getGameId())
                 .getTANKS()

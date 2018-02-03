@@ -14,6 +14,7 @@ import com.team142.gg.server.controller.runnable.powers.Power;
 import com.team142.gg.server.controller.runnable.powers.Power1Shoot;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Data;
@@ -38,6 +39,8 @@ public class Player {
     private TickerPhysics tickerPhysics;
     private ConcurrentHashMap<String, Power> powers;
 
+    private ConcurrentSkipListSet<String> keyboard = new ConcurrentSkipListSet<>();
+
     public Player(String id) {
         this.BULLETS = new CopyOnWriteArrayList<>();
         this.id = id;
@@ -48,7 +51,9 @@ public class Player {
         this.TANK = new Tank(0, 0.16d, 0, "default", Server.DEFAULT_SPEED, TAG, 100, this);
         this.name = "";
         this.powers = new ConcurrentHashMap<>();
-        this.powers.put("1", new Power1Shoot(this, 1000));
+        Power1Shoot power1Shoot = new Power1Shoot(this, 1000);
+        this.powers.put("1", power1Shoot);
+        this.powers.put(" ", power1Shoot);
 
     }
 
@@ -85,6 +90,36 @@ public class Player {
     public void removeBullet(Bullet bullet) {
         BULLETS.remove(bullet);
         bullet.setPlayer(null);
+    }
+
+    public void keyUp(String key) {
+        keyboard.remove(key);
+    }
+
+    public void keyDown(String key) {
+        keyboard.add(key);
+    }
+
+    public boolean isKeyDown(String key) {
+        return keyboard.contains(key);
+    }
+
+    public void movementTick() {
+        if (isKeyDown("A")) {
+            getTANK().rotateLeft();
+        } else if (isKeyDown("D")) {
+            getTANK().rotateRight();
+        }
+
+        Map map = Repository.GAMES_ON_SERVER.get(gameId).getMap();
+        if (isKeyDown("W")) {
+            getTANK().moveForward(map);
+        } else if (isKeyDown("S")) {
+            getTANK().moveBackward(map);
+        }
+
+        getTANK().movementTick(map);
+
     }
 
 }

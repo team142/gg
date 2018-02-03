@@ -30,8 +30,12 @@ public class MovableElement extends PlaceableElement {
     @Setter
     private double direction;
 
+    public static final float BASE_ROTATE = (float) Math.toRadians(1.25);
+    public static final float MAX_ROTATE = (float) (Math.PI * 2);
+    public static final float HALF_PI = (float) (Math.PI / 2);
+
     public MovableElement(double x, double y, double z, String skin, double speed, int tag) {
-        super(x, y, z, BigDecimal.ZERO, skin, tag);
+        super(x, y, z, 0, skin, tag);
         this.speed = speed;
         BigDecimal speedD = new BigDecimal(speed);
         BigDecimal diagSpeed = new BigDecimal(speed);
@@ -42,59 +46,49 @@ public class MovableElement extends PlaceableElement {
 
     }
 
+    public void rotateLeft() {
+        setRotation(getRotation() - BASE_ROTATE);
+        if (getRotation() < 0) {
+            setRotation(MAX_ROTATE - getRotation());
+        }
+    }
+
+    public void rotateRight() {
+        if (getRotation() >= (MAX_ROTATE - BASE_ROTATE)) {
+            setRotation(0);
+        } else {
+            setRotation(getRotation() + BASE_ROTATE);
+        }
+    }
+
+    public void moveForward(Map map) {
+        
+        double coefficientX = Math.sin(getRotation());
+        double coefficientZ = Math.cos(getRotation());
+
+        changeX(coefficientX * getSpeed(), map);
+        changeZ(coefficientZ * getSpeed(), map);
+
+    }
+
+    public void moveBackward(Map map) {
+        
+        double newRotation = getRotation();
+        newRotation = newRotation - Math.PI;
+        
+        if(newRotation < 0) {
+            newRotation = MAX_ROTATE + newRotation;
+        }
+        
+        double coefficientX = Math.sin(newRotation);
+        double coefficientZ = Math.cos(newRotation);
+
+        changeX(coefficientX * getSpeed(), map);
+        changeZ(coefficientZ * getSpeed(), map);
+        
+    }
+
     public void movementTick(Map map) {
-        if (direction == 0) {
-            return;
-        }
-
-        if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
-            changeZ(speed, 1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR0) == 0) {
-            changeZ(speed, -1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
-            changeX(diagonalSpeed, 1, map);
-            changeZ(diagonalSpeed, 1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR1) == 0) {
-            changeX(diagonalSpeed, -1, map);
-            changeZ(diagonalSpeed, -1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
-            changeX(speed, 1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR2) == 0) {
-            changeX(speed, -1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
-            changeX(diagonalSpeed, 1, map);
-            changeZ(diagonalSpeed, -1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR3) == 0) {
-            changeX(diagonalSpeed, -1, map);
-            changeZ(diagonalSpeed, 1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-            changeZ(speed, -1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR4) == 0) {
-            changeZ(speed, 1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-            changeX(diagonalSpeed, -1, map);
-            changeZ(diagonalSpeed, -1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR5) == 0) {
-            changeX(diagonalSpeed, 1, map);
-            changeZ(diagonalSpeed, 1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
-            changeX(speed, -1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR6) == 0) {
-            changeX(speed, 1, map);
-
-        } else if (direction == 1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
-            changeX(diagonalSpeed, -1, map);
-            changeZ(diagonalSpeed, 1, map);
-        } else if (direction == -1 && getRotation().compareTo(DirectionTypes.DIR7) == 0) {
-            changeX(diagonalSpeed, 1, map);
-            changeZ(diagonalSpeed, -1, map);
-        }
 
         if (getX() < 0) {
             setX(0);
@@ -112,22 +106,22 @@ public class MovableElement extends PlaceableElement {
     }
 
     //Check before changing...
-    private void changeZ(double amt, int dir, Map map) {
-        double newZ = getZ() + (amt * dir);
-        if (dir == 1 && map.isMovable(getX(), newZ + 1)) {
+    private void changeZ(double amt, Map map) {
+        double newZ = getZ() + amt;
+        if (amt > 0 && map.isMovable(getX(), newZ + 1)) {
             setZ(newZ);
-        } else if (dir == -1 && map.isMovable(getX(), newZ)) {
+        } else if (amt < 0 && map.isMovable(getX(), newZ)) {
             setZ(newZ);
         }
 
     }
 
     //Check before changing...
-    private void changeX(double amt, int dir, Map map) {
-        double newX = getX() + (amt * dir);
-        if (dir == 1 && map.isMovable(newX + 1, getZ())) {
+    private void changeX(double amt, Map map) {
+        double newX = getX() + amt;
+        if (amt > 0 && map.isMovable(newX + 1, getZ())) {
             setX(newX);
-        } else if (dir == -1 && map.isMovable(newX, getZ())) {
+        } else if (amt < 0 && map.isMovable(newX, getZ())) {
             setX(newX);
         }
 
