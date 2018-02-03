@@ -62,7 +62,7 @@ public class MovableElement extends PlaceableElement {
     }
 
     public void moveForward(Map map) {
-
+        
         double coefficientX = Math.sin(getRotation());
         double coefficientZ = Math.cos(getRotation());
 

@@ -29,7 +29,7 @@ class Bullet {
     tick() {
 
         this.bBullet.position.x += Math.sin(this.sBullet.rotation) * this.sBullet.speed * 3
-        this.bBullet.position.x += Math.cos(this.sBullet.rotation) * this.sBullet.speed * 3
+        this.bBullet.position.z += Math.cos(this.sBullet.rotation) * this.sBullet.speed * 3
 
         if (this.bBullet.position.x < 0) {
             this.removeMe()
