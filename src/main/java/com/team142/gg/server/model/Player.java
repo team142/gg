@@ -115,7 +115,7 @@ public class Player {
         if (isKeyDown("W")) {
             getTANK().moveForward(map);
         } else if (isKeyDown("S")) {
-            getTANK().moveBackward();
+            getTANK().moveBackward(map);
         }
 
         getTANK().movementTick(map);

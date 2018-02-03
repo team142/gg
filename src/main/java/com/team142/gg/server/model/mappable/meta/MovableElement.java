@@ -62,21 +62,30 @@ public class MovableElement extends PlaceableElement {
     }
 
     public void moveForward(Map map) {
-//        System.out.println("--------------------");
-//        System.out.println("Sin: " + Math.sin(getRotation()));
-//        System.out.println("Cos: " + Math.cos(getRotation()));
-//        System.out.println("DegX: " + Math.toDegrees(getRotation()));
+
         double coefficientX = Math.sin(getRotation());
         double coefficientZ = Math.cos(getRotation());
 
         changeX(coefficientX * getSpeed(), map);
         changeZ(coefficientZ * getSpeed(), map);
-//        System.out.println("{X;Z} - {" + getX() + ";" + getZ() + "}");
-//        System.out.println("--------------------");
+
     }
 
-    public void moveBackward() {
+    public void moveBackward(Map map) {
+        
+        double newRotation = getRotation();
+        newRotation = newRotation - Math.PI;
+        
+        if(newRotation < 0) {
+            newRotation = MAX_ROTATE + newRotation;
+        }
+        
+        double coefficientX = Math.sin(newRotation);
+        double coefficientZ = Math.cos(newRotation);
 
+        changeX(coefficientX * getSpeed(), map);
+        changeZ(coefficientZ * getSpeed(), map);
+        
     }
 
     public void movementTick(Map map) {
