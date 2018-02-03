@@ -62,8 +62,16 @@ public class MovableElement extends PlaceableElement {
         }
     }
     
-    public void moveForward() {
+    public void moveForward(Map map) {
+        double rotationDegrees = Math.toDegrees(getRotation()) - 90;
         
+        double coefficientX = Math.sin(rotationDegrees);
+        double coefficientZ = Math.cos(rotationDegrees);
+        
+        double deltaX = coefficientX * getSpeed();
+        double deltaZ = coefficientZ * getSpeed();
+        
+        changeX(deltaX, map);
     }
     
     public void moveBackward() {
@@ -72,15 +80,15 @@ public class MovableElement extends PlaceableElement {
 
     public void movementTick(Player player, Map map) {
         
-        if(player.isKeyDown("a")) {
+        if(player.isKeyDown("A")) {
             rotateLeft();
-        } else if(player.isKeyDown("d")) {
+        } else if(player.isKeyDown("D")) {
             rotateRight();
         }
         
-        if(player.isKeyDown("w")) {
-            moveForward();
-        } else if(player.isKeyDown("d")) {
+        if(player.isKeyDown("W")) {
+            moveForward(map);
+        } else if(player.isKeyDown("S")) {
             moveBackward();
         }
 
@@ -100,22 +108,22 @@ public class MovableElement extends PlaceableElement {
     }
 
     //Check before changing...
-    private void changeZ(double amt, int dir, Map map) {
-        double newZ = getZ() + (amt * dir);
-        if (dir == 1 && map.isMovable(getX(), newZ + 1)) {
+    private void changeZ(double amt, Map map) {
+        double newZ = getZ() + amt;
+        if (map.isMovable(getX(), newZ + 1)) {
             setZ(newZ);
-        } else if (dir == -1 && map.isMovable(getX(), newZ)) {
+        } else if (map.isMovable(getX(), newZ)) {
             setZ(newZ);
         }
 
     }
 
     //Check before changing...
-    private void changeX(double amt, int dir, Map map) {
-        double newX = getX() + (amt * dir);
-        if (dir == 1 && map.isMovable(newX + 1, getZ())) {
+    private void changeX(double amt, Map map) {
+        double newX = getX() + amt;
+        if (map.isMovable(newX + 1, getZ())) {
             setX(newX);
-        } else if (dir == -1 && map.isMovable(newX, getZ())) {
+        } else if (map.isMovable(newX, getZ())) {
             setX(newX);
         }
 
