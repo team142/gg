@@ -51,7 +51,9 @@ public class Player {
         this.TANK = new Tank(0, 0.16d, 0, "default", Server.DEFAULT_SPEED, TAG, 100, this);
         this.name = "";
         this.powers = new ConcurrentHashMap<>();
-        this.powers.put("1", new Power1Shoot(this, 1000));
+        Power1Shoot power1Shoot = new Power1Shoot(this, 1000);
+        this.powers.put("1", power1Shoot);
+        this.powers.put(" ", power1Shoot);
 
     }
 
@@ -115,9 +117,9 @@ public class Player {
         } else if (isKeyDown("S")) {
             getTANK().moveBackward();
         }
-        
+
         getTANK().movementTick(map);
-        
+
     }
 
 }
