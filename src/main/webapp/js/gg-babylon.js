@@ -63,6 +63,7 @@ class BabylonUtils {
         baby.baseBullet = BabylonUtils.createBaseBullet()
 
         BabylonUtils.createPowerBar()
+        BabylonUtils.createOwnHealthBar()
 
         // var t = setInterval(movementTick, 40)        
 
