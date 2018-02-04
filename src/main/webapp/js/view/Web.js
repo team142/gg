@@ -1,5 +1,5 @@
-import { ServerIO } from './gSio.js'
-import { BabylonUtils } from './gg-babylon.js'
+import { ServerIO } from '../controller/ServerIO.js'
+import { BabylonUtils } from '../gg-babylon.js'
 
 export class Web {
 

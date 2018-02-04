@@ -1,5 +1,5 @@
-import { Web } from './gWeb.js'
-import { Bullet } from 'gBullet.js'
+import { Web } from './view/Web.js'
+import { Bullet } from './model/Bullet.js'
 
 export class App {
 

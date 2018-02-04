@@ -1,11 +1,10 @@
-import { ServerIO } from './gSio.js'
-import { Web } from './gWeb.js'
-import { match } from './gState.js'
-import { BabylonUtils } from './gg-babylon.js'
-import { SoundUtils } from './gSound.js'
-import { game } from './gGame.js'
-import { Match } from './gState.js'
-import { baby } from './gg-babylon.js'
+import { ServerIO } from './ServerIO.js'
+import { Web } from '../view/Web.js'
+import { BabylonUtils } from '../gg-babylon.js'
+import { SoundUtils } from '../gSound.js'
+import { baby } from '../gg-babylon.js'
+import { game } from '../model/Game.js'
+import { match, Match } from '../model/Match.js'
 
 export class Postman {
 

@@ -1,5 +1,5 @@
-import { match } from './gState.js'
-import { Postman } from './gPostman.js'
+import { match } from '../model/Match.js'
+import { Postman } from '../controller/Postman.js'
 
 const sio = {}
 
