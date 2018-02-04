@@ -1,5 +1,5 @@
 import { match, Match } from '../model/Match.js'
-import { SoundUtils } from '../gSound.js'
+import { SoundUtils } from './SoundUtils.js'
 import { ServerIO } from '../controller/ServerIO.js'
 import { game } from '../model/Game.js'
 import { Bullet, bullets } from '../model/Bullet.js'

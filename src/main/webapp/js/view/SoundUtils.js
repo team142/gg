@@ -1,4 +1,4 @@
-import { baby } from './view/BabylonUtils.js'
+import { baby } from './BabylonUtils.js'
 
 export const soundData = {
     soundMap: new Map()

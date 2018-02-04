@@ -1,7 +1,7 @@
 import { ServerIO } from './ServerIO.js'
 import { Web } from '../view/Web.js'
 import { BabylonUtils, baby } from '../view/BabylonUtils.js'
-import { SoundUtils } from '../gSound.js'
+import { SoundUtils } from '../view/SoundUtils.js'
 import { game } from '../model/Game.js'
 import { match, Match } from '../model/Match.js'
 
