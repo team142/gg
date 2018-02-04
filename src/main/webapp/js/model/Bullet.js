@@ -1,4 +1,4 @@
-import { BabylonUtils } from "../gg-babylon.js";
+import { BabylonUtils } from '../view/BabylonUtils.js'
 
 export const bullets = []
 export class Bullet {

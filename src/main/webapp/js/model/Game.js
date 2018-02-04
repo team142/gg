@@ -1,3 +1,4 @@
+
 export class Game {
     constructor() {
         this.scores = []

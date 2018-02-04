@@ -1,4 +1,4 @@
-import { baby } from './gg-babylon.js'
+import { baby } from './view/BabylonUtils.js'
 
 export const soundData = {
     soundMap: new Map()
