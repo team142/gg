@@ -1,5 +1,5 @@
 
-export class Game {
+class Game {
     constructor() {
         this.scores = []
     }

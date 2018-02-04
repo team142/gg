@@ -1,7 +1,7 @@
 import { Web } from './view/Web.js'
 import { Bullet } from './model/Bullet.js'
 
-export class App {
+class App {
 
     static startApp() {
 
