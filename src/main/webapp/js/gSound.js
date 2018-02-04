@@ -1,3 +1,4 @@
+import { baby } from './gg-babylon.js'
 
 export const soundData = {
     soundMap: new Map()

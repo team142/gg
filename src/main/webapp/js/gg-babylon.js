@@ -1,3 +1,6 @@
+import { match, Match, game } from './gState.js'
+import { SoundUtils } from './gSound.js'
+import { ServerIO } from './gSio.js'
 
 export const baby = {
     materialsMap: new Map(),

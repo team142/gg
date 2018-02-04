@@ -5,6 +5,7 @@ import { BabylonUtils } from './gg-babylon.js'
 import { SoundUtils } from './gSound.js'
 import { game } from './gGame.js'
 import { Match } from './gState.js'
+import { baby } from './gg-babylon.js'
 
 export class Postman {
 
