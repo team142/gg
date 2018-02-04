@@ -18,10 +18,15 @@ For the server you will need Java 8, maven (in path) and docker. There are two w
 ## Running the client only
 
 Install an http file server `npm install http-server -g`
+
 Navigate to $PROJECT_DIRECTORY/src/main/webapp/
+
 Run `http-server`
+
 Navigate to <a href="http://localhost:8080">localhost:8080</a>
+
 For the server drop-down, select team142.co.za
+
 
 You will now be running the client locally and connecting to the shared development server.
 
