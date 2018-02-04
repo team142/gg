@@ -1,7 +1,7 @@
 
-const sio = {}
+export const sio = {}
 
-class ServerIO {
+export class ServerIO {
 
     static joinServer(url, name) {
         match.username = name

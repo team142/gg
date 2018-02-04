@@ -1,10 +1,10 @@
 
-const soundData = {
+export const soundData = {
     soundMap: new Map()
 
 }
 
-class SoundUtils {
+export class SoundUtils {
     static loadSounds() {
         SoundUtils.loadSound("sounds/pew.mp3")
         SoundUtils.loadSound("sounds/ding.mp3")

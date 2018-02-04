@@ -1,5 +1,5 @@
 
-class Match {
+export class Match {
     constructor() {
         this.playerTanks = new Map()
         this.playerHealthBars = new Map()
@@ -8,7 +8,7 @@ class Match {
         this.gameInstance = Math.floor(Math.random() * 1000)
         this.username = "Chop"
         this.tag = -1
-        
+
     }
 
     static playerLeaves(tagId) {
@@ -19,13 +19,13 @@ class Match {
         }
         Match.getPlayerByTag(tagId).dispose()
         match.playerTanks.delete(tagId)
-        
+
         Match.getPlayerRectangleByTag(tagId).dispose()
         match.playerRectangles.delete(tagId)
-        
+
         Match.getPlayerLabelByTag(tagId).dispose()
         match.playerLabels.delete(tagId)
-        
+
     }
 
     static getPlayerByTag(tagId) {
@@ -49,5 +49,4 @@ class Match {
     }
 }
 
-const match = new Match()
-
+export const match = new Match()

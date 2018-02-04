@@ -1,14 +1,21 @@
 
-const bullets = []
+export const bullets = []
 
-this.timer = setInterval(() => {
-    for (const bullet of bullets) {
-        bullet.tick()
+// this.timer = setInterval(() => {
+//     for (const bullet of bullets) {
+//         bullet.tick()
+//     }
+// }, (17 * 3))
+
+export class Bullet {
+
+    static setupTicker() {
+
     }
-}, (17 * 3))
 
-class Bullet {
+    static tickAll() {
 
+    }
 
     constructor(obj, babylonObject) {
         this.id = BabylonUtils.getCounter()
@@ -58,3 +65,4 @@ class Bullet {
     }
 
 }
+

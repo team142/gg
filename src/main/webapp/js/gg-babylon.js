@@ -1,5 +1,5 @@
 
-const baby = {
+export const baby = {
     materialsMap: new Map(),
     DIR: {
         x: 0,
@@ -11,7 +11,7 @@ const baby = {
 
 }
 
-class BabylonUtils {
+export class BabylonUtils {
 
     static getCounter() {
         baby.counter++
@@ -153,9 +153,9 @@ class BabylonUtils {
 
     static changeMyHealthBar(health, maxHealth) {
         let potentialWidth = 8 * 80
-        let actualWidth =  health / maxHealth * potentialWidth 
+        let actualWidth = health / maxHealth * potentialWidth
         let di = potentialWidth - actualWidth
-        
+
         match.healthBar.width = actualWidth + "px"
         match.healthBar.left = 0 - (di / 2)
     }

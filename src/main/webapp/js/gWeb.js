@@ -1,5 +1,4 @@
-
-class Web {
+export class Web {
 
     static buttonJoinServer() {
         document.getElementById("btnJoinServer").disabled = true
@@ -52,3 +51,5 @@ class Web {
     }
 
 }
+
+

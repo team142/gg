@@ -1,5 +1,5 @@
 
-class Postman {
+export class Postman {
 
     static incoming(event) {
 
@@ -93,10 +93,11 @@ class Postman {
             if (rect1) {
                 BabylonUtils.setHealthRectangle(rect1, t.health, t.maxHealth)
             }
-            
+
 
         }
 
     }
 
 }
+

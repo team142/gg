@@ -1,9 +1,10 @@
+import { Web } from './gWeb.js'
 
-class Game {
+export class Game {
 
     constructor() {
         this.scores = []
-        
+
     }
 
     static appStart() {
@@ -19,9 +20,14 @@ class Game {
             s = localHostname + ":" + port + "/"
         }
         document.querySelector('#selectServer [value="' + s + '"]').selected = true
+
+        document.getElementById("btnJoinServer").addEventListener("click", () => { Web.buttonJoinServer() })
+
     }
 
 }
 
-game = new Game()
+
+export const game = new Game()
 window.onload = Game.appStart
+
