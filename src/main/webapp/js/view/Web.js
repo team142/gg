@@ -3,6 +3,12 @@ import { BabylonUtils } from './BabylonUtils.js'
 
 export class Web {
 
+    static showStartScreen() {
+        Web.toggleElement("VIEW_CANVAS", false)
+        Web.toggleElement("VIEW_GAMES", false)
+
+    }
+
     static buttonJoinServer() {
         document.getElementById("btnJoinServer").disabled = true
         const url = document.getElementById("selectServer").value
@@ -64,6 +70,23 @@ export class Web {
     static storeName() {
         let name = document.getElementById("inputName").value
         localStorage.setItem("GG_NAME", name)
+    }
+
+    static chooseServer() {
+        const localHostname = window.location.hostname
+        const port = window.location.port
+        let s
+        if (port == 80) {
+            s = localHostname + "/"
+        } else {
+            s = localHostname + ":" + port + "/"
+        }
+        document.querySelector('#selectServer [value="' + s + '"]').selected = true
+
+    }
+
+    static assignJoinButton() {
+        document.getElementById("btnJoinServer").addEventListener("click", () => { Web.buttonJoinServer() })
     }
 
 }
