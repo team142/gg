@@ -1,3 +1,6 @@
+import { ServerIO } from 'gSio.js'
+import { Web } from 'gWeb.js'
+
 export class Web {
 
     static buttonJoinServer() {
