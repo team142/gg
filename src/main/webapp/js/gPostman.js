@@ -82,6 +82,9 @@ export class Postman {
     static recievedDynamicThings(obj) {
         for (const t of obj.things) {
             if (t.tag == match.tag) {
+                if (!baby.camera) {
+                    return
+                }
                 baby.camera.position.x = t.x
                 baby.camera.position.y = t.y + 0.25
                 baby.camera.position.z = t.z
