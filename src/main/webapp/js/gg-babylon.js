@@ -1,6 +1,8 @@
-import { match, Match, game } from './gState.js'
+import { match, Match } from './gState.js'
 import { SoundUtils } from './gSound.js'
 import { ServerIO } from './gSio.js'
+import { game } from './gGame.js'
+import { Bullet, bullets } from './gBullet.js'
 
 export const baby = {
     materialsMap: new Map(),

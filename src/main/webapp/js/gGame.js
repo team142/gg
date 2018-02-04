@@ -1,4 +1,5 @@
 import { Web } from './gWeb.js'
+import { Bullet } from './gBullet.js'
 
 export class Game {
 
@@ -22,6 +23,10 @@ export class Game {
         document.querySelector('#selectServer [value="' + s + '"]').selected = true
 
         document.getElementById("btnJoinServer").addEventListener("click", () => { Web.buttonJoinServer() })
+
+        //Start thread
+        Bullet.setupTicker()
+
 
     }
 

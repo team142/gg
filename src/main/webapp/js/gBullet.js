@@ -1,15 +1,16 @@
+import { BabylonUtils } from "./gg-babylon.js";
+
+
 
 export const bullets = []
-
-// this.timer = setInterval(() => {
-//     for (const bullet of bullets) {
-//         bullet.tick()
-//     }
-// }, (17 * 3))
-
 export class Bullet {
 
     static setupTicker() {
+        bulletTimer = setInterval(() => {
+            for (const bullet of bullets) {
+                bullet.tick()
+            }
+        }, (17 * 3))
 
     }
 
@@ -66,3 +67,4 @@ export class Bullet {
 
 }
 
+let bulletTimer
