@@ -153,9 +153,9 @@ class BabylonUtils {
 
     static changeMyHealthBar(health, maxHealth) {
         let potentialWidth = 8 * 80
-        let actualWidth =  health / maxHealth * potentialWidth 
+        let actualWidth = health / maxHealth * potentialWidth
         let di = potentialWidth - actualWidth
-        
+
         match.healthBar.width = actualWidth + "px"
         match.healthBar.left = 0 - (di / 2)
     }
@@ -222,29 +222,38 @@ class BabylonUtils {
             if (match.playerTanks.size > 0) {
                 box = match.playerTanks.entries().next().value[1].clone(name)
             } else {
-                box = BABYLON.MeshBuilder.CreateBox("box" + name, { height: 0.3, width: 0.6, depth: 0.3 }, baby.scene)
+
+                box = BABYLON.MeshBuilder.CreateBox("", {}, baby.scene);
+                box.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+                BABYLON.SceneLoader.ImportMesh("", "", "tank.babylon", baby.scene, function (newMeshes) {
+                    for (const i of newMeshes) {
+                        box.addChild(i)
+                    }
+                });
                 box.position.y = 0.0
-                box.material = baby.matGrey
+                box.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+                // box = BABYLON.MeshBuilder.CreateBox("box" + name, { height: 0.3, width: 0.6, depth: 0.3 }, baby.scene)
+                // box.material = baby.matGrey
 
-                const boxBarrel = BABYLON.MeshBuilder.CreateBox("boxBarrel" + name, { height: 0.05, width: 0.6, depth: 0.05 }, baby.scene)
-                boxBarrel.position.y = 0.1
-                boxBarrel.position.x = 0.3
-                boxBarrel.material = baby.matBlack
+                // const boxBarrel = BABYLON.MeshBuilder.CreateBox("boxBarrel" + name, { height: 0.05, width: 0.6, depth: 0.05 }, baby.scene)
+                // boxBarrel.position.y = 0.1
+                // boxBarrel.position.x = 0.3
+                // boxBarrel.material = baby.matBlack
 
-                const boxLeftWing = BABYLON.MeshBuilder.CreateBox("boxLeftWing" + name, { height: 0.1, width: 0.65, depth: 0.05 }, baby.scene)
-                boxLeftWing.position.y = -0.11
-                boxLeftWing.position.z = 0.15
-                boxLeftWing.material = baby.matWing
+                // const boxLeftWing = BABYLON.MeshBuilder.CreateBox("boxLeftWing" + name, { height: 0.1, width: 0.65, depth: 0.05 }, baby.scene)
+                // boxLeftWing.position.y = -0.11
+                // boxLeftWing.position.z = 0.15
+                // boxLeftWing.material = baby.matWing
 
 
-                var boxRightWing = BABYLON.MeshBuilder.CreateBox("boxRightWing" + name, { height: 0.1, width: 0.65, depth: 0.05 }, baby.scene)
-                boxRightWing.position.y = -0.11
-                boxRightWing.position.z = -0.15
-                boxRightWing.material = baby.matWing
+                // var boxRightWing = BABYLON.MeshBuilder.CreateBox("boxRightWing" + name, { height: 0.1, width: 0.65, depth: 0.05 }, baby.scene)
+                // boxRightWing.position.y = -0.11
+                // boxRightWing.position.z = -0.15
+                // boxRightWing.material = baby.matWing
 
-                box.addChild(boxBarrel)
-                box.addChild(boxLeftWing)
-                box.addChild(boxRightWing)
+                // box.addChild(boxBarrel)
+                // box.addChild(boxLeftWing)
+                // box.addChild(boxRightWing)
 
             }
 
