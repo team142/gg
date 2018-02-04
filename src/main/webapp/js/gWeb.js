@@ -1,5 +1,4 @@
-import { ServerIO } from 'gSio.js'
-import { Web } from 'gWeb.js'
+import { ServerIO } from './gSio.js'
 
 export class Web {
 
