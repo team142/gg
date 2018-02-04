@@ -191,12 +191,22 @@ class BabylonUtils {
         const current = BABYLON.GUI.Button.CreateSimpleButton("but" + BabylonUtils.getCounter(), name + ": " + score)
         current.width = 1
         current.height = "50px"
-        current.color = "green"
-        current.background = "white"
+        current.color = "white"
+        current.background = "black"
+        current.cornerRadius = 20
         baby.panelScores.addControl(current)
         baby.textScores.push(current)
 
+
+        advancedTexture.addControl(nameTag)
+        var nameTag = new BABYLON.GUI.TextBlock();
+        nameTag.text = (name)         //insert player given name here
+        nameTag.addControl(label)
+        nameTag.linkWithMesh(box)      // link with tank model here   
+        nameTag.linkOffsetY = -150
     }
+
+
 
     static setHealthRectangle(rect1, health, totalHealth) {
         rect1.width = health / totalHealth * 0.2
