@@ -515,10 +515,9 @@ export class BabylonUtils {
 
         particleSystem.updateFunction = updateFunction
         particleSystem.start()
-        function stop() {
+        setTimeout(() => {
             particleSystem.stop()
-        }
-        setTimeout(stop, ms)
+        }, ms)
 
 
     }
