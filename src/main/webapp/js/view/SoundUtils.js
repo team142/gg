@@ -7,10 +7,15 @@ export const soundData = {
 
 export class SoundUtils {
     static loadSounds() {
-        SoundUtils.loadSound("sounds/pew.mp3")
-        SoundUtils.loadSound("sounds/ding.mp3")
-        SoundUtils.loadSound("sounds/explode.mp3")
-        SoundUtils.loadSound("sounds/shhha.mp3")
+        const sounds = [
+            "sounds/pew.mp3",
+            "sounds/ding.mp3",
+            "sounds/explode.mp3",
+            "sounds/shhha.mp3"
+        ]
+        for (const s of sounds) {
+            SoundUtils.loadSound(s)
+        }
 
     }
 
