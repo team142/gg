@@ -10,6 +10,7 @@ export class Web {
         if (name) {
             document.getElementById("btnJoinServer").enabled = false
             ServerIO.joinServer(url, name)
+            Web.storeName()
         } else {
             swal({
                 type: 'error',
@@ -51,6 +52,18 @@ export class Web {
             document.getElementById(id).style.display = "none"
         }
 
+    }
+
+    static retrievePreviousName() {
+        let name = localStorage.getItem("GG_NAME")
+        if (name) {
+            document.getElementById("inputName").value = name
+        }
+    }
+
+    static storeName() {
+        let name = document.getElementById("inputName").value
+        localStorage.setItem("GG_NAME", name)
     }
 
 }

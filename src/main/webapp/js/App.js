@@ -4,6 +4,7 @@ import { Bullet } from './model/Bullet.js'
 export class App {
 
     static startApp() {
+
         Web.toggleElement("VIEW_CANVAS", false)
         Web.toggleElement("VIEW_GAMES", false)
 
@@ -21,10 +22,10 @@ export class App {
 
         //Start thread
         Bullet.setupTicker()
+        
+        Web.retrievePreviousName()
     }
 
 }
-
-
 
 onload = App.startApp
