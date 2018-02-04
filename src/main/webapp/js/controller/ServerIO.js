@@ -1,5 +1,6 @@
 import { match } from '../model/Match.js'
 import { Postman } from '../controller/Postman.js'
+import { Web } from '../view/Web.js'
 
 const sio = {}
 
@@ -42,6 +43,16 @@ export class ServerIO {
             ))
         }
         sio.socket.onmessage = Postman.incoming
+        sio.socket.onerror = (error) => {
+            swal({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Failed to join server',
+                footer: 'Did you pick a valid server address?',
+            })
+
+            Web.enabledJoinButton()
+        }
 
     }
 

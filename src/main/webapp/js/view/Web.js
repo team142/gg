@@ -9,6 +9,10 @@ export class Web {
 
     }
 
+    static enabledJoinButton() {
+        document.getElementById("btnJoinServer").disabled = false
+    }
+
     static buttonJoinServer() {
         document.getElementById("btnJoinServer").disabled = true
         const url = document.getElementById("selectServer").value
