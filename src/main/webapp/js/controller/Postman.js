@@ -3,7 +3,7 @@ import { Web } from '../view/Web.js'
 import { BabylonUtils, baby } from '../view/BabylonUtils.js'
 import { SoundUtils } from '../view/SoundUtils.js'
 import { game } from '../model/Game.js'
-import { match, Match } from '../model/Match.js'
+import { match } from '../model/Match.js'
 
 export class Postman {
 
@@ -74,7 +74,7 @@ export class Postman {
     }
 
     static playerLeft(obj) {
-        Match.playerLeaves(obj.tag)
+        match.playerLeaves(obj.tag)
     }
 
     static recievedDynamicThings(obj) {
@@ -91,14 +91,14 @@ export class Postman {
                 //Move the healthbar
                 BabylonUtils.changeMyHealthBar(t.health, t.maxHealth)
             }
-            const s = Match.getPlayerByTag(t.tag)
+            const s = match.getPlayerByTag(t.tag)
             if (s) {
                 s.position.x = t.x
                 s.position.y = t.y
                 s.position.z = t.z
                 s.rotation.y = t.rotation - 1.57
             }
-            const rect1 = Match.getHealthBarByTag(t.tag)
+            const rect1 = match.getHealthBarByTag(t.tag)
             if (rect1) {
                 BabylonUtils.setHealthRectangle(rect1, t.health, t.maxHealth)
             }

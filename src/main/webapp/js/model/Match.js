@@ -1,5 +1,5 @@
 
-export class Match {
+class Match {
     constructor() {
         this.playerTanks = new Map()
         this.playerHealthBars = new Map()
@@ -11,39 +11,39 @@ export class Match {
 
     }
 
-    static playerLeaves(tagId) {
+    playerLeaves(tagId) {
 
-        let children = Match.getPlayerByTag(tagId).getChildren()
+        let children = match.getPlayerByTag(tagId).getChildren()
         for (const child of children) {
             child.dispose()
         }
-        Match.getPlayerByTag(tagId).dispose()
+        match.getPlayerByTag(tagId).dispose()
         match.playerTanks.delete(tagId)
 
-        Match.getPlayerRectangleByTag(tagId).dispose()
+        match.getPlayerRectangleByTag(tagId).dispose()
         match.playerRectangles.delete(tagId)
 
-        Match.getPlayerLabelByTag(tagId).dispose()
+        match.getPlayerLabelByTag(tagId).dispose()
         match.playerLabels.delete(tagId)
 
     }
 
-    static getPlayerByTag(tagId) {
+    getPlayerByTag(tagId) {
         return match.playerTanks.get(tagId)
 
     }
 
-    static getHealthBarByTag(tagId) {
+    getHealthBarByTag(tagId) {
         return match.playerHealthBars.get(tagId)
 
     }
 
-    static getPlayerLabelByTag(tagId) {
+    getPlayerLabelByTag(tagId) {
         return match.playerLabels.get(tagId)
 
     }
 
-    static getPlayerRectangleByTag(tagId) {
+    getPlayerRectangleByTag(tagId) {
         return match.playerRectangles.get(tagId)
 
     }

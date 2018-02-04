@@ -1,4 +1,4 @@
-import { match, Match } from '../model/Match.js'
+import { match } from '../model/Match.js'
 import { SoundUtils } from './SoundUtils.js'
 import { ServerIO } from '../controller/ServerIO.js'
 import { game } from '../model/Game.js'
@@ -212,7 +212,7 @@ export class BabylonUtils {
         if (tagId) {
 
             //Ignore players I know of
-            const result = Match.getPlayerByTag(tagId)
+            const result = match.getPlayerByTag(tagId)
             if (result) {
                 return
             }
@@ -428,7 +428,7 @@ export class BabylonUtils {
 
     static createSpray(tankId, ms) {
 
-        const tank = Match.getPlayerByTag(tankId)
+        const tank = match.getPlayerByTag(tankId)
 
         // Create a particle system
         const particleSystem = new BABYLON.ParticleSystem("particles", 2000, baby.scene)

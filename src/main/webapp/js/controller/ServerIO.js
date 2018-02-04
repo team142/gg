@@ -13,26 +13,6 @@ export class ServerIO {
 
     }
 
-    static sendKeyUp(key) {
-        ServerIO.send(JSON.stringify(
-            {
-                conversation: "P_KU",
-                key: key
-            }
-        ))
-
-    }
-
-    static sendKeyDown(key) {
-        ServerIO.send(JSON.stringify(
-            {
-                conversation: "P_KD",
-                key: key
-            }
-        ))
-
-    }
-
     static assignMethods() {
         sio.socket.onopen = (event) => {
             sio.socket.send(JSON.stringify(
@@ -58,6 +38,26 @@ export class ServerIO {
 
     static send(msg) {
         sio.socket.send(msg)
+
+    }
+
+    static sendKeyUp(key) {
+        ServerIO.send(JSON.stringify(
+            {
+                conversation: "P_KU",
+                key: key
+            }
+        ))
+
+    }
+
+    static sendKeyDown(key) {
+        ServerIO.send(JSON.stringify(
+            {
+                conversation: "P_KD",
+                key: key
+            }
+        ))
 
     }
 
