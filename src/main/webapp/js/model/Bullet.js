@@ -18,15 +18,14 @@ export class Bullet {
     }
 
     static createAndSave(obj) {
-        const b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
-        b.visibility = true
-        bullets.push(b)
+        bullets.push(new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter())))
     }
 
     constructor(obj, babylonObject) {
         this.id = BabylonUtils.getCounter()
         this.sBullet = obj
         this.bBullet = babylonObject
+        this.bBullet.visibility = true
 
         this.bBullet.position.x = obj.x
         this.bBullet.position.y = obj.y
