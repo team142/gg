@@ -5,7 +5,7 @@ import { game } from '../model/Game.js'
 import { Bullet, bullets } from '../model/Bullet.js'
 import { BabylonTerrain } from './BabylonTerrain.js'
 import { BabylonTextures } from './BabylonTextures.js'
-import { baby} from '../model/Baby.js'
+import { baby } from '../model/Baby.js'
 
 export class BabylonUtils {
 
@@ -19,16 +19,16 @@ export class BabylonUtils {
         baby.canvas = document.getElementById("VIEW_CANVAS")
         baby.engine = new BABYLON.Engine(baby.canvas, true)
         BabylonUtils.createScene()
-        baby.engine.runRenderLoop(function () {
+        baby.engine.runRenderLoop(() => {
             baby.scene.render()
         })
-        window.addEventListener("resize", function () {
+        window.addEventListener("resize", () => {
             baby.engine.resize()
         })
-        window.addEventListener("keyup", function (data) {
+        window.addEventListener("keyup", (data) => {
             ServerIO.sendKeyUp(data.key)
         })
-        window.addEventListener("keydown", function (data) {
+        window.addEventListener("keydown", (data) => {
             ServerIO.sendKeyDown(data.key)
         })
 
@@ -351,7 +351,7 @@ export class BabylonUtils {
         particleSystem.maxEmitPower = 3
         particleSystem.updateSpeed = 0.005
 
-        var updateFunction = function (particles) {
+        particleSystem.updateFunction = (particles) => {
             for (var index = 0; index < particles.length; index++) {
                 var particle = particles[index]
                 particle.age += this._scaledUpdateSpeed
@@ -388,12 +388,10 @@ export class BabylonUtils {
 
         }
 
-        particleSystem.updateFunction = updateFunction
         particleSystem.start()
         setTimeout(() => {
             particleSystem.stop()
         }, ms)
-
 
     }
 
