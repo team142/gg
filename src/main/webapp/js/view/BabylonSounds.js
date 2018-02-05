@@ -5,7 +5,7 @@ export const soundData = {
 
 }
 
-export class SoundUtils {
+export class BabylonSounds {
     static loadSounds() {
         const sounds = [
             "sounds/pew.mp3",
@@ -14,7 +14,7 @@ export class SoundUtils {
             "sounds/shhha.mp3"
         ]
         for (const s of sounds) {
-            SoundUtils.loadSound(s)
+            BabylonSounds.loadSound(s)
         }
 
     }
@@ -31,7 +31,7 @@ export class SoundUtils {
     }
 
     static playPew() {
-        SoundUtils.playSound("sounds/pew.mp3")
+        BabylonSounds.playSound("sounds/pew.mp3")
 
     }
 

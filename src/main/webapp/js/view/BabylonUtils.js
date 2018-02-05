@@ -1,20 +1,11 @@
 import { match } from '../model/Match.js'
-import { SoundUtils } from './SoundUtils.js'
+import { BabylonSounds } from './BabylonSounds.js'
 import { ServerIO } from '../controller/ServerIO.js'
 import { game } from '../model/Game.js'
 import { Bullet, bullets } from '../model/Bullet.js'
-
-export const baby = {
-    materialsMap: new Map(),
-    DIR: {
-        x: 0,
-        y: 0,
-        z: 0
-    },
-    textScores: [],
-    counter: 0
-
-}
+import { BabylonTerrain } from './BabylonTerrain.js'
+import { BabylonTextures } from './BabylonTextures.js'
+import { baby} from '../model/Baby.js'
 
 export class BabylonUtils {
 
@@ -36,41 +27,20 @@ export class BabylonUtils {
         })
         window.addEventListener("keyup", function (data) {
             ServerIO.sendKeyUp(data.key)
-            const key = data.key
-            if (key === "a" || key === "A") {
-                baby.DIR.x = 0
-            } else if (key === "d" || key === "D") {
-                baby.DIR.x = 0
-            } else if (key === "s" || key === "S") {
-                baby.DIR.z = 0
-            } else if (key === "w" || key === "W") {
-                baby.DIR.z = 0
-            }
-
         })
         window.addEventListener("keydown", function (data) {
             ServerIO.sendKeyDown(data.key)
-            const key = data.key
-            if (key === "a" || key === "A") {
-                baby.DIR.x = -1
-            } else if (key === "d" || key === "D") {
-                baby.DIR.x = 1
-            } else if (key === "s" || key === "S") {
-                baby.DIR.z = -1
-            } else if (key === "w" || key === "W") {
-                baby.DIR.z = 1
-            }
         })
-        BabylonUtils.createBaseTile()
-        BabylonUtils.createMountainTile()
+
+        BabylonTerrain.loadBaseFlatTile()
+        BabylonTerrain.loadBaseMountainTile()
+        BabylonTerrain.createSkyBox()
+
         SoundUtils.loadSounds()
-        BabylonUtils.createSkyBox()
         baby.baseBullet = BabylonUtils.createBaseBullet()
 
         BabylonUtils.createPowerBar()
         BabylonUtils.createOwnHealthBar()
-
-        // var t = setInterval(movementTick, 40)        
 
     }
 
@@ -163,23 +133,6 @@ export class BabylonUtils {
 
         match.healthBar.width = actualWidth + "px"
         match.healthBar.left = 0 - (di / 2)
-    }
-
-
-
-    static createSkyBox() {
-        // Skyboxes
-        const skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene)
-        skyboxMaterial.backFaceCulling = false
-        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", baby.scene)
-        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
-        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0)
-        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0)
-        skyboxMaterial.disableLighting = true
-        const skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50 * 50, baby.scene)
-        skybox1.material = skyboxMaterial
-        skybox1.visibility = 1
-
     }
 
     static displayScores() {
@@ -293,50 +246,6 @@ export class BabylonUtils {
 
     }
 
-    static createMaterials() {
-        const textureFiles = [
-            "grass1-min.jpg",
-            "grass2-min.jpg",
-            "grass3-min.jpg",
-            "rock1-min.jpg",
-            "rock2-min.jpg",
-            "rock3-min.jpg",
-            "water1-min.jpg",
-            "water2-min.jpg",
-            "water3-min.jpg"
-        ]
-        for (const file of textureFiles) {
-            BabylonUtils.createAndSaveMaterial("/textures/" + file)
-        }
-
-        //For now create a smiley-face for each person
-        baby.smileyMaterial = new BABYLON.StandardMaterial("", baby.scene)
-        baby.smileyMaterial.diffuseTexture = new BABYLON.Texture("textures/smily.png", baby.scene)
-
-        baby.matGrey = new BABYLON.StandardMaterial("matGrey", baby.scene)
-        baby.matGrey.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5)
-
-        baby.matBlack = new BABYLON.StandardMaterial("matBlack", baby.scene)
-        baby.matBlack.diffuseColor = new BABYLON.Color3(0, 0, 0)
-
-        baby.matWing = new BABYLON.StandardMaterial("matWing", baby.scene)
-        baby.matWing.diffuseColor = new BABYLON.Color3(0.2, 0.2, 1)
-
-
-
-    }
-
-
-    static createAndSaveMaterial(textureFilePath) {
-        const materialPlane = new BABYLON.StandardMaterial("texturePlane", baby.scene)
-        materialPlane.diffuseTexture = new BABYLON.Texture(textureFilePath, baby.scene)
-        materialPlane.diffuseTexture.uScale = 1.0//Repeat 5 times on the Vertical Axes
-        materialPlane.diffuseTexture.vScale = 1.0//Repeat 5 times on the Horizontal Axes
-        materialPlane.backFaceCulling = false//Always show the front and the back of an element
-        baby.materialsMap.set(textureFilePath, materialPlane)
-
-    }
-
     static createMap(arr) {
         for (const t of arr) {
             BabylonUtils.createMapTile(t.x, t.z, t.skin, t.model)
@@ -377,40 +286,6 @@ export class BabylonUtils {
             plane.material = material
         }
         plane.visibility = true
-
-    }
-
-    static createBaseTile() {
-        const x = -1
-        const y = -1
-        const skin = "/textures/water1-min.jpg"
-        baby.baseTile = BABYLON.Mesh.CreatePlane(("plane" + x) + y, 1, baby.scene)
-        baby.baseTile.position.z = (y * 1)
-        baby.baseTile.position.x = (x * 1)
-        baby.baseTile.rotation.x = Math.PI / 2
-        const material = baby.materialsMap.get(skin)
-        if (material) {
-            baby.baseTile.material = material
-        }
-        baby.baseTile.visibility = false
-
-    }
-
-    static createMountainTile() {
-        const x = -2
-        const y = -2
-        const skin = "/textures/rock1-min.jpg"
-
-        baby.mountainTile = BABYLON.MeshBuilder.CreateBox(("plane" + x) + y, { height: 1, width: 1, depth: 1 }, baby.scene)
-        baby.mountainTile.position.z = (y * 1)
-        baby.mountainTile.position.x = (x * 1)
-        baby.mountainTile.position.y = 0.5
-        baby.mountainTile.rotation.x = Math.PI / 2
-        const material = baby.materialsMap.get(skin)
-        if (material) {
-            baby.mountainTile.material = material
-        }
-        baby.mountainTile.visibility = false
 
     }
 
@@ -530,7 +405,7 @@ export class BabylonUtils {
         baby.camera.position.y = 0.75
         const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), baby.scene)
         light.intensity = 0.9
-        BabylonUtils.createMaterials()
+        BabylonTextures.createMaterials()
         BabylonUtils.createGui()
 
     }
