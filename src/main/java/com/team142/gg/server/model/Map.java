@@ -38,10 +38,16 @@ public class Map {
     }
 
     public boolean isMovable(int x, int y) {
+        if (x >= this.x || x <= 0 || y >= this.z || y < 0) {
+            return false;
+        }
         return this.bitmap[x][y][0];
     }
 
     public boolean isShootover(int x, int y) {
+        if (x >= this.x || x <= 0 || y >= this.z || y < 0) {
+            return false;
+        }
         return this.bitmap[x][y][1];
     }
 
