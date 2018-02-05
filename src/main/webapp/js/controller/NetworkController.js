@@ -4,12 +4,12 @@ import { Web } from '../view/Web.js'
 
 const sio = {}
 
-export class ServerIO {
+export class NetworkController {
 
     static joinServer(url, name) {
         match.username = name
         sio.socket = new WebSocket("ws://" + url + "websocket")
-        ServerIO.assignMethods()
+        NetworkController.assignMethods()
 
     }
 
@@ -42,7 +42,7 @@ export class ServerIO {
     }
 
     static sendKeyUp(key) {
-        ServerIO.send(JSON.stringify(
+        NetworkController.send(JSON.stringify(
             {
                 conversation: "P_KU",
                 key: key
@@ -52,7 +52,7 @@ export class ServerIO {
     }
 
     static sendKeyDown(key) {
-        ServerIO.send(JSON.stringify(
+        NetworkController.send(JSON.stringify(
             {
                 conversation: "P_KD",
                 key: key

@@ -1,4 +1,4 @@
-import { ServerIO } from '../controller/ServerIO.js'
+import { NetworkController } from '../controller/NetworkController.js'
 import { BabylonUtils } from './BabylonUtils.js'
 
 export class Web {
@@ -19,7 +19,7 @@ export class Web {
         const name = document.getElementById("inputName").value
         if (name) {
             document.getElementById("btnJoinServer").enabled = false
-            ServerIO.joinServer(url, name)
+            NetworkController.joinServer(url, name)
             Web.storeName()
         } else {
             swal({
@@ -39,7 +39,7 @@ export class Web {
             id: games[0].id
         }
         const json = JSON.stringify(body)
-        ServerIO.send(json)
+        NetworkController.send(json)
 
     }
 

@@ -1,6 +1,6 @@
 import { match } from '../model/Match.js'
 import { BabylonSounds } from './BabylonSounds.js'
-import { ServerIO } from '../controller/ServerIO.js'
+import { NetworkController } from '../controller/NetworkController.js'
 import { game } from '../model/Game.js'
 import { Bullet, bullets } from '../model/Bullet.js'
 import { BabylonModels } from './BabylonModels.js'
@@ -26,10 +26,10 @@ export class BabylonUtils {
             baby.engine.resize()
         })
         window.addEventListener("keyup", (data) => {
-            ServerIO.sendKeyUp(data.key)
+            NetworkController.sendKeyUp(data.key)
         })
         window.addEventListener("keydown", (data) => {
-            ServerIO.sendKeyDown(data.key)
+            NetworkController.sendKeyDown(data.key)
         })
 
         BabylonModels.loadBaseFlatTile()
