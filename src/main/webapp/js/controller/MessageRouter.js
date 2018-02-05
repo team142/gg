@@ -37,7 +37,7 @@ export class MessageRouter {
 
             } else if (conversation == "S_PLAY_SOUND") {
                 if (localStorage.getItem("sounds") === null || localStorage.getItem("sounds") === 'true') {
-                    console.log("sound", localStorage.getItem("sounds"), obj)
+                    // console.log("sound", localStorage.getItem("sounds"), obj)
                     BabylonSounds.playSound(obj.FILE)
                 }
             } else if (conversation == "S_PLAYER_LEFT") {
