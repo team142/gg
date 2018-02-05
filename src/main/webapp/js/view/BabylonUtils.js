@@ -3,7 +3,7 @@ import { BabylonSounds } from './BabylonSounds.js'
 import { ServerIO } from '../controller/ServerIO.js'
 import { game } from '../model/Game.js'
 import { Bullet, bullets } from '../model/Bullet.js'
-import { BabylonTerrain } from './BabylonTerrain.js'
+import { BabylonModels } from './BabylonModels.js'
 import { BabylonTextures } from './BabylonTextures.js'
 import { baby } from '../model/Baby.js'
 
@@ -32,12 +32,12 @@ export class BabylonUtils {
             ServerIO.sendKeyDown(data.key)
         })
 
-        BabylonTerrain.loadBaseFlatTile()
-        BabylonTerrain.loadBaseMountainTile()
-        BabylonTerrain.createSkyBox()
+        BabylonModels.loadBaseFlatTile()
+        BabylonModels.loadBaseMountainTile()
+        BabylonModels.createSkyBox()
 
         BabylonSounds.loadSounds()
-        baby.baseBullet = BabylonUtils.createBaseBullet()
+        BabylonModels.createBaseBullet()
 
         BabylonUtils.createPowerBar()
         BabylonUtils.createOwnHealthBar()
@@ -253,17 +253,6 @@ export class BabylonUtils {
 
     }
 
-    static createBaseBullet() {
-        const cone = BABYLON.MeshBuilder.CreateCylinder("cone", { diameterTop: 0, height: 1, tessellation: 96 }, baby.scene)
-        const scl = 0.0625 //Much smaller than normal cone
-        const scalingFactor = new BABYLON.Vector3(scl, scl, scl)
-        cone.scaling = scalingFactor
-        cone.position.multiplyInPlace(scalingFactor)
-        cone.rotation.x = -1.57
-        cone.material = baby.matBlack
-        return cone
-
-    }
 
     static createBullet(obj) {
         Bullet.createAndSave(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
