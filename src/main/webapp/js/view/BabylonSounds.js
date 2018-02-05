@@ -1,9 +1,5 @@
 import { baby } from '../model/Baby.js'
 
-export const soundData = {
-    soundMap: new Map()
-
-}
 
 export class BabylonSounds {
     static loadSounds() {
@@ -21,12 +17,12 @@ export class BabylonSounds {
 
     static loadSound(path) {
         var sound = new BABYLON.Sound(path, path, baby.scene)
-        soundData.soundMap.set(path, sound)
+        baby.soundData.soundMap.set(path, sound)
 
     }
 
     static playSound(key) {
-        soundData.soundMap.get(key).play()
+        baby.soundData.soundMap.get(key).play()
 
     }
 
