@@ -84,7 +84,8 @@ export class Web {
         } else {
             s = localHostname + ":" + port + "/"
         }
-        document.querySelector('#selectServer [value="' + s + '"]').selected = true
+        if (document.querySelector('#selectServer [value="' + s + '"]'))
+            document.querySelector('#selectServer [value="' + s + '"]').selected = true
 
     }
 
