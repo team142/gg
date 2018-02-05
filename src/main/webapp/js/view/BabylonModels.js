@@ -60,6 +60,8 @@ export class BabylonModels {
         cone.rotation.x = -1.57
         cone.material = baby.matBlack
         baby.baseBullet = cone
+        baby.baseBullet.visibility = false
+
 
     }
 
