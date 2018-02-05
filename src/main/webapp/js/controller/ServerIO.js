@@ -1,5 +1,5 @@
 import { match } from '../model/Match.js'
-import { Postman } from '../controller/Postman.js'
+import { MessageRouter } from '../controller/MessageRouter.js'
 import { Web } from '../view/Web.js'
 
 const sio = {}
@@ -22,7 +22,7 @@ export class ServerIO {
                 }
             ))
         }
-        sio.socket.onmessage = Postman.incoming
+        sio.socket.onmessage = MessageRouter.incoming
         sio.socket.onerror = (error) => {
             swal({
                 type: 'error',

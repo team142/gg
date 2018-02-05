@@ -1,3 +1,4 @@
+import { match } from '../model/Match.js'
 
 export class BabylonAnimations {
 
@@ -73,8 +74,9 @@ export class BabylonAnimations {
                     particle.colorStep.scaleToRef(this._scaledUpdateSpeed, this._scaledColorStep)
                     particle.color.addInPlace(this._scaledColorStep)
 
-                    if (particle.color.a < 0)
+                    if (particle.color.a < 0) {
                         particle.color.a = 0
+                    }
 
                     particle.angle += particle.angularSpeed * this._scaledUpdateSpeed
 
@@ -85,7 +87,6 @@ export class BabylonAnimations {
                     particle.direction.addInPlace(this._scaledGravity)
                 }
             }
-
         }
 
         particleSystem.start()

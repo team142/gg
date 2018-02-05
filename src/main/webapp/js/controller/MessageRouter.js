@@ -6,7 +6,7 @@ import { BabylonUtils } from '../view/BabylonUtils.js'
 import { BabylonSounds } from '../view/BabylonSounds.js'
 import { BabylonAnimations } from '../view/BabylonAnimations.js'
 
-export class Postman {
+export class MessageRouter {
 
     static incoming(event) {
 
