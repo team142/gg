@@ -1,5 +1,5 @@
 import { BabylonUtils } from '../view/BabylonUtils.js'
-import { baby} from '../model/Baby.js'
+import { baby } from '../model/Baby.js'
 
 export const bullets = []
 export class Bullet {
@@ -19,6 +19,7 @@ export class Bullet {
 
     static createAndSave(obj) {
         const b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
+        b.visibility = true
         bullets.push(b)
     }
 
