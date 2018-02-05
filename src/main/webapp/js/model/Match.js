@@ -23,6 +23,9 @@ class Match {
         match.getPlayerRectangleByTag(tagId).dispose()
         match.playerRectangles.delete(tagId)
 
+        match.playerHealthBars.get(tagId).dispose()
+        match.playerHealthBars.delete(tagId)
+
         match.getPlayerLabelByTag(tagId).dispose()
         match.playerLabels.delete(tagId)
 
