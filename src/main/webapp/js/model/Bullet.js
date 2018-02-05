@@ -5,15 +5,15 @@ export class Bullet {
 
     static setupTicker() {
         bulletTimer = setInterval(() => {
-            for (const bullet of bullets) {
-                bullet.tick()
-            }
+            BUllet.tickAll()
         }, (17 * 3))
 
     }
 
     static tickAll() {
-
+        for (const bullet of bullets) {
+            bullet.tick()
+        }
     }
 
     constructor(obj, babylonObject) {
