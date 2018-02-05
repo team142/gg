@@ -30,7 +30,6 @@ export class NetworkController {
                 text: 'Failed to join server',
                 footer: 'Did you pick a valid server address?',
             })
-
             Web.enabledJoinButton()
         }
 
@@ -38,7 +37,6 @@ export class NetworkController {
 
     static send(msg) {
         sio.socket.send(msg)
-
     }
 
     static sendKeyUp(key) {
@@ -48,7 +46,6 @@ export class NetworkController {
                 key: key
             }
         ))
-
     }
 
     static sendKeyDown(key) {
@@ -58,7 +55,6 @@ export class NetworkController {
                 key: key
             }
         ))
-
     }
 
 }
