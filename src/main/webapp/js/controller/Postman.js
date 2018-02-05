@@ -6,6 +6,7 @@ import { BabylonSounds } from '../view/BabylonSounds.js'
 import { game } from '../model/Game.js'
 import { match } from '../model/Match.js'
 import { BabylonView} from '../view/BabylonView.js'
+import { BabylonAnimations } from '../view/BabylonAnimations.js'
 
 export class Postman {
 
@@ -44,7 +45,7 @@ export class Postman {
             BabylonUtils.createBullet(obj)
 
         } else if (conversation == "S_SHARE_SPRAY") {
-            BabylonUtils.createSpray(obj.tagId, obj.ms)
+            BabylonAnimations.createSpray(obj.tagId, obj.ms)
 
         } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
             BabylonView.recievedDynamicThings(obj)
