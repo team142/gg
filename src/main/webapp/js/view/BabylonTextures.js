@@ -1,4 +1,3 @@
-import { BabylonUtils } from './BabylonUtils.js'
 import { baby } from '../model/Baby.js'
 
 const textureFiles = [
