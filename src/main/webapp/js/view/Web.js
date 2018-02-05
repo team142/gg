@@ -34,13 +34,12 @@ export class Web {
     }
 
     static showListOfGames(games) {
-        const body = {
-            conversation: "P_REQUEST_JOIN_GAME",
-            id: games[0].id
-        }
-        const json = JSON.stringify(body)
-        NetworkController.send(json)
-
+        NetworkController.send(
+            JSON.stringify({
+                conversation: "P_REQUEST_JOIN_GAME",
+                id: games[0].id
+            })
+        )
     }
 
     static changeView(view) {

@@ -10,7 +10,6 @@ export class NetworkController {
         match.username = name
         sio.socket = new WebSocket("ws://" + url + "websocket")
         NetworkController.assignMethods()
-
     }
 
     static assignMethods() {
@@ -32,7 +31,6 @@ export class NetworkController {
             })
             Web.enabledJoinButton()
         }
-
     }
 
     static send(msg) {
