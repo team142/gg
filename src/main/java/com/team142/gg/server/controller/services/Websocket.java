@@ -30,7 +30,7 @@ public class Websocket {
     }
 
     @OnError
-    public void onError(Throwable t, Session session) {
+    public void onError(Session session, Throwable t) {
         Logger.getLogger(Server.class.getName()).log(Level.SEVERE, "Error at websocket:", t);
         if (!session.isOpen()) {
             Logger.getLogger(Server.class.getName()).log(Level.INFO, "Player disconnected");
