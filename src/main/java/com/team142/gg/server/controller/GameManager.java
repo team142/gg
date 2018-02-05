@@ -109,6 +109,7 @@ public class GameManager {
     }
 
     public static void handleKill(Game game, Player fromPlayer, Player player) {
+        fromPlayer.getKills().incrementAndGet();
         GameManager.spawn(game, player);
         GameManager.sendScoreBoard(game);
         MessageManager.sendPlayersAMessage(game, new MessageSpray(player, 1200));
