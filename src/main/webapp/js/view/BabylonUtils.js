@@ -36,7 +36,7 @@ export class BabylonUtils {
         BabylonTerrain.loadBaseMountainTile()
         BabylonTerrain.createSkyBox()
 
-        BabylonSound.loadSounds()
+        BabylonSounds.loadSounds()
         baby.baseBullet = BabylonUtils.createBaseBullet()
 
         BabylonUtils.createPowerBar()

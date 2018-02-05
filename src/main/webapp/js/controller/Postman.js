@@ -34,7 +34,7 @@ export class Postman {
             BabylonUtils.createMap(obj.MAP)
 
         } else if (conversation == "S_PLAY_SOUND") {
-            SoundUtils.playSound(obj.FILE)
+            BabylonSounds.playSound(obj.FILE)
 
         } else if (conversation == "S_PLAYER_LEFT") {
             Postman.playerLeft(obj)

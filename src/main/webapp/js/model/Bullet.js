@@ -5,7 +5,7 @@ export class Bullet {
 
     static setupTicker() {
         bulletTimer = setInterval(() => {
-            BUllet.tickAll()
+            Bullet.tickAll()
         }, (17 * 3))
 
     }
@@ -14,6 +14,12 @@ export class Bullet {
         for (const bullet of bullets) {
             bullet.tick()
         }
+    }
+
+    static createAndSave(obj, babylonObject) {
+        const b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
+        bullets.push(b)
+        return b
     }
 
     constructor(obj, babylonObject) {
