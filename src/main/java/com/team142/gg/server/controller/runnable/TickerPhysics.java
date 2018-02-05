@@ -9,8 +9,6 @@ import com.team142.gg.server.controller.runnable.base.AbstractTickerWorker;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -32,10 +30,14 @@ public class TickerPhysics extends AbstractTickerWorker {
                 .filter((bullet) -> !bullet.movementTickBullet())
                 .forEach(this::removeBullet);
 
+        player.getBULLETS()
+                .stream()
+                .filter((bullet) -> !bullet.isOk())
+                .forEach(this::removeBullet);
+
     }
 
     private void removeBullet(Bullet bullet) {
-        Logger.getLogger(TickerPhysics.class.getName()).log(Level.INFO, "Removing bullet");
         bullet.getPlayer().removeBullet(bullet);
     }
 

@@ -56,11 +56,15 @@ public class Bullet extends MovableElement {
 
     public boolean movementTickBullet() {
         if (!ok) {
-            return ok;
+            return ok; //False
         }
 
         Map map = (Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap());
         boolean success = moveForward(map);
+        if (!success) {
+            ok = false;
+            return ok;
+        }
 
         Repository.GAMES_ON_SERVER
                 .get(player.getGameId())
@@ -71,8 +75,8 @@ public class Bullet extends MovableElement {
                 .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this, tank.getWidth()))
                 .forEach((tank) -> damage(tank));
 
-        if (!success) {
-            ok = false;
+        if (!ok) {
+            return false;
         }
 
         if (getX() < 0) {

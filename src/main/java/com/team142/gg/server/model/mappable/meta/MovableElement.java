@@ -55,21 +55,18 @@ public class MovableElement extends PlaceableElement {
     }
 
     public boolean moveForward(Map map) {
-
-        boolean success = false;
-
         double coefficientX = Math.sin(getRotation());
         double coefficientZ = Math.cos(getRotation());
-
-        success = changeX(coefficientX * getSpeed(), map) || success;
-        success = changeZ(coefficientZ * getSpeed(), map) || success;
-
-        return success;
+        if (!changeX(coefficientX * getSpeed(), map)) {
+            return false;
+        }
+        if (!changeZ(coefficientZ * getSpeed(), map)) {
+            return false;
+        }
+        return true;
     }
 
     public boolean moveBackward(Map map) {
-
-        boolean success = false;
 
         double newRotation = getRotation();
         newRotation = newRotation - Math.PI;
@@ -81,10 +78,13 @@ public class MovableElement extends PlaceableElement {
         double coefficientX = Math.sin(newRotation);
         double coefficientZ = Math.cos(newRotation);
 
-        success = changeX(coefficientX * getSpeed(), map) || success;
-        success = changeZ(coefficientZ * getSpeed(), map) || success;
-
-        return success;
+        if (!changeX(coefficientX * getSpeed(), map)) {
+            return false;
+        }
+        if (!changeZ(coefficientZ * getSpeed(), map)) {
+            return false;
+        }
+        return true;
 
     }
 
