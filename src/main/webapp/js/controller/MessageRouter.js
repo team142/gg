@@ -17,41 +17,46 @@ export class MessageRouter {
         }
 
         const obj = JSON.parse(event.data)
-        const conversation = obj.conversation
+        if (obj.conversation) {
+            const conversation = obj.conversation
+            if (conversation == "S_CHANGE_VIEW") {
+                Web.changeView(obj.view)
 
-        if (conversation == "S_CHANGE_VIEW") {
-            Web.changeView(obj.view)
+            } else if (conversation == "S_LIST_OF_GAMES") {
+                Web.showListOfGames(obj.games)
 
-        } else if (conversation == "S_LIST_OF_GAMES") {
-            Web.showListOfGames(obj.games)
+            } else if (conversation == "S_SCOREBOARD") {
+                BabylonView.scoreboard(obj)
 
-        } else if (conversation == "S_SCOREBOARD") {
-            BabylonView.scoreboard(obj)
+            } else if (conversation == "S_SHARE_TAG") {
+                match.tag = obj.tag
 
-        } else if (conversation == "S_SHARE_TAG") {
-            match.tag = obj.tag
+            } else if (conversation == "S_SHARE_MAP") {
+                BabylonUtils.createMap(obj.MAP)
+                console.log(obj)
 
-        } else if (conversation == "S_SHARE_MAP") {
-            BabylonUtils.createMap(obj.MAP)
+            } else if (conversation == "S_PLAY_SOUND") {
+                if (localStorage.getItem("sounds") === null || localStorage.getItem("sounds") === 'true') {
+                    console.log("sound", localStorage.getItem("sounds"), obj)
+                    BabylonSounds.playSound(obj.FILE)
+                }
+            } else if (conversation == "S_PLAYER_LEFT") {
+                match.playerLeaves(obj.tag)
 
-        } else if (conversation == "S_PLAY_SOUND") {
-            BabylonSounds.playSound(obj.FILE)
+            } else if (conversation == "S_SHARE_BULLETS") {
+                Bullet.createAndSave(obj)
 
-        } else if (conversation == "S_PLAYER_LEFT") {
-            match.playerLeaves(obj.tag)
+            } else if (conversation == "S_SHARE_SPRAY") {
+                BabylonAnimations.createSpray(obj.tagId, obj.ms)
 
-        } else if (conversation == "S_SHARE_BULLETS") {
-            Bullet.createAndSave(obj)
+            } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
+                BabylonView.recievedDynamicThings(obj)
 
-        } else if (conversation == "S_SHARE_SPRAY") {
-            BabylonAnimations.createSpray(obj.tagId, obj.ms)
-
-        } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
-            BabylonView.recievedDynamicThings(obj)
-
-        } else {
+            }
+        }  else {
             console.log("Dont know what to do with this:")
             console.log(obj)
+
         }
 
     }
