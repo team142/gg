@@ -1,4 +1,5 @@
 import { match } from '../model/Match.js'
+import { baby } from '../model/Baby.js'
 
 export class BabylonAnimations {
 
