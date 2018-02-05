@@ -1,20 +1,22 @@
 import { BabylonUtils } from './BabylonUtils.js'
 import { baby } from '../model/Baby.js'
 
+const textureFiles = [
+    "grass1-min.jpg",
+    "grass2-min.jpg",
+    "grass3-min.jpg",
+    "rock1-min.jpg",
+    "rock2-min.jpg",
+    "rock3-min.jpg",
+    "water1-min.jpg",
+    "water2-min.jpg",
+    "water3-min.jpg"
+]
+
 export class BabylonTextures {
 
     static createMaterials() {
-        const textureFiles = [
-            "grass1-min.jpg",
-            "grass2-min.jpg",
-            "grass3-min.jpg",
-            "rock1-min.jpg",
-            "rock2-min.jpg",
-            "rock3-min.jpg",
-            "water1-min.jpg",
-            "water2-min.jpg",
-            "water3-min.jpg"
-        ]
+
         for (const file of textureFiles) {
             BabylonTextures.createAndSaveMaterial("/textures/" + file)
         }
@@ -41,5 +43,5 @@ export class BabylonTextures {
         baby.materialsMap.set(textureFilePath, materialPlane)
 
     }
-    
+
 }
