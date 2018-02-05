@@ -36,7 +36,7 @@ export class BabylonUtils {
         BabylonTerrain.loadBaseMountainTile()
         BabylonTerrain.createSkyBox()
 
-        SoundUtils.loadSounds()
+        BabylonSound.loadSounds()
         baby.baseBullet = BabylonUtils.createBaseBullet()
 
         BabylonUtils.createPowerBar()
@@ -266,8 +266,7 @@ export class BabylonUtils {
     }
 
     static createBullet(obj) {
-        const b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
-        bullets.push(b)
+        Bullet.createAndSave(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
 
     }
 
