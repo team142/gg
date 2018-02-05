@@ -1,16 +1,15 @@
 import { match } from '../model/Match.js'
-import { Postman } from '../controller/Postman.js'
+import { MessageRouter } from '../controller/MessageRouter.js'
 import { Web } from '../view/Web.js'
 
 const sio = {}
 
-export class ServerIO {
+export class NetworkController {
 
     static joinServer(url, name) {
         match.username = name
         sio.socket = new WebSocket("ws://" + url + "websocket")
-        ServerIO.assignMethods()
-
+        NetworkController.assignMethods()
     }
 
     static assignMethods() {
@@ -22,7 +21,7 @@ export class ServerIO {
                 }
             ))
         }
-        sio.socket.onmessage = Postman.incoming
+        sio.socket.onmessage = MessageRouter.incoming
         sio.socket.onerror = (error) => {
             swal({
                 type: 'error',
@@ -30,35 +29,30 @@ export class ServerIO {
                 text: 'Failed to join server',
                 footer: 'Did you pick a valid server address?',
             })
-
             Web.enabledJoinButton()
         }
-
     }
 
     static send(msg) {
         sio.socket.send(msg)
-
     }
 
     static sendKeyUp(key) {
-        ServerIO.send(JSON.stringify(
+        NetworkController.send(JSON.stringify(
             {
                 conversation: "P_KU",
                 key: key
             }
         ))
-
     }
 
     static sendKeyDown(key) {
-        ServerIO.send(JSON.stringify(
+        NetworkController.send(JSON.stringify(
             {
                 conversation: "P_KD",
                 key: key
             }
         ))
-
     }
 
 }

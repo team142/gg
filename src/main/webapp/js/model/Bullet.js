@@ -1,19 +1,25 @@
 import { BabylonUtils } from '../view/BabylonUtils.js'
+import { baby} from '../model/Baby.js'
 
 export const bullets = []
 export class Bullet {
 
     static setupTicker() {
         bulletTimer = setInterval(() => {
-            for (const bullet of bullets) {
-                bullet.tick()
-            }
+            Bullet.tickAll()
         }, (17 * 3))
 
     }
 
     static tickAll() {
+        for (const bullet of bullets) {
+            bullet.tick()
+        }
+    }
 
+    static createAndSave(obj) {
+        const b = new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
+        bullets.push(b)
     }
 
     constructor(obj, babylonObject) {
