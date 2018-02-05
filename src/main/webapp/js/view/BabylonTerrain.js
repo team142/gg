@@ -1,4 +1,4 @@
-import { baby } from './BabylonUtils.js'
+import { baby } from '../model/Baby.js'
 
 export class BabylonTerrain {
 

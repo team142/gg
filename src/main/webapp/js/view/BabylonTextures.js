@@ -1,4 +1,5 @@
-import { BabylonUtils, baby } from './BabylonUtils.js'
+import { BabylonUtils } from './BabylonUtils.js'
+import { baby } from '../model/Baby.js'
 
 export class BabylonTextures {
 
