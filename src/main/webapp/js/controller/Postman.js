@@ -5,6 +5,7 @@ import { baby } from '../model/Baby.js'
 import { BabylonSounds } from '../view/BabylonSounds.js'
 import { game } from '../model/Game.js'
 import { match } from '../model/Match.js'
+import { BabylonView} from '../view/BabylonView.js'
 
 export class Postman {
 
@@ -25,7 +26,7 @@ export class Postman {
             Web.showListOfGames(obj.games)
 
         } else if (conversation == "S_SCOREBOARD") {
-            Postman.scoreboard(obj)
+            BabylonView.scoreboard(obj)
 
         } else if (conversation == "S_SHARE_TAG") {
             match.tag = obj.tag
@@ -37,7 +38,7 @@ export class Postman {
             BabylonSounds.playSound(obj.FILE)
 
         } else if (conversation == "S_PLAYER_LEFT") {
-            Postman.playerLeft(obj)
+            match.playerLeaves(obj.tag)            
 
         } else if (conversation == "S_SHARE_BULLETS") {
             BabylonUtils.createBullet(obj)
@@ -46,65 +47,11 @@ export class Postman {
             BabylonUtils.createSpray(obj.tagId, obj.ms)
 
         } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
-            Postman.recievedDynamicThings(obj)
+            BabylonView.recievedDynamicThings(obj)
 
         } else {
             console.log("Dont know what to do with this:")
             console.log(obj)
-        }
-
-    }
-
-    static scoreboard(obj) {
-        for (const key of Object.keys(obj.TAGS)) {
-            BabylonUtils.createSphereIfNotExists(obj.TAGS[key], key)
-        }
-
-        game.scores = []
-        for (const key of Object.keys(obj.SCORES)) {
-            game.scores.push({
-                key: key,
-                value: obj.SCORES[key]
-            })
-        }
-        game.scores.sort((a, b) => {
-            return a.value - b.value
-        })
-        BabylonUtils.displayScores()
-
-    }
-
-    static playerLeft(obj) {
-        match.playerLeaves(obj.tag)
-    }
-
-    static recievedDynamicThings(obj) {
-        for (const t of obj.things) {
-            if (t.tag == match.tag) {
-                if (!baby.camera) {
-                    return
-                }
-                baby.camera.position.x = t.x
-                baby.camera.position.y = t.y + 0.25
-                baby.camera.position.z = t.z
-                baby.camera.rotation.y = t.rotation
-
-                //Move the healthbar
-                BabylonUtils.changeMyHealthBar(t.health, t.maxHealth)
-            }
-            const s = match.getPlayerByTag(t.tag)
-            if (s) {
-                s.position.x = t.x
-                s.position.y = t.y
-                s.position.z = t.z
-                s.rotation.y = t.rotation - 1.57
-            }
-            const rect1 = match.getHealthBarByTag(t.tag)
-            if (rect1) {
-                BabylonUtils.setHealthRectangle(rect1, t.health, t.maxHealth)
-            }
-
-
         }
 
     }
