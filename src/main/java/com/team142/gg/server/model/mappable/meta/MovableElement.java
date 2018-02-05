@@ -61,8 +61,8 @@ public class MovableElement extends PlaceableElement {
         double coefficientX = Math.sin(getRotation());
         double coefficientZ = Math.cos(getRotation());
 
-        success = success || changeX(coefficientX * getSpeed(), map);
-        success = success || changeZ(coefficientZ * getSpeed(), map);
+        success = changeX(coefficientX * getSpeed(), map) || success;
+        success = changeZ(coefficientZ * getSpeed(), map) || success;
 
         return success;
     }
@@ -81,8 +81,8 @@ public class MovableElement extends PlaceableElement {
         double coefficientX = Math.sin(newRotation);
         double coefficientZ = Math.cos(newRotation);
 
-        success = success || changeX(coefficientX * getSpeed(), map);
-        success = success || changeZ(coefficientZ * getSpeed(), map);
+        success = changeX(coefficientX * getSpeed(), map) || success;
+        success = changeZ(coefficientZ * getSpeed(), map) || success;
 
         return success;
 

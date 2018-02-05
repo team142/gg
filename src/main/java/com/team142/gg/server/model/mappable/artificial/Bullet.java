@@ -71,7 +71,9 @@ public class Bullet extends MovableElement {
                 .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this, tank.getWidth()))
                 .forEach((tank) -> damage(tank));
 
-        ok = success;
+        if (!success) {
+            ok = false;
+        }
 
         if (getX() < 0) {
             ok = false;
@@ -99,6 +101,10 @@ public class Bullet extends MovableElement {
     }
 
     public void damage(Tank tank) {
+        if (!ok) {
+            return;
+        }
+        ok = false;
         BulletHitResult result = tank.damage(damage, player);
 
         Game game = Repository.GAMES_ON_SERVER.get(player.getGameId());
@@ -115,7 +121,6 @@ public class Bullet extends MovableElement {
         if (result.isLethal()) {
             GameManager.handleKill(game, player, toPlayer);
         }
-        ok = false;
     }
 
 }
