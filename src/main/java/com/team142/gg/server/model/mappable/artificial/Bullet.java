@@ -50,6 +50,7 @@ public class Bullet extends MovableElement {
         if (getZ() < 0) {
             setZ(0);
         }
+        this.setWalkOnWater(true);
 
     }
 
@@ -59,8 +60,8 @@ public class Bullet extends MovableElement {
         }
 
         Map map = (Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap());
-        moveForward(map);
-        
+        boolean success = moveForward(map);
+
         Repository.GAMES_ON_SERVER
                 .get(player.getGameId())
                 .getTANKS()
@@ -69,6 +70,8 @@ public class Bullet extends MovableElement {
                 .filter((tank) -> tank.getTAG() != player.getTAG())
                 .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this, tank.getWidth()))
                 .forEach((tank) -> damage(tank));
+
+        ok = success;
 
         if (getX() < 0) {
             ok = false;

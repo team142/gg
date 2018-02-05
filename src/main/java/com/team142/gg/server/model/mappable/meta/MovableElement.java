@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.model.mappable.meta;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team142.gg.server.model.Map;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,11 @@ public class MovableElement extends PlaceableElement {
     @Getter
     @Setter
     private double direction;
+
+    @JsonIgnore
+    @Getter
+    @Setter
+    private boolean walkOnWater;
 
     public static final float BASE_ROTATE = (float) Math.toRadians(1.25);
     public static final float MAX_ROTATE = (float) (Math.PI * 2);
@@ -48,17 +54,22 @@ public class MovableElement extends PlaceableElement {
         }
     }
 
-    public void moveForward(Map map) {
+    public boolean moveForward(Map map) {
+
+        boolean success = false;
 
         double coefficientX = Math.sin(getRotation());
         double coefficientZ = Math.cos(getRotation());
 
-        changeX(coefficientX * getSpeed(), map);
-        changeZ(coefficientZ * getSpeed(), map);
+        success = success || changeX(coefficientX * getSpeed(), map);
+        success = success || changeZ(coefficientZ * getSpeed(), map);
 
+        return success;
     }
 
-    public void moveBackward(Map map) {
+    public boolean moveBackward(Map map) {
+
+        boolean success = false;
 
         double newRotation = getRotation();
         newRotation = newRotation - Math.PI;
@@ -70,8 +81,10 @@ public class MovableElement extends PlaceableElement {
         double coefficientX = Math.sin(newRotation);
         double coefficientZ = Math.cos(newRotation);
 
-        changeX(coefficientX * getSpeed(), map);
-        changeZ(coefficientZ * getSpeed(), map);
+        success = success || changeX(coefficientX * getSpeed(), map);
+        success = success || changeZ(coefficientZ * getSpeed(), map);
+
+        return success;
 
     }
 
@@ -93,24 +106,57 @@ public class MovableElement extends PlaceableElement {
     }
 
     //Check before changing...
-    private void changeZ(double amt, Map map) {
+    private boolean changeZ(double amt, Map map) {
         double newZ = getZ() + amt;
+        if (isWalkOnWater()) {
+            if (amt > 0 && map.isShootover(getX(), newZ + 1)) {
+                setZ(newZ);
+            } else if (amt < 0 && map.isShootover(getX(), newZ)) {
+                setZ(newZ);
+
+            } else {
+                //Failed to move
+                return false;
+            }
+            return true;
+        }
+
         if (amt > 0 && map.isMovable(getX(), newZ + 1)) {
             setZ(newZ);
         } else if (amt < 0 && map.isMovable(getX(), newZ)) {
             setZ(newZ);
+        } else {
+            //Failed to move
+            return false;
         }
+        return true;
 
     }
 
     //Check before changing...
-    private void changeX(double amt, Map map) {
+    private boolean changeX(double amt, Map map) {
         double newX = getX() + amt;
+        if (isWalkOnWater()) {
+            if (amt > 0 && map.isShootover(newX + 1, getZ())) {
+                setX(newX);
+            } else if (amt < 0 && map.isShootover(newX, getZ())) {
+                setX(newX);
+            } else {
+                //Failed to move
+                return false;
+            }
+            return true;
+        }
+
         if (amt > 0 && map.isMovable(newX + 1, getZ())) {
             setX(newX);
         } else if (amt < 0 && map.isMovable(newX, getZ())) {
             setX(newX);
+        } else {
+            //Failed tp move
+            return false;
         }
+        return true;
 
     }
 }
