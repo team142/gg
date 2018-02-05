@@ -6,15 +6,15 @@ import { match } from '../model/Match.js'
 export class BabylonView {
 
     static scoreboard(obj) {
-        for (const key of Object.keys(obj.TAGS)) {
-            BabylonUtils.createSphereIfNotExists(obj.TAGS[key], key)
+        for (const key of Object.keys(obj.tags)) {
+            BabylonUtils.createSphereIfNotExists(obj.tags[key], key)
         }
 
         game.scores = []
-        for (const key of Object.keys(obj.SCORES)) {
+        for (const key of Object.keys(obj.scores)) {
             game.scores.push({
                 key: key,
-                value: obj.SCORES[key]
+                value: obj.scores[key]
             })
         }
         game.scores.sort((a, b) => {

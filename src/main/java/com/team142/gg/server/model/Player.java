@@ -59,10 +59,10 @@ public class Player {
 
     public void populateScorebord(MessageScoreboard board) {
         //Add score
-        board.getSCORES().put(name, this.kills.get());
+        board.getScores().put(name, this.kills.get());
 
         //Add tag
-        board.getTAGS().put(name, TAG);
+        board.getTags().put(name, TAG);
 
     }
 

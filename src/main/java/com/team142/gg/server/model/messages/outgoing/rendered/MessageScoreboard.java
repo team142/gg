@@ -19,10 +19,10 @@ import lombok.Getter;
 public class MessageScoreboard extends Message {
 
     @Getter
-    private final Map<String, Integer> SCORES = new HashMap<>();
+    private final Map<String, Integer> scores = new HashMap<>();
 
     @Getter
-    private final Map<String, Integer> TAGS = new HashMap<>();
+    private final Map<String, Integer> tags = new HashMap<>();
 
     public MessageScoreboard(Game game) {
         this.setConversation(ConversationType.S_SCOREBOARD.name());
