@@ -13,7 +13,11 @@ The goal of this project is to build an MMO tank game implemented in JS with Bab
 
 ## Running the client only
 
-See <a href="http://github.com/team142/gg-client">github.com/team142/gg-client</a>
+- Install an http file server `npm install http-server -g`
+- Go to the client directory `cd client/`
+- Run `http-server`
+- Navigate to <a href="http://localhost:8080">localhost:8080</a>
+- For the server drop-down, select team142.co.za
 
 ## Running the client & the server
 

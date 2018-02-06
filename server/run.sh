@@ -4,11 +4,11 @@ docker stop gg
 docker rm gg
 docker rmi team142/gg:local
 
-cd ../gg-client
+cd ../client
 ./build.sh
 cd ../gg
 mkdir src/main/webapp
-cp -rf ../gg-client/build/ src/main/webapp/
+cp -rf ../client/build/ src/main/webapp/
 cp -rf src/main/WEB-INF src/main/webapp
 
 mvn clean install
