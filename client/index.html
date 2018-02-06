@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Good Game</title>
+
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script src="https://www.babylonjs.com/hand.minified-1.2.js"></script>
+    <script src="./js/babylon/babylon.js"></script>
+    <script src="./js/babylon/babylon.gui.min.js"></script>
+    <script src="./js/babylon/cannon.js"></script>
+    <script src="./js/babylon/oimo.js"></script>
+    <script src="./js/babylon/babylon.objFileLoader.js"></script>
+    <script src="./js/babylon/babylon.cloudProceduralTexture.min.js"></script>
+
+
+    <script type="module" src="./js/App.js"></script>
+
+    <script src="https://unpkg.com/sweetalert2@7.8.2/dist/sweetalert2.all.js"></script>
+
+    <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #edeff2;
+        }
+
+        #VIEW_CANVAS {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div id="view-debug">
+
+    </div>
+
+
+    <div id="VIEW_SERVERS">
+        <div style="margin: 0 auto; width: 100%;">
+            <div class="row">
+
+                <div class="col-4">
+                </div>
+
+                <div class="col-4">
+
+                    <div class="card text-white bg-secondary mb-3" style="margin-top: 40%">
+                        <div class="card-header">
+                            GG
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="inputName">Name</label>
+                                        <input type="name" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter a nick or name" value=""
+                                        />
+                                        <small id="nameHelp" class="form-text text-muted">Your name in the game.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="selectServer">Server</label>
+                                        <select class="form-control" name="selectServer" id="selectServer">
+                                            <option value="team142.co.za/">team142.co.za/</option>
+                                            <option value="localhost:8080/">localhost:8080/</option>
+                                        </select>
+                                    </div>
+                                    <button type="button" id="btnJoinServer" class="btn btn-success btn-lg">Join</button>
+                                    <br />
+                                    <p style="font-style: italic;" align="right">Version 0.1 Alpha</p>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="col-4">
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div id="VIEW_GAMES">
+        <h1>Game list</h1>
+    </div>
+
+    <canvas id="VIEW_CANVAS">
+
+    </canvas>
+
+
+</body>
+
+</html>
