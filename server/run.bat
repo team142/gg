@@ -1,3 +1,6 @@
+cd ../client
+build.bat
+cd ../server
 docker stop gg
 docker rm gg
 docker rmi team142/gg:local
