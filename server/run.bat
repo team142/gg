@@ -1,5 +1,5 @@
 cd ../client
-build.bat
+call build.bat
 cd ../server
 docker stop gg
 docker rm gg
