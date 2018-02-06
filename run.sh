@@ -8,6 +8,7 @@ cd ../gg-client
 ./build.sh
 cd ../gg
 cp -rf ../gg-client/build/ src/main/webapp/
+cp -rf src/main/WEB-INF src/main/webapp
 
 mvn clean install
 docker build -t team142/gg:local .
