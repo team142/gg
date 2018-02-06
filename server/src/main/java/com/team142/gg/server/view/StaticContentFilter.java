@@ -46,7 +46,7 @@ public class StaticContentFilter implements Filter {
 //        Logger.getLogger(this.getClass().getName()).log(Level.INFO, r.getRequestURL().toString());
 
         String filename = r.getRequestURL().toString();
-        if (filename.contains("App.js") || filename.equals("/")) {
+        if (filename.contains("App.js") || filename.charAt(filename.length() - 1) == '/') {
             HttpServletResponse res = (HttpServletResponse) response;
             res.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             res.addHeader("Pragma", "no-cache");
