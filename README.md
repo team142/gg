@@ -13,7 +13,7 @@ The goal of this project is to build an MMO tank game implemented in JS with Bab
 
 ## Running the client only
 
-See team142/gg-client
+See <a href="http://github.com/team142/gg-client">github.com/team142/gg-client</a>
 
 ## Running the client & the server
 
