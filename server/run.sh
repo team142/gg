@@ -6,7 +6,7 @@ docker rmi team142/gg:local
 
 cd ../client
 ./build.sh
-cd ../gg
+cd ../server
 mkdir src/main/webapp
 cp -rf ../client/build/ src/main/webapp/
 cp -rf src/main/WEB-INF src/main/webapp
