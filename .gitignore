@@ -9,3 +9,4 @@ server/.settings/org.eclipse.core.resources.prefs
 server/.project
 server/.classpath
 *.DS_Store
+client/build/
