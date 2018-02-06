@@ -11,6 +11,14 @@ The goal of this project is to build an MMO tank game implemented in JS with Bab
 ## Planning & progress
 <a href="https://trello.com/b/kTa2O4Ya/gg-board"><img src="docs/trello.png" height="80"></a>
 
+## Setup for development
+
+- Install Java 8
+- Install Docker
+- Install rollup `npm install rollup -g`
+- Install an http file server `npm install http-server -g`
+- Install maven (ensure mvn is in path)
+
 ## Running the client only
 
 - Install rollup `npm install rollup -g`
