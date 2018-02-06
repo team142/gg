@@ -13,6 +13,7 @@ The goal of this project is to build an MMO tank game implemented in JS with Bab
 
 ## Running the client only
 
+- Install rollup `npm install rollup -g`
 - Install an http file server `npm install http-server -g`
 - Go to the client directory `cd client/`
 - Run `http-server`
