@@ -1,10 +1,10 @@
 del build/
 mkdir build
 mkdir build/js/
-robocopy index.html build
-robocopy favicon.ico build
-robocopy scene.babylon.manifest build
-robocopy textures build
-robocopy sounds build
-robocopy js/babylon build/js
+robocopy . build index.html 
+robocopy . build favicon.ico
+robocopy . build scene.babylon.manifest
+robocopy textures build/textures
+robocopy sounds build/sounds
+robocopy js/babylon build/js/babylon
 rollup js/App.js --o build/js/App.js --f es
