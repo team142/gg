@@ -38,16 +38,18 @@ export class BabylonModels {
 
     static createSkyBox() {
         // Skyboxes
-        const skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene)
-        skyboxMaterial.backFaceCulling = false
-        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", baby.scene)
-        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
-        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0)
-        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0)
-        skyboxMaterial.disableLighting = true
-        const skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50 * 50, baby.scene)
-        skybox1.material = skyboxMaterial
-        skybox1.visibility = 1
+
+        const skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene);
+        skyboxMaterial.backFaceCulling = false;
+        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", baby.scene);
+        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+
+        const skybox = BABYLON.Mesh.CreateBox("skyBox", 200.0, baby.scene);
+        skybox.position = baby.camera.position;
+        skybox.material = skyboxMaterial;
+
 
     }
 
