@@ -115,7 +115,7 @@ export class BabylonUtils {
         baby.advancedTexture.addControl(image)
 
         var text1 = new BABYLON.GUI.TextBlock("textblock" + n)
-        text1.text = n.toString()
+        text1.text = (n + 1).toString()
         text1.color = "black"
         text1.fontSize = 24
 
