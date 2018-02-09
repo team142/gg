@@ -8,6 +8,7 @@ package com.team142.gg.server.controller;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
+import com.team142.gg.server.model.Server;
 import static com.team142.gg.server.model.Server.REPORT_STATS;
 import static com.team142.gg.server.model.Server.SERVER_NAME;
 import com.team142.gg.server.model.mappable.organic.MapSettings;
@@ -34,6 +35,14 @@ public class ServerManager {
         LOG.log(Level.INFO, "Checking for env");
         SERVER_NAME = System.getenv("REPORT_SERVER_STATS_AS");
         REPORT_STATS = SERVER_NAME != null && !SERVER_NAME.isEmpty();
+
+    }
+
+    public static void checkSession(Session session) {
+        if (!session.isOpen()) {
+            Logger.getLogger(Server.class.getName()).log(Level.INFO, "Player disconnected");
+            ServerManager.playerDisconnects(session.getId());
+        }
 
     }
 

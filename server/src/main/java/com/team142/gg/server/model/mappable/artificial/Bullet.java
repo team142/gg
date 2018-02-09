@@ -38,7 +38,7 @@ public class Bullet extends MovableElement {
     private double damage;
 
     public Bullet(Player player) {
-        super(player.getTANK().getX(), player.getTANK().getY(), player.getTANK().getZ(), SkinType.BULLET.name(), Server.DEFAULT_SPEED, -1);
+        super(player.getTANK().getX(), player.getTANK().getY(), player.getTANK().getZ(), SkinType.BULLET.name(), Server.BULLET_DEFAULT_SPEED, -1);
         this.setDirection(1);
         this.setRotation(player.getTANK().getRotation());
         this.player = player;

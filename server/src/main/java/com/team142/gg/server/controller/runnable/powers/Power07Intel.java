@@ -15,11 +15,11 @@ import java.util.logging.Logger;
  *
  * @author just1689
  */
-public class Power7Intel extends Power {
+public class Power07Intel extends Power {
 
     private long onTimeMs = 10000;
 
-    public Power7Intel(Player player, long refreshTime) {
+    public Power07Intel(Player player, long refreshTime) {
         super(player, 0, refreshTime);
     }
 
@@ -33,10 +33,9 @@ public class Power7Intel extends Power {
                 MessageIntelChange message1 = new MessageIntelChange(false);
                 MessageManager.sendPlayerAMessage(getPlayer().getId(), message1);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Power7Intel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Power07Intel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).start();
 
     }
-
 }

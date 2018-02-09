@@ -15,9 +15,9 @@ import com.team142.gg.server.model.mappable.artificial.Bullet;
  *
  * @author just1689
  */
-public class Power1Shoot extends Power {
+public class Power01Shoot extends Power {
 
-    public Power1Shoot(Player player, long refreshTime) {
+    public Power01Shoot(Player player, long refreshTime) {
         super(player, 0, refreshTime);
     }
 

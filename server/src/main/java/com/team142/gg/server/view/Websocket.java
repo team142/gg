@@ -32,11 +32,7 @@ public class Websocket {
 
     @OnError
     public void onError(Session session, Throwable t) {
-        if (!session.isOpen()) {
-            Logger.getLogger(Server.class.getName()).log(Level.INFO, "Player disconnected");
-            ServerManager.playerDisconnects(session.getId());
-        }
-
+        ServerManager.checkSession(session);
         if (!(t instanceof EOFException)) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, "Unknown Error at websocket:", t);
         }
