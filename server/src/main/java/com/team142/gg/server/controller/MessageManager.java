@@ -10,6 +10,7 @@ import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.messages.base.ConversationMap;
 import com.team142.gg.server.utils.JsonUtils;
+import java.io.EOFException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,7 +67,13 @@ public class MessageManager {
 
     public static void sendPlayerAMessage(Session session, String json) {
         if (session != null) {
-            session.getAsyncRemote().sendText(json);
+            try {
+                session.getAsyncRemote().sendText(json);
+            } catch (Exception ex) {
+                if (ex instanceof EOFException) {
+                    ServerManager.checkSession(session);
+                }
+            }
         }
     }
 }
