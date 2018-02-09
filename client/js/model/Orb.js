@@ -25,6 +25,7 @@ export class Orb {
 
     static save(orb) {
         orbs.set(orb.name, orb)
+        console.log(orbs)
     }
 
     static remove(name) {

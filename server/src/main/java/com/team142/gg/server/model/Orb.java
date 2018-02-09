@@ -22,6 +22,13 @@ public class Orb {
     @Setter
     private double x, z;
 
+    @Getter
+    private String gameId;
+
+    public Orb(String gameId) {
+        this.gameId = gameId;
+    }
+
     public void use() {
         //Ummm
     }

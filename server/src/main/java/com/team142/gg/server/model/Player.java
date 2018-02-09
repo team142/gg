@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.controller.OrbManager;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
@@ -115,7 +116,7 @@ public class Player {
 
         Map map = Repository.GAMES_ON_SERVER.get(gameId).getMap();
 
-        if(isRegularMovement()) {
+        if (isRegularMovement()) {
             if (isKeyDown(KEY_FORWARD)) {
                 getTANK().moveForward(map);
             }
@@ -138,13 +139,13 @@ public class Player {
     }
 
     private boolean isRegularMovement() {
-        return !isKeyDown(KEY_BACKWARD) &&
-                (isKeyDown(KEY_FORWARD) || isKeyDown(KEY_LEFT) || isKeyDown(KEY_RIGHT));
+        return !isKeyDown(KEY_BACKWARD)
+                && (isKeyDown(KEY_FORWARD) || isKeyDown(KEY_LEFT) || isKeyDown(KEY_RIGHT));
     }
 
     private boolean isReverseMovement() {
-        return !isKeyDown(KEY_FORWARD) &&
-                isKeyDown(KEY_BACKWARD);
+        return !isKeyDown(KEY_FORWARD)
+                && isKeyDown(KEY_BACKWARD);
     }
 
     private void turnRight() {
@@ -153,6 +154,16 @@ public class Player {
 
     private void turnLeft() {
         getTANK().rotateLeft();
+    }
+
+    public void checkForOrbs() {
+        Orb orb = OrbManager.isTankInOrb(TANK, gameId);
+        if (orb != null) {
+            //Give to player
+            //TODO: XP++
+            
+            OrbManager.remove(orb);
+        }
     }
 
 }

@@ -24,6 +24,7 @@ public class TickerPhysics extends AbstractTickerWorker {
     public void doTick() {
         Player player = Repository.PLAYERS_ON_SERVER.get(getPLAYER_ID());
         player.movementTick();
+        player.checkForOrbs();
 
         player.getBULLETS()
                 .stream()
