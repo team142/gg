@@ -158,8 +158,8 @@ export class BabylonUtils {
 
     static setHealthRectangle(rect1, health, totalHealth) {
         rect1.width = health / totalHealth * 0.2
-        if (match.miniMapOn == rect1.visibility) {
-            rect1.visibility = match.miniMapOn
+        if (match.miniMapOn != rect1.isVisible) {
+            rect1.isVisible = match.miniMapOn
         }
 
     }
