@@ -13,9 +13,10 @@ export class PowerCooldownBar {
     }
 
     constructor(item, ticks) {
-        this.ticksToFull = xticksToFull
+        this.ticksToFull = ticks
         this.currentValue = 0
         this.babylonRect = item
+        this.useIt()
     }
 
     changeRefresh(ticks) {
@@ -40,9 +41,8 @@ export class PowerCooldownBar {
         if (this.currentValue == this.ticksToFull) {
             return
         }
-
         this.currentValue++
-        
+
         let width = 0
         if (this.currentValue > this.ticksToFull) {
             this.currentValue = this.ticksToFull
@@ -50,7 +50,7 @@ export class PowerCooldownBar {
         } else {
             width = this.currentValue / this.ticksToFull * POWER_ICON_WIDTH
         }
-        this.babylonRect.width = width
+        this.babylonRect.width = "" + width + "px"
         
     }
 

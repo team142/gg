@@ -60,16 +60,16 @@ export class BabylonUtils {
         baby.advancedTexture.addControl(powerBack)
 
         const powers = [
-            { ico: "textures/ico-shoot.jpg", cooldown: 1000 },
-            { ico: "textures/ico-tail.jpg", cooldown: 1000 },
-            { ico: "textures/ico-missile.jpg", cooldown: 1000 },
-            { ico: "textures/ico-seeker.jpg", cooldown: 1000 },
-            { ico: "textures/ico-bomb.jpg", cooldown: 1000 },
-            { ico: "textures/ico-radar.jpg", cooldown: 1000 },
-            { ico: "textures/ico-intel.jpg", cooldown: 1000 },
-            { ico: "textures/ico-safety.jpg", cooldown: 1000 },
-            { ico: "textures/ico-blank.jpg", cooldown: 1000 },
-            { ico: "textures/ico-blank.jpg", cooldown: 1000 }
+            { ico: "textures/ico-shoot.jpg", cooldown: 20 },
+            { ico: "textures/ico-tail.jpg", cooldown: 20 },
+            { ico: "textures/ico-missile.jpg", cooldown: 20 },
+            { ico: "textures/ico-seeker.jpg", cooldown: 20 },
+            { ico: "textures/ico-bomb.jpg", cooldown: 20 },
+            { ico: "textures/ico-radar.jpg", cooldown: 20 },
+            { ico: "textures/ico-intel.jpg", cooldown: 20 },
+            { ico: "textures/ico-safety.jpg", cooldown: 20 },
+            { ico: "textures/ico-blank.jpg", cooldown: 20 },
+            { ico: "textures/ico-blank.jpg", cooldown: 20 }
         ]
 
         for (const [index, p] of powers.entries()) {
