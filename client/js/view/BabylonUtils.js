@@ -112,19 +112,19 @@ export class BabylonUtils {
         x = x - ((75 + 5) * (10 / 2 - 0.5)) //Center in middle
         image.left = x + "px"
         image.top = "-10px"
-
-        // var text1 = new BABYLON.GUI.TextBlock();
-        // text1.text = n.toString();
-        // text1.color = "black";
-        // text1.fontSize = 24;
-        // text1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
-        // text1.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
-        // text1.left = x + "px"
-        // text1.top = "-10px"
-        // baby.advancedTexture.addControl(text1)
-        
-
         baby.advancedTexture.addControl(image)
+
+        var text1 = new BABYLON.GUI.TextBlock("textblock" + n)
+        text1.text = n.toString()
+        text1.color = "black"
+        text1.fontSize = 24
+
+        text1.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        text1.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+
+        text1.left = (x - 75 / 2 + 7) + "px"
+        text1.top = "-10px"
+        baby.advancedTexture.addControl(text1)
 
     }
 
