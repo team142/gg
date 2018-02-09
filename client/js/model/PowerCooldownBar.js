@@ -1,11 +1,21 @@
 
 const POWER_ICON_WIDTH = 75
 
-class PowerCooldownBar {
+const powerbarCooldownBars = new Map()
 
-    constructor(babylonRect, ticks) {
+export class PowerCooldownBar {
+
+    static save(index, item) {
+        powerbarCooldownBars.set(index, item)
+    }
+    static get(index) {
+        return powerbarCooldownBars.get(index)
+    }
+
+    constructor(item, ticks) {
         this.ticksToFull = xticksToFull
         this.currentValue = 0
+        this.babylonRect = item
     }
 
     changeRefresh(ticks) {
@@ -20,7 +30,7 @@ class PowerCooldownBar {
     startTimer() {
         this.timer = window.setInterval(
             () => {
-                tick()
+                this.tick()
             }
             , 20
         )

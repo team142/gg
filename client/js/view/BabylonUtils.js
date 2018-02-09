@@ -6,6 +6,7 @@ import { Bullet, bullets } from '../model/Bullet.js'
 import { BabylonModels } from './BabylonModels.js'
 import { BabylonTextures } from './BabylonTextures.js'
 import { baby } from '../model/Baby.js'
+import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 
 export class BabylonUtils {
 
@@ -59,22 +60,40 @@ export class BabylonUtils {
         baby.advancedTexture.addControl(powerBack)
 
         const powers = [
-            "textures/ico-shoot.jpg",
-            "textures/ico-tail.jpg",
-            "textures/ico-missile.jpg",
-            "textures/ico-seeker.jpg",
-            "textures/ico-bomb.jpg",
-            "textures/ico-radar.jpg",
-            "textures/ico-intel.jpg",            
-            "textures/ico-safety.jpg",
-            "textures/ico-blank.jpg",
-            "textures/ico-blank.jpg"
+            { ico: "textures/ico-shoot.jpg", cooldown: 1000 },
+            { ico: "textures/ico-tail.jpg", cooldown: 1000 },
+            { ico: "textures/ico-missile.jpg", cooldown: 1000 },
+            { ico: "textures/ico-seeker.jpg", cooldown: 1000 },
+            { ico: "textures/ico-bomb.jpg", cooldown: 1000 },
+            { ico: "textures/ico-radar.jpg", cooldown: 1000 },
+            { ico: "textures/ico-intel.jpg", cooldown: 1000 },
+            { ico: "textures/ico-safety.jpg", cooldown: 1000 },
+            { ico: "textures/ico-blank.jpg", cooldown: 1000 },
+            { ico: "textures/ico-blank.jpg", cooldown: 1000 }
         ]
 
-        for (const [index, fileImage] of powers.entries()) {
-            BabylonUtils.createPowerBarItem(index, fileImage)
+        for (const [index, p] of powers.entries()) {
+            BabylonUtils.createPowerBarItem(index, p.ico)
+            PowerCooldownBar.save(new PowerCooldownBar(BabylonUtils.createPowerBarCooldownTile(index), p.cooldown))
         }
 
+    }
+
+    static createPowerBarCooldownTile(n) {
+        let image = new BABYLON.GUI.Image("cooldownTile" + n, "textures/ico-blank.jpg")
+        image.height = "75px"
+        image.width = "75px"
+        image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+
+        //Left position
+        let x = (75 + 5) * +n //Defaul space for a tile
+        x = x - ((75 + 5) * (10 / 2 - 0.5)) //Center in middle
+        image.left = x + "px"
+        image.top = "-10px"
+
+        baby.advancedTexture.addControl(image)
+        return image
     }
 
     static createPowerBarItem(n, fileImage) {
