@@ -39,6 +39,7 @@ export class BabylonUtils {
 
         BabylonSounds.loadSounds()
         BabylonModels.createBaseBullet()
+        BabylonModels.createBaseRandomOrb()
 
         BabylonUtils.createPowerBar()
         BabylonUtils.createOwnHealthBar()
