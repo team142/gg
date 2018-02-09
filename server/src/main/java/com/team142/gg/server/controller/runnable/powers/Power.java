@@ -19,7 +19,7 @@ public abstract class Power implements Runnable {
 
     private Player player;
     private long lastRunTime;
-    private long refreshTime;
+    private long refreshTime; //In MS
 
     @Override
     public void run() {

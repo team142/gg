@@ -31,6 +31,7 @@ public enum ConversationType {
     , S_SHARE_BULLETS
     , S_SHARE_SPRAY
     , S_SHARE_INTEL
+    , S_SHARE_COOLDOWN
     
 
 }

@@ -57,7 +57,7 @@ public class Player {
         this.TANK = new Tank(0, 0.16d, 0, "default", Server.TANK_DEFAULT_SPEED, TAG, 100, this);
         this.name = "";
         this.powers = new ConcurrentHashMap<>();
-        Power01Shoot power1Shoot = new Power01Shoot(this, 1000);
+        Power01Shoot power1Shoot = new Power01Shoot(this);
         this.powers.put("1", power1Shoot);
         this.powers.put(" ", power1Shoot);
         this.powers.put("7", new Power07Intel(this, 1000));
