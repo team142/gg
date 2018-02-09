@@ -9,6 +9,16 @@ class Match {
         this.username = "Chop"
         this.tag = -1
 
+        this.miniMapOn = false
+
+    }
+
+    isMiniMapOn() {
+        return this.miniMapOn
+    }
+
+    setMiniMapOn(v) {
+        this.miniMapOn = v
     }
 
     playerLeaves(tagId) {

@@ -30,6 +30,7 @@ public enum ConversationType {
     , S_PLAY_SOUND
     , S_SHARE_BULLETS
     , S_SHARE_SPRAY
+    , S_SHARE_INTEL
     
 
 }
