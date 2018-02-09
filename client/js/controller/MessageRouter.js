@@ -6,6 +6,7 @@ import { BabylonUtils } from '../view/BabylonUtils.js'
 import { BabylonSounds } from '../view/BabylonSounds.js'
 import { BabylonAnimations } from '../view/BabylonAnimations.js'
 import { Bullet } from '../model/Bullet.js'
+import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 
 export class MessageRouter {
 
@@ -51,6 +52,11 @@ export class MessageRouter {
 
         } else if (conversation == "S_SHARE_INTEL") {
             match.setMiniMapOn(obj.on == true)
+
+        } else if (conversation == "S_SHARE_COOLDOWN") {
+            let item = PowerCooldownBar.get(obj.num)
+            item.changeRefresh(obj.ticks)
+            item.useIt()
 
         } else {
             console.log("Dont know what to do with this:")

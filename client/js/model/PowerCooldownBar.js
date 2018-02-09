@@ -39,6 +39,7 @@ export class PowerCooldownBar {
 
     tick() {
         if (this.currentValue == this.ticksToFull) {
+            clearInterval(this.timer)
             return
         }
         this.currentValue++
@@ -51,6 +52,8 @@ export class PowerCooldownBar {
             width = this.currentValue / this.ticksToFull * POWER_ICON_WIDTH
         }
         this.babylonRect.width = "" + width + "px"
+
+
         
     }
 
