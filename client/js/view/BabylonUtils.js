@@ -182,8 +182,8 @@ export class BabylonUtils {
         const current = BABYLON.GUI.Button.CreateSimpleButton("but" + BabylonUtils.getCounter(), name + ": " + score)
         current.width = 1
         current.height = "50px"
-        current.color = "green"
-        current.background = "white"
+        current.color = "white"
+        current.background = "black"
         baby.panelScores.addControl(current)
         baby.textScores.push(current)
 
