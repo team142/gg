@@ -52,8 +52,6 @@ export class PowerCooldownBar {
             width = POWER_ICON_WIDTH - this.currentValue / this.ticksToFull * POWER_ICON_WIDTH
         }
         this.babylonRect.width = width.toString() + "px"
-
-
         
     }
 
