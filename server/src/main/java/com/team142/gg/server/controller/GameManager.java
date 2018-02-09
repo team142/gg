@@ -108,12 +108,18 @@ public class GameManager {
         MessageManager.sendPlayersAMessage(game, new MessageBullet(bullet));
     }
 
-    public static void handleKill(Game game, Player fromPlayer, Player player) {
+    public static void handleKill(final Game game, final Player fromPlayer, Player player) {
         fromPlayer.getKills().incrementAndGet();
         GameManager.spawn(game, player);
         GameManager.sendScoreBoard(game);
         MessageManager.sendPlayersAMessage(game, new MessageSpray(player, 1200));
         game.getSoundManager().sendExplode();
+
+        //When a player dies... maybe there should be Orbs
+        new Thread(() -> {
+            OrbManager.possiblySpawnOrb(game);
+        }).start();
+
     }
 
 }
