@@ -8,6 +8,7 @@ package com.team142.gg.server.view;
 import com.team142.gg.server.controller.MessageManager;
 import com.team142.gg.server.controller.ServerManager;
 import com.team142.gg.server.model.Server;
+import java.io.EOFException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.websocket.OnClose;
@@ -31,10 +32,13 @@ public class Websocket {
 
     @OnError
     public void onError(Session session, Throwable t) {
-        Logger.getLogger(Server.class.getName()).log(Level.SEVERE, "Error at websocket:", t);
         if (!session.isOpen()) {
             Logger.getLogger(Server.class.getName()).log(Level.INFO, "Player disconnected");
             ServerManager.playerDisconnects(session.getId());
+        }
+
+        if (!(t instanceof EOFException)) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, "Unknown Error at websocket:", t);
         }
     }
 
