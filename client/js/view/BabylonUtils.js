@@ -60,15 +60,15 @@ export class BabylonUtils {
 
         const powers = [
             "textures/ico-shoot.jpg",
-            "textures/ico-missile.jpg",
-            "textures/ico-radar.jpg",
-            "textures/ico-seeker.jpg",
-            "textures/ico-safety.jpg",
-            "textures/ico-behind.jpg",
-            "textures/ico-intel.jpg",
             "textures/ico-tail.jpg",
-            "textures/ico-fog.jpg",
-            "textures/ico-bomb.jpg"
+            "textures/ico-missile.jpg",
+            "textures/ico-seeker.jpg",
+            "textures/ico-bomb.jpg",
+            "textures/ico-radar.jpg",
+            "textures/ico-intel.jpg",            
+            "textures/ico-safety.jpg",
+            "textures/ico-blank.jpg",
+            "textures/ico-blank.jpg"
         ]
 
         for (const [index, fileImage] of powers.entries()) {
