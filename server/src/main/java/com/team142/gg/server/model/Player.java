@@ -39,6 +39,11 @@ public class Player {
     private TickerPhysics tickerPhysics;
     private ConcurrentHashMap<String, Power> powers;
 
+    private final String KEY_FORWARD = "W";
+    private final String KEY_BACKWARD = "S";
+    private final String KEY_LEFT = "A";
+    private final String KEY_RIGHT = "D";
+
     private ConcurrentSkipListSet<String> keyboard = new ConcurrentSkipListSet<>();
 
     public Player(String id) {
@@ -48,7 +53,7 @@ public class Player {
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
         this.TAG = Server.TAGS.incrementAndGet();
-        this.TANK = new Tank(0, 0.16d, 0, "default", Server.DEFAULT_SPEED, TAG, 100, this);
+        this.TANK = new Tank(0, 0.16d, 0, "default", Server.TANK_DEFAULT_SPEED, TAG, 100, this);
         this.name = "";
         this.powers = new ConcurrentHashMap<>();
         Power1Shoot power1Shoot = new Power1Shoot(this, 1000);
@@ -105,21 +110,47 @@ public class Player {
     }
 
     public void movementTick() {
-        if (isKeyDown("A")) {
-            getTANK().rotateLeft();
-        } else if (isKeyDown("D")) {
-            getTANK().rotateRight();
-        }
 
         Map map = Repository.GAMES_ON_SERVER.get(gameId).getMap();
-        if (isKeyDown("W")) {
-            getTANK().moveForward(map);
-        } else if (isKeyDown("S")) {
+
+        if(isRegularMovement()) {
+            if (isKeyDown(KEY_FORWARD)) {
+                getTANK().moveForward(map);
+            }
+            if (isKeyDown(KEY_LEFT)) {
+                turnLeft();
+            } else if (isKeyDown(KEY_RIGHT)) {
+                turnRight();
+            }
+        } else if (isReverseMovement()) {
             getTANK().moveBackward(map);
+            if (isKeyDown(KEY_LEFT)) {
+                turnRight();
+            } else if (isKeyDown(KEY_RIGHT)) {
+                turnLeft();
+            }
         }
 
         getTANK().movementTick(map);
 
+    }
+
+    private boolean isRegularMovement() {
+        return !isKeyDown(KEY_BACKWARD) &&
+                (isKeyDown(KEY_FORWARD) || isKeyDown(KEY_LEFT) || isKeyDown(KEY_RIGHT));
+    }
+
+    private boolean isReverseMovement() {
+        return !isKeyDown(KEY_FORWARD) &&
+                isKeyDown(KEY_BACKWARD);
+    }
+
+    private void turnRight() {
+        getTANK().rotateRight();
+    }
+
+    private void turnLeft() {
+        getTANK().rotateLeft();
     }
 
 }

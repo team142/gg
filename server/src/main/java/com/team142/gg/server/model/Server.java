@@ -16,6 +16,8 @@ public class Server {
 
     public static final int TICK_MS = 17;
     public static final double DEFAULT_SPEED = 0.125;
+    public static final double TANK_DEFAULT_SPEED = 0.05;
+    public static final double BULLET_DEFAULT_SPEED = 0.25;
     public static final AtomicInteger TAGS = new AtomicInteger(1000);
 
     public static String SERVER_NAME;
