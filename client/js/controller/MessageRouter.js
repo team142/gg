@@ -54,7 +54,8 @@ export class MessageRouter {
             match.setMiniMapOn(obj.on == true)
 
         } else if (conversation == "S_SHARE_COOLDOWN") {
-            let item = PowerCooldownBar.get(obj.num)
+            let index = +obj.num
+            let item = PowerCooldownBar.get(index.toString())
             item.changeRefresh(obj.ticks)
             item.useIt()
 

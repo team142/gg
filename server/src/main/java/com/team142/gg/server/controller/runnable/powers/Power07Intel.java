@@ -6,6 +6,7 @@
 package com.team142.gg.server.controller.runnable.powers;
 
 import com.team142.gg.server.controller.MessageManager;
+import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.messages.outgoing.other.MessageIntelChange;
 import java.util.logging.Level;
@@ -17,19 +18,21 @@ import java.util.logging.Logger;
  */
 public class Power07Intel extends Power {
 
-    private long onTimeMs = 10000;
+    private static final int INITIAL_COOLDOWN = 5000;
 
     public Power07Intel(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+        super(player, 0, INITIAL_COOLDOWN);
     }
 
     @Override
     public void execute() {
         MessageIntelChange message = new MessageIntelChange(true);
         MessageManager.sendPlayerAMessage(getPlayer().getId(), message);
+        PowerManager.sendCooldown(getPlayer().getId(), this, 7);
+
         new Thread(() -> {
             try {
-                Thread.sleep(onTimeMs);
+                Thread.sleep(getRefreshTime());
                 MessageIntelChange message1 = new MessageIntelChange(false);
                 MessageManager.sendPlayerAMessage(getPlayer().getId(), message1);
             } catch (InterruptedException ex) {
