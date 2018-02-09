@@ -49,6 +49,9 @@ export class MessageRouter {
         } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
             BabylonView.recievedDynamicThings(obj)
 
+        } else if (conversation == "S_SHARE_INTEL") {
+            match.setMiniMapOn(obj.on == true)
+
         } else {
             console.log("Dont know what to do with this:")
             console.log(obj)
