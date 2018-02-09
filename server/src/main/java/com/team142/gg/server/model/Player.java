@@ -11,7 +11,7 @@ import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.controller.runnable.TickerComms;
 import com.team142.gg.server.controller.runnable.TickerPhysics;
 import com.team142.gg.server.controller.runnable.powers.Power;
-import com.team142.gg.server.controller.runnable.powers.Power1Shoot;
+import com.team142.gg.server.controller.runnable.powers.Power01Shoot;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -56,7 +56,7 @@ public class Player {
         this.TANK = new Tank(0, 0.16d, 0, "default", Server.TANK_DEFAULT_SPEED, TAG, 100, this);
         this.name = "";
         this.powers = new ConcurrentHashMap<>();
-        Power1Shoot power1Shoot = new Power1Shoot(this, 1000);
+        Power01Shoot power1Shoot = new Power01Shoot(this, 1000);
         this.powers.put("1", power1Shoot);
         this.powers.put(" ", power1Shoot);
 

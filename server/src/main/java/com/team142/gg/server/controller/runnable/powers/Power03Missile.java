@@ -11,9 +11,9 @@ import com.team142.gg.server.model.Player;
  *
  * @author just1689
  */
-public class Power9Fog extends Power {
+public class Power03Missile extends Power {
 
-    public Power9Fog(Player player, long refreshTime) {
+    public Power03Missile(Player player, long refreshTime) {
         super(player, 0, refreshTime);
     }
 

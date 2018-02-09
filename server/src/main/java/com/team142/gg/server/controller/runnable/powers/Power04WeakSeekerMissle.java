@@ -11,9 +11,9 @@ import com.team142.gg.server.model.Player;
  *
  * @author just1689
  */
-public class Power8Tail extends Power {
+public class Power04WeakSeekerMissle extends Power {
 
-    public Power8Tail(Player player, long refreshTime) {
+    public Power04WeakSeekerMissle(Player player, long refreshTime) {
         super(player, 0, refreshTime);
     }
 

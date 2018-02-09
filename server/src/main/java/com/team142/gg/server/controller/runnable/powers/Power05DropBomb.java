@@ -11,9 +11,9 @@ import com.team142.gg.server.model.Player;
  *
  * @author just1689
  */
-public class Power10Bomb extends Power {
+public class Power05DropBomb extends Power {
 
-    public Power10Bomb(Player player, long refreshTime) {
+    public Power05DropBomb(Player player, long refreshTime) {
         super(player, 0, refreshTime);
     }
 

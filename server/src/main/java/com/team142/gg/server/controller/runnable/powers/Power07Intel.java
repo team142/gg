@@ -11,9 +11,9 @@ import com.team142.gg.server.model.Player;
  *
  * @author just1689
  */
-public class Power4Seeker extends Power {
+public class Power07Intel extends Power {
 
-    public Power4Seeker(Player player, long refreshTime) {
+    public Power07Intel(Player player, long refreshTime) {
         super(player, 0, refreshTime);
     }
 

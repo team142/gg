@@ -11,9 +11,9 @@ import com.team142.gg.server.model.Player;
  *
  * @author just1689
  */
-public class Power5Safety extends Power {
+public class Power02RearShoot extends Power {
 
-    public Power5Safety(Player player, long refreshTime) {
+    public Power02RearShoot(Player player, long refreshTime) {
         super(player, 0, refreshTime);
     }
 
