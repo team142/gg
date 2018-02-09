@@ -41,6 +41,24 @@ export class BabylonTextures {
         materialPlane.backFaceCulling = false//Always show the front and the back of an element
         baby.materialsMap.set(textureFilePath, materialPlane)
 
+        const material = new BABYLON.StandardMaterial("kosh", baby.scene)
+        material.diffuseColor = new BABYLON.Color3(0, 0, 0)
+        material.emissiveColor = BABYLON.Color3.White()
+        material.specularPower = 64
+        material.alpha = 0.2
+    
+        // Material for Random orbs
+        material.emissiveFresnelParameters = new BABYLON.FresnelParameters()
+        material.emissiveFresnelParameters.bias = 0.2
+        material.emissiveFresnelParameters.leftColor = BABYLON.Color3.White()
+        material.emissiveFresnelParameters.rightColor = BABYLON.Color3.Gray()
+    
+        material.opacityFresnelParameters = new BABYLON.FresnelParameters()
+        material.opacityFresnelParameters.power = 4
+        material.opacityFresnelParameters.leftColor = BABYLON.Color3.White()
+        material.opacityFresnelParameters.rightColor = BABYLON.Color3.Black()
+
+        baby.randomOrbMaterial = material
     }
 
 }
