@@ -64,6 +64,14 @@ export class BabylonModels {
         baby.baseBullet = cone
         baby.baseBullet.visibility = false
 
+    }
+
+    static createBaseRandomOrb() {
+        const orb = BABYLON.Mesh.CreateSphere("baseRandomOrb", 32, 0.5, baby.scene);
+        orb.material = baby.randomOrbMaterial
+        orb.position.y = 0.25
+        orb.visibility = false
+        baby.baseRandomOrb = orb
 
     }
 
