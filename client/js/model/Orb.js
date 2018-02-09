@@ -7,6 +7,8 @@ const MAX_SIN_VAL = 7.85
 const VAL_INC = 0.0785
 const tick = 25
 
+const orbs = new Map()
+
 export class Orb {
 
     constructor(name, x, z) {
@@ -19,6 +21,17 @@ export class Orb {
         this.ticker()
         this.startTimer()
 
+    }
+
+    static save(orb) {
+        orbs.set(orb.name, orb)
+    }
+
+    static remove(name) {
+        const orb = orbs.get(name)
+        orb.stop()
+        orb.item.dispose()
+        orbs.delete(name)
     }
 
     startTimer() {
