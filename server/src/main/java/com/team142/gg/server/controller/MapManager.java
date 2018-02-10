@@ -25,7 +25,8 @@ public class MapManager {
     private static final Tile ROCK_TILE = new Tile(SkinType.ROCK, ModelType.ROCK_TILE, false, true);
 
     public static void generateMap(MapSettings settings, Game game) {
-        //TODO
+
+        //TODO - This will be replaced with actual map code. Ignore issues around size etc for now
 
         game.setMap(new Map(settings.getXTiles(), settings.getZTiles()));
 
