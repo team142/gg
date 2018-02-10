@@ -2,7 +2,7 @@
 let gameMap
 export class GameMap {
 
-    create(obj) {
+    static create(obj) {
         gameMap = new GameMap(obj)
     }
     constructor(obj) {
