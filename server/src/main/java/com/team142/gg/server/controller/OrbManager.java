@@ -47,8 +47,8 @@ public class OrbManager {
     }
 
     public static Orb isTankInOrb(Tank TANK, String gameId) {
-        int x = (int) TANK.getX();
-        int z = (int) TANK.getZ();
+        int x = (int) TANK.getPoint().getX();
+        int z = (int) TANK.getPoint().getZ();
         return Repository.GAMES_ON_SERVER.get(gameId)
                 .getOrbs()
                 .values()
