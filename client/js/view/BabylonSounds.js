@@ -1,4 +1,6 @@
-import { baby } from '../model/Baby.js'
+import {
+    baby
+} from '../model/Baby.js'
 
 const sounds = [
     "sounds/pew.mp3",
@@ -9,9 +11,7 @@ const sounds = [
 
 export class BabylonSounds {
     static loadSounds() {
-        for (const s of sounds) {
-            BabylonSounds.loadSound(s)
-        }
+        sounds.forEach((s) => BabylonSounds.loadSound(s))
     }
 
     static loadSound(path) {
