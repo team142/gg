@@ -88,11 +88,11 @@ public class Bullet extends MovableElement {
             ok = false;
             return ok;
         }
-        if (getPoint().getX() > 50 + 1) { //NEED TO USE MAP SIZE?
+        if (getPoint().getX() > map.getX() + 1) {
             ok = false;
             return ok;
         }
-        if (getPoint().getZ() > 50 + 1) {
+        if (getPoint().getZ() > map.getZ() + 1) {
             ok = false;
             return ok;
         }
