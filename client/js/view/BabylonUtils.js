@@ -161,7 +161,7 @@ export class BabylonUtils {
     }
 
     static displayScores() {
-        baby.textScores.forEach((ro) => {
+        baby.textScores.forEach(ro => {
             ro.dispose()
         })
         game.scores.forEach((row, i) => {

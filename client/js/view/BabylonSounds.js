@@ -11,7 +11,7 @@ const sounds = [
 
 export class BabylonSounds {
     static loadSounds() {
-        sounds.forEach((s) => BabylonSounds.loadSound(s))
+        sounds.forEach(s => BabylonSounds.loadSound(s))
     }
 
     static loadSound(path) {
