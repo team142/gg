@@ -18,8 +18,8 @@ public class MapTileElement extends PlaceableElement {
     @Getter
     private final String model;
 
-    public MapTileElement(SpaceTimePoint point, Tile tile, float rotation) {
-        super(point, rotation, tile.getSkin(), 0);
+    public MapTileElement(SpaceTimePoint point, Tile tile) {
+        super(point, tile.getSkin(), 0);
         this.model = tile.getModelType().name();
     }
 

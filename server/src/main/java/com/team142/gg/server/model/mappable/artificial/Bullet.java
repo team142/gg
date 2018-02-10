@@ -41,8 +41,7 @@ public class Bullet extends MovableElement {
 
     public Bullet(Player player) {
         super(new SpaceTimePoint(player.getTANK().getPoint()), SkinType.BULLET.name(), Server.BULLET_DEFAULT_SPEED, -1);
-        this.setDirection(1);
-        this.setRotation(player.getTANK().getRotation());
+        this.getPoint().setRotation(player.getTANK().getPoint().getRotation());
         this.player = player;
         this.damage = 35; //WHO KNOWs..
         this.ok = true;

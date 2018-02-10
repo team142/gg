@@ -21,17 +21,10 @@ public class PlaceableElement {
     private SpaceTimePoint point;
 
     @Getter
-    private float rotation;
-
-    @Getter
     @Setter
     private String skin;
 
     @Getter
     private final int TAG;
-
-    public void setRotation(float rotation) {
-        this.rotation = rotation;
-    }
 
 }

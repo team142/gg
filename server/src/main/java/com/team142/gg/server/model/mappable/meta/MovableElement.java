@@ -20,10 +20,6 @@ public class MovableElement extends PlaceableElement {
     @Setter
     private double speed;
 
-    @Getter
-    @Setter
-    private double direction;
-
     @JsonIgnore
     @Getter
     @Setter
@@ -34,28 +30,28 @@ public class MovableElement extends PlaceableElement {
     public static final float HALF_PI = (float) (Math.PI / 2);
 
     public MovableElement(SpaceTimePoint point, String skin, double speed, int tag) {
-        super(point,0,  skin, tag);
+        super(point, skin, tag);
         this.speed = speed;
     }
 
     public void rotateLeft() {
-        setRotation(getRotation() - BASE_ROTATE);
-        if (getRotation() < 0) {
-            setRotation(MAX_ROTATE - getRotation());
+        getPoint().setRotation(getPoint().getRotation() - BASE_ROTATE);
+        if (getPoint().getRotation() < 0) {
+            getPoint().setRotation(MAX_ROTATE - getPoint().getRotation());
         }
     }
 
     public void rotateRight() {
-        if (getRotation() >= (MAX_ROTATE - BASE_ROTATE)) {
-            setRotation(0);
+        if (getPoint().getRotation() >= (MAX_ROTATE - BASE_ROTATE)) {
+            getPoint().setRotation(0);
         } else {
-            setRotation(getRotation() + BASE_ROTATE);
+            getPoint().setRotation(getPoint().getRotation() + BASE_ROTATE);
         }
     }
 
     public boolean moveForward(Map map) {
-        double coefficientX = Math.sin(getRotation());
-        double coefficientZ = Math.cos(getRotation());
+        double coefficientX = Math.sin(getPoint().getRotation());
+        double coefficientZ = Math.cos(getPoint().getRotation());
         if (!changeX(coefficientX * getSpeed(), map)) {
             return false;
         }
@@ -67,7 +63,7 @@ public class MovableElement extends PlaceableElement {
 
     public boolean moveBackward(Map map) {
 
-        double newRotation = getRotation();
+        double newRotation = getPoint().getRotation();
         newRotation = newRotation - Math.PI;
 
         if (newRotation < 0) {

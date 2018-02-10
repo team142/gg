@@ -21,22 +21,16 @@ public class SpaceTimePoint {
 
     @Getter
     @Setter
-    private double direction;
+    private float rotation;
 
     public SpaceTimePoint(double x, double z) {
         setX(x);
         setZ(z);
     }
 
-    public SpaceTimePoint(double x, double y, double z) {
-        this(x, z);
-        setY(y);
-    }
-
     public SpaceTimePoint(SpaceTimePoint point) {
         setX(point.getX());
         setY(point.getY());
         setZ(point.getZ());
-        setDirection(point.getDirection());
     }
 }
