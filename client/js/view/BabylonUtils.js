@@ -8,7 +8,7 @@ import { BabylonTextures } from './BabylonTextures.js'
 import { baby } from '../model/Baby.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 import { powerIconInfo } from '../model/Power.js'
-import { GameMap } from '../model/map.js'
+import { GameMap } from '../model/GameMap.js'
 
 export class BabylonUtils {
 

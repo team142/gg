@@ -19,11 +19,15 @@ import lombok.Getter;
 public class MessageShareMap extends Message {
 
     @Getter
-    private final Collection<MapTileElement> map;
+    private Collection<MapTileElement> map;
+    private int x;
+    private int z;
 
     public MessageShareMap(Game game) {
         setConversation(ConversationType.S_SHARE_MAP.name());
         this.map = game.getMap().getTILES().values();
+        this.x = game.getMap().getX();
+        this.z = game.getMap().getZ();
 
     }
 
