@@ -75,8 +75,8 @@ public class GameManager {
         }
 
         player.getTANK().setHealth(player.getTANK().getMaxHealth());
-        player.getTANK().setX(x);
-        player.getTANK().setZ(z);
+        player.getTANK().getPoint().setX(x);
+        player.getTANK().getPoint().setZ(z);
 
     }
 

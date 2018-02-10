@@ -18,7 +18,7 @@ public class PlaceableElement {
 
     @Getter
     @Setter
-    private double x, y, z;
+    private SpaceTimePoint point;
 
     @Getter
     private float rotation;

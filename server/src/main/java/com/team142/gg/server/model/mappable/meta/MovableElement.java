@@ -33,10 +33,9 @@ public class MovableElement extends PlaceableElement {
     public static final float MAX_ROTATE = (float) (Math.PI * 2);
     public static final float HALF_PI = (float) (Math.PI / 2);
 
-    public MovableElement(double x, double y, double z, String skin, double speed, int tag) {
-        super(x, y, z, 0, skin, tag);
+    public MovableElement(SpaceTimePoint point, String skin, double speed, int tag) {
+        super(point,0,  skin, tag);
         this.speed = speed;
-
     }
 
     public void rotateLeft() {
@@ -90,29 +89,29 @@ public class MovableElement extends PlaceableElement {
 
     public void movementTick(Map map) {
 
-        if (getX() < 0) {
-            setX(0);
+        if (getPoint().getX() < 0) {
+            getPoint().setX(0);
         }
-        if (getX() > 49 + 1) {
-            setX(49);
+        if (getPoint().getX() > 49 + 1) {
+            getPoint().setX(49);
         }
-        if (getZ() < 0) {
-            setZ(0);
+        if (getPoint().getZ() < 0) {
+            getPoint().setZ(0);
         }
-        if (getZ() > 49 + 1) {
-            setZ(49);
+        if (getPoint().getZ() > 49 + 1) {
+            getPoint().setZ(49);
         }
 
     }
 
     //Check before changing...
     private boolean changeZ(double amt, Map map) {
-        double newZ = getZ() + amt;
+        double newZ = getPoint().getZ() + amt;
         if (isWalkOnWater()) {
-            if (amt > 0 && map.isShootover(getX(), newZ + 1)) {
-                setZ(newZ);
-            } else if (amt < 0 && map.isShootover(getX(), newZ)) {
-                setZ(newZ);
+            if (amt > 0 && map.isShootover(getPoint().getX(), newZ + 1)) {
+                getPoint().setZ(newZ);
+            } else if (amt < 0 && map.isShootover(getPoint().getX(), newZ)) {
+                getPoint().setZ(newZ);
 
             } else {
                 //Failed to move
@@ -121,10 +120,10 @@ public class MovableElement extends PlaceableElement {
             return true;
         }
 
-        if (amt > 0 && map.isMovable(getX(), newZ + 1)) {
-            setZ(newZ);
-        } else if (amt < 0 && map.isMovable(getX(), newZ)) {
-            setZ(newZ);
+        if (amt > 0 && map.isMovable(getPoint().getX(), newZ + 1)) {
+            getPoint().setZ(newZ);
+        } else if (amt < 0 && map.isMovable(getPoint().getX(), newZ)) {
+            getPoint().setZ(newZ);
         } else {
             //Failed to move
             return false;
@@ -135,12 +134,12 @@ public class MovableElement extends PlaceableElement {
 
     //Check before changing...
     private boolean changeX(double amt, Map map) {
-        double newX = getX() + amt;
+        double newX = getPoint().getX() + amt;
         if (isWalkOnWater()) {
-            if (amt > 0 && map.isShootover(newX + 1, getZ())) {
-                setX(newX);
-            } else if (amt < 0 && map.isShootover(newX, getZ())) {
-                setX(newX);
+            if (amt > 0 && map.isShootover(newX + 1, getPoint().getZ())) {
+                getPoint().setX(newX);
+            } else if (amt < 0 && map.isShootover(newX, getPoint().getZ())) {
+                getPoint().setX(newX);
             } else {
                 //Failed to move
                 return false;
@@ -148,10 +147,10 @@ public class MovableElement extends PlaceableElement {
             return true;
         }
 
-        if (amt > 0 && map.isMovable(newX + 1, getZ())) {
-            setX(newX);
-        } else if (amt < 0 && map.isMovable(newX, getZ())) {
-            setX(newX);
+        if (amt > 0 && map.isMovable(newX + 1, getPoint().getZ())) {
+            getPoint().setX(newX);
+        } else if (amt < 0 && map.isMovable(newX, getPoint().getZ())) {
+            getPoint().setX(newX);
         } else {
             //Failed tp move
             return false;

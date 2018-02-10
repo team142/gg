@@ -15,8 +15,10 @@ public class PhysicsUtils {
 
     public static boolean isTinyObjectInLarger(PlaceableElement t, PlaceableElement l, double width) {
 
-        return ((t.getX() >= l.getX() - width && t.getX() <= l.getX() + width)
-                && (t.getZ() >= l.getZ() - width && t.getZ() <= l.getZ() + width));
+        return ((t.getPoint().getX() >= l.getPoint().getX() - width
+                && t.getPoint().getX() <= l.getPoint().getX() + width)
+                && (t.getPoint().getZ() >= l.getPoint().getZ() - width
+                && t.getPoint().getZ() <= l.getPoint().getZ() + width));
     }
 
 }
