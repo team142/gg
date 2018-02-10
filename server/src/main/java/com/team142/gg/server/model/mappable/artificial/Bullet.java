@@ -8,7 +8,7 @@ package com.team142.gg.server.model.mappable.artificial;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Game;
-import com.team142.gg.server.model.Map;
+import com.team142.gg.server.model.GameMap;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.Player;
@@ -60,7 +60,7 @@ public class Bullet extends MovableElement {
             return ok; //False
         }
 
-        Map map = (Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap());
+        GameMap map = (Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap());
         boolean success = moveForward(map);
         if (!success) {
             ok = false;

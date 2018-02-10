@@ -115,7 +115,7 @@ public class Player {
 
     public void movementTick() {
 
-        Map map = Repository.GAMES_ON_SERVER.get(gameId).getMap();
+        GameMap map = Repository.GAMES_ON_SERVER.get(gameId).getMap();
 
         if (isRegularMovement()) {
             if (isKeyDown(KEY_FORWARD)) {

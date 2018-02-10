@@ -16,13 +16,13 @@ import lombok.Data;
  * @author just1689
  */
 @Data
-public class Map {
+public class GameMap {
 
     private final List<MapTileElement> TILES;
     private boolean[][][] bitmap;
     private int x, z;
 
-    public Map(int x, int z) {
+    public GameMap(int x, int z) {
         this.TILES = Collections.synchronizedList(new ArrayList<>());
         this.x = x;
         this.z = z;

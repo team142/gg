@@ -6,7 +6,7 @@
 package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Game;
-import com.team142.gg.server.model.Map;
+import com.team142.gg.server.model.GameMap;
 import com.team142.gg.server.model.Orb;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.mappable.artificial.Tank;
@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class OrbManager {
 
-    public static void findRandomLocationForOrb(Orb orb, Map map) {
+    public static void findRandomLocationForOrb(Orb orb, GameMap map) {
         boolean success = false;
         int x = 0;
         int z = 0;

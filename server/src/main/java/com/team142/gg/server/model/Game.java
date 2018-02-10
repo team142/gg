@@ -30,7 +30,7 @@ public class Game {
 
     private final String id;
     private final String name;
-    private Map map;
+    private GameMap map;
 
     private final List<Player> players = new CopyOnWriteArrayList<>();
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
