@@ -34,7 +34,7 @@ public class MapManager {
             for (int z = 0; z < settings.getZTiles(); z++) {
                 if (x > 20 && x < 30 && z > 20 && z < 30) {
                     createRock(x, z, game);
-                } else if (x == 49 || z == 49 || x == 0 || z == 0) {
+                } else if (x == settings.getXTiles() - 1 || z == settings.getZTiles() - 1 || x == 0 || z == 0) {
                     createWater(x, z, game);
                 } else {
                     createGrass(x, z, game);

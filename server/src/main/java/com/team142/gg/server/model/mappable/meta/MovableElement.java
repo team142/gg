@@ -88,14 +88,14 @@ public class MovableElement extends PlaceableElement {
         if (getPoint().getX() < 0) {
             getPoint().setX(0);
         }
-        if (getPoint().getX() > 49 + 1) {
-            getPoint().setX(49);
+        if (getPoint().getX() > (map.getX() - 1) + 1) {
+            getPoint().setX(map.getX() - 1);
         }
         if (getPoint().getZ() < 0) {
             getPoint().setZ(0);
         }
-        if (getPoint().getZ() > 49 + 1) {
-            getPoint().setZ(49);
+        if (getPoint().getZ() > (map.getZ() - 1) + 1) {
+            getPoint().setZ(map.getZ() - 1);
         }
 
     }

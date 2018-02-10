@@ -27,34 +27,34 @@ public class GameMap {
         setBitmap(new boolean[x][z][2]);
     }
 
-    public void setTileBitmapMovable(int x, int y, boolean val) {
-        this.bitmap[x][y][0] = val;
+    public void setTileBitmapMovable(int x, int z, boolean val) {
+        this.bitmap[x][z][0] = val;
     }
 
-    public void setTileBitmapShootover(int x, int y, boolean val) {
-        this.bitmap[x][y][1] = val;
+    public void setTileBitmapShootover(int x, int z, boolean val) {
+        this.bitmap[x][z][1] = val;
     }
 
-    public boolean isMovable(int x, int y) {
-        if (x >= this.x || x <= 0 || y >= this.z || y < 0) {
+    public boolean isMovable(int x, int z) {
+        if (x >= this.x || x <= 0 || z >= this.z || z < 0) {
             return false;
         }
-        return this.bitmap[x][y][0];
+        return this.bitmap[x][z][0];
     }
 
-    public boolean isShootover(int x, int y) {
-        if (x >= this.x || x <= 0 || y >= this.z || y < 0) {
+    public boolean isShootover(int x, int z) {
+        if (x >= this.x || x <= 0 || z >= this.z || z < 0) {
             return false;
         }
-        return this.bitmap[x][y][1];
+        return this.bitmap[x][z][1];
     }
 
-    public boolean isMovable(double x, double y) {
-        return isMovable((int) x, (int) y);
+    public boolean isMovable(double x, double z) {
+        return isMovable((int) x, (int) z);
     }
 
-    public boolean isShootover(double x, double y) {
-        return isShootover((int) x, (int) y);
+    public boolean isShootover(double x, double z) {
+        return isShootover((int) x, (int) z);
     }
 
 }
