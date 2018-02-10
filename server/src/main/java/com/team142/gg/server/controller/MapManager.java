@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.controller;
 
+import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import com.team142.gg.server.model.mappable.organic.MapSettings;
 import com.team142.gg.server.model.mappable.organic.ModelType;
 import com.team142.gg.server.model.mappable.organic.SkinType;
@@ -74,11 +75,16 @@ public class MapManager {
 
     }
 
-    public static void createTile(int x, int y, Game game, Tile tile, boolean movable, boolean shootover) {
-        MapTileElement mapTileElement = new MapTileElement(x, 1, y, tile, 0.0f);
+    public static void createTile(int x, int y, int z, Game game, Tile tile, boolean movable, boolean shootover) {
+        MapTileElement mapTileElement = new MapTileElement(new SpaceTimePoint(x,y,z, 0.0f), tile);
         game.getMap().getTILES().add(mapTileElement);
-        game.getMap().setTileBitmapMovable(x, y, movable);
-        game.getMap().setTileBitmapShootover(x, y, shootover);
+        game.getMap().setTileBitmapMovable(x, z, movable);
+        game.getMap().setTileBitmapShootover(x, z, shootover);
+
+    }
+
+    public static void createTile(int x, int z, Game game, Tile tile, boolean movable, boolean shootover) {
+        createTile(x, 1, z, game, tile, movable, shootover);
 
     }
 

@@ -8,6 +8,7 @@ package com.team142.gg.server.model;
 import com.team142.gg.server.controller.OrbManager;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.model.mappable.artificial.Tank;
+import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.controller.runnable.TickerComms;
 import com.team142.gg.server.controller.runnable.TickerPhysics;
@@ -55,7 +56,7 @@ public class Player {
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
         this.TAG = Server.TAGS.incrementAndGet();
-        this.TANK = new Tank(0, 0.16d, 0, "default", Server.TANK_DEFAULT_SPEED, TAG, 100, this);
+        this.TANK = new Tank(new SpaceTimePoint(0,0), "default", Server.TANK_DEFAULT_SPEED, TAG, 100, this);
         this.name = "";
         this.powers = new ConcurrentHashMap<>();
         Power01Shoot power1Shoot = new Power01Shoot(this);

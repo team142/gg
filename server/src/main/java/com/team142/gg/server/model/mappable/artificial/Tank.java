@@ -8,6 +8,7 @@ package com.team142.gg.server.model.mappable.artificial;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
+import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,8 +36,8 @@ public class Tank extends MovableElement {
     @JsonIgnore
     private double width = 0.3d;
 
-    public Tank(double x, double y, double z, String skin, double speed, int tag, double hp, Player player) {
-        super(x, y, z, skin, speed, tag);
+    public Tank(SpaceTimePoint point, String skin, double speed, int tag, double hp, Player player) {
+        super(point, skin, speed, tag);
         this.health = hp;
         this.maxHealth = hp;
         this.playerId = player.getId();

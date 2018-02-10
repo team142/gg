@@ -276,7 +276,7 @@ export class BabylonUtils {
 
     static createMap(arr) {
         for (const t of arr) {
-            BabylonUtils.createMapTile(t.x, t.z, t.skin, t.model)
+            BabylonUtils.createMapTile(t.point.x, t.point.z, t.skin, t.model)
         }
 
     }
@@ -287,14 +287,14 @@ export class BabylonUtils {
 
     }
 
-    static createMapTile(x, y, skin, model) {
+    static createMapTile(x, z, skin, model) {
         let plane
         if (model == "FLAT_TILE") {
-            plane = baby.baseTile.clone(("plane" + x) + y)
+            plane = baby.baseTile.clone(("plane" + x) + z)
         } else if (model == "ROCK_TILE") {
-            plane = baby.mountainTile.clone(("plane" + x) + y)
+            plane = baby.mountainTile.clone(("plane" + x) + z)
         }
-        plane.position.z = (y * 1)
+        plane.position.z = (z * 1)
         plane.position.x = (x * 1)
         plane.rotation.x = Math.PI / 2
         const material = baby.materialsMap.get(skin)

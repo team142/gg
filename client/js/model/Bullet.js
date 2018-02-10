@@ -25,10 +25,10 @@ export class Bullet {
         this.bBullet = babylonObject
         this.bBullet.visibility = true
 
-        this.bBullet.position.x = obj.x
-        this.bBullet.position.y = obj.y
-        this.bBullet.position.z = obj.z
-        this.bBullet.rotation.y = obj.rotation + Math.PI
+        this.bBullet.position.x = obj.point.x
+        this.bBullet.position.y = obj.point.y
+        this.bBullet.position.z = obj.point.z
+        this.bBullet.rotation.y = obj.point.rotation + Math.PI
 
         this.tick()
         this.tick()
@@ -38,8 +38,8 @@ export class Bullet {
 
     tick() {
 
-        this.bBullet.position.x += Math.sin(this.sBullet.rotation) * this.sBullet.speed * 3
-        this.bBullet.position.z += Math.cos(this.sBullet.rotation) * this.sBullet.speed * 3
+        this.bBullet.position.x += Math.sin(this.sBullet.point.rotation) * this.sBullet.speed * 3
+        this.bBullet.position.z += Math.cos(this.sBullet.point.rotation) * this.sBullet.speed * 3
 
         if (this.bBullet.position.x < 0) {
             this.removeMe()

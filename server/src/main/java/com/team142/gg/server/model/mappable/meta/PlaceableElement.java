@@ -18,10 +18,7 @@ public class PlaceableElement {
 
     @Getter
     @Setter
-    private double x, y, z;
-
-    @Getter
-    private float rotation;
+    private SpaceTimePoint point;
 
     @Getter
     @Setter
@@ -29,9 +26,5 @@ public class PlaceableElement {
 
     @Getter
     private final int TAG;
-
-    public void setRotation(float rotation) {
-        this.rotation = rotation;
-    }
 
 }
