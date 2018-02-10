@@ -10,3 +10,8 @@ server/.project
 server/.classpath
 *.DS_Store
 client/build/
+.idea/misc.xml
+.idea/gg.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
