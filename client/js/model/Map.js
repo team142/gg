@@ -1,7 +1,8 @@
 
-export class Map {
+export class GameMap {
     constructor(obj) {
         this.tiles = obj.arr
+        console.log(obj)
 
     }
 
