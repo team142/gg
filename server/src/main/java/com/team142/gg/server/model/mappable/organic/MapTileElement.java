@@ -23,4 +23,8 @@ public class MapTileElement extends PlaceableElement {
         this.model = tile.getModelType().name();
     }
 
+    public String toMapTileName() {
+        return getPoint().getX() + "," + getPoint().getZ();
+    }
+
 }

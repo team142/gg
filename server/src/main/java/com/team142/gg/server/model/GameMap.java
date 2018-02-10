@@ -6,9 +6,7 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.model.mappable.organic.MapTileElement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
 import lombok.Data;
 
 /**
@@ -18,12 +16,12 @@ import lombok.Data;
 @Data
 public class GameMap {
 
-    private final List<MapTileElement> TILES;
+    private final HashMap<String, MapTileElement> TILES;
     private boolean[][][] bitmap;
     private int x, z;
 
     public GameMap(int x, int z) {
-        this.TILES = Collections.synchronizedList(new ArrayList<>());
+        this.TILES = new HashMap<>();
         this.x = x;
         this.z = z;
         setBitmap(new boolean[x][z][2]);
