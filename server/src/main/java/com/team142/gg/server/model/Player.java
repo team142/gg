@@ -15,6 +15,7 @@ import com.team142.gg.server.controller.runnable.TickerPhysics;
 import com.team142.gg.server.controller.runnable.powers.Power;
 import com.team142.gg.server.controller.runnable.powers.Power01Shoot;
 import com.team142.gg.server.controller.runnable.powers.Power07Intel;
+import com.team142.gg.server.controller.runnable.powers.Power09Hop180;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -56,13 +57,14 @@ public class Player {
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
         this.TAG = Server.TAGS.incrementAndGet();
-        this.TANK = new Tank(new SpaceTimePoint(0,0), "default", Server.TANK_DEFAULT_SPEED, TAG, 100, this);
+        this.TANK = new Tank(new SpaceTimePoint(0, 0), "default", Server.TANK_DEFAULT_SPEED, TAG, 100, this);
         this.name = "";
         this.powers = new ConcurrentHashMap<>();
         Power01Shoot power1Shoot = new Power01Shoot(this);
         this.powers.put("1", power1Shoot);
         this.powers.put(" ", power1Shoot);
         this.powers.put("7", new Power07Intel(this, 1000));
+        this.powers.put("9", new Power09Hop180(this, 1000));
 
     }
 
@@ -162,7 +164,7 @@ public class Player {
         if (orb != null) {
             //Give to player
             //TODO: XP++
-            
+
             OrbManager.remove(orb);
         }
     }
