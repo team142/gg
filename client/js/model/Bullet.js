@@ -12,9 +12,7 @@ export class Bullet {
     }
 
     static tickAll() {
-        for (const bullet of bullets) {
-            bullet.tick()
-        }
+        bullets.forEach(bullet => bullet.tick())
     }
 
     static createAndSave(obj) {
