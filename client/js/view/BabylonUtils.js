@@ -83,16 +83,6 @@ export class BabylonUtils {
                 )
             })
 
-        // for (const [index, p] of powers.entries()) {
-        //     if (p.usable) {
-        //         BabylonUtils.createPowerBarItem(index, p.ico)
-        //         PowerCooldownBar.save(
-        //             (index + 1).toString(),
-        //             new PowerCooldownBar(BabylonUtils.createPowerBarCooldownTile(index), p.cooldown)
-        //         )
-        //     }
-        // }
-
     }
 
     static createPowerBarCooldownTile(n) {
