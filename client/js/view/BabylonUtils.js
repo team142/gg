@@ -276,7 +276,7 @@ export class BabylonUtils {
     }
 
     static createMap(obj) {
-        new GameMap(obj)
+        GameMap.create(obj)
         obj.map.forEach(t => BabylonUtils.createMapTile(t.point.x, t.point.z, t.skin, t.model))
     }
 
