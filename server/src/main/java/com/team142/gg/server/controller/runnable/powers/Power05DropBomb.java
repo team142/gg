@@ -14,7 +14,7 @@ import com.team142.gg.server.model.Player;
 public class Power05DropBomb extends Power {
 
     public Power05DropBomb(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+        super(5, player, 0, refreshTime);
     }
 
     @Override

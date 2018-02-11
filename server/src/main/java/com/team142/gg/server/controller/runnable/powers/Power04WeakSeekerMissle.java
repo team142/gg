@@ -14,7 +14,7 @@ import com.team142.gg.server.model.Player;
 public class Power04WeakSeekerMissle extends Power {
 
     public Power04WeakSeekerMissle(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+        super(4, player, 0, refreshTime);
     }
 
     @Override

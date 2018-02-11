@@ -19,7 +19,7 @@ import com.team142.gg.server.model.mappable.artificial.Bullet;
 public class Power02RearShoot extends Power {
     
     public Power02RearShoot(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+        super(2, player, 0, refreshTime);
     }
     
     @Override

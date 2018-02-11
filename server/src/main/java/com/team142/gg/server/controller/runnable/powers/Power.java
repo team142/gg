@@ -17,14 +17,10 @@ import lombok.Data;
 @Data
 public abstract class Power implements Runnable {
 
+    private final int ID;
     private Player player;
     private long lastRunTime;
     private long refreshTime; //In MS
-    private final int ID;
-
-    public Power(int ID) {
-        this.ID = ID;
-    }
 
     @Override
     public void run() {

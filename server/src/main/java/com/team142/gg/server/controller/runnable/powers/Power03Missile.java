@@ -14,7 +14,7 @@ import com.team142.gg.server.model.Player;
 public class Power03Missile extends Power {
 
     public Power03Missile(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+        super(3, player, 0, refreshTime);
     }
 
     @Override

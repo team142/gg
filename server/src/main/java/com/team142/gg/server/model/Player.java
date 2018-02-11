@@ -30,7 +30,7 @@ import lombok.Data;
  * @author just1689
  */
 @Data
-public class Player {
+public final class Player {
 
     private final String id;
     private String name;
@@ -63,12 +63,12 @@ public class Player {
         this.name = "";
         this.powers = new ConcurrentHashMap<>();
         Power01Shoot power1Shoot = new Power01Shoot(this);
-        this.powers.put("1", power1Shoot);
-        this.powers.put(" ", power1Shoot);
-        this.powers.put("2", new Power02RearShoot(this, 5000));
-        this.powers.put("7", new Power07Intel(this, 1000));
-        this.powers.put("8", new Power08Teleport(this, 10000));
-        this.powers.put("9", new Power09Hop180(this, 10000));
+        addPower(power1Shoot);
+        addPower(" ", power1Shoot);
+        addPower(new Power02RearShoot(this, 5000));
+        addPower(new Power07Intel(this, 1000));
+        addPower(new Power08Teleport(this, 10000));
+        addPower(new Power09Hop180(this, 10000));
 
     }
 
@@ -171,6 +171,14 @@ public class Player {
 
             OrbManager.remove(orb);
         }
+    }
+
+    public void addPower(Power power) {
+        addPower(String.valueOf(power.getID()), power);
+    }
+
+    public void addPower(String key, Power power) {
+        getPowers().put(key, power);
     }
 
 }

@@ -15,7 +15,7 @@ import com.team142.gg.server.model.Player;
 public class Power09Hop180 extends Power {
     
     public Power09Hop180(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+        super(9, player, 0, refreshTime);
     }
     
     @Override

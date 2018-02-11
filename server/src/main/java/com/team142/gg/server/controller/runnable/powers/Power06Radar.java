@@ -14,7 +14,7 @@ import com.team142.gg.server.model.Player;
 public class Power06Radar extends Power {
 
     public Power06Radar(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+        super(6, player, 0, refreshTime);
     }
 
     @Override

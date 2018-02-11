@@ -21,7 +21,7 @@ public class Power07Intel extends Power {
     private static final int INITIAL_COOLDOWN = 5000;
 
     public Power07Intel(Player player, long refreshTime) {
-        super(player, 0, INITIAL_COOLDOWN);
+        super(7, player, 0, INITIAL_COOLDOWN);
     }
 
     @Override
