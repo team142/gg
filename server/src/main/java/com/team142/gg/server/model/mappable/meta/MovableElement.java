@@ -34,11 +34,16 @@ public class MovableElement extends PlaceableElement {
         this.speed = speed;
     }
 
-    public void rotateLeft() {
-        getPoint().setRotation(getPoint().getRotation() - BASE_ROTATE);
+    public void rotateLeft(float radians) {
+        getPoint().setRotation(getPoint().getRotation() - radians);
         if (getPoint().getRotation() < 0) {
             getPoint().setRotation(MAX_ROTATE - getPoint().getRotation());
         }
+
+    }
+
+    public void rotateLeft() {
+        rotateLeft(BASE_ROTATE);
     }
 
     public void rotateRight() {
