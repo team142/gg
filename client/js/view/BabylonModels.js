@@ -38,16 +38,18 @@ export class BabylonModels {
 
     static createSkyBox() {
         // Skyboxes
-        const skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene)
-        skyboxMaterial.backFaceCulling = false
-        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", baby.scene)
-        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE
-        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0)
-        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0)
-        skyboxMaterial.disableLighting = true
-        const skybox1 = BABYLON.Mesh.CreateBox("skyBox1", 50 * 50, baby.scene)
-        skybox1.material = skyboxMaterial
-        skybox1.visibility = 1
+
+        const skyboxMaterial = new BABYLON.StandardMaterial("skyBox", baby.scene);
+        skyboxMaterial.backFaceCulling = false;
+        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", baby.scene);
+        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+
+        const skybox = BABYLON.Mesh.CreateBox("skyBox", 200.0, baby.scene);
+        skybox.position = baby.camera.position;
+        skybox.material = skyboxMaterial;
+
 
     }
 
@@ -62,6 +64,14 @@ export class BabylonModels {
         baby.baseBullet = cone
         baby.baseBullet.visibility = false
 
+    }
+
+    static createBaseRandomOrb() {
+        const orb = BABYLON.Mesh.CreateSphere("baseRandomOrb", 32, 0.5, baby.scene);
+        orb.material = baby.randomOrbMaterial
+        orb.position.y = 0.25
+        orb.visibility = false
+        baby.baseRandomOrb = orb
 
     }
 

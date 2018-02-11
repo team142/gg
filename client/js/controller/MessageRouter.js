@@ -7,6 +7,7 @@ import { BabylonSounds } from '../view/BabylonSounds.js'
 import { BabylonAnimations } from '../view/BabylonAnimations.js'
 import { Bullet } from '../model/Bullet.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
+import { Orb } from '../model/Orb.js'
 
 export class MessageRouter {
 
@@ -33,7 +34,7 @@ export class MessageRouter {
             match.tag = obj.tag
 
         } else if (conversation == "S_SHARE_MAP") {
-            BabylonUtils.createMap(obj.MAP)
+            BabylonUtils.createMap(obj)
 
         } else if (conversation == "S_PLAY_SOUND") {
             BabylonSounds.playSound(obj.FILE)
@@ -52,6 +53,13 @@ export class MessageRouter {
 
         } else if (conversation == "S_SHARE_INTEL") {
             match.setMiniMapOn(obj.on == true)
+
+        } else if (conversation == "S_ORB_N") {
+            const orb = new Orb(obj.name, obj.x, obj.z)
+            Orb.save(orb)
+
+        } else if (conversation == "S_ORB_D") {
+            Orb.remove(obj.name)
 
         } else if (conversation == "S_SHARE_COOLDOWN") {
             let index = +obj.num

@@ -6,20 +6,20 @@ import { match } from '../model/Match.js'
 export class BabylonView {
 
     static scoreboard(obj) {
-        for (const key of Object.keys(obj.tags)) {
-            BabylonUtils.createSphereIfNotExists(obj.tags[key], key)
-        }
+
+        Object.keys(obj.tags)
+            .forEach(key => BabylonUtils.createSphereIfNotExists(obj.tags[key], key))
 
         game.scores = []
-        for (const key of Object.keys(obj.scores)) {
-            game.scores.push({
-                key: key,
-                value: obj.scores[key]
-            })
-        }
-        game.scores.sort((a, b) => {
-            return a.value - b.value
-        })
+
+        Object.keys(obj.scores)
+            .forEach(key => game.scores.push(
+                {
+                    key: key,
+                    value: obj.scores[key]
+                }
+            ))
+        game.scores.sort((a, b) => a.value - b.value)
         BabylonUtils.displayScores()
 
     }
@@ -31,20 +31,20 @@ export class BabylonView {
                 if (!baby.camera) {
                     return
                 }
-                baby.camera.position.x = t.x
-                baby.camera.position.y = t.y + 0.25
-                baby.camera.position.z = t.z
-                baby.camera.rotation.y = t.rotation
+                baby.camera.position.x = t.point.x
+                baby.camera.position.y = t.point.y + 0.25
+                baby.camera.position.z = t.point.z
+                baby.camera.rotation.y = t.point.rotation
 
                 //Move the healthbar
                 BabylonUtils.changeMyHealthBar(t.health, t.maxHealth)
             }
             const s = match.getPlayerByTag(t.tag)
             if (s) {
-                s.position.x = t.x
-                s.position.y = t.y
-                s.position.z = t.z
-                s.rotation.y = t.rotation - 1.57
+                s.position.x = t.point.x
+                s.position.y = t.point.y
+                s.position.z = t.point.z
+                s.rotation.y = t.point.rotation - 1.57
             }
             const rect1 = match.getHealthBarByTag(t.tag)
             if (rect1) {

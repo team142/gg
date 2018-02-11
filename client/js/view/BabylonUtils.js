@@ -7,6 +7,8 @@ import { BabylonModels } from './BabylonModels.js'
 import { BabylonTextures } from './BabylonTextures.js'
 import { baby } from '../model/Baby.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
+import { powerIconInfo } from '../model/Power.js'
+import { GameMap } from '../model/GameMap.js'
 
 export class BabylonUtils {
 
@@ -39,6 +41,7 @@ export class BabylonUtils {
 
         BabylonSounds.loadSounds()
         BabylonModels.createBaseBullet()
+        BabylonModels.createBaseRandomOrb()
 
         BabylonUtils.createPowerBar()
         BabylonUtils.createOwnHealthBar()
@@ -59,26 +62,16 @@ export class BabylonUtils {
         powerBack.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         baby.advancedTexture.addControl(powerBack)
 
-        const powers = [
-            { ico: "textures/ico-shoot.jpg", cooldown: 20 },
-            { ico: "textures/ico-tail.jpg", cooldown: 20 },
-            { ico: "textures/ico-missile.jpg", cooldown: 20 },
-            { ico: "textures/ico-seeker.jpg", cooldown: 20 },
-            { ico: "textures/ico-bomb.jpg", cooldown: 20 },
-            { ico: "textures/ico-radar.jpg", cooldown: 20 },
-            { ico: "textures/ico-intel.jpg", cooldown: 20 },
-            { ico: "textures/ico-safety.jpg", cooldown: 20 },
-            { ico: "textures/ico-blank.jpg", cooldown: 20 },
-            { ico: "textures/ico-blank.jpg", cooldown: 20 }
-        ]
 
-        for (const [index, p] of powers.entries()) {
-            BabylonUtils.createPowerBarItem(index, p.ico)
-            PowerCooldownBar.save(
-                (index + 1).toString(), 
-                new PowerCooldownBar(BabylonUtils.createPowerBarCooldownTile(index), p.cooldown)
-            )
-        }
+        powerIconInfo
+            .filter(p => p.usable)
+            .forEach(p => {
+                BabylonUtils.createPowerBarItem(p.powerNumber - 1, p.ico)
+                PowerCooldownBar.save(
+                    (p.powerNumber).toString(),
+                    new PowerCooldownBar(BabylonUtils.createPowerBarCooldownTile(p.powerNumber - 1), p.cooldown)
+                )
+            })
 
     }
 
@@ -115,7 +108,7 @@ export class BabylonUtils {
         baby.advancedTexture.addControl(image)
 
         var text1 = new BABYLON.GUI.TextBlock("textblock" + n)
-        text1.text = n.toString()
+        text1.text = (n + 1).toString()
         text1.color = "black"
         text1.fontSize = 24
 
@@ -169,7 +162,7 @@ export class BabylonUtils {
     }
 
     static displayScores() {
-        baby.textScores.forEach((ro) => {
+        baby.textScores.forEach(ro => {
             ro.dispose()
         })
         game.scores.forEach((row, i) => {
@@ -182,8 +175,8 @@ export class BabylonUtils {
         const current = BABYLON.GUI.Button.CreateSimpleButton("but" + BabylonUtils.getCounter(), name + ": " + score)
         current.width = 1
         current.height = "50px"
-        current.color = "green"
-        current.background = "white"
+        current.color = "white"
+        current.background = "black"
         baby.panelScores.addControl(current)
         baby.textScores.push(current)
 
@@ -282,27 +275,24 @@ export class BabylonUtils {
 
     }
 
-    static createMap(arr) {
-        for (const t of arr) {
-            BabylonUtils.createMapTile(t.x, t.z, t.skin, t.model)
-        }
-
+    static createMap(obj) {
+        GameMap.create(obj)
+        obj.map.forEach(t => BabylonUtils.createMapTile(t.point.x, t.point.z, t.skin, t.model))
     }
-
 
     static createBullet(obj) {
         Bullet.createAndSave(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))
 
     }
 
-    static createMapTile(x, y, skin, model) {
+    static createMapTile(x, z, skin, model) {
         let plane
         if (model == "FLAT_TILE") {
-            plane = baby.baseTile.clone(("plane" + x) + y)
+            plane = baby.baseTile.clone(("plane" + x) + z)
         } else if (model == "ROCK_TILE") {
-            plane = baby.mountainTile.clone(("plane" + x) + y)
+            plane = baby.mountainTile.clone(("plane" + x) + z)
         }
-        plane.position.z = (y * 1)
+        plane.position.z = (z * 1)
         plane.position.x = (x * 1)
         plane.rotation.x = Math.PI / 2
         const material = baby.materialsMap.get(skin)

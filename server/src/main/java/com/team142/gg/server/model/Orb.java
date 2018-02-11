@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team142.gg.server.model.mappable.meta;
+package com.team142.gg.server.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,18 +12,25 @@ import lombok.Setter;
  *
  * @author just1689
  */
-@AllArgsConstructor
-public class PlaceableElement {
+public class Orb {
 
     @Getter
     @Setter
-    private SpaceTimePoint point;
+    private String name;
 
     @Getter
     @Setter
-    private String skin;
+    private double x, z;
 
     @Getter
-    private final int TAG;
+    private String gameId;
+
+    public Orb(String gameId) {
+        this.gameId = gameId;
+    }
+
+    public void use() {
+        //Ummm
+    }
 
 }

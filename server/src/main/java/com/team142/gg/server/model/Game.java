@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Data;
 
 /**
@@ -29,15 +30,18 @@ public class Game {
 
     private final String id;
     private final String name;
-    private Map map;
+    private GameMap map;
 
     private final List<Player> players = new CopyOnWriteArrayList<>();
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, Orb> orbs = new ConcurrentHashMap<>();
 
     private SoundManager soundManager;
     private Thread pingThread;
 
     private double startHealth;
+
+    private AtomicInteger GAME_COUNTER = new AtomicInteger(0);
 
     public Game(String name) {
         this.id = UUID.randomUUID().toString();

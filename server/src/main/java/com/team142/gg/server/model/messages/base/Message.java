@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.model.messages.base;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,8 @@ import lombok.NoArgsConstructor;
 public class Message {
 
     private String conversation;
+
+    @JsonIgnore
     private String from;
 
     public void setConversationType(ConversationType type) {

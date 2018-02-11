@@ -5,26 +5,24 @@
  */
 package com.team142.gg.server.controller.runnable.powers;
 
-import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.Player;
-import com.team142.gg.server.model.Repository;
 
 /**
  *
  * @author just1689
  */
-public class Power08Teleport extends Power {
-
-    public Power08Teleport(Player player, long refreshTime) {
+public class Power09Hop180 extends Power {
+    
+    public Power09Hop180(Player player, long refreshTime) {
         super(player, 0, refreshTime);
     }
-
+    
     @Override
     public void execute() {
-        PowerManager.sendCooldown(getPlayer().getId(), this, 8);
-        GameManager.spawn(Repository.GAMES_ON_SERVER.get(getPlayer().getGameId()), getPlayer());
-
+        getPlayer().getTANK().rotateLeft((float) Math.PI);
+        PowerManager.sendCooldown(getPlayer().getId(), this, 9);
+        
     }
-
+    
 }

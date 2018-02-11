@@ -6,7 +6,7 @@
 package com.team142.gg.server.model.mappable.meta;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.team142.gg.server.model.Map;
+import com.team142.gg.server.model.GameMap;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,10 +20,6 @@ public class MovableElement extends PlaceableElement {
     @Setter
     private double speed;
 
-    @Getter
-    @Setter
-    private double direction;
-
     @JsonIgnore
     @Getter
     @Setter
@@ -33,30 +29,34 @@ public class MovableElement extends PlaceableElement {
     public static final float MAX_ROTATE = (float) (Math.PI * 2);
     public static final float HALF_PI = (float) (Math.PI / 2);
 
-    public MovableElement(double x, double y, double z, String skin, double speed, int tag) {
-        super(x, y, z, 0, skin, tag);
+    public MovableElement(SpaceTimePoint point, String skin, double speed, int tag) {
+        super(point, skin, tag);
         this.speed = speed;
+    }
+
+    public void rotateLeft(float radians) {
+        getPoint().setRotation(getPoint().getRotation() - radians);
+        if (getPoint().getRotation() < 0) {
+            getPoint().setRotation(MAX_ROTATE - getPoint().getRotation());
+        }
 
     }
 
     public void rotateLeft() {
-        setRotation(getRotation() - BASE_ROTATE);
-        if (getRotation() < 0) {
-            setRotation(MAX_ROTATE - getRotation());
-        }
+        rotateLeft(BASE_ROTATE);
     }
 
     public void rotateRight() {
-        if (getRotation() >= (MAX_ROTATE - BASE_ROTATE)) {
-            setRotation(0);
+        if (getPoint().getRotation() >= (MAX_ROTATE - BASE_ROTATE)) {
+            getPoint().setRotation(0);
         } else {
-            setRotation(getRotation() + BASE_ROTATE);
+            getPoint().setRotation(getPoint().getRotation() + BASE_ROTATE);
         }
     }
 
-    public boolean moveForward(Map map) {
-        double coefficientX = Math.sin(getRotation());
-        double coefficientZ = Math.cos(getRotation());
+    public boolean moveForward(GameMap map) {
+        double coefficientX = Math.sin(getPoint().getRotation());
+        double coefficientZ = Math.cos(getPoint().getRotation());
         if (!changeX(coefficientX * getSpeed(), map)) {
             return false;
         }
@@ -66,9 +66,9 @@ public class MovableElement extends PlaceableElement {
         return true;
     }
 
-    public boolean moveBackward(Map map) {
+    public boolean moveBackward(GameMap map) {
 
-        double newRotation = getRotation();
+        double newRotation = getPoint().getRotation();
         newRotation = newRotation - Math.PI;
 
         if (newRotation < 0) {
@@ -88,31 +88,31 @@ public class MovableElement extends PlaceableElement {
 
     }
 
-    public void movementTick(Map map) {
+    public void movementTick(GameMap map) {
 
-        if (getX() < 0) {
-            setX(0);
+        if (getPoint().getX() < 0) {
+            getPoint().setX(0);
         }
-        if (getX() > 49 + 1) {
-            setX(49);
+        if (getPoint().getX() > (map.getX() - 1) + 1) {
+            getPoint().setX(map.getX() - 1);
         }
-        if (getZ() < 0) {
-            setZ(0);
+        if (getPoint().getZ() < 0) {
+            getPoint().setZ(0);
         }
-        if (getZ() > 49 + 1) {
-            setZ(49);
+        if (getPoint().getZ() > (map.getZ() - 1) + 1) {
+            getPoint().setZ(map.getZ() - 1);
         }
 
     }
 
     //Check before changing...
-    private boolean changeZ(double amt, Map map) {
-        double newZ = getZ() + amt;
+    private boolean changeZ(double amt, GameMap map) {
+        double newZ = getPoint().getZ() + amt;
         if (isWalkOnWater()) {
-            if (amt > 0 && map.isShootover(getX(), newZ + 1)) {
-                setZ(newZ);
-            } else if (amt < 0 && map.isShootover(getX(), newZ)) {
-                setZ(newZ);
+            if (amt > 0 && map.isShootover(getPoint().getX(), newZ + 1)) {
+                getPoint().setZ(newZ);
+            } else if (amt < 0 && map.isShootover(getPoint().getX(), newZ)) {
+                getPoint().setZ(newZ);
 
             } else {
                 //Failed to move
@@ -121,10 +121,10 @@ public class MovableElement extends PlaceableElement {
             return true;
         }
 
-        if (amt > 0 && map.isMovable(getX(), newZ + 1)) {
-            setZ(newZ);
-        } else if (amt < 0 && map.isMovable(getX(), newZ)) {
-            setZ(newZ);
+        if (amt > 0 && map.isMovable(getPoint().getX(), newZ + 1)) {
+            getPoint().setZ(newZ);
+        } else if (amt < 0 && map.isMovable(getPoint().getX(), newZ)) {
+            getPoint().setZ(newZ);
         } else {
             //Failed to move
             return false;
@@ -134,13 +134,13 @@ public class MovableElement extends PlaceableElement {
     }
 
     //Check before changing...
-    private boolean changeX(double amt, Map map) {
-        double newX = getX() + amt;
+    private boolean changeX(double amt, GameMap map) {
+        double newX = getPoint().getX() + amt;
         if (isWalkOnWater()) {
-            if (amt > 0 && map.isShootover(newX + 1, getZ())) {
-                setX(newX);
-            } else if (amt < 0 && map.isShootover(newX, getZ())) {
-                setX(newX);
+            if (amt > 0 && map.isShootover(newX + 1, getPoint().getZ())) {
+                getPoint().setX(newX);
+            } else if (amt < 0 && map.isShootover(newX, getPoint().getZ())) {
+                getPoint().setX(newX);
             } else {
                 //Failed to move
                 return false;
@@ -148,10 +148,10 @@ public class MovableElement extends PlaceableElement {
             return true;
         }
 
-        if (amt > 0 && map.isMovable(newX + 1, getZ())) {
-            setX(newX);
-        } else if (amt < 0 && map.isMovable(newX, getZ())) {
-            setX(newX);
+        if (amt > 0 && map.isMovable(newX + 1, getPoint().getZ())) {
+            getPoint().setX(newX);
+        } else if (amt < 0 && map.isMovable(newX, getPoint().getZ())) {
+            getPoint().setX(newX);
         } else {
             //Failed tp move
             return false;

@@ -6,7 +6,7 @@
 package com.team142.gg.server.model.mappable.organic;
 
 import com.team142.gg.server.model.mappable.meta.PlaceableElement;
-import java.math.BigDecimal;
+import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import lombok.Getter;
 
 /**
@@ -18,10 +18,13 @@ public class MapTileElement extends PlaceableElement {
     @Getter
     private final String model;
 
-    public MapTileElement(double x, double y, double z, Tile tile, float rotation) {
-        super(x, y, z, rotation, tile.getSkin(), 0);
+    public MapTileElement(SpaceTimePoint point, Tile tile) {
+        super(point, tile.getSkin(), 0);
         this.model = tile.getModelType().name();
+    }
 
+    public String toMapTileName() {
+        return getPoint().getX() + "," + getPoint().getZ();
     }
 
 }

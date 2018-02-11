@@ -5,14 +5,19 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.controller.OrbManager;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.model.mappable.artificial.Tank;
+import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.controller.runnable.TickerComms;
 import com.team142.gg.server.controller.runnable.TickerPhysics;
 import com.team142.gg.server.controller.runnable.powers.Power;
 import com.team142.gg.server.controller.runnable.powers.Power01Shoot;
+import com.team142.gg.server.controller.runnable.powers.Power02RearShoot;
 import com.team142.gg.server.controller.runnable.powers.Power07Intel;
+import com.team142.gg.server.controller.runnable.powers.Power09Hop180;
+import com.team142.gg.server.controller.runnable.powers.Power08Teleport;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -54,13 +59,16 @@ public class Player {
         this.kills = new AtomicInteger(0);
         this.deaths = new AtomicInteger(0);
         this.TAG = Server.TAGS.incrementAndGet();
-        this.TANK = new Tank(0, 0.16d, 0, "default", Server.TANK_DEFAULT_SPEED, TAG, 100, this);
+        this.TANK = new Tank(new SpaceTimePoint(0, 0), "default", Server.TANK_DEFAULT_SPEED, TAG, 100, this);
         this.name = "";
         this.powers = new ConcurrentHashMap<>();
         Power01Shoot power1Shoot = new Power01Shoot(this);
         this.powers.put("1", power1Shoot);
         this.powers.put(" ", power1Shoot);
+        this.powers.put("2", new Power02RearShoot(this, 5000));
         this.powers.put("7", new Power07Intel(this, 1000));
+        this.powers.put("8", new Power08Teleport(this, 10000));
+        this.powers.put("9", new Power09Hop180(this, 10000));
 
     }
 
@@ -113,9 +121,9 @@ public class Player {
 
     public void movementTick() {
 
-        Map map = Repository.GAMES_ON_SERVER.get(gameId).getMap();
+        GameMap map = Repository.GAMES_ON_SERVER.get(gameId).getMap();
 
-        if(isRegularMovement()) {
+        if (isRegularMovement()) {
             if (isKeyDown(KEY_FORWARD)) {
                 getTANK().moveForward(map);
             }
@@ -138,13 +146,13 @@ public class Player {
     }
 
     private boolean isRegularMovement() {
-        return !isKeyDown(KEY_BACKWARD) &&
-                (isKeyDown(KEY_FORWARD) || isKeyDown(KEY_LEFT) || isKeyDown(KEY_RIGHT));
+        return !isKeyDown(KEY_BACKWARD)
+                && (isKeyDown(KEY_FORWARD) || isKeyDown(KEY_LEFT) || isKeyDown(KEY_RIGHT));
     }
 
     private boolean isReverseMovement() {
-        return !isKeyDown(KEY_FORWARD) &&
-                isKeyDown(KEY_BACKWARD);
+        return !isKeyDown(KEY_FORWARD)
+                && isKeyDown(KEY_BACKWARD);
     }
 
     private void turnRight() {
@@ -153,6 +161,16 @@ public class Player {
 
     private void turnLeft() {
         getTANK().rotateLeft();
+    }
+
+    public void checkForOrbs() {
+        Orb orb = OrbManager.isTankInOrb(TANK, gameId);
+        if (orb != null) {
+            //Give to player
+            //TODO: XP++
+
+            OrbManager.remove(orb);
+        }
     }
 
 }

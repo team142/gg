@@ -2,6 +2,9 @@ import { match } from '../model/Match.js'
 import { baby } from '../model/Baby.js'
 
 const stopAbles = []
+const animations = new Map()
+let animationCounter = 1
+
 
 export class BabylonAnimations {
 
@@ -93,11 +96,13 @@ export class BabylonAnimations {
         }
         particleSystem.updateFunction = animate
         particleSystem.start()
-        const which = stopAbles.length
-        stopAbles.push(particleSystem)
+        animationCounter++
+        let localCounter = animationCounter
+        animations.set(localCounter, particleSystem)
         setTimeout(() => {
-            stopAbles[which].stop();
-            stopAbles.splice(which, 1);
+            const pSystem = animations.get(localCounter)
+            pSystem.stop()
+            animations.delete(localCounter)
         }, ms)
 
     }
