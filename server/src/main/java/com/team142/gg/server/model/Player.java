@@ -66,7 +66,7 @@ public class Player {
         this.powers.put(" ", power1Shoot);
         this.powers.put("7", new Power07Intel(this, 1000));
         this.powers.put("8", new Power08Teleport(this, 10000));
-        this.powers.put("9", new Power09Hop180(this, 1000));
+        this.powers.put("9", new Power09Hop180(this, 10000));
 
     }
 
