@@ -5,8 +5,12 @@
  */
 package com.team142.gg.server.controller.runnable.powers;
 
+import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.controller.PowerManager;
+import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
+import com.team142.gg.server.model.Repository;
+import com.team142.gg.server.model.mappable.artificial.Bullet;
 
 /**
  *
@@ -20,6 +24,16 @@ public class Power02RearShoot extends Power {
 
     @Override
     public void execute() {
+
+        Game game = Repository.GAMES_ON_SERVER.get(getPlayer().getGameId());
+
+        //Change state
+        Bullet bullet = getPlayer().createBullet();
+        bullet.rotateLeft((float) Math.PI);
+
+        //Communicate
+        GameManager.sendBullet(game, bullet);
+        game.getSoundManager().sendShoot();
 
         PowerManager.sendCooldown(getPlayer().getId(), this, 2);
 
