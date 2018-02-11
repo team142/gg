@@ -20,6 +20,11 @@ public abstract class Power implements Runnable {
     private Player player;
     private long lastRunTime;
     private long refreshTime; //In MS
+    private final int ID;
+
+    public Power(int ID) {
+        this.ID = ID;
+    }
 
     @Override
     public void run() {
