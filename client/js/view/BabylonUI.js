@@ -88,7 +88,7 @@ export class BabylonUI {
                 BabylonUI.createTopPowerBarItem(p.key, p.ico)
                 PowerCooldownBar.save(
                     (p.key).toString(),
-                    new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP), p.cooldown)
+                    new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.id - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP), p.cooldown)
                 )
             })
 
