@@ -15,11 +15,8 @@ import com.team142.gg.server.controller.runnable.TickerPhysics;
 import com.team142.gg.server.controller.runnable.powers.Power;
 import com.team142.gg.server.controller.runnable.powers.Power01Shoot;
 import com.team142.gg.server.controller.runnable.powers.Power07Intel;
-<<<<<<< HEAD
 import com.team142.gg.server.controller.runnable.powers.Power09Hop180;
-=======
 import com.team142.gg.server.controller.runnable.powers.Power08Teleport;
->>>>>>> master
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -68,11 +65,8 @@ public class Player {
         this.powers.put("1", power1Shoot);
         this.powers.put(" ", power1Shoot);
         this.powers.put("7", new Power07Intel(this, 1000));
-<<<<<<< HEAD
-        this.powers.put("9", new Power09Hop180(this, 1000));
-=======
         this.powers.put("8", new Power08Teleport(this, 10000));
->>>>>>> master
+        this.powers.put("9", new Power09Hop180(this, 1000));
 
     }
 
