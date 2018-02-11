@@ -2,7 +2,7 @@ import { baby } from '../model/Baby.js'
 import { BabylonUtils } from '../view/BabylonUtils.js'
 import { game } from '../model/Game.js'
 import { match } from '../model/Match.js'
-import { BabylonUIController} from './BabylonUIController.js'
+import { BabylonUI } from './BabylonUI.js'
 
 export class BabylonModels {
 
@@ -19,7 +19,7 @@ export class BabylonModels {
                 baby.camera.rotation.y = t.point.rotation
 
                 //Move the healthbar
-                BabylonUIController.changeMyHealthBar(t.health, t.maxHealth)
+                BabylonUI.changeMyHealthBar(t.health, t.maxHealth)
             }
             const s = match.getPlayerByTag(t.tag)
             if (s) {
@@ -30,7 +30,7 @@ export class BabylonModels {
             }
             const rect1 = match.getHealthBarByTag(t.tag)
             if (rect1) {
-                BabylonUIController.setHealthRectangle(rect1, t.health, t.maxHealth)
+                BabylonUI.setHealthRectangle(rect1, t.health, t.maxHealth)
             }
 
 

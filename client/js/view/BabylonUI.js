@@ -2,7 +2,9 @@
 import { baby } from '../model/Baby.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 import { BabylonUtils } from './BabylonUtils.js'
-
+import { match } from '../model/Match.js'
+import { passiveIconInfo, powerIconInfo} from '../model/Power.js'
+import { game } from '../model/Game.js'
 /*
     This class is specfically for create / edit Babylon UI components
 */
