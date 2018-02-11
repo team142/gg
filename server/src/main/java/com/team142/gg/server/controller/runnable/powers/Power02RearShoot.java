@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.controller.runnable.powers;
 
+import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.Player;
 
 /**
@@ -19,6 +20,8 @@ public class Power02RearShoot extends Power {
 
     @Override
     public void execute() {
+
+        PowerManager.sendCooldown(getPlayer().getId(), this, 2);
 
     }
 
