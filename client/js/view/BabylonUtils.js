@@ -49,7 +49,7 @@ export class BabylonUtils {
         BabylonModels.createBaseBullet()
         BabylonModels.createBaseRandomOrb()
 
-        BabylonUI.createTopPowerBar()
+        // BabylonUI.createTopPowerBar()
         BabylonUI.createBotPowerBar()
         BabylonUI.createOwnHealthBar()
 
