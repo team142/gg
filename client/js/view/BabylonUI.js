@@ -52,7 +52,7 @@ export class BabylonUI {
                 }
             ))
         game.scores.sort((a, b) => a.value - b.value)
-        BabylonUtils.displayScores()
+        BabylonUI.displayScores()
 
     }
     static createGui() {
