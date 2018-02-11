@@ -67,7 +67,7 @@ export class BabylonUtils {
                 passiveIconInfo
                     .filter(p => p.usable)
                     .forEach(p => {
-                        BabylonUtils.createTopPowerBarItem(p.powerNumber - 1, p.ico)
+                        BabylonUtils.createTopPowerBarItem(p.key, p.ico)
                         PowerCooldownBar.save(
                             (p.powerNumber).toString(),
                             new PowerCooldownBar(BabylonUtils.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP), p.cooldown)
@@ -166,7 +166,7 @@ export class BabylonUtils {
                 baby.advancedTexture.addControl(image)
         
                 var text1 = new BABYLON.GUI.TextBlock("textblock" + n)
-                text1.text = (n + 1).toString()
+                text1.text = n
                 text1.color = "black"
                 text1.fontSize = 24
         
