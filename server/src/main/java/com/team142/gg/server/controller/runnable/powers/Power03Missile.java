@@ -13,8 +13,10 @@ import com.team142.gg.server.model.Player;
  */
 public class Power03Missile extends Power {
 
-    public Power03Missile(Player player, long refreshTime) {
-        super(3, player, 0, refreshTime);
+    private static final long INITIAL_COOLDOWN = 5000;
+
+    public Power03Missile(Player player) {
+        super(3, player, 0, INITIAL_COOLDOWN);
     }
 
     @Override

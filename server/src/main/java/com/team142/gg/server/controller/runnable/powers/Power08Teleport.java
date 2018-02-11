@@ -16,8 +16,10 @@ import com.team142.gg.server.model.Repository;
  */
 public class Power08Teleport extends Power {
 
-    public Power08Teleport(Player player, long refreshTime) {
-        super(8, player, 0, refreshTime);
+    private static final long INITIAL_COOLDOWN = 10000;
+
+    public Power08Teleport(Player player) {
+        super(8, player, 0, INITIAL_COOLDOWN);
     }
 
     @Override

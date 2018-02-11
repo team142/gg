@@ -65,10 +65,10 @@ public final class Player {
         Power01Shoot power1Shoot = new Power01Shoot(this);
         addPower(power1Shoot);
         addPower(" ", power1Shoot);
-        addPower(new Power02RearShoot(this, 5000));
-        addPower(new Power07Intel(this, 1000));
-        addPower(new Power08Teleport(this, 10000));
-        addPower(new Power09Hop180(this, 10000));
+        addPower(new Power02RearShoot(this));
+        addPower(new Power07Intel(this));
+        addPower(new Power08Teleport(this));
+        addPower(new Power09Hop180(this));
 
     }
 
