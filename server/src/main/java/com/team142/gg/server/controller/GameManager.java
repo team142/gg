@@ -49,6 +49,7 @@ public class GameManager {
         game.getTANKS().put(player.getId(), player.getTANK());
         player.getTANK().setMaxHealth(game.getStartHealth());
         game.getPlayers().add(player);
+        setHealthFull(player);
         spawn(game, player);
 
         //Start threads
@@ -62,6 +63,11 @@ public class GameManager {
         Reporter.report();
 
     }
+    
+    public static void setHealthFull(Player player) {
+        player.getTANK().setHealth(player.getTANK().getMaxHealth());
+        
+    }
 
     public static void spawn(Game game, Player player) {
         boolean success = false;
@@ -74,7 +80,6 @@ public class GameManager {
             success = game.getMap().isMovable(x, z);
         }
 
-        player.getTANK().setHealth(player.getTANK().getMaxHealth());
         player.getTANK().getPoint().setX(x);
         player.getTANK().getPoint().setZ(z);
 
@@ -110,8 +115,9 @@ public class GameManager {
 
     public static void handleKill(final Game game, final Player fromPlayer, Player player) {
         fromPlayer.getKills().incrementAndGet();
-        GameManager.spawn(game, player);
-        GameManager.sendScoreBoard(game);
+        setHealthFull(player);
+        spawn(game, player);
+        sendScoreBoard(game);
         MessageManager.sendPlayersAMessage(game, new MessageSpray(player, 1200));
         game.getSoundManager().sendExplode();
 

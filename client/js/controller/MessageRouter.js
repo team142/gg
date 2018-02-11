@@ -34,7 +34,7 @@ export class MessageRouter {
             match.tag = obj.tag
 
         } else if (conversation == "S_SHARE_MAP") {
-            BabylonUtils.createMap(obj.MAP)
+            BabylonUtils.createMap(obj)
 
         } else if (conversation == "S_PLAY_SOUND") {
             BabylonSounds.playSound(obj.FILE)

@@ -8,6 +8,7 @@ import { BabylonTextures } from './BabylonTextures.js'
 import { baby } from '../model/Baby.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 import { powerIconInfo } from '../model/Power.js'
+import { GameMap } from '../model/GameMap.js'
 
 export class BabylonUtils {
 
@@ -274,13 +275,10 @@ export class BabylonUtils {
 
     }
 
-    static createMap(arr) {
-        for (const t of arr) {
-            BabylonUtils.createMapTile(t.point.x, t.point.z, t.skin, t.model)
-        }
-
+    static createMap(obj) {
+        GameMap.create(obj)
+        obj.map.forEach(t => BabylonUtils.createMapTile(t.point.x, t.point.z, t.skin, t.model))
     }
-
 
     static createBullet(obj) {
         Bullet.createAndSave(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter()))

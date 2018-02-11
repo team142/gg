@@ -6,7 +6,7 @@
 package com.team142.gg.server.model.mappable.meta;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.team142.gg.server.model.Map;
+import com.team142.gg.server.model.GameMap;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -54,7 +54,7 @@ public class MovableElement extends PlaceableElement {
         }
     }
 
-    public boolean moveForward(Map map) {
+    public boolean moveForward(GameMap map) {
         double coefficientX = Math.sin(getPoint().getRotation());
         double coefficientZ = Math.cos(getPoint().getRotation());
         if (!changeX(coefficientX * getSpeed(), map)) {
@@ -66,7 +66,7 @@ public class MovableElement extends PlaceableElement {
         return true;
     }
 
-    public boolean moveBackward(Map map) {
+    public boolean moveBackward(GameMap map) {
 
         double newRotation = getPoint().getRotation();
         newRotation = newRotation - Math.PI;
@@ -88,25 +88,25 @@ public class MovableElement extends PlaceableElement {
 
     }
 
-    public void movementTick(Map map) {
+    public void movementTick(GameMap map) {
 
         if (getPoint().getX() < 0) {
             getPoint().setX(0);
         }
-        if (getPoint().getX() > 49 + 1) {
-            getPoint().setX(49);
+        if (getPoint().getX() > (map.getX() - 1) + 1) {
+            getPoint().setX(map.getX() - 1);
         }
         if (getPoint().getZ() < 0) {
             getPoint().setZ(0);
         }
-        if (getPoint().getZ() > 49 + 1) {
-            getPoint().setZ(49);
+        if (getPoint().getZ() > (map.getZ() - 1) + 1) {
+            getPoint().setZ(map.getZ() - 1);
         }
 
     }
 
     //Check before changing...
-    private boolean changeZ(double amt, Map map) {
+    private boolean changeZ(double amt, GameMap map) {
         double newZ = getPoint().getZ() + amt;
         if (isWalkOnWater()) {
             if (amt > 0 && map.isShootover(getPoint().getX(), newZ + 1)) {
@@ -134,7 +134,7 @@ public class MovableElement extends PlaceableElement {
     }
 
     //Check before changing...
-    private boolean changeX(double amt, Map map) {
+    private boolean changeX(double amt, GameMap map) {
         double newX = getPoint().getX() + amt;
         if (isWalkOnWater()) {
             if (amt > 0 && map.isShootover(newX + 1, getPoint().getZ())) {

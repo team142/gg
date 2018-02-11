@@ -9,7 +9,7 @@ import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.mappable.organic.MapTileElement;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
-import java.util.List;
+import java.util.Collection;
 import lombok.Getter;
 
 /**
@@ -19,11 +19,15 @@ import lombok.Getter;
 public class MessageShareMap extends Message {
 
     @Getter
-    private final List<MapTileElement> MAP;
+    private Collection<MapTileElement> map;
+    private int x;
+    private int z;
 
     public MessageShareMap(Game game) {
         setConversation(ConversationType.S_SHARE_MAP.name());
-        this.MAP = game.getMap().getTILES();
+        this.map = game.getMap().getTILES().values();
+        this.x = game.getMap().getX();
+        this.z = game.getMap().getZ();
 
     }
 
