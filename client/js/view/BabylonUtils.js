@@ -49,6 +49,19 @@ export class BabylonUtils {
 
     }
 
+    static createScene() {
+        baby.scene = new BABYLON.Scene(baby.engine)
+        baby.scene.name = "scene"
+        baby.camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), baby.scene)
+        baby.camera.setTarget(BABYLON.Vector3.Zero())
+        baby.camera.position.y = 0.75
+        const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), baby.scene)
+        light.intensity = 0.9
+        BabylonTextures.createMaterials()
+        BabylonUtils.createGui()
+
+    }    
+
     static createTopPowerBar() {
 
                 let powerBack = new BABYLON.GUI.Rectangle();
@@ -69,7 +82,7 @@ export class BabylonUtils {
                     .forEach(p => {
                         BabylonUtils.createTopPowerBarItem(p.key, p.ico)
                         PowerCooldownBar.save(
-                            (p.powerNumber).toString(),
+                            (p.key).toString(),
                             new PowerCooldownBar(BabylonUtils.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP), p.cooldown)
                         )
                     })
@@ -370,19 +383,6 @@ export class BabylonUtils {
         baby.panelScores.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
         baby.panelScores.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
         baby.advancedTexture.addControl(baby.panelScores)
-
-    }
-
-    static createScene() {
-        baby.scene = new BABYLON.Scene(baby.engine)
-        baby.scene.name = "scene"
-        baby.camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -15), baby.scene)
-        baby.camera.setTarget(BABYLON.Vector3.Zero())
-        baby.camera.position.y = 0.75
-        const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), baby.scene)
-        light.intensity = 0.9
-        BabylonTextures.createMaterials()
-        BabylonUtils.createGui()
 
     }
 
