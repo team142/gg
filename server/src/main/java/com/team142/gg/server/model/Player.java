@@ -14,6 +14,7 @@ import com.team142.gg.server.controller.runnable.TickerComms;
 import com.team142.gg.server.controller.runnable.TickerPhysics;
 import com.team142.gg.server.controller.runnable.powers.Power;
 import com.team142.gg.server.controller.runnable.powers.Power01Shoot;
+import com.team142.gg.server.controller.runnable.powers.Power02RearShoot;
 import com.team142.gg.server.controller.runnable.powers.Power07Intel;
 import com.team142.gg.server.controller.runnable.powers.Power09Hop180;
 import com.team142.gg.server.controller.runnable.powers.Power08Teleport;
@@ -64,9 +65,10 @@ public class Player {
         Power01Shoot power1Shoot = new Power01Shoot(this);
         this.powers.put("1", power1Shoot);
         this.powers.put(" ", power1Shoot);
+        this.powers.put("2", new Power02RearShoot(this, 5000));
         this.powers.put("7", new Power07Intel(this, 1000));
         this.powers.put("8", new Power08Teleport(this, 10000));
-        this.powers.put("9", new Power09Hop180(this, 1000));
+        this.powers.put("9", new Power09Hop180(this, 10000));
 
     }
 
