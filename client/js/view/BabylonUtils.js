@@ -7,7 +7,7 @@ import { BabylonModels } from './BabylonModels.js'
 import { BabylonTextures } from './BabylonTextures.js'
 import { baby } from '../model/Baby.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
-import { powerIconInfo } from '../model/Power.js'
+import { powerIconInfo, passiveIconInfo } from '../model/Power.js'
 import { GameMap } from '../model/GameMap.js'
 
 export class BabylonUtils {
@@ -43,12 +43,41 @@ export class BabylonUtils {
         BabylonModels.createBaseBullet()
         BabylonModels.createBaseRandomOrb()
 
-        BabylonUtils.createPowerBar()
+        BabylonUtils.createTopPowerBar()
+        BabylonUtils.createBotPowerBar()
         BabylonUtils.createOwnHealthBar()
 
     }
 
-    static createPowerBar() {
+    static createTopPowerBar() {
+
+                let powerBack = new BABYLON.GUI.Rectangle();
+                let w = 10 * 80 + 10
+                powerBack.width = w + "px"
+                powerBack.height = "95px"
+                powerBack.cornerRadius = 20
+                powerBack.color = "Black"
+                powerBack.thickness = 4
+                powerBack.background = "Black"
+                powerBack.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+                powerBack.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
+                baby.advancedTexture.addControl(powerBack)
+        
+        
+                passiveIconInfo
+                    .filter(p => p.usable)
+                    .forEach(p => {
+                        BabylonUtils.createTopPowerBarItem(p.powerNumber - 1, p.ico)
+                        PowerCooldownBar.save(
+                            (p.powerNumber).toString(),
+                            new PowerCooldownBar(BabylonUtils.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP), p.cooldown)
+                        )
+                    })
+        
+            }
+
+
+    static createBotPowerBar() {
 
         let powerBack = new BABYLON.GUI.Rectangle();
         let w = 10 * 80 + 10
@@ -66,21 +95,21 @@ export class BabylonUtils {
         powerIconInfo
             .filter(p => p.usable)
             .forEach(p => {
-                BabylonUtils.createPowerBarItem(p.powerNumber - 1, p.ico)
+                BabylonUtils.createBotPowerBarItem(p.powerNumber - 1, p.ico)
                 PowerCooldownBar.save(
                     (p.powerNumber).toString(),
-                    new PowerCooldownBar(BabylonUtils.createPowerBarCooldownTile(p.powerNumber - 1), p.cooldown)
+                    new PowerCooldownBar(BabylonUtils.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM), p.cooldown)
                 )
             })
 
     }
 
-    static createPowerBarCooldownTile(n) {
+    static createPowerBarCooldownTile(n, vAlign) {
         let image = new BABYLON.GUI.Image("cooldownTile" + n, "textures/ico-blank.jpg")
         image.height = "75px"
         image.width = "75px"
         image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
-        image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        image.verticalAlignment = vAlign
 
         //Left position
         let x = (75 + 5) * +n //Defaul space for a tile
@@ -92,7 +121,7 @@ export class BabylonUtils {
         return image
     }
 
-    static createPowerBarItem(n, fileImage) {
+    static createBotPowerBarItem(n, fileImage) {
 
         let image = new BABYLON.GUI.Image("powerBot" + n, fileImage)
         image.height = "75px"
@@ -120,6 +149,35 @@ export class BabylonUtils {
         baby.advancedTexture.addControl(text1)
 
     }
+
+    static createTopPowerBarItem(n, fileImage) {
+        
+                let image = new BABYLON.GUI.Image("powerBot" + n, fileImage)
+                image.height = "75px"
+                image.width = "75px"
+                image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+                image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
+        
+                //Left position
+                let x = (75 + 5) * +n //Defaul space for a tile
+                x = x - ((75 + 5) * (10 / 2 - 0.5)) //Center in middle
+                image.left = x + "px"
+                image.top = "-10px"
+                baby.advancedTexture.addControl(image)
+        
+                var text1 = new BABYLON.GUI.TextBlock("textblock" + n)
+                text1.text = (n + 1).toString()
+                text1.color = "black"
+                text1.fontSize = 24
+        
+                text1.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+                text1.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
+        
+                text1.left = (x - 75 / 2 + 7) + "px"
+                text1.top = "-10px"
+                baby.advancedTexture.addControl(text1)
+        
+            }
 
     static createOwnHealthBar() {
         let w = 8 * 80
