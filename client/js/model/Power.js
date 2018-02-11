@@ -11,3 +11,16 @@ export const powerIconInfo = [
     { powerNumber: 9, ico: "textures/ico-behind.jpg", cooldown: 20, usable: true },
     { powerNumber: 10, ico: "textures/ico-blank.jpg", cooldown: 20, usable: false }
 ]
+
+export const passiveIconInfo = [
+    { id: 1, ico: "textures/ico-blank.jpg", key: 'Z', usable: true },
+    { id: 2, ico: "textures/ico-blank.jpg", key: 'X', usable: true },
+    { id: 3, ico: "textures/ico-blank.jpg", key: 'C', usable: true },
+    { id: 4, ico: "textures/ico-blank.jpg", key: 'V', usable: true },
+    { id: 5, ico: "textures/ico-blank.jpg", key: 'B', usable: true },
+    { id: 6, ico: "textures/ico-blank.jpg", key: 'N', usable: true },
+    { id: 7, ico: "textures/ico-blank.jpg", key: 'M', usable: true },
+    { id: 8, ico: "textures/ico-blank.jpg", key: ',', usable: true },
+    { id: 9, ico: "textures/ico-blank.jpg", key: '.', usable: true },
+    { id: 10, ico: "textures/ico-blank.jpg", key: '/', usable: true }
+]

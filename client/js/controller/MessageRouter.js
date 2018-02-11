@@ -1,6 +1,8 @@
 import { NetworkController } from './NetworkController.js'
 import { Web } from '../view/Web.js'
 import { BabylonView } from '../view/BabylonView.js'
+import { BabylonModels } from '../view/BabylonModels.js'
+import { BabylonUI} from '../view/BabylonUI.js'
 import { match } from '../model/Match.js'
 import { BabylonUtils } from '../view/BabylonUtils.js'
 import { BabylonSounds } from '../view/BabylonSounds.js'
@@ -28,7 +30,7 @@ export class MessageRouter {
             Web.showListOfGames(obj.games)
 
         } else if (conversation == "S_SCOREBOARD") {
-            BabylonView.scoreboard(obj)
+            BabylonUI.scoreboard(obj)
 
         } else if (conversation == "S_SHARE_TAG") {
             match.tag = obj.tag
@@ -49,7 +51,7 @@ export class MessageRouter {
             BabylonAnimations.createSpray(obj.tagId, obj.ms)
 
         } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
-            BabylonView.recievedDynamicThings(obj)
+            BabylonModels.recievedDynamicThings(obj)
 
         } else if (conversation == "S_SHARE_INTEL") {
             match.setMiniMapOn(obj.on == true)
