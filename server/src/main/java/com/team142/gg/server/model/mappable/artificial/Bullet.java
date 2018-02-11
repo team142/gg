@@ -16,27 +16,23 @@ import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.utils.PhysicsUtils;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lombok.Data;
 
 /**
  *
  * @author just1689
  */
+@Data
 public class Bullet extends MovableElement {
 
-    @Getter
-    @Setter
     @JsonIgnore
     private Player player;
 
-    @Getter
     private boolean ok;
 
-    @Setter
     private double damage;
 
     public Bullet(Player player) {
