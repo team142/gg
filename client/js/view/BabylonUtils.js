@@ -68,15 +68,7 @@ export class BabylonUtils {
 
     }
 
-    static displayScores() {
-        baby.textScores.forEach(ro => {
-            ro.dispose()
-        })
-        game.scores.forEach((row, i) => {
-            BabylonUI.createRightText(i, row.key, row.value)
-        })
 
-    }
 
     static createSphereIfNotExists(tagId, labelText) {
         if (tagId) {

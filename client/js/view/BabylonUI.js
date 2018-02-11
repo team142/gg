@@ -1,13 +1,58 @@
 
 import { baby } from '../model/Baby.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
-import { BabylonUtils} from './BabylonUtils.js'
+import { BabylonUtils } from './BabylonUtils.js'
 
 /*
-    This class is specfically for create Babylon UI components
+    This class is specfically for create / edit Babylon UI components
 */
 export class BabylonUI {
 
+
+    static changeMyHealthBar(health, maxHealth) {
+        let potentialWidth = 8 * 80
+        let actualWidth = health / maxHealth * potentialWidth
+        let di = potentialWidth - actualWidth
+
+        match.healthBar.width = actualWidth + "px"
+        match.healthBar.left = 0 - (di / 2)
+    }
+
+    static setHealthRectangle(rect1, health, totalHealth) {
+        rect1.width = health / totalHealth * 0.2
+        if (match.miniMapOn != rect1.isVisible) {
+            rect1.isVisible = match.miniMapOn
+        }
+
+    }
+    static displayScores() {
+        baby.textScores.forEach(ro => {
+            ro.dispose()
+        })
+        game.scores.forEach((row, i) => {
+            BabylonUI.createRightText(i, row.key, row.value)
+        })
+
+    }
+
+    static scoreboard(obj) {
+
+        Object.keys(obj.tags)
+            .forEach(key => BabylonUtils.createSphereIfNotExists(obj.tags[key], key))
+
+        game.scores = []
+
+        Object.keys(obj.scores)
+            .forEach(key => game.scores.push(
+                {
+                    key: key,
+                    value: obj.scores[key]
+                }
+            ))
+        game.scores.sort((a, b) => a.value - b.value)
+        BabylonUtils.displayScores()
+
+    }
     static createGui() {
         baby.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI")
         baby.panelScores = new BABYLON.GUI.StackPanel()
@@ -190,6 +235,6 @@ export class BabylonUI {
         baby.panelScores.addControl(current)
         baby.textScores.push(current)
 
-    }    
+    }
 
 }
