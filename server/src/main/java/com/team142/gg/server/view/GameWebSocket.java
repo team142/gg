@@ -22,6 +22,27 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author just1689
  */
+
+
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+import java.io.IOException;
+
+/**
+ *
+ * @author just1689
+ */
+public class GameWebSocket extends TextWebSocketHandler{
+    @Override
+    public void handleTextMessage(WebSocketSession session, TextMessage message) throws InterruptedException, IOException {
+        Thread.sleep(3000); // simulated delay
+        TextMessage msg = new TextMessage("Hello, " + message.getPayload() + "!");
+        session.sendMessage(msg);
+    }
+}
+/*
 @ServerEndpoint("/websocket")
 public class Websocket {
 
@@ -50,4 +71,4 @@ public class Websocket {
 
     }
 
-}
+}*/
