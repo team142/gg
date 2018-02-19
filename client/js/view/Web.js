@@ -4,6 +4,7 @@ import { BabylonUtils } from './BabylonUtils.js'
 export class Web {
 
     static showStartScreen() {
+        Web.toggleElement("VIEW_SERVERS", true)
         Web.toggleElement("VIEW_CANVAS", false)
         Web.toggleElement("VIEW_GAMES", false)
 
