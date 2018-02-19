@@ -11,6 +11,7 @@ class Match {
         this.players = new Map()
         this.miniMapOn = false
         this.scores = []
+        this.gameMap = {}
 
     }
 

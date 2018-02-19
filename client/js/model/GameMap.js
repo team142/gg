@@ -1,10 +1,10 @@
-import { baby } from './baby.js'
+import { match } from './Match.js'
 
 export class GameMap {
 
     static create(obj) {
-        baby.gameMap = new GameMap(obj)
-        return baby.gameMap
+        match.gameMap = new GameMap(obj)
+        return match.gameMap
     }
     constructor(obj) {
         this.tiles = obj.map
