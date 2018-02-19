@@ -12,7 +12,7 @@ const sounds = [
 
 export class BabylonSounds {
     static loadSounds() {
-        sounds.forEach(s => BabylonSounds.loadSound(s))
+        sounds.forEach(BabylonSounds.loadSound)
     }
 
     static loadSound(path) {
