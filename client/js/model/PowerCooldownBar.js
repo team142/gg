@@ -1,6 +1,5 @@
 
 const POWER_ICON_WIDTH = 75
-
 const powerbarCooldownBars = new Map()
 
 export class PowerCooldownBar {
