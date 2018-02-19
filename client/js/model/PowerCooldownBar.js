@@ -1,14 +1,14 @@
+import { baby } from './Baby.js'
 
 const POWER_ICON_WIDTH = 75
-const powerbarCooldownBars = new Map()
 
 export class PowerCooldownBar {
 
-    static save(index, item) {
-        powerbarCooldownBars.set(index, item)
+    static set(index, item) {
+        baby.powerbarCooldownBars.set(index, item)
     }
     static get(index) {
-        return powerbarCooldownBars.get(index)
+        return baby.powerbarCooldownBars.get(index)
     }
 
     constructor(item, ticks) {
@@ -51,7 +51,7 @@ export class PowerCooldownBar {
             width = POWER_ICON_WIDTH - this.currentValue / this.ticksToFull * POWER_ICON_WIDTH
         }
         this.babylonRect.width = width.toString() + "px"
-        
+
     }
 
 }

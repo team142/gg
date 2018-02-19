@@ -87,7 +87,7 @@ export class BabylonUI {
             .filter(p => p.usable)
             .forEach(p => {
                 BabylonUI.createTopPowerBarItem(p.key, p.ico)
-                PowerCooldownBar.save(
+                PowerCooldownBar.set(
                     (p.key).toString(),
                     new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.id - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP), p.cooldown)
                 )
@@ -114,7 +114,7 @@ export class BabylonUI {
             .filter(p => p.usable)
             .forEach(p => {
                 BabylonUI.createBotPowerBarItem(p.powerNumber - 1, p.ico)
-                PowerCooldownBar.save(
+                PowerCooldownBar.set(
                     (p.powerNumber).toString(),
                     new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM), p.cooldown)
                 )

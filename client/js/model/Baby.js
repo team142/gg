@@ -5,7 +5,8 @@ export const baby = {
     counter: 0,
     soundData: {
         soundMap: new Map()
-    }
+    },
+    powerbarCooldownBars: new Map()
 
 }
 
