@@ -33,4 +33,19 @@ public class Orb {
         //Ummm
     }
 
+    public void check() {
+        Repository.GAMES_ON_SERVER
+        .get(getGameId())
+        .getTANKS()
+        .values()
+        .stream()
+        .filter((tank) -> tank.getTAG() != player.getTAG())
+        .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this, tank.getWidth()))
+        .forEach(this::pickup);        
+    }
+
+    public void pickup(Tank tank) {
+        //
+    }
+
 }
