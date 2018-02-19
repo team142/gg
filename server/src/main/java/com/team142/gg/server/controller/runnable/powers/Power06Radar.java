@@ -13,8 +13,10 @@ import com.team142.gg.server.model.Player;
  */
 public class Power06Radar extends Power {
 
-    public Power06Radar(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+    private static final long INITIAL_COOLDOWN = 5000;
+
+    public Power06Radar(Player player) {
+        super(6, player, 0, INITIAL_COOLDOWN);
     }
 
     @Override

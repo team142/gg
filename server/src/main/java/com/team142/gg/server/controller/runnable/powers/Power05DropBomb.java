@@ -13,8 +13,10 @@ import com.team142.gg.server.model.Player;
  */
 public class Power05DropBomb extends Power {
 
-    public Power05DropBomb(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+    private static final long INITIAL_COOLDOWN = 5000;
+
+    public Power05DropBomb(Player player) {
+        super(5, player, 0, INITIAL_COOLDOWN);
     }
 
     @Override

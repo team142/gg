@@ -17,6 +17,7 @@ import lombok.Data;
 @Data
 public abstract class Power implements Runnable {
 
+    private final int ID;
     private Player player;
     private long lastRunTime;
     private long refreshTime; //In MS
