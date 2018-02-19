@@ -19,9 +19,7 @@ export class BabylonTextures {
     static createMaterials() {
         BabylonTextures.createOrbMaterial()
 
-        for (const file of textureFiles) {
-            BabylonTextures.createAndSaveMaterial(TEXTURES_DIR + file)
-        }
+        textureFiles.forEach(file => BabylonTextures.createAndSaveMaterial(TEXTURES_DIR + file))
 
         baby.matGrey = new BABYLON.StandardMaterial("matGrey", baby.scene)
         baby.matGrey.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5)
