@@ -5,6 +5,8 @@ import { BabylonUtils } from './BabylonUtils.js'
 import { match } from '../model/Match.js'
 import { passiveIconInfo, powerIconInfo} from '../model/Power.js'
 import { game } from '../model/Game.js'
+import { TEXTURES_DIR } from './BabylonTextures.js'
+
 /*
     This class is specfically for create / edit Babylon UI components
 */
@@ -123,7 +125,7 @@ export class BabylonUI {
     }
 
     static createPowerBarCooldownTile(n, vAlign) {
-        let image = new BABYLON.GUI.Image("cooldownTile" + n, "textures/ico-blank.jpg")
+        let image = new BABYLON.GUI.Image("cooldownTile" + n, TEXTURES_DIR + "ico-blank.jpg")
         image.height = "75px"
         image.width = "75px"
         image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
