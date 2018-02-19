@@ -40,23 +40,25 @@ export class Web {
 
     static buttonJoinServerCustom() {
         swal({
-            title: 'Server address',
-            input: 'text',
+            title: 'Server Address',
+            input: 'address',
             showCancelButton: true,
             confirmButtonText: 'Alrighty',
             showLoaderOnConfirm: true,
             preConfirm: (address) => {
-                return new Promise((resolve) => {
-                    resolve()
-                })
+              return new Promise((resolve) => {
+                setTimeout(() => {
+                  resolve()
+                }, 2000)
+              })
             },
             allowOutsideClick: () => !swal.isLoading()
-        }).then((result) => {
+          }).then((result) => {
             if (result.value) {
-                //Join game code
                 Web.join(result.value)
             }
-        })
+          })
+          
     }
 
     static showListOfGames(games) {
@@ -117,7 +119,7 @@ export class Web {
 
     static assignJoinButton() {
         document.getElementById("btnJoinServer").addEventListener("click", () => { Web.buttonJoinServer() })
-        document.getElementById("btnJoinServerCustom").addEventListener("click", () => { Web.buttonJoinServer() })
+        document.getElementById("btnJoinServerCustom").addEventListener("click", () => { Web.buttonJoinServerCustom() })
 
     }
 
