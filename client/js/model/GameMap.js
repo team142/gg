@@ -1,9 +1,10 @@
+import { baby } from './baby.js'
 
-let gameMap
 export class GameMap {
 
     static create(obj) {
-        gameMap = new GameMap(obj)
+        baby.gameMap = new GameMap(obj)
+        return baby.gameMap
     }
     constructor(obj) {
         this.tiles = obj.map
