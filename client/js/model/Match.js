@@ -8,11 +8,9 @@ class Match {
         this.gameInstance = Math.floor(Math.random() * 1000)
         this.username = "Chop"
         this.tag = -1
-
         this.players = new Map()
-        
-
         this.miniMapOn = false
+        this.scores = []
 
     }
 

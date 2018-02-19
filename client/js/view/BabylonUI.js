@@ -4,7 +4,6 @@ import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 import { BabylonUtils } from './BabylonUtils.js'
 import { match } from '../model/Match.js'
 import { passiveIconInfo, powerIconInfo} from '../model/Power.js'
-import { game } from '../model/Game.js'
 import { TEXTURES_DIR } from './BabylonTextures.js'
 
 /*
@@ -33,7 +32,7 @@ export class BabylonUI {
         baby.textScores.forEach(ro => {
             ro.dispose()
         })
-        game.scores.forEach((row, i) => {
+        match.scores.forEach((row, i) => {
             BabylonUI.createRightText(i, row.key, row.value)
         })
 
@@ -44,16 +43,16 @@ export class BabylonUI {
         Object.keys(obj.tags)
             .forEach(key => BabylonUtils.createSphereIfNotExists(obj.tags[key], key))
 
-        game.scores = []
+        match.scores = []
 
         Object.keys(obj.scores)
-            .forEach(key => game.scores.push(
+            .forEach(key => match.scores.push(
                 {
                     key: key,
                     value: obj.scores[key]
                 }
             ))
-        game.scores.sort((a, b) => a.value - b.value)
+        match.scores.sort((a, b) => a.value - b.value)
         BabylonUI.displayScores()
 
     }
