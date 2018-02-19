@@ -6,7 +6,7 @@ class Match {
         this.playerLabels = new Map()
         this.playerRectangles = new Map()
         this.gameInstance = Math.floor(Math.random() * 1000)
-        this.username = "Chop"
+        this.username = "Unknown"
         this.tag = -1
         this.players = new Map()
         this.miniMapOn = false
