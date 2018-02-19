@@ -7,6 +7,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SpaceTimePoint {
 
+    public static final short X_COORD = 0;
+    public static final short Y_COORD = 1;
+    public static final short Z_COORD = 2;
+
     @Getter
     @Setter
     private double x;
