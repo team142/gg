@@ -7,7 +7,6 @@ const MAX_SIN_VAL = 7.85
 const VAL_INC = 0.0785
 const tick = 25
 
-const orbs = new Map()
 
 export class Orb {
 
@@ -25,14 +24,14 @@ export class Orb {
     }
 
     static save(orb) {
-        orbs.set(orb.name, orb)
+        baby.orbs.set(orb.name, orb)
     }
 
     static remove(name) {
-        const orb = orbs.get(name)
+        const orb = baby.orbs.get(name)
         orb.stop()
         orb.item.dispose()
-        orbs.delete(name)
+        baby.orbs.delete(name)
     }
 
     startTimer() {

@@ -6,7 +6,8 @@ export const baby = {
     soundData: {
         soundMap: new Map()
     },
-    powerbarCooldownBars: new Map()
-
+    powerbarCooldownBars: new Map(),
+    orbs: new Map()
+    
 }
 
