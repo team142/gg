@@ -1,7 +1,6 @@
 import { BabylonUtils } from '../view/BabylonUtils.js'
 import { baby } from '../model/Baby.js'
 
-export const bullets = []
 export class Bullet {
 
     static setupTicker() {
@@ -12,11 +11,11 @@ export class Bullet {
     }
 
     static tickAll() {
-        bullets.forEach(bullet => bullet.tick())
+        baby.bullets.forEach(bullet => bullet.tick())
     }
 
     static createAndSave(obj) {
-        bullets.push(new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter())))
+        baby.bullets.push(new Bullet(obj.BULLET, baby.baseBullet.clone("bullet" + BabylonUtils.getCounter())))
     }
 
     constructor(obj, babylonObject) {
@@ -62,8 +61,8 @@ export class Bullet {
 
     removeMe() {
         this.bBullet.dispose()
-        const index = bullets.indexOf(this)
-        bullets.splice(index, 1)
+        const index = baby.bullets.indexOf(this)
+        baby.bullets.splice(index, 1)
 
     }
 
