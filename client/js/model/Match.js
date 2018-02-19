@@ -1,17 +1,19 @@
 
 class Match {
     constructor() {
+        this.gameInstance = Math.floor(Math.random() * 1000)
+        this.username = "Unknown"
+        this.tag = -1
+        this.scores = []
+        this.gameMap = {}
+        this.players = new Map()
+        
         this.playerTanks = new Map()
         this.playerHealthBars = new Map()
         this.playerLabels = new Map()
         this.playerRectangles = new Map()
-        this.gameInstance = Math.floor(Math.random() * 1000)
-        this.username = "Unknown"
-        this.tag = -1
-        this.players = new Map()
+
         this.miniMapOn = false
-        this.scores = []
-        this.gameMap = {}
 
     }
 
