@@ -9,13 +9,18 @@ export class Web {
 
     }
 
-    static enabledJoinButton() {
-        document.getElementById("btnJoinServer").disabled = false
+    static toggleJoinButton(onOrOff) {
+        document.getElementById("btnJoinServer").disabled = onOrOff
+        document.getElementById("btnJoinServerCustom").disabled = onOrOff
     }
 
     static buttonJoinServer() {
-        document.getElementById("btnJoinServer").disabled = true
         const url = document.getElementById("selectServer").value
+        Web.join(url)
+    }
+
+    static join(url) {
+        Web.toggleJoinButton(true)
         const name = document.getElementById("inputName").value
         if (name) {
             document.getElementById("btnJoinServer").enabled = false
@@ -28,9 +33,30 @@ export class Web {
                 text: 'Please choose a nickname',
                 footer: '<a href="https://dictionary.cambridge.org/dictionary/english/nickname">What is a nickname?</a>',
             })
-            document.getElementById("btnJoinServer").disabled = false
+            Web.toggleJoinButton(false)
         }
 
+    }
+
+    static buttonJoinServerCustom() {
+        swal({
+            title: 'Server address',
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Alrighty',
+            showLoaderOnConfirm: true,
+            preConfirm: (address) => {
+                return new Promise((resolve) => {
+                    resolve()
+                })
+            },
+            allowOutsideClick: () => !swal.isLoading()
+        }).then((result) => {
+            if (result.value) {
+                //Join game code
+                Web.join(result.value)
+            }
+        })
     }
 
     static showListOfGames(games) {
@@ -91,6 +117,8 @@ export class Web {
 
     static assignJoinButton() {
         document.getElementById("btnJoinServer").addEventListener("click", () => { Web.buttonJoinServer() })
+        document.getElementById("btnJoinServerCustom").addEventListener("click", () => { Web.buttonJoinServer() })
+
     }
 
 }
