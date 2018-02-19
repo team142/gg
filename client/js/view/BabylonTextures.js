@@ -1,5 +1,7 @@
 import { baby } from '../model/Baby.js'
 
+export const TEXTURES_DIR = "/textures/"
+
 const textureFiles = [
     "grass1-min.jpg",
     "grass2-min.jpg",
@@ -17,7 +19,7 @@ export class BabylonTextures {
     static createMaterials() {
 
         for (const file of textureFiles) {
-            BabylonTextures.createAndSaveMaterial("/textures/" + file)
+            BabylonTextures.createAndSaveMaterial(TEXTURES_DIR + file)
         }
 
         baby.matGrey = new BABYLON.StandardMaterial("matGrey", baby.scene)
