@@ -13,16 +13,18 @@ import com.team142.gg.server.model.Player;
  * @author just1689
  */
 public class Power09Hop180 extends Power {
-    
-    public Power09Hop180(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+
+    private static final long INITIAL_COOLDOWN = 10000;
+
+    public Power09Hop180(Player player) {
+        super(9, player, 0, INITIAL_COOLDOWN);
     }
-    
+
     @Override
     public void execute() {
         getPlayer().getTANK().rotateLeft((float) Math.PI);
         PowerManager.sendCooldown(getPlayer().getId(), this, 9);
-        
+
     }
-    
+
 }
