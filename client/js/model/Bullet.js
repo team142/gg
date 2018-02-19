@@ -3,15 +3,11 @@ import { baby } from '../model/Baby.js'
 
 export class Bullet {
 
-    static setupTicker() {
-        bulletTimer = setInterval(() => {
-            Bullet.tickAll()
+    setupTicker() {
+        this.bulletTimer = setInterval(() => {
+            this.tick()
         }, (17 * 3))
 
-    }
-
-    static tickAll() {
-        baby.bullets.forEach(bullet => bullet.tick())
     }
 
     static createAndSave(obj) {
@@ -60,6 +56,7 @@ export class Bullet {
     }
 
     removeMe() {
+        clearInterval(this.bulletTimer)
         this.bBullet.dispose()
         const index = baby.bullets.indexOf(this)
         baby.bullets.splice(index, 1)
@@ -67,5 +64,3 @@ export class Bullet {
     }
 
 }
-
-let bulletTimer
