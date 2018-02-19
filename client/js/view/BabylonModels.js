@@ -1,6 +1,5 @@
 import { baby } from '../model/Baby.js'
 import { BabylonUtils } from '../view/BabylonUtils.js'
-import { game } from '../model/Game.js'
 import { match } from '../model/Match.js'
 import { BabylonUI } from './BabylonUI.js'
 import { TEXTURES_DIR } from './BabylonTextures.js'
