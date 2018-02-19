@@ -17,6 +17,7 @@ const textureFiles = [
 export class BabylonTextures {
 
     static createMaterials() {
+        BabylonTextures.createOrbMaterial()
 
         for (const file of textureFiles) {
             BabylonTextures.createAndSaveMaterial(TEXTURES_DIR + file)
@@ -31,8 +32,6 @@ export class BabylonTextures {
         baby.matWing = new BABYLON.StandardMaterial("matWing", baby.scene)
         baby.matWing.diffuseColor = new BABYLON.Color3(0.2, 0.2, 1)
 
-
-
     }
 
     static createAndSaveMaterial(textureFilePath) {
@@ -43,6 +42,10 @@ export class BabylonTextures {
         materialPlane.backFaceCulling = false//Always show the front and the back of an element
         baby.materialsMap.set(textureFilePath, materialPlane)
 
+
+    }
+
+    static createOrbMaterial() {
         const material = new BABYLON.StandardMaterial("kosh", baby.scene)
         material.diffuseColor = new BABYLON.Color3(0, 0, 0)
         material.emissiveColor = BABYLON.Color3.White()
@@ -60,7 +63,7 @@ export class BabylonTextures {
         material.opacityFresnelParameters.leftColor = BABYLON.Color3.White()
         material.opacityFresnelParameters.rightColor = BABYLON.Color3.Black()
 
-        baby.randomOrbMaterial = material
+        baby.randomOrbMaterial = material        
     }
 
 }
