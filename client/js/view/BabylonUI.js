@@ -83,7 +83,6 @@ export class BabylonUI {
         powerBack.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         baby.advancedTexture.addControl(powerBack)
 
-
         passiveIconInfo
             .filter(p => p.usable)
             .forEach(p => {
@@ -93,7 +92,6 @@ export class BabylonUI {
                     new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.id - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP), p.cooldown)
                 )
             })
-
     }
 
 
