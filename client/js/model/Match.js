@@ -9,6 +9,9 @@ class Match {
         this.username = "Chop"
         this.tag = -1
 
+        this.players = new Map()
+        
+
         this.miniMapOn = false
 
     }
