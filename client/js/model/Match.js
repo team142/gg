@@ -24,9 +24,8 @@ class Match {
     playerLeaves(tagId) {
 
         let children = match.getPlayerByTag(tagId).getChildren()
-        for (const child of children) {
-            child.dispose()
-        }
+        children.forEach(child => child.dispose())
+
         match.getPlayerByTag(tagId).dispose()
         match.playerTanks.delete(tagId)
 
