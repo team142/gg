@@ -1,6 +1,5 @@
 import { NetworkController } from './NetworkController.js'
 import { Web } from '../view/Web.js'
-import { BabylonView } from '../view/BabylonView.js'
 import { BabylonModels } from '../view/BabylonModels.js'
 import { BabylonUI} from '../view/BabylonUI.js'
 import { match } from '../model/Match.js'
