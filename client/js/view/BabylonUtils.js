@@ -178,6 +178,8 @@ export class BabylonUtils {
         const material = baby.materialsMap.get(skin)
         if (material) {
             plane.material = material
+        } else {
+            console.log("No material found: " + skin)
         }
         plane.visibility = true
 
