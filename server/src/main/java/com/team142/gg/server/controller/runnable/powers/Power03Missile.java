@@ -42,7 +42,7 @@ public class Power03Missile extends Power {
         GameManager.sendBullet(game, bullet);
         game.getSoundManager().sendShoot();
 
-        PowerManager.sendCooldown(getPlayer().getId(), this, 2);
+        PowerManager.sendCooldown(getPlayer().getId(), this, 3);
 
     }
 }
