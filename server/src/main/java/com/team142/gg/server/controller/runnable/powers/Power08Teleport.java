@@ -6,7 +6,6 @@
 package com.team142.gg.server.controller.runnable.powers;
 
 import com.team142.gg.server.controller.GameManager;
-import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 
@@ -24,7 +23,6 @@ public class Power08Teleport extends Power {
 
     @Override
     public void execute() {
-        PowerManager.sendCooldown(getPlayer().getId(), this, 8);
         GameManager.spawn(Repository.GAMES_ON_SERVER.get(getPlayer().getGameId()), getPlayer());
 
     }

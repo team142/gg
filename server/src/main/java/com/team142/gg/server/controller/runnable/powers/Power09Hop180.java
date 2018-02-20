@@ -5,7 +5,6 @@
  */
 package com.team142.gg.server.controller.runnable.powers;
 
-import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.Player;
 
 /**
@@ -23,7 +22,6 @@ public class Power09Hop180 extends Power {
     @Override
     public void execute() {
         getPlayer().getTANK().rotateLeft((float) Math.PI);
-        PowerManager.sendCooldown(getPlayer().getId(), this, 9);
 
     }
 

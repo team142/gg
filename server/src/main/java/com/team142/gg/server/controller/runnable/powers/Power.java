@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.controller.runnable.powers;
 
+import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,6 +37,9 @@ public abstract class Power implements Runnable {
 
         //Save last time
         lastRunTime = System.currentTimeMillis();
+
+        PowerManager.sendCooldown(getPlayer().getId(), this, ID);
+
     }
 
     //Implementation for that power

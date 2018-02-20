@@ -6,7 +6,6 @@
 package com.team142.gg.server.controller.runnable.powers;
 
 import com.team142.gg.server.controller.GameManager;
-import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
@@ -42,7 +41,6 @@ public class Power03Missile extends Power {
         GameManager.sendBullet(game, bullet);
         game.getSoundManager().sendShoot();
 
-        PowerManager.sendCooldown(getPlayer().getId(), this, 3);
 
     }
 }
