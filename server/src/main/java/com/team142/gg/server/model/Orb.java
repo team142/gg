@@ -5,6 +5,8 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.model.mappable.artificial.Tank;
+import com.team142.gg.server.utils.PhysicsUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,14 +36,14 @@ public class Orb {
     }
 
     public void check() {
-        Repository.GAMES_ON_SERVER
-        .get(getGameId())
-        .getTANKS()
-        .values()
-        .stream()
-        .filter((tank) -> tank.getTAG() != player.getTAG())
-        .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this, tank.getWidth()))
-        .forEach(this::pickup);        
+//        Repository.GAMES_ON_SERVER
+//        .get(getGameId())
+//        .getTANKS()
+//        .values()
+//        .stream()
+//        .filter((tank) -> tank.getTAG() != player.getTAG())
+//        .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this, tank.getWidth()))
+//        .forEach(this::pickup);        
     }
 
     public void pickup(Tank tank) {
