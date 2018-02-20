@@ -29,6 +29,7 @@ export class Bullet {
         this.tick()
         this.tick()
 
+        this.setupTicker()
     }
 
     tick() {
