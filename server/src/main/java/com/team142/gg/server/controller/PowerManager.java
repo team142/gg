@@ -38,6 +38,12 @@ public class PowerManager {
 
     }
 
+    public static void givePlayerPower(Player player, Power power) {
+        player.addPower(power);
+        MessageManager.sendPlayerAMessage(player.getId(), new MessagePowerLevel(power));
+
+    }
+
     public static void givePlayerRandomPower(Player player) {
         boolean given = false;
         int size = Repository.POWER_CLASSES.values().size();
@@ -51,9 +57,7 @@ public class PowerManager {
                     Class powerClass = Repository.POWER_CLASSES.get(String.valueOf(nextInt));
                     Constructor constructor = powerClass.getConstructor(new Class[]{Player.class});
                     Power power = (Power) constructor.newInstance(new Object[]{player});
-                    player.addPower(power);
-                    MessagePowerLevel message = new MessagePowerLevel(power);
-                    MessageManager.sendPlayerAMessage(player.getId(), message);
+                    givePlayerPower(player, power);
                     given = true;
                 } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
                     Logger.getLogger(PowerManager.class.getName()).log(Level.SEVERE, null, ex);
