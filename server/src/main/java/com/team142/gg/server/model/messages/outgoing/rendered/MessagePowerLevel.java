@@ -6,6 +6,7 @@
 package com.team142.gg.server.model.messages.outgoing.rendered;
 
 import com.team142.gg.server.controller.runnable.powers.Power;
+import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
 import lombok.Getter;
 
@@ -22,6 +23,7 @@ public class MessagePowerLevel extends Message {
     private int level;
 
     public MessagePowerLevel(Power power) {
+        setConversation(ConversationType.S_P_LEVEL.name());
         this.power = String.valueOf(power.getID());
         this.level = power.getLevel();
     }
