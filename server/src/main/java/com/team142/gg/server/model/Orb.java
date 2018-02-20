@@ -46,7 +46,7 @@ public class Orb extends PlaceableElement {
                 .getTANKS()
                 .values()
                 .stream()
-                .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank, this, tank.getWidth()))
+                .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank.getPoint(), getPoint(), tank.getWidth()))
                 .forEach(this::pickup);
     }
 
