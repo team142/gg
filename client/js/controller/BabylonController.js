@@ -6,6 +6,7 @@ import { Bullet } from '../model/Bullet.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 import { Orb } from '../model/Orb.js'
 import { BabylonModels } from '../view/BabylonModels.js'
+import { BabyLonUI } from '../view/BabylonUI.js'
 
 export class BabylonController {
 
@@ -39,7 +40,7 @@ export class BabylonController {
     }
 
     static handleOrbGone(obj) {
-        Orb.remove(obj.name)        
+        Orb.remove(obj.name)
     }
 
     static handleCooldown(obj) {
