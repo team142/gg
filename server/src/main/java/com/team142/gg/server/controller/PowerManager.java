@@ -10,6 +10,7 @@ import com.team142.gg.server.controller.runnable.powers.Power;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.outgoing.other.MessageCooldown;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessagePowerLevel;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Iterator;
@@ -41,21 +42,24 @@ public class PowerManager {
 
     public static void givePlayerRandomPower(Player player) {
         boolean given = false;
-        Collection<Class> powerClasses = Repository.POWER_CLASSES.values();
-        int size = powerClasses.size();
+        int size = Repository.POWER_CLASSES.values().size();
         int triesRemaining = 20;
         while (!given && triesRemaining > 0) {
-            int nextInt = ThreadLocalRandom.current().nextInt(0, size);
+            int nextInt = ThreadLocalRandom.current().nextInt(1, size + 1);
             boolean contains = player.getPowers().containsKey(String.valueOf(nextInt));
             if (!contains) {
                 //Give power to player
-                Class powerClass = Repository.POWER_CLASSES.get(String.valueOf(nextInt));
                 try {
-                    Power power = (Power) powerClass.getDeclaredConstructor(Player.class).newInstance(player);
+                    Class powerClass = Repository.POWER_CLASSES.get(String.valueOf(nextInt));
+                    Constructor constructor = powerClass.getConstructor(new Class[]{Player.class});
+                    Power power = (Power) constructor.newInstance(new Object[]{player});
                     player.addPower(power);
                     MessagePowerLevel message = new MessagePowerLevel(power);
                     MessageManager.sendPlayerAMessage(player.getId(), message);
+                    given = true;
                 } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
+                    Logger.getLogger(PowerManager.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(PowerManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
