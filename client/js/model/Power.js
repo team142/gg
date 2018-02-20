@@ -2,23 +2,7 @@ import { TEXTURES_DIR } from '../view/BabylonTextures.js'
 import { BabylonUI } from '../view/BabylonUI.js'
 import { PowerCooldownBar } from './PowerCooldownBar.js'
 
-export class Power {
-    static setPowerLevel(powerId, level) {
-        const p = powerIconInfo
-            .find(power => power.powerNumber == powerId)
-        if (p) {
-            p.level = level
-            if (level == 1) {
-                BabylonUI.createBotPowerBarItem(p.powerNumber - 1, p.ico)
-                PowerCooldownBar.set(
-                    (p.powerNumber).toString(),
-                    new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM), p.cooldown)
-                )
 
-            }
-        }
-    }
-}
 export const powerIconInfo = [
     { powerNumber: 1, level: 0, ico: TEXTURES_DIR + "ico-shoot.jpg", cooldown: 20, usable: true },
     { powerNumber: 2, level: 0, ico: TEXTURES_DIR + "ico-tail.jpg", cooldown: 20, usable: false },

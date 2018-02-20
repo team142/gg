@@ -50,4 +50,19 @@ export class BabylonController {
         item.useIt()
     }
 
+    static setPowerLevel(powerId, level) {
+        const p = powerIconInfo
+            .find(power => power.powerNumber == powerId)
+        if (p) {
+            p.level = level
+            if (level == 1) {
+                BabylonUI.createBotPowerBarItem(p.powerNumber - 1, p.ico)
+                PowerCooldownBar.set(
+                    (p.powerNumber).toString(),
+                    new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM), p.cooldown)
+                )
+
+            }
+        }
+    }
 }
