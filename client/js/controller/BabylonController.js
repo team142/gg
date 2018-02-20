@@ -6,7 +6,7 @@ import { Bullet } from '../model/Bullet.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 import { Orb } from '../model/Orb.js'
 import { BabylonModels } from '../view/BabylonModels.js'
-import { BabyLonUI } from '../view/BabylonUI.js'
+import { BabylonUI } from '../view/BabylonUI.js'
 
 export class BabylonController {
 
