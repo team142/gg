@@ -7,6 +7,7 @@ import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 import { Orb } from '../model/Orb.js'
 import { BabylonModels } from '../view/BabylonModels.js'
 import { BabylonUI } from '../view/BabylonUI.js'
+import { powerIconInfo } from '../model/Power.js'
 
 export class BabylonController {
 
