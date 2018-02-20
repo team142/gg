@@ -21,4 +21,9 @@ public class PhysicsUtils {
                 && t.getZ() <= l.getZ() + width));
     }
 
+    public static float getRadians(SpaceTimePoint viewer, SpaceTimePoint other) {
+        //TODO: implement
+        return 0;
+    }
+
 }
