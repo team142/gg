@@ -6,6 +6,7 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.OrbManager;
+import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
@@ -65,10 +66,6 @@ public final class Player {
         Power01Shoot power1Shoot = new Power01Shoot(this);
         addPower(power1Shoot);
         addPower(" ", power1Shoot);
-        addPower(new Power02RearShoot(this));
-        addPower(new Power07Intel(this));
-        addPower(new Power08Teleport(this));
-        addPower(new Power09Hop180(this));
 
     }
 
@@ -165,10 +162,8 @@ public final class Player {
 
     public void checkForOrbs() {
         Orb orb = OrbManager.isTankInOrb(TANK, gameId);
-        if (orb != null) {
-            //Give to player
-            //TODO: XP++
-
+        if (orb != null) {            
+            PowerManager.givePlayerRandomPower(this);
             OrbManager.remove(orb);
         }
     }

@@ -13,6 +13,8 @@ import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageDeleteOrb;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageNewOrb;
+import com.team142.gg.server.utils.PhysicsUtils;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -48,16 +50,15 @@ public class OrbManager {
         MessageManager.sendPlayersAMessage(game, new MessageNewOrb(orb));
     }
 
-    public static Orb isTankInOrb(Tank TANK, String gameId) {
-        int x = (int) TANK.getPoint().getX();
-        int z = (int) TANK.getPoint().getZ();
+    public static Orb isTankInOrb(Tank tank, String gameId) {
         return Repository.GAMES_ON_SERVER.get(gameId)
                 .getOrbs()
                 .values()
                 .stream()
-                .filter((orb) -> x == orb.getPoint().getX() && z == orb.getPoint().getZ())
+                .filter(orb -> PhysicsUtils.isTinyObjectInLarger(orb.getPoint(), tank.getPoint(), tank.getWidth()))
                 .findFirst()
                 .orElse(null);
+
     }
 
     public static void remove(Orb orb) {
