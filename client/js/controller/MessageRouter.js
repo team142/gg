@@ -1,6 +1,7 @@
 import { NetworkController } from './NetworkController.js'
 import { Web } from '../view/Web.js'
 import { BabylonController } from './BabylonController.js'
+import { match } from '../model/Match.js'
 
 export class MessageRouter {
 
