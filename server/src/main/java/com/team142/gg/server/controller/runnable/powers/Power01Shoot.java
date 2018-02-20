@@ -21,7 +21,7 @@ public class Power01Shoot extends Power {
     private static final int INITIAL_COOLDOWN = 1000;
 
     public Power01Shoot(Player player) {
-        super(1, player, 0, INITIAL_COOLDOWN);
+        super(1, player, 0, INITIAL_COOLDOWN, 1);
     }
 
     @Override

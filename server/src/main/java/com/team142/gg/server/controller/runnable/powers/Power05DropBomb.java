@@ -16,7 +16,7 @@ public class Power05DropBomb extends Power {
     private static final long INITIAL_COOLDOWN = 5000;
 
     public Power05DropBomb(Player player) {
-        super(5, player, 0, INITIAL_COOLDOWN);
+        super(5, player, 0, INITIAL_COOLDOWN, 1);
     }
 
     @Override

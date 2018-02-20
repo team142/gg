@@ -21,7 +21,7 @@ public class Power02RearShoot extends Power {
     private static final long INITIAL_COOLDOWN = 5000;
 
     public Power02RearShoot(Player player) {
-        super(2, player, 0, INITIAL_COOLDOWN);
+        super(2, player, 0, INITIAL_COOLDOWN, 1);
     }
 
     @Override

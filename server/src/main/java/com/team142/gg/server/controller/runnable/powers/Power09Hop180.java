@@ -17,7 +17,7 @@ public class Power09Hop180 extends Power {
     private static final long INITIAL_COOLDOWN = 10000;
 
     public Power09Hop180(Player player) {
-        super(9, player, 0, INITIAL_COOLDOWN);
+        super(9, player, 0, INITIAL_COOLDOWN, 1);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class Power08Teleport extends Power {
     private static final long INITIAL_COOLDOWN = 10000;
 
     public Power08Teleport(Player player) {
-        super(8, player, 0, INITIAL_COOLDOWN);
+        super(8, player, 0, INITIAL_COOLDOWN, 1);
     }
 
     @Override
