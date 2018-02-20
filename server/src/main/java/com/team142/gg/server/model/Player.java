@@ -6,6 +6,7 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.OrbManager;
+import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
@@ -161,10 +162,8 @@ public final class Player {
 
     public void checkForOrbs() {
         Orb orb = OrbManager.isTankInOrb(TANK, gameId);
-        if (orb != null) {
-            //Give to player
-            //TODO: XP++
-
+        if (orb != null) {            
+            PowerManager.givePlayerRandomPower(this);
             OrbManager.remove(orb);
         }
     }
