@@ -10,6 +10,7 @@ import com.team142.gg.server.model.GameMap;
 import com.team142.gg.server.model.Orb;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.mappable.artificial.Tank;
+import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageDeleteOrb;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageNewOrb;
 import java.util.concurrent.ThreadLocalRandom;
@@ -29,8 +30,8 @@ public class OrbManager {
             z = ThreadLocalRandom.current().nextInt(1, 48 + 1);
             success = map.isMovable(x, z);
         }
-        orb.setX(x);
-        orb.setZ(z);
+        orb.getPoint().setX(x);
+        orb.getPoint().setZ(z);
 
     }
 
@@ -39,8 +40,9 @@ public class OrbManager {
     }
 
     public static void spawnOrb(Game game) {
-        Orb orb = new Orb(game.getId());
-        orb.setName("orb" + game.getGAME_COUNTER().incrementAndGet());
+        int nextGameCounter = game.getGAME_COUNTER().incrementAndGet();
+        SpaceTimePoint point = new SpaceTimePoint(0, 0);
+        Orb orb = new Orb("orb" + nextGameCounter, game.getId(), point, "orb", nextGameCounter);
         findRandomLocationForOrb(orb, game.getMap());
         game.getOrbs().put(orb.getName(), orb);
         MessageManager.sendPlayersAMessage(game, new MessageNewOrb(orb));
@@ -53,7 +55,7 @@ public class OrbManager {
                 .getOrbs()
                 .values()
                 .stream()
-                .filter((orb) -> x == orb.getX() && z == orb.getZ())
+                .filter((orb) -> x == orb.getPoint().getX() && z == orb.getPoint().getZ())
                 .findFirst()
                 .orElse(null);
     }
