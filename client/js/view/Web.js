@@ -34,32 +34,32 @@ export class Web {
                 text: 'Please choose a nickname',
                 footer: '<a href="https://dictionary.cambridge.org/dictionary/english/nickname">What is a nickname?</a>',
             })
-            Web.toggleJoinButton(false)
         }
+        Web.toggleJoinButton(false)
 
     }
 
     static buttonJoinServerCustom() {
         swal({
-            title: 'Server Address',
-            input: 'address',
+            title: 'Custom server address',
+            input: 'text',
             showCancelButton: true,
-            confirmButtonText: 'Alrighty',
+            confirmButtonText: 'Connect',
             showLoaderOnConfirm: true,
-            preConfirm: (address) => {
-              return new Promise((resolve) => {
-                setTimeout(() => {
-                  resolve()
-                }, 2000)
-              })
+            preConfirm: (email) => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve()
+                    }, 2000)
+                })
             },
             allowOutsideClick: () => !swal.isLoading()
-          }).then((result) => {
+        }).then((result) => {
             if (result.value) {
                 Web.join(result.value)
             }
-          })
-          
+        })
+
     }
 
     static showListOfGames(games) {
