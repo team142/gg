@@ -19,3 +19,4 @@ client/build/
 server/bin/
 server/.gradle/
 server/build/
+server/src/main/resources/
