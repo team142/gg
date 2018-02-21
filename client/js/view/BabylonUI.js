@@ -241,7 +241,8 @@ export class BabylonUI {
 
     static createRadar(obj) {
         BabylonUI.stopRadar()
-        obj.things.forEach(thing => BabylonUI.createTinyBlock(thing.position.x, thing.position.z, "red") )
+        console.log(obj.things)
+        obj.things.forEach(thing => BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "red") )
     }
 
     createTinyBlock(x, y, color) {
