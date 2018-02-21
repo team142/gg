@@ -6,6 +6,8 @@ import { match } from '../model/Match.js'
 import { passiveIconInfo, powerIconInfo} from '../model/Power.js'
 import { TEXTURES_DIR } from './BabylonTextures.js'
 
+const BLOCK_SIZE = 5
+
 /*
     This class is specfically for create / edit Babylon UI components
 */
@@ -254,11 +256,11 @@ export class BabylonUI {
 
     static createTinyBlock(x, y, color) {
         const tinyBlock = new BABYLON.GUI.Rectangle();
-        tinyBlock.width = "4px"
-        tinyBlock.height = "4px"
+        tinyBlock.width = BLOCK_SIZE + "px"
+        tinyBlock.height = BLOCK_SIZE + "px"
         tinyBlock.color = color
-        tinyBlock.left = (4 * x) + "px"
-        tinyBlock.top = (4 * y) + "px"
+        tinyBlock.left = (BLOCK_SIZE * x) + "px"
+        tinyBlock.top = (BLOCK_SIZE * y) + "px"
         tinyBlock.background = color
         tinyBlock.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
         tinyBlock.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
