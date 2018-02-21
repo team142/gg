@@ -12,7 +12,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(greetingHandler(), "/greeting");
+        registry.addHandler(greetingHandler(), "/websocket");
     }
 
     @Bean
