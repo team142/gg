@@ -56,8 +56,13 @@ export class MessageRouter {
 
         } else if (conversation == "S_SHARE_COOLDOWN") {
             BabylonController.handleCooldown(obj)
+
         } else if (conversation == "S_P_LEVEL") {
             BabylonController.setPowerLevel(obj.power, obj.level)
+
+        } else if (conversation == "S_SHARE_RADAR") {
+            BabylonController.shareRadar(obj)
+            
         } else {
             console.log("Dont know what to do with this:")
             console.log(obj)

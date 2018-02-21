@@ -238,4 +238,12 @@ export class BabylonUI {
 
     }
 
+    static createRadar(obj) {
+
+    }
+
+    static stopRadar() {
+
+    }
+
 }
