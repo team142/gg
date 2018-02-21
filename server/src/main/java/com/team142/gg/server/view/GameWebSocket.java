@@ -24,8 +24,7 @@ import javax.websocket.server.ServerEndpoint;
  */
 
 
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
@@ -34,41 +33,34 @@ import java.io.IOException;
  *
  * @author just1689
  */
-public class GameWebSocket extends TextWebSocketHandler{
+public class GameWebSocket implements WebSocketHandler {
     @Override
-    public void handleTextMessage(WebSocketSession session, TextMessage message) throws InterruptedException, IOException {
-        Thread.sleep(3000); // simulated delay
-        TextMessage msg = new TextMessage("Hello, " + message.getPayload() + "!");
-        session.sendMessage(msg);
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+        String id = session.getId();
+        //The wildcard type might cause issues
+        MessageManager.handleIncoming(id, message.getPayload().toString());
     }
-}
-/*
-@ServerEndpoint("/websocket")
-public class Websocket {
 
-    @OnOpen
-    public void onOpen(Session session) {
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         ServerManager.notifyNewConnection(session);
     }
 
-    @OnError
-    public void onError(Session session, Throwable t) {
+    @Override
+    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
         ServerManager.checkSession(session);
-        if (!(t instanceof EOFException)) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, "Unknown Error at websocket:", t);
+        if (!(exception instanceof EOFException)) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, "Unknown Error at websocket:", exception);
         }
     }
 
-    @OnMessage
-    public void onMessage(Session session, String message) {
-        String id = session.getId();
-        MessageManager.handleIncoming(id, message);
-    }
-
-    @OnClose
-    public void onClose(Session session) {
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
         ServerManager.notifyDisconnection(session);
-
     }
 
-}*/
+    @Override
+    public boolean supportsPartialMessages() {
+        return false;
+    }
+}
