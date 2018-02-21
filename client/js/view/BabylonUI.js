@@ -241,25 +241,28 @@ export class BabylonUI {
 
     static createRadar(obj) {
         BabylonUI.stopRadar()
-        console.log(obj.things)
-        obj.things.forEach(thing => BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "red") )
+        obj.things.forEach(thing => BabylonUI.createTinyBlockFromThing(thing))
+    }
+
+    static createTinyBlockFromThing(thing) {
+        if (thing.tag == match.tag) {
+            BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "green")
+        } else {
+            BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "red")
+        }
     }
 
     static createTinyBlock(x, y, color) {
         const tinyBlock = new BABYLON.GUI.Rectangle();
         tinyBlock.width = "2px"
         tinyBlock.height = "2px"
-        // tinyBlock.cornerRadius = 0
-        tinyBlock.color = color
-        tinyBlock.left = (0 -(75 * 6) - (2 * x)) + "px"
-        tinyBlock.top = (-50 - (2 * y)) + "px"
-        // tinyBlock.thickness = 1
+        tinyBlock.color = "white"
+        tinyBlock.left = (2 * x) + "px"
+        tinyBlock.top = (2 * y) + "px"
         tinyBlock.background = color
         tinyBlock.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
-        tinyBlock.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        tinyBlock.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
         baby.advancedTexture.addControl(tinyBlock)
-
-
         baby.radar.push(tinyBlock)
     }
 
