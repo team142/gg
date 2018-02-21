@@ -7,7 +7,6 @@ package com.team142.gg.server.model.messages.incoming;
 
 import com.team142.gg.server.controller.PlayerManager;
 import com.team142.gg.server.controller.PowerManager;
-import com.team142.gg.server.controller.runnable.powers.Power03Missile;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.base.ConversationType;
@@ -27,7 +26,7 @@ public class MessageKeyDown extends MessageKey implements Runnable {
     public void run() {
         if (getKey().toUpperCase().equals("P")) {
             Player player = Repository.PLAYERS_ON_SERVER.get(getFrom());
-            PowerManager.givePlayerPower(player, new Power03Missile(player));
+            PowerManager.givePlayerRandomPower(player);
             return;
         }
         PlayerManager.handle(this);
