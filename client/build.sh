@@ -9,4 +9,4 @@ cp -rf textures build
 cp -rf sounds build
 cp -rf js/babylon build/js
 rollup js/App.js --o build/js/App.js --f es
-uglifyjs --compress -o js/App.js  --mangle -- js/App.js
+uglifyjs --compress -o build/js/App.js  --mangle -- build/js/App.js
