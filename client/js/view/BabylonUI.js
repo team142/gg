@@ -248,7 +248,7 @@ export class BabylonUI {
         const tinyBlock = new BABYLON.GUI.Rectangle();
         tinyBlock.width = "2px"
         tinyBlock.height = "2px"
-        tinyBlock.cornerRadius = 00
+        // tinyBlock.cornerRadius = 0
         tinyBlock.color = color
         tinyBlock.left = (0 -(75 * 6) - (2 * x)) + "px"
         tinyBlock.top = (-50 - (2 * y)) + "px"
