@@ -12,6 +12,7 @@ import { TEXTURES_DIR } from './BabylonTextures.js'
 export class BabylonUI {
 
 
+
     static changeMyHealthBar(health, maxHealth) {
         let potentialWidth = 8 * 80
         let actualWidth = health / maxHealth * potentialWidth
@@ -239,11 +240,31 @@ export class BabylonUI {
     }
 
     static createRadar(obj) {
+        BabylonUI.stopRadar()
+        obj.things.forEach(thing => BabylonUI.createTinyBlock(thing.position.x, thing.position.z, "red") )
+    }
 
+    createTinyBlock(x, y, color) {
+        const tinyBlock = new BABYLON.GUI.Rectangle();
+        tinyBlock.width = "2px"
+        tinyBlock.height = "2px"
+        tinyBlock.cornerRadius = 00
+        tinyBlock.color = color
+        tinyBlock.left = (0 -(75 * 6) - (2 * x)) + "px"
+        tinyBlock.top = (-50 - (2 * y)) + "px"
+        // tinyBlock.thickness = 1
+        tinyBlock.background = color
+        tinyBlock.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        tinyBlock.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        baby.advancedTexture.addControl(tinyBlock)
+
+
+        baby.radar.push(tinyBlock)
     }
 
     static stopRadar() {
-
+        baby.radar.forEach(item => item.dispose())
+        baby.radar = []
     }
 
 }

@@ -68,12 +68,11 @@ export class BabylonController {
     }
     
     static shareRadar(obj) {
-        //TODO: Display tiny map.
-        
+        BabylonUI.createRadar(obj)
         setTimeout(BabylonController.stopRadar, obj.timeout)
     }
 
     static stopRadar() {
-
+        BabylonUI.stopRadar()
     }
 }
