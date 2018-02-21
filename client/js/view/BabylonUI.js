@@ -245,7 +245,7 @@ export class BabylonUI {
         obj.things.forEach(thing => BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "red") )
     }
 
-    createTinyBlock(x, y, color) {
+    static createTinyBlock(x, y, color) {
         const tinyBlock = new BABYLON.GUI.Rectangle();
         tinyBlock.width = "2px"
         tinyBlock.height = "2px"
