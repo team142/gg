@@ -16,7 +16,7 @@ import lombok.Getter;
 public class MessageRadar extends MessageShareThingsDynamic {
 
     @Getter
-    private int timeout;
+    private final int timeout;
 
     public MessageRadar(Game game, int timeout) {
         super(game);
