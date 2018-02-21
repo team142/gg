@@ -28,6 +28,7 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-websocket")
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-web")
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.1'
     compile("org.webjars:webjars-locator")
     compile("org.webjars:sockjs-client:1.0.2")
