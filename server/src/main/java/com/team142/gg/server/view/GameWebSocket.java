@@ -11,33 +11,20 @@ import com.team142.gg.server.model.Server;
 import java.io.EOFException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
-
-/**
- *
- * @author just1689
- */
-
-
 import org.springframework.web.socket.*;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
-
-import java.io.IOException;
 
 /**
  *
  * @author just1689
  */
+
 public class GameWebSocket implements WebSocketHandler {
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         String id = session.getId();
         //The wildcard type might cause issues
+
+        Logger.getLogger(Server.class.getName()).log(Level.FINE, "the message is: " + message);
         MessageManager.handleIncoming(id, message.getPayload().toString());
     }
 
