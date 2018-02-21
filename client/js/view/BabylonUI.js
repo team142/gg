@@ -246,7 +246,7 @@ export class BabylonUI {
 
     static createTinyBlockFromThing(thing) {
         if (thing.tag == match.tag) {
-            BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "green")
+            BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "blue")
         } else {
             BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "red")
         }
@@ -256,7 +256,7 @@ export class BabylonUI {
         const tinyBlock = new BABYLON.GUI.Rectangle();
         tinyBlock.width = "4px"
         tinyBlock.height = "4px"
-        tinyBlock.color = "white"
+        tinyBlock.color = color
         tinyBlock.left = (4 * x) + "px"
         tinyBlock.top = (4 * y) + "px"
         tinyBlock.background = color
