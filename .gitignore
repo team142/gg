@@ -20,3 +20,6 @@ server/bin/
 server/.gradle/
 server/build/
 server/src/main/resources/
+server/.settings/org.eclipse.buildship.core.prefs
+
+.vscode/settings.json
