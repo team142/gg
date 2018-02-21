@@ -254,11 +254,11 @@ export class BabylonUI {
 
     static createTinyBlock(x, y, color) {
         const tinyBlock = new BABYLON.GUI.Rectangle();
-        tinyBlock.width = "2px"
-        tinyBlock.height = "2px"
+        tinyBlock.width = "4px"
+        tinyBlock.height = "4px"
         tinyBlock.color = "white"
-        tinyBlock.left = (2 * x) + "px"
-        tinyBlock.top = (2 * y) + "px"
+        tinyBlock.left = (4 * x) + "px"
+        tinyBlock.top = (4 * y) + "px"
         tinyBlock.background = color
         tinyBlock.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
         tinyBlock.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
