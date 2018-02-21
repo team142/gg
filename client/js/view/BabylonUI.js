@@ -6,10 +6,13 @@ import { match } from '../model/Match.js'
 import { passiveIconInfo, powerIconInfo} from '../model/Power.js'
 import { TEXTURES_DIR } from './BabylonTextures.js'
 
+const BLOCK_SIZE = 5
+
 /*
     This class is specfically for create / edit Babylon UI components
 */
 export class BabylonUI {
+
 
 
     static changeMyHealthBar(health, maxHealth) {
@@ -236,6 +239,38 @@ export class BabylonUI {
         baby.panelScores.addControl(current)
         baby.textScores.push(current)
 
+    }
+
+    static createRadar(obj) {
+        BabylonUI.stopRadar()
+        obj.things.forEach(thing => BabylonUI.createTinyBlockFromThing(thing))
+    }
+
+    static createTinyBlockFromThing(thing) {
+        if (thing.tag == match.tag) {
+            BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "blue")
+        } else {
+            BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "red")
+        }
+    }
+
+    static createTinyBlock(x, y, color) {
+        const tinyBlock = new BABYLON.GUI.Rectangle();
+        tinyBlock.width = BLOCK_SIZE + "px"
+        tinyBlock.height = BLOCK_SIZE + "px"
+        tinyBlock.color = color
+        tinyBlock.left = (BLOCK_SIZE * x) + "px"
+        tinyBlock.top = (BLOCK_SIZE * y) + "px"
+        tinyBlock.background = color
+        tinyBlock.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        tinyBlock.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+        baby.advancedTexture.addControl(tinyBlock)
+        baby.radar.push(tinyBlock)
+    }
+
+    static stopRadar() {
+        baby.radar.forEach(item => item.dispose())
+        baby.radar = []
     }
 
 }

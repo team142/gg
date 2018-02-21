@@ -66,4 +66,13 @@ export class BabylonController {
             }
         }
     }
+    
+    static shareRadar(obj) {
+        BabylonUI.createRadar(obj)
+        setTimeout(BabylonController.stopRadar, obj.timeout)
+    }
+
+    static stopRadar() {
+        BabylonUI.stopRadar()
+    }
 }
