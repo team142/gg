@@ -177,8 +177,8 @@ export class BabylonUI {
         text2.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
         text2.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
 
-        text2.left = (x - 75 / 2 + 7 + 75 - 14) + "px"
-        text2.top = "-10px"
+        text2.left = (x - 75 / 2 + 7) + "px"
+        text2.top = "-58px"
         baby.advancedTexture.addControl(text2)
         baby.levelLabels.set(key, text2)
 
