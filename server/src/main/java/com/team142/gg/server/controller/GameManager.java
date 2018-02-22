@@ -60,7 +60,7 @@ public class GameManager {
         announcePlayerJoins(game, player);
         sendMapToPlayer(player.getId(), game);
         game.getSoundManager().sendSpawn();
-        Reporter.report();
+        Reporter.report(player.getName());
 
     }
     

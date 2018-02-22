@@ -25,12 +25,12 @@ public class Reporter {
         return thread;
     });
 
-    public static void report() {
+    public static void report(String name) {
         if (Server.REPORT_STATS) {
             Reporter.REPORT_THREAD_POOL.execute(() -> reportNewPlayerForStats());
         }
         if (Server.NOTIFY_PUSHOVER_ON_JOIN) {
-            Reporter.REPORT_THREAD_POOL.execute(() -> reportNewPlayerForPushOver());
+            Reporter.REPORT_THREAD_POOL.execute(() -> reportNewPlayerForPushOver(name));
         }
 
     }
@@ -40,8 +40,8 @@ public class Reporter {
         HttpUtils.postSilently(Server.REPORT_URL, json);
     }
 
-    private static void reportNewPlayerForPushOver() {
-        String json = JsonUtils.toJson(new MessageNotifyPushover(Server.NOTIFY_PUSHOVER_USER, Server.NOTIFY_PUSHOVER_TOKEN, PLAYER_JOINS_MESSAGE));
+    private static void reportNewPlayerForPushOver(String name) {
+        String json = JsonUtils.toJson(new MessageNotifyPushover(Server.NOTIFY_PUSHOVER_USER, Server.NOTIFY_PUSHOVER_TOKEN, PLAYER_JOINS_MESSAGE + ": " + name));
         HttpUtils.postSilently(Server.NOTIFY_PUSHOVER_URL, json);
     }
 
