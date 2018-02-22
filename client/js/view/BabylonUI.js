@@ -90,7 +90,7 @@ export class BabylonUI {
             .forEach(p => {
                 BabylonUI.createTopPowerBarItem(p.key, p.ico)
                 PowerCooldownBar.set(
-                    (p.key).toString(),
+                    (p.key),
                     new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.id - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP), p.cooldown)
                 )
             })

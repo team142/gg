@@ -17,14 +17,14 @@ import lombok.Getter;
 public class MessagePowerLevel extends Message {
 
     @Getter
-    private String power;
+    private String key;
 
     @Getter
     private int level;
 
     public MessagePowerLevel(Power power) {
         setConversation(ConversationType.S_P_LEVEL.name());
-        this.power = String.valueOf(power.getID());
+        this.key = String.valueOf(power.getKey());
         this.level = power.getLevel();
     }
 
