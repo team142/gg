@@ -27,4 +27,9 @@ public class Power08Teleport extends Power {
 
     }
 
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
+    }
+
 }

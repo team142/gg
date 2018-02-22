@@ -16,30 +16,35 @@ import com.team142.gg.server.model.mappable.artificial.Bullet;
  * @author just1689
  */
 public class Power01Shoot extends Power {
-
+    
     private static final int INITIAL_COOLDOWN = 1000;
-
+    
     public Power01Shoot(Player player) {
         super(1, player, 0, INITIAL_COOLDOWN, 1, "1");
     }
-
+    
     @Override
     public void execute() {
         playerShoots();
-
+        
     }
-
+    
     public void playerShoots() {
         Game game = Repository.GAMES_ON_SERVER.get(getPlayer().getGameId());
 
         //Change state
         Bullet bullet = getPlayer().createBullet();
+        bullet.setDamage(bullet.getDamage() + getLevel() * 10);
 
         //Communicate
         GameManager.sendBullet(game, bullet);
         game.getSoundManager().sendShoot();
         
-
     }
-
+    
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
+    }
+    
 }

@@ -21,7 +21,13 @@ public class Power10HpMech extends Power {
 
     @Override
     public void execute() {
-        getPlayer().getTANK().heal(50);
+        getPlayer().getTANK().heal(50 + (getLevel() - 1) * 10);
+    }
+
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 15));
+
     }
 
 }

@@ -39,4 +39,9 @@ public class Power07Intel extends Power {
         }).start();
 
     }
+
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * getLevel());
+    }
 }

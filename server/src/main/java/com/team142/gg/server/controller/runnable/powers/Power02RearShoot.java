@@ -35,14 +35,18 @@ public class Power02RearShoot extends Power {
         bullet.rotateLeft((float) Math.PI);
 
         //Nerf rear bullets by 50% for now
-        bullet.setDamage(bullet.getDamage() / 2);
+        bullet.setDamage(bullet.getDamage() / 2 + getLevel() * 10);
         bullet.setSpeed(bullet.getSpeed() / 2);
 
         //Communicate
         GameManager.sendBullet(game, bullet);
         game.getSoundManager().sendShoot();
 
+    }
 
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
     }
 
 }

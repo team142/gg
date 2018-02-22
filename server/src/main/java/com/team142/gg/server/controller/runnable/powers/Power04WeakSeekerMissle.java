@@ -37,7 +37,7 @@ public class Power04WeakSeekerMissle extends Power {
         //Change state
         Bullet bullet = getPlayer().createBullet();
         bullet.setSpeed(bullet.getSpeed() * 2);
-        bullet.setDamage(100);
+        bullet.setDamage(100 + getLevel() * 10);
 
         int which = ThreadLocalRandom.current().nextInt(0, game.getPlayers().size());
 
@@ -57,6 +57,11 @@ public class Power04WeakSeekerMissle extends Power {
         GameManager.sendBullet(game, bullet);
         game.getSoundManager().sendShoot();
 
+    }
+
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
     }
 
 }

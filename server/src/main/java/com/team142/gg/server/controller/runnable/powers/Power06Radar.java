@@ -27,7 +27,12 @@ public class Power06Radar extends Power {
     public void execute() {
         MessageRadar message = new MessageRadar(Repository.GAMES_ON_SERVER.get(getPlayer().getGameId()), toIntExact(getRefreshTime()));
         MessageManager.sendPlayerAMessage(getPlayer().getId(), message);
-        
+
+    }
+
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * getLevel());
     }
 
 }

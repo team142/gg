@@ -35,12 +35,17 @@ public class Power05DropBomb extends Power {
         //Change state
         Bullet bullet = getPlayer().createBullet();
         bullet.setSpeed(0);
-        bullet.setDamage(100);
+        bullet.setDamage(100 + getLevel() * 10);
 
         //Communicate
         GameManager.sendBullet(game, bullet);
         game.getSoundManager().sendShoot();
 
     }
-    
+
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
+    }
+
 }

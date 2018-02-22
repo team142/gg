@@ -54,4 +54,9 @@ public abstract class Power implements Runnable {
         return true;
     }
 
+    //Implementation for that power
+    public abstract void nofityLevelChange();
+
+    
+    
 }
