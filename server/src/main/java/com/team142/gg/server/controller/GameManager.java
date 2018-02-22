@@ -61,6 +61,10 @@ public class GameManager {
         sendMapToPlayer(player.getId(), game);
         game.getSoundManager().sendSpawn();
         Reporter.report(player.getName());
+        
+        PowerManager.givePlayerRandomPower(player);
+        PowerManager.givePlayerRandomPower(player);
+        PowerManager.givePlayerRandomPower(player);
 
     }
     
