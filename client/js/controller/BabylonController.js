@@ -50,9 +50,9 @@ export class BabylonController {
         item.useIt()
     }
 
-    static setPowerLevel(powerId, level) {
+    static setPowerLevel(key, level) {
         const p = powerIconInfo
-            .find(power => power.key == powerId)
+            .find(power => power.key == key)
         if (p) {
             p.level = level
             if (level == 1) {
@@ -62,6 +62,8 @@ export class BabylonController {
                     new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM), p.cooldown)
                 )
 
+            } else {
+                BabylonUI.setPowerLabelLevel(key, level)
             }
         }
     }

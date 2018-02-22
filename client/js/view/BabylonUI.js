@@ -141,7 +141,7 @@ export class BabylonUI {
         return image
     }
 
-    static createBotPowerBarItem(n, fileImage, key) {
+    static createBotPowerBarItem(n, fileImage, key, level = 1) {
 
         let image = new BABYLON.GUI.Image("powerBot" + n, fileImage)
         image.height = "75px"
@@ -156,7 +156,7 @@ export class BabylonUI {
         image.top = "-10px"
         baby.advancedTexture.addControl(image)
 
-        var text1 = new BABYLON.GUI.TextBlock("textblock" + n)
+        const text1 = new BABYLON.GUI.TextBlock("textblock" + n)
         text1.text = key
         text1.color = "black"
         text1.fontSize = 24
@@ -168,7 +168,23 @@ export class BabylonUI {
         text1.top = "-10px"
         baby.advancedTexture.addControl(text1)
 
+
+        const text2 = new BABYLON.GUI.TextBlock("textblockLevel" + n)
+        text2.text = (+level).toString()
+        text2.color = "black"
+        text2.fontSize = 24
+
+        text2.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        text2.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+
+        text2.left = (x - 75 / 2 + 7 + 75 - 14) + "px"
+        text2.top = "-10px"
+        baby.advancedTexture.addControl(text2)
+        baby.levelLabels.set(key, text2)
+
+
     }
+
 
     static createTopPowerBarItem(n, fileImage) {
 
@@ -272,5 +288,11 @@ export class BabylonUI {
         baby.radar.forEach(item => item.dispose())
         baby.radar = []
     }
+
+    static setPowerLabelLevel(key, level) {
+        const textLabel = baby.levelLabels.get(key)
+        textLabel.text = (+level).toString()
+    }
+    
 
 }
