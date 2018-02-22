@@ -13,7 +13,7 @@ export const powerIconInfo = [
     { powerNumber: 7, level: 0, ico: TEXTURES_DIR + "ico-intel.jpg", cooldown: 20, usable: false },
     { powerNumber: 8, level: 0, ico: TEXTURES_DIR + "ico-safety.jpg", cooldown: 20, usable: false },
     { powerNumber: 9, level: 0, ico: TEXTURES_DIR + "ico-behind.jpg", cooldown: 20, usable: false },
-    { powerNumber: 10, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", cooldown: 20, usable: false }
+    { powerNumber: 10, level: 0, ico: TEXTURES_DIR + "ico-hp-mech.jpg", cooldown: 20, usable: false }
 ]
 
 export const passiveIconInfo = [
