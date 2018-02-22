@@ -15,3 +15,11 @@ client/build/
 .idea/modules.xml
 .idea/vcs.xml
 .idea/workspace.xml
+/server/.nb-gradle/
+server/bin/
+server/.gradle/
+server/build/
+server/src/main/resources/
+server/.settings/org.eclipse.buildship.core.prefs
+
+.vscode/settings.json
