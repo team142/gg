@@ -122,6 +122,21 @@ public class MovableElement extends PlaceableElement {
         return false;
     }
 
+    private boolean isMovementValid(double amt, double x, double z, Map map, short coordinateType) {
+        if(coordinateType == SpaceTimePoint.X_COORD) {
+            if (amt > 0 && map.isMovable(x + 1, z)) {
+                return true;
+            } else if (amt < 0 && map.isMovable(x, z)) {
+                return true;
+            } else {
+                //Failed tp move
+                return false;
+            }
+        }
+
+        return false;
+    }
+
     //Check before changing...
     private boolean changeZ(double amt, Map map) {
         double newZ = getPoint().getZ() + amt;
@@ -161,15 +176,12 @@ public class MovableElement extends PlaceableElement {
             }
         }
 
-        if (amt > 0 && map.isMovable(newX + 1, getPoint().getZ())) {
+        if(isMovementValid(amt, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
             getPoint().setX(newX);
-        } else if (amt < 0 && map.isMovable(newX, getPoint().getZ())) {
-            getPoint().setX(newX);
+            return true;
         } else {
-            //Failed tp move
+            //Failed to move
             return false;
         }
-        return true;
-
     }
 }
