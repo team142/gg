@@ -132,6 +132,15 @@ public class MovableElement extends PlaceableElement {
                 //Failed tp move
                 return false;
             }
+        } else if (coordinateType == SpaceTimePoint.Z_COORD) {
+            if (amt > 0 && map.isMovable(x, z + 1)) {
+                return true;
+            } else if (amt < 0 && map.isMovable(x, z)) {
+                return true;
+            } else {
+                //Failed to move
+                return false;
+            }
         }
 
         return false;
@@ -150,16 +159,13 @@ public class MovableElement extends PlaceableElement {
             return true;
         }
 
-        if (amt > 0 && map.isMovable(getPoint().getX(), newZ + 1)) {
+        if(isMovementValid(amt, getPoint().getX(), newZ, map, SpaceTimePoint.Z_COORD)) {
             getPoint().setZ(newZ);
-        } else if (amt < 0 && map.isMovable(getPoint().getX(), newZ)) {
-            getPoint().setZ(newZ);
+            return true;
         } else {
             //Failed to move
             return false;
         }
-        return true;
-
     }
 
     //Check before changing...
