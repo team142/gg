@@ -46,4 +46,12 @@ public abstract class Power implements Runnable {
     //Implementation for that power
     public abstract void execute();
 
+    public boolean incrementLevel() {
+        if (level >= 10) {
+            return false;
+        }
+        level++;
+        return true;
+    }
+
 }

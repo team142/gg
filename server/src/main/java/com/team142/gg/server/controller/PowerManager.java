@@ -44,19 +44,33 @@ public class PowerManager {
 
     }
 
+    public static boolean givePlayerPowerLevel(Player player, Power power) {
+        boolean incred = power.incrementLevel();
+        if (incred) {
+            MessageManager.sendPlayerAMessage(player.getId(), new MessagePowerLevel(power));
+        }
+        return incred;
+    }
+
     public static void givePlayerRandomPower(Player player) {
         boolean given = false;
         int size = Repository.POWER_CLASSES.size();
         int triesRemaining = 20;
         while (!given && triesRemaining > 0) {
             int nextInt = ThreadLocalRandom.current().nextInt(0, size);
-            boolean contains = player.getPowers().containsKey(String.valueOf(nextInt));
-            if (!contains) {
+            Power power = player.getPowers().get(String.valueOf(nextInt));
+            boolean contains = power != null;
+            if (contains) {
+                boolean wasLeveled = givePlayerPowerLevel(player, power);
+                if (wasLeveled) {
+                    given = true;
+                }
+            }else if (!contains) {
                 //Give power to player
                 try {
                     Class powerClass = Repository.POWER_CLASSES.get(nextInt);
                     Constructor constructor = powerClass.getConstructor(new Class[]{Player.class});
-                    Power power = (Power) constructor.newInstance(new Object[]{player});
+                    power = (Power) constructor.newInstance(new Object[]{player});
                     givePlayerPower(player, power);
                     given = true;
                 } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
