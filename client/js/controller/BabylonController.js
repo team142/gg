@@ -52,7 +52,7 @@ export class BabylonController {
 
     static setPowerLevel(powerId, level) {
         const p = powerIconInfo
-            .find(power => power.powerNumber == powerId)
+            .find(power => power.key == powerId)
         if (p) {
             p.level = level
             if (level == 1) {
