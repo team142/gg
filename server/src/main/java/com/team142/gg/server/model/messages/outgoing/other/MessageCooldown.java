@@ -19,12 +19,12 @@ public class MessageCooldown extends Message {
     private int ticks;
 
     @Getter
-    private int num;
+    private String key;
     
-    public MessageCooldown(int ticks, int num) {
+    public MessageCooldown(int ticks, String key) {
         setConversation(ConversationType.S_SHARE_COOLDOWN.name());
         this.ticks = ticks;
-        this.num = num;
+        this.key = key;
 
     }
 

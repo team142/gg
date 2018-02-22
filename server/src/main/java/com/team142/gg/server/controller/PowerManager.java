@@ -31,9 +31,9 @@ public class PowerManager {
         }
     }
 
-    public static void sendCooldown(String playerId, Power power, int num) {
+    public static void sendCooldown(String playerId, Power power, String key) {
         long ms = power.getRefreshTime() / CLIENT_COOLDOWN_TICK_MS;
-        MessageCooldown message = new MessageCooldown((int) ms, num);
+        MessageCooldown message = new MessageCooldown((int) ms, key);
         MessageManager.sendPlayerAMessage(playerId, message);
 
     }

@@ -39,7 +39,7 @@ public abstract class Power implements Runnable {
         //Save last time
         lastRunTime = System.currentTimeMillis();
 
-        PowerManager.sendCooldown(getPlayer().getId(), this, ID);
+        PowerManager.sendCooldown(getPlayer().getId(), this, key);
 
     }
 
