@@ -52,6 +52,10 @@ public class MovableElement extends PlaceableElement {
     public boolean moveForward(Map map) {
         double coefficientX = Math.sin(getPoint().getRotation());
         double coefficientZ = Math.cos(getPoint().getRotation());
+
+        //TODO Implement check for valid move on this level, the actual move should be a void.
+        //TODO Allow the change in x or z to happen if valid, regardless of the change in the other.
+        //TODO Do not return immediately.
         if (!changeX(coefficientX * getSpeed(), map)) {
             return false;
         }
@@ -102,47 +106,18 @@ public class MovableElement extends PlaceableElement {
 
     private boolean isShootoverValid(double amt, double x, double z, Map map, short coordinateType) {
         if(coordinateType == SpaceTimePoint.Z_COORD) {
-            if((amt > 0) && (map.isShootover(x, z + 1))) {
-                return true;
-            } else if((amt < 0 && map.isShootover(x, z))) {
-                return true;
-            } else {
-                return false;
-            }
+            return (((amt > 0) && (map.isShootover(x, z + 1))) || ((amt < 0 && map.isShootover(x, z))));
         } else if(coordinateType == SpaceTimePoint.X_COORD) {
-            if (amt > 0 && map.isShootover(x + 1, z)) {
-                return true;
-            } else if (amt < 0 && map.isShootover(x, z)) {
-                return true;
-            } else {
-                //Failed to move
-                return false;
-            }
+            return ((amt > 0 && map.isShootover(x + 1, z)) || (amt < 0 && map.isShootover(x, z)));
         }
         return false;
     }
 
     private boolean isMovementValid(double amt, double x, double z, Map map, short coordinateType) {
         if(coordinateType == SpaceTimePoint.X_COORD) {
-            if (amt > 0 && map.isMovable(x + 1, z)) {
-                return true;
-            } else if (amt < 0 && map.isMovable(x, z)) {
-                return true;
-            } else {
-                //Failed tp move
-                return false;
-            }
-        } else if (coordinateType == SpaceTimePoint.Z_COORD) {
-            if (amt > 0 && map.isMovable(x, z + 1)) {
-                return true;
-            } else if (amt < 0 && map.isMovable(x, z)) {
-                return true;
-            } else {
-                //Failed to move
-                return false;
-            }
-        }
-
+            return ((amt > 0) && map.isMovable(x + 1, z)) || ((amt < 0) && map.isMovable(x, z));
+        } else if (coordinateType == SpaceTimePoint.Z_COORD)
+            return (amt > 0 && map.isMovable(x, z + 1)) || (amt < 0 && map.isMovable(x, z));
         return false;
     }
 
@@ -172,7 +147,6 @@ public class MovableElement extends PlaceableElement {
     private boolean changeX(double amt, Map map) {
         double newX = getPoint().getX() + amt;
         if (isWalkOnWater()) {
-
             if(isShootoverValid(amt, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
                 getPoint().setX(newX);
                 return true;
