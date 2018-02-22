@@ -47,6 +47,7 @@ public class PowerManager {
     public static boolean givePlayerPowerLevel(Player player, Power power) {
         boolean incred = power.incrementLevel();
         if (incred) {
+            power.nofityLevelChange();
             MessageManager.sendPlayerAMessage(player.getId(), new MessagePowerLevel(power));
         }
         return incred;
@@ -65,7 +66,7 @@ public class PowerManager {
                 if (wasLeveled) {
                     given = true;
                 }
-            }else if (!contains) {
+            } else if (!contains) {
                 //Give power to player
                 try {
                     Class powerClass = Repository.POWER_CLASSES.get(nextInt);
