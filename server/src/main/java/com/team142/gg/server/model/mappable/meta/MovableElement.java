@@ -100,15 +100,25 @@ public class MovableElement extends PlaceableElement {
 
     }
 
+    private boolean isShootoverValid(double amt, double xCoord, double yCoord, Map map, short coordType) {
+        if(coordType == SpaceTimePoint.Z_COORD) {
+            if((amt > 0) && (map.isShootover(xCoord, yCoord + 1))) {
+                return true;
+            } else if((amt < 0 && map.isShootover(xCoord, yCoord))) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
     //Check before changing...
     private boolean changeZ(double amt, Map map) {
         double newZ = getPoint().getZ() + amt;
         if (isWalkOnWater()) {
-            if (amt > 0 && map.isShootover(getPoint().getX(), newZ + 1)) {
+            if(isShootoverValid(amt, getPoint().getX(), newZ, map, SpaceTimePoint.Z_COORD)) {
                 getPoint().setZ(newZ);
-            } else if (amt < 0 && map.isShootover(getPoint().getX(), newZ)) {
-                getPoint().setZ(newZ);
-
             } else {
                 //Failed to move
                 return false;
