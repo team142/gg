@@ -45,8 +45,7 @@ export class BabylonController {
     }
 
     static handleCooldown(obj) {
-        let index = +obj.num
-        let item = PowerCooldownBar.get(index.toString())
+        let item = PowerCooldownBar.get(obj.key)
         item.changeRefresh(obj.ticks)
         item.useIt()
     }
