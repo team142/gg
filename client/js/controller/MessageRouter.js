@@ -58,7 +58,7 @@ export class MessageRouter {
             BabylonController.handleCooldown(obj)
 
         } else if (conversation == "S_P_LEVEL") {
-            BabylonController.setPowerLevel(obj.power, obj.level)
+            BabylonController.setPowerLevel(obj.key, obj.level)
 
         } else if (conversation == "S_SHARE_RADAR") {
             BabylonController.shareRadar(obj)
