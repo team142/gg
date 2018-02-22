@@ -115,7 +115,7 @@ export class BabylonUI {
         powerIconInfo
             .filter(p => p.usable)
             .forEach(p => {
-                BabylonUI.createBotPowerBarItem(p.powerNumber - 1, p.ico)
+                BabylonUI.createBotPowerBarItem(p.powerNumber - 1, p.ico, p.key)
                 PowerCooldownBar.set(
                     (p.powerNumber).toString(),
                     new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM), p.cooldown)
@@ -141,7 +141,7 @@ export class BabylonUI {
         return image
     }
 
-    static createBotPowerBarItem(n, fileImage) {
+    static createBotPowerBarItem(n, fileImage, key) {
 
         let image = new BABYLON.GUI.Image("powerBot" + n, fileImage)
         image.height = "75px"
@@ -157,7 +157,7 @@ export class BabylonUI {
         baby.advancedTexture.addControl(image)
 
         var text1 = new BABYLON.GUI.TextBlock("textblock" + n)
-        text1.text = (n + 1).toString()
+        text1.text = key
         text1.color = "black"
         text1.fontSize = 24
 

@@ -56,7 +56,7 @@ export class BabylonController {
         if (p) {
             p.level = level
             if (level == 1) {
-                BabylonUI.createBotPowerBarItem(p.powerNumber - 1, p.ico)
+                BabylonUI.createBotPowerBarItem(p.powerNumber - 1, p.ico, p.key)
                 PowerCooldownBar.set(
                     (p.powerNumber).toString(),
                     new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM), p.cooldown)
