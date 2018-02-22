@@ -162,18 +162,18 @@ public final class Player {
 
     public void checkForOrbs() {
         Orb orb = OrbManager.isTankInOrb(TANK, gameId);
-        if (orb != null) {            
+        if (orb != null) {
             PowerManager.givePlayerRandomPower(this);
             OrbManager.remove(orb);
         }
     }
 
     public void addPower(Power power) {
-        addPower(String.valueOf(power.getID()), power);
+        addPower(String.valueOf(power.getKey()), power);
     }
 
     public void addPower(String key, Power power) {
-        getPowers().put(key, power);
+        powers.put(key, power);
     }
 
 }

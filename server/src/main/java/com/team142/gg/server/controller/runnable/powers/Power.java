@@ -23,6 +23,7 @@ public abstract class Power implements Runnable {
     private long lastRunTime;
     private long refreshTime; //In MS
     private int level;
+    private String key;
 
     @Override
     public void run() {

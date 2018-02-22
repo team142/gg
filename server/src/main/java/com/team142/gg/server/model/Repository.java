@@ -14,7 +14,8 @@ import com.team142.gg.server.controller.runnable.powers.Power06Radar;
 import com.team142.gg.server.controller.runnable.powers.Power07Intel;
 import com.team142.gg.server.controller.runnable.powers.Power08Teleport;
 import com.team142.gg.server.controller.runnable.powers.Power09Hop180;
-import java.util.HashMap;
+import com.team142.gg.server.controller.runnable.powers.Power10HpMech;
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.websocket.Session;
 
@@ -36,18 +37,19 @@ public class Repository {
 
     }
 
-    public static final HashMap<String, Class> POWER_CLASSES = new HashMap<>();
+    public static final ArrayList<Class> POWER_CLASSES = new ArrayList<>();
 
     static {
-        POWER_CLASSES.put("1", Power01Shoot.class);
-        POWER_CLASSES.put("2", Power02RearShoot.class);
-        POWER_CLASSES.put("3", Power03Missile.class);
-        POWER_CLASSES.put("4", Power04WeakSeekerMissle.class);
-        POWER_CLASSES.put("5", Power05DropBomb.class);
-        POWER_CLASSES.put("6", Power06Radar.class);
-        POWER_CLASSES.put("7", Power07Intel.class);
-        POWER_CLASSES.put("8", Power08Teleport.class);
-        POWER_CLASSES.put("9", Power09Hop180.class);
+        POWER_CLASSES.add(Power10HpMech.class);
+        POWER_CLASSES.add(Power01Shoot.class);
+        POWER_CLASSES.add(Power02RearShoot.class);
+        POWER_CLASSES.add(Power03Missile.class);
+        POWER_CLASSES.add(Power04WeakSeekerMissle.class);
+        POWER_CLASSES.add(Power05DropBomb.class);
+        POWER_CLASSES.add(Power06Radar.class);
+        POWER_CLASSES.add(Power07Intel.class);
+        POWER_CLASSES.add(Power08Teleport.class);
+        POWER_CLASSES.add(Power09Hop180.class);
 
     }
 

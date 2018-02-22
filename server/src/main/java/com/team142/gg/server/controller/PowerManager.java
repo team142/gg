@@ -46,7 +46,7 @@ public class PowerManager {
 
     public static void givePlayerRandomPower(Player player) {
         boolean given = false;
-        int size = Repository.POWER_CLASSES.values().size();
+        int size = Repository.POWER_CLASSES.size();
         int triesRemaining = 20;
         while (!given && triesRemaining > 0) {
             int nextInt = ThreadLocalRandom.current().nextInt(1, size + 1);
@@ -54,7 +54,7 @@ public class PowerManager {
             if (!contains) {
                 //Give power to player
                 try {
-                    Class powerClass = Repository.POWER_CLASSES.get(String.valueOf(nextInt));
+                    Class powerClass = Repository.POWER_CLASSES.get(nextInt);
                     Constructor constructor = powerClass.getConstructor(new Class[]{Player.class});
                     Power power = (Power) constructor.newInstance(new Object[]{player});
                     givePlayerPower(player, power);

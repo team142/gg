@@ -49,4 +49,15 @@ public class Tank extends MovableElement {
 
     }
 
+    public void heal(int inc) {
+        setHealth(getHealth() + inc);
+        checkNotTooHealthy();
+    }
+
+    private void checkNotTooHealthy() {
+        if (getHealth() > getMaxHealth()) {
+            setHealth(getMaxHealth());
+        }
+    }
+
 }

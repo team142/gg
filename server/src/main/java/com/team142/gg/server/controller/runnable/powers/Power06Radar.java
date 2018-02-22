@@ -20,7 +20,7 @@ public class Power06Radar extends Power {
     private static final long INITIAL_COOLDOWN = 5000;
 
     public Power06Radar(Player player) {
-        super(6, player, 0, INITIAL_COOLDOWN, 1);
+        super(6, player, 0, INITIAL_COOLDOWN, 1, "6");
     }
 
     @Override

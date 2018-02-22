@@ -22,7 +22,7 @@ public class Power04WeakSeekerMissle extends Power {
     private static final long INITIAL_COOLDOWN = 5000;
 
     public Power04WeakSeekerMissle(Player player) {
-        super(4, player, 0, INITIAL_COOLDOWN, 1);
+        super(4, player, 0, INITIAL_COOLDOWN, 1, "4");
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Power03Missile extends Power {
     private static final long INITIAL_COOLDOWN = 15000;
 
     public Power03Missile(Player player) {
-        super(3, player, 0, INITIAL_COOLDOWN, 1);
+        super(3, player, 0, INITIAL_COOLDOWN, 1, "3");
     }
 
     @Override
