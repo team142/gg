@@ -49,7 +49,7 @@ public class PowerManager {
         int size = Repository.POWER_CLASSES.size();
         int triesRemaining = 20;
         while (!given && triesRemaining > 0) {
-            int nextInt = ThreadLocalRandom.current().nextInt(1, size + 1);
+            int nextInt = ThreadLocalRandom.current().nextInt(0, size);
             boolean contains = player.getPowers().containsKey(String.valueOf(nextInt));
             if (!contains) {
                 //Give power to player
