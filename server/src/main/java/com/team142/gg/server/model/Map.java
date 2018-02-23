@@ -20,13 +20,13 @@ public class Map {
 
     private final List<MapTileElement> TILES;
     private boolean[][][] bitmap;
-    private int x, z;
+    private int maxX, maxZ;
 
-    public Map(int x, int z) {
+    public Map(int maxX, int maxZ) {
         this.TILES = Collections.synchronizedList(new ArrayList<>());
-        this.x = x;
-        this.z = z;
-        setBitmap(new boolean[x][z][2]);
+        this.maxX = maxX;
+        this.maxZ = maxZ;
+        setBitmap(new boolean[maxX][maxZ][2]);
     }
 
     public void setTileBitmapMovable(int x, int y, boolean val) {
@@ -38,14 +38,14 @@ public class Map {
     }
 
     public boolean isMovable(int x, int y) {
-        if (x >= this.x || x <= 0 || y >= this.z || y < 0) {
+        if (x >= this.maxX || x <= 0 || y >= this.maxZ || y < 0) {
             return false;
         }
         return this.bitmap[x][y][0];
     }
 
     public boolean isShootover(int x, int y) {
-        if (x >= this.x || x <= 0 || y >= this.z || y < 0) {
+        if (x >= this.maxX || x <= 0 || y >= this.maxZ || y < 0) {
             return false;
         }
         return this.bitmap[x][y][1];
