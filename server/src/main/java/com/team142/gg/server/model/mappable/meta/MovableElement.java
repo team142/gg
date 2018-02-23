@@ -61,13 +61,17 @@ public class MovableElement extends PlaceableElement {
         //TODO Implement check for valid move on this level, the actual move should be a void.
         //TODO Allow the change in x or z to happen if valid, regardless of the change in the other.
         //TODO Do not return immediately.
-        if (!changeX(coefficientX * getSpeed(), map)) {
-            return false;
+
+        boolean hasMoved = false;
+
+        if (changeX(coefficientX * getSpeed(), map)) {
+            return true;
         }
-        if (!changeZ(coefficientZ * getSpeed(), map)) {
-            return false;
+        if (changeZ(coefficientZ * getSpeed(), map)) {
+            return true;
         }
-        return true;
+        
+        return hasMoved;
     }
 
     public boolean moveBackward(GameMap map) {
