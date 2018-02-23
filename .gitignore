@@ -10,3 +10,9 @@ server/.project
 server/.classpath
 *.DS_Store
 client/build/
+.classpath
+.idea/
+.project
+.settings/
+good-game-server.iml
+target/
