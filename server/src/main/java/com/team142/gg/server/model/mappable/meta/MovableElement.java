@@ -129,43 +129,26 @@ public class MovableElement extends PlaceableElement {
     //Check before changing...
     private boolean changeZ(double amt, GameMap map) {
         double newZ = getPoint().getZ() + amt;
-        if (isWalkOnWater()) {
-            if(isShootoverValid(amt, getPoint().getX(), newZ, map, SpaceTimePoint.Z_COORD)) {
-                getPoint().setZ(newZ);
-            } else {
-                //Failed to move
-                return false;
-            }
-            return true;
-        }
-
-        if(isMovementValid(amt, getPoint().getX(), newZ, map, SpaceTimePoint.Z_COORD)) {
+        if(isCoordValidMove(amt, getPoint().getX(), newZ, map, SpaceTimePoint.Z_COORD)) {
             getPoint().setZ(newZ);
             return true;
         } else {
-            //Failed to move
             return false;
         }
+    }
+
+    private boolean isCoordValidMove(double amt, double x, double z, GameMap map, short coordType) {
+        return ((isWalkOnWater() && (isShootoverValid(amt, x, z, map, coordType))) ||
+                ((isMovementValid(amt, x, z, map, coordType))));
     }
 
     //Check before changing...
     private boolean changeX(double amt, GameMap map) {
         double newX = getPoint().getX() + amt;
-        if (isWalkOnWater()) {
-            if(isShootoverValid(amt, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
-                getPoint().setX(newX);
-                return true;
-            } else {
-                //Failed to move
-                return false;
-            }
-        }
-
-        if(isMovementValid(amt, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
+        if(isCoordValidMove(amt, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
             getPoint().setX(newX);
             return true;
         } else {
-            //Failed to move
             return false;
         }
     }
