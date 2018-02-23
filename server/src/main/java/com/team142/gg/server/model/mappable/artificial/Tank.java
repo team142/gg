@@ -33,20 +33,35 @@ public class Tank extends MovableElement {
 
     @Getter
     @Setter
+    private double distanceToVertex;
+
+    @Getter
+    @Setter
     @JsonIgnore
     private double width = 0.3d;
+
+    @Getter
+    @Setter
+    @JsonIgnore
+    private double height = 0.6d;
 
     public Tank(SpaceTimePoint point, String skin, double speed, int tag, double hp, Player player) {
         super(point, skin, speed, tag);
         this.health = hp;
         this.maxHealth = hp;
         this.playerId = player.getId();
+        setDistanceToVertex(calculateDistanceToVertex());
     }
 
     public BulletHitResult damage(double dmg, Player fromPlayer) {
         health -= dmg;
         return new BulletHitResult(true, dmg, health <= 0);
 
+    }
+
+    private double calculateDistanceToVertex() {
+        double distance = Math.sqrt(Math.pow((getWidth() / 2), 2) + Math.pow((getHeight() / 2), 2));
+        return distance;
     }
 
     public void heal(int inc) {

@@ -57,6 +57,10 @@ public class MovableElement extends PlaceableElement {
     public boolean moveForward(GameMap map) {
         double coefficientX = Math.sin(getPoint().getRotation());
         double coefficientZ = Math.cos(getPoint().getRotation());
+
+        //TODO Implement check for valid move on this level, the actual move should be a void.
+        //TODO Allow the change in x or z to happen if valid, regardless of the change in the other.
+        //TODO Do not return immediately.
         if (!changeX(coefficientX * getSpeed(), map)) {
             return false;
         }
@@ -105,15 +109,29 @@ public class MovableElement extends PlaceableElement {
 
     }
 
+    private boolean isShootoverValid(double amt, double x, double z, Map map, short coordinateType) {
+        if(coordinateType == SpaceTimePoint.Z_COORD) {
+            return (((amt > 0) && (map.isShootover(x, z + 1))) || ((amt < 0 && map.isShootover(x, z))));
+        } else if(coordinateType == SpaceTimePoint.X_COORD) {
+            return ((amt > 0 && map.isShootover(x + 1, z)) || (amt < 0 && map.isShootover(x, z)));
+        }
+        return false;
+    }
+
+    private boolean isMovementValid(double amt, double x, double z, Map map, short coordinateType) {
+        if(coordinateType == SpaceTimePoint.X_COORD) {
+            return ((amt > 0) && map.isMovable(x + 1, z)) || ((amt < 0) && map.isMovable(x, z));
+        } else if (coordinateType == SpaceTimePoint.Z_COORD)
+            return (amt > 0 && map.isMovable(x, z + 1)) || (amt < 0 && map.isMovable(x, z));
+        return false;
+    }
+
     //Check before changing...
     private boolean changeZ(double amt, GameMap map) {
         double newZ = getPoint().getZ() + amt;
         if (isWalkOnWater()) {
-            if (amt > 0 && map.isShootover(getPoint().getX(), newZ + 1)) {
+            if(isShootoverValid(amt, getPoint().getX(), newZ, map, SpaceTimePoint.Z_COORD)) {
                 getPoint().setZ(newZ);
-            } else if (amt < 0 && map.isShootover(getPoint().getX(), newZ)) {
-                getPoint().setZ(newZ);
-
             } else {
                 //Failed to move
                 return false;
@@ -121,42 +139,34 @@ public class MovableElement extends PlaceableElement {
             return true;
         }
 
-        if (amt > 0 && map.isMovable(getPoint().getX(), newZ + 1)) {
+        if(isMovementValid(amt, getPoint().getX(), newZ, map, SpaceTimePoint.Z_COORD)) {
             getPoint().setZ(newZ);
-        } else if (amt < 0 && map.isMovable(getPoint().getX(), newZ)) {
-            getPoint().setZ(newZ);
+            return true;
         } else {
             //Failed to move
             return false;
         }
-        return true;
-
     }
 
     //Check before changing...
     private boolean changeX(double amt, GameMap map) {
         double newX = getPoint().getX() + amt;
         if (isWalkOnWater()) {
-            if (amt > 0 && map.isShootover(newX + 1, getPoint().getZ())) {
+            if(isShootoverValid(amt, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
                 getPoint().setX(newX);
-            } else if (amt < 0 && map.isShootover(newX, getPoint().getZ())) {
-                getPoint().setX(newX);
+                return true;
             } else {
                 //Failed to move
                 return false;
             }
-            return true;
         }
 
-        if (amt > 0 && map.isMovable(newX + 1, getPoint().getZ())) {
+        if(isMovementValid(amt, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
             getPoint().setX(newX);
-        } else if (amt < 0 && map.isMovable(newX, getPoint().getZ())) {
-            getPoint().setX(newX);
+            return true;
         } else {
-            //Failed tp move
+            //Failed to move
             return false;
         }
-        return true;
-
     }
 }
