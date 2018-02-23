@@ -97,19 +97,19 @@ public class MovableElement extends PlaceableElement {
         if (getPoint().getX() < 0) {
             getPoint().setX(0);
         }
-        if (getPoint().getX() > (map.getX() - 1) + 1) {
-            getPoint().setX(map.getX() - 1);
+        if (getPoint().getX() > (map.getMaxX() - 1) + 1) {
+            getPoint().setX(map.getMaxX() - 1);
         }
         if (getPoint().getZ() < 0) {
             getPoint().setZ(0);
         }
-        if (getPoint().getZ() > (map.getZ() - 1) + 1) {
-            getPoint().setZ(map.getZ() - 1);
+        if (getPoint().getZ() > (map.getMaxZ() - 1) + 1) {
+            getPoint().setZ(map.getMaxZ() - 1);
         }
 
     }
 
-    private boolean isShootoverValid(double amt, double x, double z, Map map, short coordinateType) {
+    private boolean isShootoverValid(double amt, double x, double z, GameMap map, short coordinateType) {
         if(coordinateType == SpaceTimePoint.Z_COORD) {
             return (((amt > 0) && (map.isShootover(x, z + 1))) || ((amt < 0 && map.isShootover(x, z))));
         } else if(coordinateType == SpaceTimePoint.X_COORD) {
@@ -118,7 +118,7 @@ public class MovableElement extends PlaceableElement {
         return false;
     }
 
-    private boolean isMovementValid(double amt, double x, double z, Map map, short coordinateType) {
+    private boolean isMovementValid(double amt, double x, double z, GameMap map, short coordinateType) {
         if(coordinateType == SpaceTimePoint.X_COORD) {
             return ((amt > 0) && map.isMovable(x + 1, z)) || ((amt < 0) && map.isMovable(x, z));
         } else if (coordinateType == SpaceTimePoint.Z_COORD)

@@ -84,11 +84,11 @@ public class Bullet extends MovableElement {
             ok = false;
             return ok;
         }
-        if (getPoint().getX() > map.getX() + 1) {
+        if (getPoint().getX() > map.getMaxX() + 1) {
             ok = false;
             return ok;
         }
-        if (getPoint().getZ() > map.getZ() + 1) {
+        if (getPoint().getZ() > map.getMaxZ() + 1) {
             ok = false;
             return ok;
         }
