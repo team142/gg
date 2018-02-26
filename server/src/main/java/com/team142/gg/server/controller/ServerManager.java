@@ -16,6 +16,7 @@ import com.team142.gg.server.model.messages.incoming.MessageJoinServer;
 import com.team142.gg.server.model.messages.outgoing.other.MessageListOfGames;
 import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.outgoing.other.MessageShareTag;
+import com.team142.gg.server.utils.Reporter;
 import com.team142.gg.server.view.ViewManager;
 import javax.websocket.Session;
 import java.util.logging.Level;
@@ -123,6 +124,8 @@ public class ServerManager {
 
         Repository.PLAYERS_ON_SERVER.remove(id);
         Repository.SESSIONS_ON_SERVER.remove(id);
+
+        Reporter.reportLeaves();
 
     }
 
