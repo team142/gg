@@ -48,4 +48,8 @@ public class SpaceTimePoint {
         setZ(point.getZ());
         setRadius(point.getRadius());
     }
+
+    public String toString() {
+        return "[x: " + getX() +", z: " + getZ() + "] radius: " + getRadius();
+    }
 }
