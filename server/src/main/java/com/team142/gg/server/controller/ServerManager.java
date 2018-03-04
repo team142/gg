@@ -18,6 +18,8 @@ import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.outgoing.other.MessageShareTag;
 import com.team142.gg.server.utils.Reporter;
 import com.team142.gg.server.view.ViewManager;
+import org.springframework.web.socket.WebSocketSession;
+
 import javax.websocket.Session;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +41,7 @@ public class ServerManager {
 
     }
 
-    public static void checkSession(Session session) {
+    public static void checkSession(WebSocketSession session) {
         if (!session.isOpen()) {
             Logger.getLogger(Server.class.getName()).log(Level.INFO, "Player disconnected");
             ServerManager.playerDisconnects(session.getId());
@@ -62,7 +64,7 @@ public class ServerManager {
 
     }
 
-    public static void notifyNewConnection(Session session) {
+    public static void notifyNewConnection(WebSocketSession session) {
         String id = session.getId();
         LOG.log(Level.INFO, "Added player: {0}", id);
         Repository.SESSIONS_ON_SERVER.put(id, session);
@@ -77,7 +79,7 @@ public class ServerManager {
 
     }
 
-    public static void notifyDisconnection(Session session) {
+    public static void notifyDisconnection(WebSocketSession session) {
         String id = session.getId();
         LOG.log(Level.INFO, "Removed player: {0}", id);
         playerDisconnects(id);

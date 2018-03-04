@@ -10,6 +10,9 @@ import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.base.Message;
 import com.team142.gg.server.model.messages.base.ConversationMap;
 import com.team142.gg.server.utils.JsonUtils;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+
 import java.io.EOFException;
 
 import java.util.logging.Level;
@@ -55,20 +58,21 @@ public class MessageManager {
 
     public static void sendPlayersAMessage(Game game, Message message) {
         String json = JsonUtils.toJson(message);
-        game.getPlayers().forEach((player) -> sendPlayerAMessage(Repository.SESSIONS_ON_SERVER.get(player.getId()), json));
+        game.getPlayers().forEach((player) -> sendPlayerAMessage(player.getId(), message));
     }
 
     public static void sendPlayerAMessage(String playerId, Message message) {
         String json = JsonUtils.toJson(message);
-        Session session = Repository.SESSIONS_ON_SERVER.get(playerId);
+        WebSocketSession session = Repository.SESSIONS_ON_SERVER.get(playerId);
         sendPlayerAMessage(session, json);
 
     }
 
-    public static void sendPlayerAMessage(Session session, String json) {
+    public static void sendPlayerAMessage(WebSocketSession session, String json) {
         if (session != null) {
             try {
-                session.getAsyncRemote().sendText(json);
+                session.sendMessage(new TextMessage(json));
+                //session.getAsyncRemote().sendText(json);
             } catch (Exception ex) {
                 if (ex instanceof EOFException) {
                     ServerManager.checkSession(session);
