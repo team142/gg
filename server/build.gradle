@@ -14,7 +14,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 jar {
-    baseName = 'gs-messaging-stomp-websocket'
+    baseName = 'gg-server'
     version = '0.1.0'
 }
 sourceCompatibility = 1.8
