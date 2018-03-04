@@ -17,7 +17,7 @@ mkdir -p ${frontendFolder}
 cp -rf ../client/build/* ${frontendFolder}
 cp -rf src/main/WEB-INF ${frontendFolder}
 
-gradle bootRepackage
+gradle clean bootRepackage
 java -jar ./build/libs/gg-server-0.1.0.jar
 
 
