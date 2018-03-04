@@ -55,7 +55,8 @@ public class GameManager {
         //Start threads
         player.start();
 
-        //Commnuicate
+        //Communicate
+        ViewManager.changePlayerView(player.getId(), ViewType.VIEW_GAMES);
         welcomePlayerToGame(player.getId());
         announcePlayerJoins(game, player);
         sendMapToPlayer(player.getId(), game);
