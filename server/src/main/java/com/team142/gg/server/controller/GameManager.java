@@ -57,6 +57,13 @@ public class GameManager {
 
         //Communicate
         ViewManager.changePlayerView(player.getId(), ViewType.VIEW_GAMES);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         welcomePlayerToGame(player.getId());
         announcePlayerJoins(game, player);
         sendMapToPlayer(player.getId(), game);
