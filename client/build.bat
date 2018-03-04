@@ -1,4 +1,4 @@
-del build/
+del /F /Q build
 mkdir build
 mkdir build/js/
 robocopy . build index.html 

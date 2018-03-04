@@ -1,15 +1,22 @@
+
+
 cd ../client
 call build.bat
 cd ../server
-ROBOCOPY ../client/build/ src/main/webapp /MIR
-docker stop gg
-docker rm gg
-docker rmi team142/gg:local
-mvn clean install
+
+
+echo src/main/resources/public
+
+rmdir src/main/resources/public /s /q
+
+
+del /F /Q src/main/resources/public
+ROBOCOPY ../client/build/ src/main/resources/public /MIR
+
+gradle clean bootRepackage
+
 docker build -t team142/gg:local .
-
-rmdir src\main\webapp /s /q
-
-docker run --name gg --publish 8080:8080 team142/gg:local
-
- 
+docker stop /gg
+docker rm /gg
+docker rmi /gg
+docker run --name gg --publish 8080:8080 --env REPORT_SERVER_STATS_AS=dev team142/gg:local
