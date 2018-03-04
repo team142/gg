@@ -13,7 +13,7 @@ frontendFolder=src/main/resources/public
 echo ${frontendFolder}
 
 rm -rf ${frontendFolder}
-mkdir ${frontendFolder}
+mkdir -p ${frontendFolder}
 cp -rf ../client/build/* ${frontendFolder}
 cp -rf src/main/WEB-INF ${frontendFolder}
 
