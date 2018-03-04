@@ -18,8 +18,9 @@ cp -rf ../client/build/* ${frontendFolder}
 cp -rf src/main/WEB-INF ${frontendFolder}
 
 gradle clean bootRepackage
-java -jar ./build/libs/gg-server-0.1.0.jar
 
-
-#docker build -t team142/gg:local .
-#docker run --name gg --publish 8080:8080 --env REPORT_SERVER_STATS_AS=dev team142/gg:local
+docker build -t team142/gg:local .
+docker stop /gg
+docker rm /gg
+docker rmi /gg
+docker run --name gg --publish 8080:8080 --env REPORT_SERVER_STATS_AS=dev team142/gg:local
