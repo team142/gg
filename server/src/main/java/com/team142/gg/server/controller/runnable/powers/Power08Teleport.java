@@ -6,7 +6,6 @@
 package com.team142.gg.server.controller.runnable.powers;
 
 import com.team142.gg.server.controller.GameManager;
-import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 
@@ -16,15 +15,21 @@ import com.team142.gg.server.model.Repository;
  */
 public class Power08Teleport extends Power {
 
-    public Power08Teleport(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+    private static final long INITIAL_COOLDOWN = 10000;
+
+    public Power08Teleport(Player player) {
+        super(8, player, 0, INITIAL_COOLDOWN, 1, "8");
     }
 
     @Override
     public void execute() {
-        PowerManager.sendCooldown(getPlayer().getId(), this, 8);
         GameManager.spawn(Repository.GAMES_ON_SERVER.get(getPlayer().getGameId()), getPlayer());
 
+    }
+
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
     }
 
 }

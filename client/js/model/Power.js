@@ -1,26 +1,30 @@
+import { TEXTURES_DIR } from '../view/BabylonTextures.js'
+import { BabylonUI } from '../view/BabylonUI.js'
+import { PowerCooldownBar } from './PowerCooldownBar.js'
+
 
 export const powerIconInfo = [
-    { powerNumber: 1, ico: "textures/ico-shoot.jpg", cooldown: 20, usable: true },
-    { powerNumber: 2, ico: "textures/ico-tail.jpg", cooldown: 20, usable: true },
-    { powerNumber: 3, ico: "textures/ico-missile.jpg", cooldown: 20, usable: false },
-    { powerNumber: 4, ico: "textures/ico-seeker.jpg", cooldown: 20, usable: false },
-    { powerNumber: 5, ico: "textures/ico-bomb.jpg", cooldown: 20, usable: false },
-    { powerNumber: 6, ico: "textures/ico-radar.jpg", cooldown: 20, usable: false },
-    { powerNumber: 7, ico: "textures/ico-intel.jpg", cooldown: 20, usable: true },
-    { powerNumber: 8, ico: "textures/ico-safety.jpg", cooldown: 20, usable: true },
-    { powerNumber: 9, ico: "textures/ico-behind.jpg", cooldown: 20, usable: true },
-    { powerNumber: 10, ico: "textures/ico-blank.jpg", cooldown: 20, usable: false }
+    { powerNumber: 1, level: 0, ico: TEXTURES_DIR + "ico-shoot2.png", cooldown: 20, usable: true, key: "1" },
+    { powerNumber: 2, level: 0, ico: TEXTURES_DIR + "ico-tail2.png", cooldown: 20, usable: false, key: "2" },
+    { powerNumber: 3, level: 0, ico: TEXTURES_DIR + "ico-missile2.png", cooldown: 20, usable: false, key: "3" },
+    { powerNumber: 4, level: 0, ico: TEXTURES_DIR + "ico-seeker2.png", cooldown: 20, usable: false, key: "4" },
+    { powerNumber: 5, level: 0, ico: TEXTURES_DIR + "ico-bomb2.png", cooldown: 20, usable: false, key: "5" },
+    { powerNumber: 6, level: 0, ico: TEXTURES_DIR + "ico-radar2.png", cooldown: 20, usable: false, key: "6" },
+    { powerNumber: 7, level: 0, ico: TEXTURES_DIR + "ico-intel2.png", cooldown: 20, usable: false, key: "7" },
+    { powerNumber: 8, level: 0, ico: TEXTURES_DIR + "ico-safety2.png", cooldown: 20, usable: false, key: "8" },
+    { powerNumber: 9, level: 0, ico: TEXTURES_DIR + "ico-behind2.png", cooldown: 20, usable: false, key: "9" },
+    { powerNumber: 10, level: 0, ico: TEXTURES_DIR + "ico-hp-mech.jpg", cooldown: 20, usable: false, key: "0" }
 ]
 
 export const passiveIconInfo = [
-    { id: 1, ico: "textures/ico-blank.jpg", key: 'Z', usable: true },
-    { id: 2, ico: "textures/ico-blank.jpg", key: 'X', usable: true },
-    { id: 3, ico: "textures/ico-blank.jpg", key: 'C', usable: true },
-    { id: 4, ico: "textures/ico-blank.jpg", key: 'V', usable: true },
-    { id: 5, ico: "textures/ico-blank.jpg", key: 'B', usable: true },
-    { id: 6, ico: "textures/ico-blank.jpg", key: 'N', usable: true },
-    { id: 7, ico: "textures/ico-blank.jpg", key: 'M', usable: true },
-    { id: 8, ico: "textures/ico-blank.jpg", key: ',', usable: true },
-    { id: 9, ico: "textures/ico-blank.jpg", key: '.', usable: true },
-    { id: 10, ico: "textures/ico-blank.jpg", key: '/', usable: true }
+    { id: 1, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", key: 'Z', usable: false },
+    { id: 2, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", key: 'X', usable: false },
+    { id: 3, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", key: 'C', usable: false },
+    { id: 4, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", key: 'V', usable: false },
+    { id: 5, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", key: 'B', usable: false },
+    { id: 6, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", key: 'N', usable: false },
+    { id: 7, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", key: 'M', usable: false },
+    { id: 8, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", key: ',', usable: false },
+    { id: 9, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", key: '.', usable: false },
+    { id: 10, level: 0, ico: TEXTURES_DIR + "ico-blank.jpg", key: '/', usable: false }
 ]

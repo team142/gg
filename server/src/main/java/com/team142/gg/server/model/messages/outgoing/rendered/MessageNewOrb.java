@@ -25,8 +25,8 @@ public class MessageNewOrb extends Message {
     public MessageNewOrb(Orb orb) {
         setConversation(ConversationType.S_ORB_N.name());
         this.name = orb.getName();
-        this.x = orb.getX();
-        this.z = orb.getZ();
+        this.x = orb.getPoint().getX();
+        this.z = orb.getPoint().getZ();
     }
 
 }

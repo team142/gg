@@ -5,6 +5,10 @@
  */
 package com.team142.gg.server.model;
 
+import com.team142.gg.server.model.mappable.artificial.Tank;
+import com.team142.gg.server.model.mappable.meta.PlaceableElement;
+import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
+import com.team142.gg.server.utils.PhysicsUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +16,7 @@ import lombok.Setter;
  *
  * @author just1689
  */
-public class Orb {
+public class Orb extends PlaceableElement {
 
     @Getter
     @Setter
@@ -20,17 +24,34 @@ public class Orb {
 
     @Getter
     @Setter
-    private double x, z;
+    SpaceTimePoint point;
 
     @Getter
-    private String gameId;
+    private final String gameId;
 
-    public Orb(String gameId) {
+    public Orb(String name, String gameId, SpaceTimePoint point, String skin, int TAG) {
+        super(point, skin, TAG);
+        this.name = name;
+        this.point = point;
         this.gameId = gameId;
     }
 
     public void use() {
         //Ummm
+    }
+
+    public void check() {
+        Repository.GAMES_ON_SERVER
+                .get(getGameId())
+                .getTANKS()
+                .values()
+                .stream()
+                .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank.getPoint(), getPoint(), tank.getWidth()))
+                .forEach(this::pickup);
+    }
+
+    public void pickup(Tank tank) {
+        //
     }
 
 }

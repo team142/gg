@@ -61,13 +61,17 @@ public class GameManager {
         announcePlayerJoins(game, player);
         sendMapToPlayer(player.getId(), game);
         game.getSoundManager().sendSpawn();
-        Reporter.report();
+        Reporter.reportJoins(player.getName());
+
+        PowerManager.givePlayerRandomPower(player);
+        PowerManager.givePlayerRandomPower(player);
+        PowerManager.givePlayerRandomPower(player);
 
     }
-    
+
     public static void setHealthFull(Player player) {
         player.getTANK().setHealth(player.getTANK().getMaxHealth());
-        
+
     }
 
     public static void spawn(Game game, Player player) {

@@ -6,6 +6,7 @@
 package com.team142.gg.server.utils;
 
 import com.team142.gg.server.model.Server;
+import com.team142.gg.server.model.messages.outgoing.stats.MessageCapacity;
 import com.team142.gg.server.model.messages.outgoing.stats.MessageNotifyPushover;
 import com.team142.gg.server.model.messages.outgoing.stats.MessagePlayerJoinStats;
 import java.util.concurrent.Executor;
@@ -25,14 +26,27 @@ public class Reporter {
         return thread;
     });
 
-    public static void report() {
+    public static void reportJoins(String name) {
         if (Server.REPORT_STATS) {
             Reporter.REPORT_THREAD_POOL.execute(() -> reportNewPlayerForStats());
+            Reporter.REPORT_THREAD_POOL.execute(() -> reportDSPlayerCapcity());
         }
         if (Server.NOTIFY_PUSHOVER_ON_JOIN) {
-            Reporter.REPORT_THREAD_POOL.execute(() -> reportNewPlayerForPushOver());
+            Reporter.REPORT_THREAD_POOL.execute(() -> reportNewPlayerForPushOver(name));
         }
 
+    }
+
+    public static void reportLeaves() {
+        if (Server.REPORT_STATS) {
+            Reporter.REPORT_THREAD_POOL.execute(() -> reportDSPlayerCapcity());
+        }
+
+    }
+
+    private static void reportDSPlayerCapcity() {
+        String json = JsonUtils.toJson(new MessageCapacity());
+        HttpUtils.postSilently(Server.REPORT_DS_FUNCTION_URL, json);
     }
 
     private static void reportNewPlayerForStats() {
@@ -40,8 +54,8 @@ public class Reporter {
         HttpUtils.postSilently(Server.REPORT_URL, json);
     }
 
-    private static void reportNewPlayerForPushOver() {
-        String json = JsonUtils.toJson(new MessageNotifyPushover(Server.NOTIFY_PUSHOVER_USER, Server.NOTIFY_PUSHOVER_TOKEN, PLAYER_JOINS_MESSAGE));
+    private static void reportNewPlayerForPushOver(String name) {
+        String json = JsonUtils.toJson(new MessageNotifyPushover(Server.NOTIFY_PUSHOVER_USER, Server.NOTIFY_PUSHOVER_TOKEN, PLAYER_JOINS_MESSAGE + ": " + name));
         HttpUtils.postSilently(Server.NOTIFY_PUSHOVER_URL, json);
     }
 

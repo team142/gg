@@ -1,14 +1,14 @@
-
+import { match } from './Match'
 export class Player {
 
     static create(tag) {
         const player = new Player()
-        players.set(tagId, player)
+        match.players.set(tagId, player)
         return player
     }
 
     static getPlayer(tag) {
-        return players.get(tag)
+        return match.players.get(tag)
     }
 
     constructor(tagId) {
@@ -17,4 +17,3 @@ export class Player {
     }
 }
 
-const players = new Map()

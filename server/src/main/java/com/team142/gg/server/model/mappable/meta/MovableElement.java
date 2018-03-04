@@ -27,7 +27,6 @@ public class MovableElement extends PlaceableElement {
 
     public static final float BASE_ROTATE = (float) Math.toRadians(1.25);
     public static final float MAX_ROTATE = (float) (Math.PI * 2);
-    public static final float HALF_PI = (float) (Math.PI / 2);
 
     public MovableElement(SpaceTimePoint point, String skin, double speed, int tag) {
         super(point, skin, tag);
@@ -55,37 +54,45 @@ public class MovableElement extends PlaceableElement {
     }
 
     public boolean moveForward(GameMap map) {
-        double coefficientX = Math.sin(getPoint().getRotation());
-        double coefficientZ = Math.cos(getPoint().getRotation());
-        if (!changeX(coefficientX * getSpeed(), map)) {
-            return false;
-        }
-        if (!changeZ(coefficientZ * getSpeed(), map)) {
-            return false;
-        }
-        return true;
+        return move(map, getPoint().getRotation());
     }
 
     public boolean moveBackward(GameMap map) {
+        return move(map, getReversedDirection());
+    }
 
+    private boolean move(GameMap map, double rotation) {
+        boolean hasMoved = false;
+
+        double coefficientX = Math.sin(rotation);
+        double coefficientZ = Math.cos(rotation);
+
+        double amountChangeX = coefficientX * getSpeed();
+        double newX = getPoint().getX() + amountChangeX;
+
+        double amountChangeZ = coefficientZ * getSpeed();
+        double newZ = getPoint().getZ() + amountChangeZ;
+
+        if(isCoordValidMove(amountChangeX, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
+            changeX(newX);
+            hasMoved = true;
+        }
+
+        if(isCoordValidMove(amountChangeZ, getPoint().getX(), newZ, map, SpaceTimePoint.Z_COORD)) {
+            changeZ(newZ);
+            hasMoved = true;
+        }
+
+        return hasMoved;
+    }
+
+    private double getReversedDirection() {
         double newRotation = getPoint().getRotation();
         newRotation = newRotation - Math.PI;
-
         if (newRotation < 0) {
             newRotation = MAX_ROTATE + newRotation;
         }
-
-        double coefficientX = Math.sin(newRotation);
-        double coefficientZ = Math.cos(newRotation);
-
-        if (!changeX(coefficientX * getSpeed(), map)) {
-            return false;
-        }
-        if (!changeZ(coefficientZ * getSpeed(), map)) {
-            return false;
-        }
-        return true;
-
+        return newRotation;
     }
 
     public void movementTick(GameMap map) {
@@ -93,70 +100,55 @@ public class MovableElement extends PlaceableElement {
         if (getPoint().getX() < 0) {
             getPoint().setX(0);
         }
-        if (getPoint().getX() > (map.getX() - 1) + 1) {
-            getPoint().setX(map.getX() - 1);
+        if (getPoint().getX() > (map.getMaxX() - 1) + 1) {
+            getPoint().setX(map.getMaxX() - 1);
         }
         if (getPoint().getZ() < 0) {
             getPoint().setZ(0);
         }
-        if (getPoint().getZ() > (map.getZ() - 1) + 1) {
-            getPoint().setZ(map.getZ() - 1);
+        if (getPoint().getZ() > (map.getMaxZ() - 1) + 1) {
+            getPoint().setZ(map.getMaxZ() - 1);
         }
 
     }
 
-    //Check before changing...
-    private boolean changeZ(double amt, GameMap map) {
-        double newZ = getPoint().getZ() + amt;
-        if (isWalkOnWater()) {
-            if (amt > 0 && map.isShootover(getPoint().getX(), newZ + 1)) {
-                getPoint().setZ(newZ);
-            } else if (amt < 0 && map.isShootover(getPoint().getX(), newZ)) {
-                getPoint().setZ(newZ);
-
-            } else {
-                //Failed to move
-                return false;
-            }
-            return true;
+    private boolean isShootoverValid(double amt, double x, double z, GameMap map, short coordinateType) {
+        if(coordinateType == SpaceTimePoint.Z_COORD) {
+            return (((amt > 0) && (map.isShootover(x, z + 1))) || ((amt < 0 && map.isShootover(x, z))));
+        } else if(coordinateType == SpaceTimePoint.X_COORD) {
+            return ((amt > 0 && map.isShootover(x + 1, z)) || (amt < 0 && map.isShootover(x, z)));
         }
+        return false;
+    }
 
-        if (amt > 0 && map.isMovable(getPoint().getX(), newZ + 1)) {
-            getPoint().setZ(newZ);
-        } else if (amt < 0 && map.isMovable(getPoint().getX(), newZ)) {
-            getPoint().setZ(newZ);
-        } else {
-            //Failed to move
-            return false;
-        }
-        return true;
+    private boolean isMovementValid(double amt, double x, double z, GameMap map, short coordinateType) {
+        if(coordinateType == SpaceTimePoint.X_COORD) {
+            return ((amt > 0) && map.isMovable(x + 1, z)) || ((amt < 0) && map.isMovable(x, z));
+        } else if (coordinateType == SpaceTimePoint.Z_COORD)
+            return (amt > 0 && map.isMovable(x, z + 1)) || (amt < 0 && map.isMovable(x, z));
+        return false;
+    }
 
+    private boolean isCoordValidMove(double amt, double x, double z, GameMap map, short coordType) {
+        return ((isWalkOnWater() && (isShootoverValid(amt, x, z, map, coordType))) ||
+                ((isMovementValid(amt, x, z, map, coordType))));
     }
 
     //Check before changing...
-    private boolean changeX(double amt, GameMap map) {
-        double newX = getPoint().getX() + amt;
-        if (isWalkOnWater()) {
-            if (amt > 0 && map.isShootover(newX + 1, getPoint().getZ())) {
-                getPoint().setX(newX);
-            } else if (amt < 0 && map.isShootover(newX, getPoint().getZ())) {
-                getPoint().setX(newX);
-            } else {
-                //Failed to move
-                return false;
-            }
-            return true;
-        }
+    private void changeX(double newX) {
+        getPoint().setX(newX);
+    }
 
-        if (amt > 0 && map.isMovable(newX + 1, getPoint().getZ())) {
-            getPoint().setX(newX);
-        } else if (amt < 0 && map.isMovable(newX, getPoint().getZ())) {
-            getPoint().setX(newX);
-        } else {
-            //Failed tp move
-            return false;
-        }
-        return true;
+    //Check before changing...
 
+    /**
+     * Change the value of the Z-Co-ordinate.
+     *
+     * Check whether the move is valid before changing it with {@link #isCoordValidMove(double, double, double, GameMap, short) isCoordValidMove()} method.
+     *
+     * @param newZ The Z-Coordinate to move to.
+     */
+    private void changeZ(double newZ) {
+        getPoint().setZ(newZ);
     }
 }

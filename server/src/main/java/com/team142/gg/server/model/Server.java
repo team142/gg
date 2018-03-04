@@ -24,10 +24,17 @@ public class Server {
     public static boolean REPORT_STATS;
     public static final String REPORT_URL = "https://us-central1-good-game-192610.cloudfunctions.net/function-newPlayer-v1";
     public static final boolean DEBUG_ON = "TRUE".equals(System.getenv("DEBUG_ON"));
+    public static final boolean IS_DEV = "dev".equals(System.getenv("REPORT_SERVER_STATS_AS"));
+    public static final String REPORT_DS_FUNCTION_URL = "https://us-central1-good-game-192610.cloudfunctions.net/gg-function-server-capacity-v1";
 
     public static final String NOTIFY_PUSHOVER_USER = System.getenv("PUSHOVER_USER");
     public static final String NOTIFY_PUSHOVER_TOKEN = System.getenv("PUSHOVER_TOKEN");
     public static final boolean NOTIFY_PUSHOVER_ON_JOIN = !EmptyChecker.checkIfEmpty(NOTIFY_PUSHOVER_TOKEN) && !EmptyChecker.checkIfEmpty(NOTIFY_PUSHOVER_USER);
     public static final String NOTIFY_PUSHOVER_URL = "https://api.pushover.net/1/messages.json";
+    public static final int MAX_PLAYERS_ON_SERVER = 40;
+
+    public static int countPlayers() {
+        return Repository.PLAYERS_ON_SERVER.values().size();
+    }
 
 }

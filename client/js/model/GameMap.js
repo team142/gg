@@ -1,14 +1,15 @@
+import { match } from './Match.js'
 
-let gameMap
 export class GameMap {
 
     static create(obj) {
-        gameMap = new GameMap(obj)
+        match.gameMap = new GameMap(obj)
+        return match.gameMap
     }
     constructor(obj) {
         this.tiles = obj.map
-        this.x = obj.x
-        this.z = obj.z
+        this.maxX = obj.maxX
+        this.maxZ = obj.maxZ
 
     }
 

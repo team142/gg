@@ -1,5 +1,6 @@
 import { match } from '../model/Match.js'
 import { baby } from '../model/Baby.js'
+import { TEXTURES_DIR } from './BabylonTextures.js'
 
 const stopAbles = []
 const animations = new Map()
@@ -16,7 +17,7 @@ export class BabylonAnimations {
         const particleSystem = new BABYLON.ParticleSystem("particles", 2000, baby.scene)
 
         //Texture of each particle
-        particleSystem.particleTexture = new BABYLON.Texture("textures/flare.png", baby.scene)
+        particleSystem.particleTexture = new BABYLON.Texture(TEXTURES_DIR + "flare.png", baby.scene)
 
         // Where the particles come from
         particleSystem.emitter = tank // the starting object, the emitter

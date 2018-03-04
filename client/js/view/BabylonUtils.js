@@ -1,13 +1,10 @@
 import { match } from '../model/Match.js'
 import { BabylonSounds } from './BabylonSounds.js'
 import { NetworkController } from '../controller/NetworkController.js'
-import { game } from '../model/Game.js'
-import { Bullet, bullets } from '../model/Bullet.js'
+import { Bullet } from '../model/Bullet.js'
 import { BabylonModels } from './BabylonModels.js'
 import { BabylonTextures } from './BabylonTextures.js'
 import { baby } from '../model/Baby.js'
-import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
-import { powerIconInfo, passiveIconInfo } from '../model/Power.js'
 import { GameMap } from '../model/GameMap.js'
 import { BabylonUI} from './BabylonUI.js'
 
@@ -178,6 +175,8 @@ export class BabylonUtils {
         const material = baby.materialsMap.get(skin)
         if (material) {
             plane.material = material
+        } else {
+            console.log("No material found: " + skin)
         }
         plane.visibility = true
 

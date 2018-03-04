@@ -6,6 +6,7 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.OrbManager;
+import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
@@ -14,10 +15,6 @@ import com.team142.gg.server.controller.runnable.TickerComms;
 import com.team142.gg.server.controller.runnable.TickerPhysics;
 import com.team142.gg.server.controller.runnable.powers.Power;
 import com.team142.gg.server.controller.runnable.powers.Power01Shoot;
-import com.team142.gg.server.controller.runnable.powers.Power02RearShoot;
-import com.team142.gg.server.controller.runnable.powers.Power07Intel;
-import com.team142.gg.server.controller.runnable.powers.Power09Hop180;
-import com.team142.gg.server.controller.runnable.powers.Power08Teleport;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -30,7 +27,7 @@ import lombok.Data;
  * @author just1689
  */
 @Data
-public class Player {
+public final class Player {
 
     private final String id;
     private String name;
@@ -63,12 +60,8 @@ public class Player {
         this.name = "";
         this.powers = new ConcurrentHashMap<>();
         Power01Shoot power1Shoot = new Power01Shoot(this);
-        this.powers.put("1", power1Shoot);
-        this.powers.put(" ", power1Shoot);
-        this.powers.put("2", new Power02RearShoot(this, 5000));
-        this.powers.put("7", new Power07Intel(this, 1000));
-        this.powers.put("8", new Power08Teleport(this, 10000));
-        this.powers.put("9", new Power09Hop180(this, 10000));
+        addPower(power1Shoot);
+        addPower(" ", power1Shoot);
 
     }
 
@@ -166,11 +159,17 @@ public class Player {
     public void checkForOrbs() {
         Orb orb = OrbManager.isTankInOrb(TANK, gameId);
         if (orb != null) {
-            //Give to player
-            //TODO: XP++
-
+            PowerManager.givePlayerRandomPower(this);
             OrbManager.remove(orb);
         }
+    }
+
+    public void addPower(Power power) {
+        addPower(String.valueOf(power.getKey()), power);
+    }
+
+    public void addPower(String key, Power power) {
+        powers.put(key, power);
     }
 
 }

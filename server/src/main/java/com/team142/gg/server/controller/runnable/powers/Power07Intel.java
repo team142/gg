@@ -6,7 +6,6 @@
 package com.team142.gg.server.controller.runnable.powers;
 
 import com.team142.gg.server.controller.MessageManager;
-import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.messages.outgoing.other.MessageIntelChange;
 import java.util.logging.Level;
@@ -20,15 +19,14 @@ public class Power07Intel extends Power {
 
     private static final int INITIAL_COOLDOWN = 5000;
 
-    public Power07Intel(Player player, long refreshTime) {
-        super(player, 0, INITIAL_COOLDOWN);
+    public Power07Intel(Player player) {
+        super(7, player, 0, INITIAL_COOLDOWN, 1, "7");
     }
 
     @Override
     public void execute() {
         MessageIntelChange message = new MessageIntelChange(true);
         MessageManager.sendPlayerAMessage(getPlayer().getId(), message);
-        PowerManager.sendCooldown(getPlayer().getId(), this, 7);
 
         new Thread(() -> {
             try {
@@ -40,5 +38,10 @@ public class Power07Intel extends Power {
             }
         }).start();
 
+    }
+
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * getLevel());
     }
 }

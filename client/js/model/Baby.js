@@ -5,7 +5,12 @@ export const baby = {
     counter: 0,
     soundData: {
         soundMap: new Map()
-    }
-
+    },
+    powerbarCooldownBars: new Map(),
+    levelLabels: new Map(),
+    orbs: new Map(),
+    bullets: [],
+    radar: []
+    
 }
 

@@ -26,8 +26,8 @@ public class MessageShareMap extends Message {
     public MessageShareMap(Game game) {
         setConversation(ConversationType.S_SHARE_MAP.name());
         this.map = game.getMap().getTILES().values();
-        this.x = game.getMap().getX();
-        this.z = game.getMap().getZ();
+        this.x = game.getMap().getMaxX();
+        this.z = game.getMap().getMaxZ();
 
     }
 

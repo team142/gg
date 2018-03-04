@@ -4,18 +4,24 @@ import { BabylonUtils } from './BabylonUtils.js'
 export class Web {
 
     static showStartScreen() {
+        Web.toggleElement("VIEW_SERVERS", true)
         Web.toggleElement("VIEW_CANVAS", false)
         Web.toggleElement("VIEW_GAMES", false)
 
     }
 
-    static enabledJoinButton() {
-        document.getElementById("btnJoinServer").disabled = false
+    static toggleJoinButton(onOrOff) {
+        document.getElementById("btnJoinServer").disabled = onOrOff
+        document.getElementById("btnJoinServerCustom").disabled = onOrOff
     }
 
     static buttonJoinServer() {
-        document.getElementById("btnJoinServer").disabled = true
         const url = document.getElementById("selectServer").value
+        Web.join(url)
+    }
+
+    static join(url) {
+        Web.toggleJoinButton(true)
         const name = document.getElementById("inputName").value
         if (name) {
             document.getElementById("btnJoinServer").enabled = false
@@ -28,8 +34,31 @@ export class Web {
                 text: 'Please choose a nickname',
                 footer: '<a href="https://dictionary.cambridge.org/dictionary/english/nickname">What is a nickname?</a>',
             })
-            document.getElementById("btnJoinServer").disabled = false
         }
+        Web.toggleJoinButton(false)
+
+    }
+
+    static buttonJoinServerCustom() {
+        swal({
+            title: 'Custom server address',
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Connect',
+            showLoaderOnConfirm: true,
+            preConfirm: (email) => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve()
+                    }, 2000)
+                })
+            },
+            allowOutsideClick: () => !swal.isLoading()
+        }).then((result) => {
+            if (result.value) {
+                Web.join(result.value)
+            }
+        })
 
     }
 
@@ -91,8 +120,8 @@ export class Web {
 
     static assignJoinButton() {
         document.getElementById("btnJoinServer").addEventListener("click", () => { Web.buttonJoinServer() })
+        document.getElementById("btnJoinServerCustom").addEventListener("click", () => { Web.buttonJoinServerCustom() })
+
     }
 
 }
-
-

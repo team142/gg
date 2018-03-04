@@ -4,11 +4,15 @@ import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 import { BabylonUtils } from './BabylonUtils.js'
 import { match } from '../model/Match.js'
 import { passiveIconInfo, powerIconInfo} from '../model/Power.js'
-import { game } from '../model/Game.js'
+import { TEXTURES_DIR } from './BabylonTextures.js'
+
+const BLOCK_SIZE = 5
+
 /*
     This class is specfically for create / edit Babylon UI components
 */
 export class BabylonUI {
+
 
 
     static changeMyHealthBar(health, maxHealth) {
@@ -31,7 +35,7 @@ export class BabylonUI {
         baby.textScores.forEach(ro => {
             ro.dispose()
         })
-        game.scores.forEach((row, i) => {
+        match.scores.forEach((row, i) => {
             BabylonUI.createRightText(i, row.key, row.value)
         })
 
@@ -42,16 +46,16 @@ export class BabylonUI {
         Object.keys(obj.tags)
             .forEach(key => BabylonUtils.createSphereIfNotExists(obj.tags[key], key))
 
-        game.scores = []
+        match.scores = []
 
         Object.keys(obj.scores)
-            .forEach(key => game.scores.push(
+            .forEach(key => match.scores.push(
                 {
                     key: key,
                     value: obj.scores[key]
                 }
             ))
-        game.scores.sort((a, b) => a.value - b.value)
+        match.scores.sort((a, b) => a.value - b.value)
         BabylonUI.displayScores()
 
     }
@@ -81,17 +85,15 @@ export class BabylonUI {
         powerBack.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         baby.advancedTexture.addControl(powerBack)
 
-
         passiveIconInfo
             .filter(p => p.usable)
             .forEach(p => {
                 BabylonUI.createTopPowerBarItem(p.key, p.ico)
-                PowerCooldownBar.save(
-                    (p.key).toString(),
+                PowerCooldownBar.set(
+                    (p.key),
                     new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.id - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP), p.cooldown)
                 )
             })
-
     }
 
 
@@ -113,8 +115,8 @@ export class BabylonUI {
         powerIconInfo
             .filter(p => p.usable)
             .forEach(p => {
-                BabylonUI.createBotPowerBarItem(p.powerNumber - 1, p.ico)
-                PowerCooldownBar.save(
+                BabylonUI.createBotPowerBarItem(p.powerNumber - 1, p.ico, p.key)
+                PowerCooldownBar.set(
                     (p.powerNumber).toString(),
                     new PowerCooldownBar(BabylonUI.createPowerBarCooldownTile(p.powerNumber - 1, BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM), p.cooldown)
                 )
@@ -123,7 +125,7 @@ export class BabylonUI {
     }
 
     static createPowerBarCooldownTile(n, vAlign) {
-        let image = new BABYLON.GUI.Image("cooldownTile" + n, "textures/ico-blank.jpg")
+        let image = new BABYLON.GUI.Image("cooldownTile" + n, TEXTURES_DIR + "ico-blank.jpg")
         image.height = "75px"
         image.width = "75px"
         image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
@@ -139,7 +141,7 @@ export class BabylonUI {
         return image
     }
 
-    static createBotPowerBarItem(n, fileImage) {
+    static createBotPowerBarItem(n, fileImage, key, level = 1) {
 
         let image = new BABYLON.GUI.Image("powerBot" + n, fileImage)
         image.height = "75px"
@@ -154,8 +156,8 @@ export class BabylonUI {
         image.top = "-10px"
         baby.advancedTexture.addControl(image)
 
-        var text1 = new BABYLON.GUI.TextBlock("textblock" + n)
-        text1.text = (n + 1).toString()
+        const text1 = new BABYLON.GUI.TextBlock("textblock" + n)
+        text1.text = key
         text1.color = "black"
         text1.fontSize = 24
 
@@ -166,7 +168,23 @@ export class BabylonUI {
         text1.top = "-10px"
         baby.advancedTexture.addControl(text1)
 
+
+        const text2 = new BABYLON.GUI.TextBlock("textblockLevel" + n)
+        text2.text = (+level).toString()
+        text2.color = "black"
+        text2.fontSize = 24
+
+        text2.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        text2.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+
+        text2.left = (x - 75 / 2 + 7) + "px"
+        text2.top = "-58px"
+        baby.advancedTexture.addControl(text2)
+        baby.levelLabels.set(key, text2)
+
+
     }
+
 
     static createTopPowerBarItem(n, fileImage) {
 
@@ -238,5 +256,43 @@ export class BabylonUI {
         baby.textScores.push(current)
 
     }
+
+    static createRadar(obj) {
+        BabylonUI.stopRadar()
+        obj.things.forEach(thing => BabylonUI.createTinyBlockFromThing(thing))
+    }
+
+    static createTinyBlockFromThing(thing) {
+        if (thing.tag == match.tag) {
+            BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "blue")
+        } else {
+            BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "red")
+        }
+    }
+
+    static createTinyBlock(x, y, color) {
+        const tinyBlock = new BABYLON.GUI.Rectangle();
+        tinyBlock.width = BLOCK_SIZE + "px"
+        tinyBlock.height = BLOCK_SIZE + "px"
+        tinyBlock.color = color
+        tinyBlock.left = (BLOCK_SIZE * x) + "px"
+        tinyBlock.top = (BLOCK_SIZE * y) + "px"
+        tinyBlock.background = color
+        tinyBlock.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
+        tinyBlock.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+        baby.advancedTexture.addControl(tinyBlock)
+        baby.radar.push(tinyBlock)
+    }
+
+    static stopRadar() {
+        baby.radar.forEach(item => item.dispose())
+        baby.radar = []
+    }
+
+    static setPowerLabelLevel(key, level) {
+        const textLabel = baby.levelLabels.get(key)
+        textLabel.text = (+level).toString()
+    }
+    
 
 }

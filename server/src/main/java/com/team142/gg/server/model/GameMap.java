@@ -18,13 +18,13 @@ public class GameMap {
 
     private final HashMap<String, MapTileElement> TILES;
     private boolean[][][] bitmap;
-    private int x, z;
+    private int maxX, maxZ;
 
-    public GameMap(int x, int z) {
+    public GameMap(int maxX, int maxZ) {
         this.TILES = new HashMap<>();
-        this.x = x;
-        this.z = z;
-        setBitmap(new boolean[x][z][2]);
+        this.maxX = maxX;
+        this.maxZ = maxZ;
+        setBitmap(new boolean[maxX][maxZ][2]);
     }
 
     public void setTileBitmapMovable(int x, int z, boolean val) {
@@ -36,14 +36,14 @@ public class GameMap {
     }
 
     public boolean isMovable(int x, int z) {
-        if (x >= this.x || x <= 0 || z >= this.z || z < 0) {
+        if (x >= this.maxX || x <= 0 || z >= this.maxZ || z < 0) {
             return false;
         }
         return this.bitmap[x][z][0];
     }
 
     public boolean isShootover(int x, int z) {
-        if (x >= this.x || x <= 0 || z >= this.z || z < 0) {
+        if (x >= this.maxX || x <= 0 || z >= this.maxZ || z < 0) {
             return false;
         }
         return this.bitmap[x][z][1];

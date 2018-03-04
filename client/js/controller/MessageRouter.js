@@ -1,15 +1,7 @@
 import { NetworkController } from './NetworkController.js'
 import { Web } from '../view/Web.js'
-import { BabylonView } from '../view/BabylonView.js'
-import { BabylonModels } from '../view/BabylonModels.js'
-import { BabylonUI} from '../view/BabylonUI.js'
+import { BabylonController } from './BabylonController.js'
 import { match } from '../model/Match.js'
-import { BabylonUtils } from '../view/BabylonUtils.js'
-import { BabylonSounds } from '../view/BabylonSounds.js'
-import { BabylonAnimations } from '../view/BabylonAnimations.js'
-import { Bullet } from '../model/Bullet.js'
-import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
-import { Orb } from '../model/Orb.js'
 
 export class MessageRouter {
 
@@ -30,45 +22,47 @@ export class MessageRouter {
             Web.showListOfGames(obj.games)
 
         } else if (conversation == "S_SCOREBOARD") {
-            BabylonUI.scoreboard(obj)
+            BabylonController.handleScoreboard(obj)
 
         } else if (conversation == "S_SHARE_TAG") {
             match.tag = obj.tag
 
         } else if (conversation == "S_SHARE_MAP") {
-            BabylonUtils.createMap(obj)
+            BabylonController.handleMap(obj)
 
         } else if (conversation == "S_PLAY_SOUND") {
-            BabylonSounds.playSound(obj.FILE)
+            BabylonController.handleSound(obj)
 
         } else if (conversation == "S_PLAYER_LEFT") {
             match.playerLeaves(obj.tag)
 
         } else if (conversation == "S_SHARE_BULLETS") {
-            Bullet.createAndSave(obj)
+            BabylonController.handleNewBullet(obj)
 
         } else if (conversation == "S_SHARE_SPRAY") {
-            BabylonAnimations.createSpray(obj.tagId, obj.ms)
+            BabylonController.handleNewAnimation(obj)            
 
         } else if (conversation == "S_SHARE_DYNAMIC_THINGS") {
-            BabylonModels.recievedDynamicThings(obj)
+            BabylonController.handleThingsMoving(obj)
 
         } else if (conversation == "S_SHARE_INTEL") {
             match.setMiniMapOn(obj.on == true)
 
         } else if (conversation == "S_ORB_N") {
-            const orb = new Orb(obj.name, obj.x, obj.z)
-            Orb.save(orb)
+            BabylonController.handleNewOrb(obj)
 
         } else if (conversation == "S_ORB_D") {
-            Orb.remove(obj.name)
+            BabylonController.handleOrbGone(obj)
 
         } else if (conversation == "S_SHARE_COOLDOWN") {
-            let index = +obj.num
-            let item = PowerCooldownBar.get(index.toString())
-            item.changeRefresh(obj.ticks)
-            item.useIt()
+            BabylonController.handleCooldown(obj)
 
+        } else if (conversation == "S_P_LEVEL") {
+            BabylonController.setPowerLevel(obj.key, obj.level)
+
+        } else if (conversation == "S_SHARE_RADAR") {
+            BabylonController.shareRadar(obj)
+            
         } else {
             console.log("Dont know what to do with this:")
             console.log(obj)

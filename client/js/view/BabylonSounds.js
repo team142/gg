@@ -2,19 +2,21 @@ import {
     baby
 } from '../model/Baby.js'
 
+const SOUNDS_DIR = "sounds/"
 const sounds = [
-    "sounds/pew.mp3",
-    "sounds/ding.mp3",
-    "sounds/explode.mp3",
-    "sounds/shhha.mp3"
+    "pew.mp3",
+    "ding.mp3",
+    "explode.mp3",
+    "shhha.mp3"
 ]
 
 export class BabylonSounds {
     static loadSounds() {
-        sounds.forEach(s => BabylonSounds.loadSound(s))
+        sounds.forEach(BabylonSounds.loadSound)
     }
 
     static loadSound(path) {
+        path = SOUNDS_DIR + path
         const sound = new BABYLON.Sound(path, path, baby.scene)
         baby.soundData.soundMap.set(path, sound)
     }
@@ -24,7 +26,7 @@ export class BabylonSounds {
     }
 
     static playPew() {
-        BabylonSounds.playSound("sounds/pew.mp3")
+        BabylonSounds.playSound(SOUNDS_DIR + "pew.mp3")
     }
 
 }

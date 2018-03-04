@@ -6,7 +6,6 @@
 package com.team142.gg.server.controller.runnable.powers;
 
 import com.team142.gg.server.controller.GameManager;
-import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
@@ -17,14 +16,16 @@ import com.team142.gg.server.model.mappable.artificial.Bullet;
  * @author just1689
  */
 public class Power02RearShoot extends Power {
-    
-    public Power02RearShoot(Player player, long refreshTime) {
-        super(player, 0, refreshTime);
+
+    private static final long INITIAL_COOLDOWN = 5000;
+
+    public Power02RearShoot(Player player) {
+        super(2, player, 0, INITIAL_COOLDOWN, 1, "2");
     }
-    
+
     @Override
     public void execute() {
-        
+
         Game game = Repository.GAMES_ON_SERVER.get(getPlayer().getGameId());
 
         //Change state
@@ -32,17 +33,20 @@ public class Power02RearShoot extends Power {
 
         //Send bullet backwards
         bullet.rotateLeft((float) Math.PI);
-        
+
         //Nerf rear bullets by 50% for now
-        bullet.setDamage(bullet.getDamage() / 2);
+        bullet.setDamage(bullet.getDamage() / 2 + getLevel() * 10);
         bullet.setSpeed(bullet.getSpeed() / 2);
 
         //Communicate
         GameManager.sendBullet(game, bullet);
         game.getSoundManager().sendShoot();
-        
-        PowerManager.sendCooldown(getPlayer().getId(), this, 2);
-        
+
     }
-    
+
+    @Override
+    public void nofityLevelChange() {
+        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
+    }
+
 }

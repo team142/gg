@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.utils;
 
-import com.team142.gg.server.model.mappable.meta.PlaceableElement;
+import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 
 /**
  *
@@ -13,12 +13,17 @@ import com.team142.gg.server.model.mappable.meta.PlaceableElement;
  */
 public class PhysicsUtils {
 
-    public static boolean isTinyObjectInLarger(PlaceableElement t, PlaceableElement l, double width) {
+    public static boolean isTinyObjectInLarger(SpaceTimePoint t, SpaceTimePoint l, double width) {
 
-        return ((t.getPoint().getX() >= l.getPoint().getX() - width
-                && t.getPoint().getX() <= l.getPoint().getX() + width)
-                && (t.getPoint().getZ() >= l.getPoint().getZ() - width
-                && t.getPoint().getZ() <= l.getPoint().getZ() + width));
+        return ((t.getX() >= l.getX() - width
+                && t.getX() <= l.getX() + width)
+                && (t.getZ() >= l.getZ() - width
+                && t.getZ() <= l.getZ() + width));
+    }
+
+    public static float getRadians(SpaceTimePoint viewer, SpaceTimePoint other) {
+        //TODO: implement
+        return 0;
     }
 
 }

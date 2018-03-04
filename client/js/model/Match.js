@@ -1,13 +1,17 @@
 
 class Match {
     constructor() {
+        this.gameInstance = Math.floor(Math.random() * 1000)
+        this.username = "Unknown"
+        this.tag = -1
+        this.scores = []
+        this.gameMap = {}
+        this.players = new Map()
+        
         this.playerTanks = new Map()
         this.playerHealthBars = new Map()
         this.playerLabels = new Map()
         this.playerRectangles = new Map()
-        this.gameInstance = Math.floor(Math.random() * 1000)
-        this.username = "Chop"
-        this.tag = -1
 
         this.miniMapOn = false
 
@@ -24,9 +28,8 @@ class Match {
     playerLeaves(tagId) {
 
         let children = match.getPlayerByTag(tagId).getChildren()
-        for (const child of children) {
-            child.dispose()
-        }
+        children.forEach(child => child.dispose())
+
         match.getPlayerByTag(tagId).dispose()
         match.playerTanks.delete(tagId)
 

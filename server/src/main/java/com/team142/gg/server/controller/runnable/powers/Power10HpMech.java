@@ -11,23 +11,23 @@ import com.team142.gg.server.model.Player;
  *
  * @author just1689
  */
-public class Power09Hop180 extends Power {
+public class Power10HpMech extends Power {
 
     private static final long INITIAL_COOLDOWN = 10000;
 
-    public Power09Hop180(Player player) {
-        super(9, player, 0, INITIAL_COOLDOWN, 1, "9");
+    public Power10HpMech(Player player) {
+        super(10, player, 0, INITIAL_COOLDOWN, 1, "0");
     }
 
     @Override
     public void execute() {
-        getPlayer().getTANK().rotateLeft((float) Math.PI);
-
+        getPlayer().getTANK().heal(50 + (getLevel() - 1) * 10);
     }
 
     @Override
     public void nofityLevelChange() {
-        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
+        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 15));
+
     }
 
 }
