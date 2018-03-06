@@ -26,7 +26,7 @@ repositories {
 
 //create a single Jar with all dependencies
 task fatJar(type: Jar) {
-	manifest {
+    manifest {
         attributes 'Implementation-Title': 'Gradle Jar File Example',
         	'Implementation-Version': 1,
         	'Main-Class': 'com.team142.gg.server.main.Application'
@@ -43,15 +43,11 @@ configurations {
 dependencies {
 
     compileOnly 'org.projectlombok:lombok:1.16.20'
-
+    
     compile("org.springframework.boot:spring-boot-starter-websocket")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.boot:spring-boot-starter-web")
-
     compile("org.springframework.boot:spring-boot-starter-jetty")
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.1'
     compile("org.webjars:webjars-locator")
-    compile("org.webjars:stomp-websocket:2.3.3")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
