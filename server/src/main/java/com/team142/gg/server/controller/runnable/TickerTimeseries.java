@@ -5,7 +5,7 @@
  */
 package com.team142.gg.server.controller.runnable;
 
-import com.team142.gg.server.model.EventRepository;
+import com.team142.gg.server.model.KillEventTracker;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +20,7 @@ public class TickerTimeseries implements Runnable {
     @Override
     public void run() {
         while (true) {
-            EventRepository.pruneAll();
+            KillEventTracker.pruneAll();
             try {
                 Thread.sleep(SLEEP_TIME_MS);
             } catch (InterruptedException ex) {

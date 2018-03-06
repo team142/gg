@@ -13,15 +13,25 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author just1689
  */
-public class EventRepository {
+public class KillEventTracker {
 
     private static final ConcurrentHashMap<String, LinkedList<Long>> EVENTS = new ConcurrentHashMap<>();
     private static final long EXPIRES_MS = 1 * 60 * 1000;
+    private static final long NORMAL_INTEREST_MS = 1 * 30 * 1000;
+
+    public static int killAndReport(Game game, Player killer) {
+        String key = getKey(game, killer);
+        return pushAndTell(key, NORMAL_INTEREST_MS);
+    }
+
+    public static String getKey(Game game, Player killer) {
+        return "key." + game.getId() + "." + killer.getId();
+    }
 
     public static void pruneAll() {
         EVENTS
                 .values()
-                .forEach(EventRepository::pruneList);
+                .forEach(KillEventTracker::pruneList);
     }
 
     public static void pruneList(LinkedList<Long> list) {
