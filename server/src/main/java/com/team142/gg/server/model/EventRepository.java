@@ -39,19 +39,24 @@ public class EventRepository {
 
     }
 
-    public static synchronized void push(String key) {
+    private static synchronized LinkedList<Long> getList(String key) {
         LinkedList<Long> list = EVENTS.get(key);
         if (list == null) {
             list = new LinkedList<>();
             EVENTS.put(key, list);
         }
+        return list;
+    }
+
+    public static void push(String key) {
+        LinkedList<Long> list = getList(key);
         list.add(System.currentTimeMillis());
 
     }
 
     public static int count(String key, long interest) {
         int result = 0;
-        LinkedList<Long> list = EVENTS.get(key);
+        LinkedList<Long> list = getList(key);
         if (list == null) {
             System.err.println("Could not find EventRepository for: " + key);
             return 0;
