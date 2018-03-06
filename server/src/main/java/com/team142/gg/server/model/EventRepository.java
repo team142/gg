@@ -39,14 +39,23 @@ public class EventRepository {
 
     }
 
-    public static synchronized int pushAndTell(String key, long interest) {
+    public static synchronized void push(String key) {
         LinkedList<Long> list = EVENTS.get(key);
         if (list == null) {
             list = new LinkedList<>();
             EVENTS.put(key, list);
         }
         list.add(System.currentTimeMillis());
+
+    }
+
+    public static int count(String key, long interest) {
         int result = 0;
+        LinkedList<Long> list = EVENTS.get(key);
+        if (list == null) {
+            System.err.println("Could not find EventRepository for: " + key);
+            return 0;
+        }
         Iterator<Long> iterator = list.iterator();
         long rightNow = System.currentTimeMillis();
         while (iterator.hasNext()) {
@@ -55,6 +64,12 @@ public class EventRepository {
             }
         }
         return result;
+
+    }
+
+    public static synchronized int pushAndTell(String key, long interest) {
+        push(key);
+        return count(key, interest);
 
     }
 
