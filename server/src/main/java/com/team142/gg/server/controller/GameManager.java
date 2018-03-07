@@ -6,6 +6,7 @@
 package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.KillEventTracker;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
@@ -137,6 +138,26 @@ public class GameManager {
         new Thread(() -> {
             OrbManager.possiblySpawnOrb(game);
         }).start();
+
+        game.getSoundManager().sendExplode();
+
+        int killAndReport = KillEventTracker.killAndReport(game, fromPlayer);
+        switch (killAndReport) {
+            case 5:
+                game.getSoundManager().sendPentaKill();
+                break;
+            case 4:
+                game.getSoundManager().sendQuadKill();
+                break;
+            case 3:
+                game.getSoundManager().sendTripleKill();
+                break;
+            case 2:
+                game.getSoundManager().sendDoubleKill();
+                break;
+            default:
+                break;
+        }
 
     }
 

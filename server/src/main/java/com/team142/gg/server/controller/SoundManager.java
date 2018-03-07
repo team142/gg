@@ -51,4 +51,20 @@ public class SoundManager {
 
     }
 
+    public void sendDoubleKill() {
+
+    }
+
+    public void sendTripleKill() {
+
+    }
+
+    public void sendQuadKill() {
+
+    }
+
+    public void sendPentaKill() {
+
+    }
+
 }
