@@ -81,52 +81,68 @@ public class MathUtils {
         return slopeLine1 == slopeLine2;
     }
 
-    // Returns true if the lines intersect, otherwise false.
-    public boolean isLinesIntersect(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
-                                    double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
-        double line1LengthX, line1LengthY, line2LengthX, line2LengthY;
-
-        line1LengthX = line1EndX - line1StartX;
-        line1LengthY = line1EndZ - line1StartZ;
-        line2LengthX = line2EndX - line2StartX;
-        line2LengthY = line2EndZ - line2StartZ;
-
-        double sDenominator = (-line2LengthX * line1LengthY + line1LengthX * line2LengthY);
-
-        if(sDenominator == 0) {
-            if(isLinesParallel(line1StartX,line1StartZ,line1EndX,line1EndZ,line2StartX,line2StartZ,line2EndX,line2EndZ)) {
-                //check if collinear
-                System.out.println("Lines are parallel");
-            } else {
-                return false;
-            }
-        }
-
-        double s, t;
-        double tDenominator = (-line2LengthX * line1LengthY + line1LengthX * line2LengthY);
-        double sNumerator = (-line1LengthY * (line1StartX - line2StartX) + line1LengthX * (line1StartZ - line2StartZ));
-        double tNumerator = ( line2LengthX * (line1StartZ - line2StartZ) - line2LengthY * (line1StartX - line2StartX));
-
-        if(sDenominator == 0) {
-            if(isLinesParallel(line1StartX,line1StartZ,line1EndX,line1EndZ,line2StartX,line2StartZ,line2EndX,line2EndZ)) {
-                //check if collinear
-                System.out.println("Lines are parallel");
-            } else {
-                return false;
-            }
-        }
-
-        s = sNumerator / sDenominator;
-        t = tNumerator / tDenominator;
-
-        if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
-            // Collision detected
+    private boolean isCollinearLinesIntersect(double start, double end, double pointChecking) {
+        if(end == pointChecking) {
+            //Point is at the end of the line
             return true;
         }
-
-        return false; // No collision
+        //Lines are not collinear, should never have gotten here. Check the logic before here.
+        //Returns true if the checked point start fits along the line, otherwise the lines were not collinear
+        return pointChecking >= start && pointChecking <= end;
     }
 
+    /**
+     * Checks if vertical lines intersects, using the Z values
+     *
+     * Do not use this method without checking for parallel lines using isLinesParallel first, should only be used on lines
+     * with an undefined gradient.
+     *
+     * @param line1StartZ
+     * @param line1EndZ
+     * @param line2StartZ
+     * @param line2EndZ
+     * @return
+     */
+    private boolean isVerticalLinesIntersect(double line1StartZ, double line1EndZ, double line2StartZ, double line2EndZ) {
+        double line1Start = Math.min(line1StartZ, line1EndZ);
+        double line1End = Math.max(line1StartZ, line1EndZ);
+
+        double line2Start = Math.min(line2StartZ, line2EndZ);
+        double line2End = Math.max(line2StartZ, line2EndZ);
+
+        if(line1Start == line2Start) {
+            //line1 and line2 share start point
+            System.out.println("vertical lines intersected!1");
+            return true;
+        } else if(line1Start < line2Start) {
+            //Line1 lower
+            //line2 starts along line1
+            System.out.println("vertical lines intersected!2");
+            return line2Start >= line1Start && line2Start <= line1End;
+        } else if(line1Start > line2Start) {
+            //Line2 lower
+            //returns true if line1 starts along line2
+            System.out.println("vertical lines intersected!3");
+            return line1Start >= line2Start && line1Start <= line2End;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if a parallel line is collinear and whether it overlaps or touches
+     *
+     * Do not use this method without checking for parallel lines using isLinesParallel first
+     *
+     * @param line1StartX
+     * @param line1StartZ
+     * @param line1EndX
+     * @param line1EndZ
+     * @param line2StartX
+     * @param line2StartZ
+     * @param line2EndX
+     * @param line2EndZ
+     * @return
+     */
     private boolean isCollinearAndTouching(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
                                            double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
 
@@ -137,7 +153,12 @@ public class MathUtils {
         double slopeDenominator = (line1EndX - line1StartX);
         if (slopeDenominator == 0) {
             //Line is vertical! No change in x
-            //TODO Check if the lines touch, otherwise return false
+
+            if(line1EndX == line2StartX) {
+                return isVerticalLinesIntersect(line1StartZ, line1EndZ, line2StartZ, line2EndZ);
+            } else {
+                return false;
+            }
         } else {
             slopeLine1 = (line1EndZ - line1StartZ) / slopeDenominator;
             slopeLine1 = (Math.round(slopeLine1 * 10000));
@@ -148,13 +169,16 @@ public class MathUtils {
         slopeDenominator = (line2EndX - line2StartX);
         if (slopeDenominator == 0) {
             //Line is vertical! No change in x
-            //TODO Check if the lines touch, otherwise return false
+            if(line1EndX == line2StartX) {
+                return isVerticalLinesIntersect(line1StartZ, line1EndZ, line2StartZ, line2EndZ);
+            } else {
+                return false;
+            }
         } else {
             slopeLine2 = (line2EndZ - line2StartZ) / slopeDenominator;
             slopeLine2 = (Math.round(slopeLine2 * 10000));
             slopeLine2 = slopeLine2 / 10000;
         }
-
 
         if (!(slopeLine1 == slopeLine2)) {
             //Lines are not parallel, shouldn't have got into this method in the first place.
@@ -170,7 +194,6 @@ public class MathUtils {
             return false;
         }
 
-
         double[][] line1 = new double[2][2];
         line1[0][0] = line1StartX;
         line1[0][1] = line1StartZ;
@@ -185,42 +208,50 @@ public class MathUtils {
         line2[1][1] = line2EndZ;
         Arrays.sort(line2, Comparator.comparingDouble(a -> a[0]));
 
-//        TODO Don't need to check this separately, below method will cover it.
-//        if (slopeLine1 == 0) {
-//            //line is horizontal
-//        }
-
-        if (line1[0][0] == line2[0][0] && line1[0][1] == line2[0][1]) {
+        if (line1[0][0] == line2[0][0]) {
             //Lines share a start coordinate
             return true;
+        } else if (line1[1][0] == line2[1][0]){
+            //lines share end coordinate
+            return true;
         } else if(line1[0][0] < line2[0][0]) {
-            //Line1 starts further left
-            if(line1[1][0] == line2[0][0]) {
-                //line2 starts at the end of line 1
-                return true;
-            } else if(line2[0][0] >= line1[0][0] && line2[0][0] <= line1[1][0]) {
-                //Line 2 start fits between the start and end of line 1
-                return true;
-            } else {
-                //Lines are not collinear, should never have gotten here. Check the logic before here.
-                return false;
-            }
+            return  isCollinearLinesIntersect(line1[0][0], line1[1][0], line2[0][0]);
         } else if(line1[0][0] > line2[0][0]) {
-            //Line2 starts further left
-            if(line2[1][0] == line1[0][0]) {
-                //Line 1 starts at the end of line 2
-                return true;
-            } else if(line1[0][0] >= line2[0][0] && line1[0][0] <= line2[1][0]) {
-                //Line 1 fits between the start and end of line 1
-                return true;
-            } else {
-                //Lines are not collinear, should never have gotten here. Check the logic before here.
-                return false;
-            }
+            return  isCollinearLinesIntersect(line2[0][0], line2[1][0], line1[0][0]);
         } else {
             //Lines are not collinear, should never have gotten here. Check the logic before here.
             return false;
         }
+    }
+
+    public boolean isLinesIntersect(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
+                                    double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
+
+        double line1LengthX = line1EndX - line1StartX;
+        double line1LengthY = line1EndZ - line1StartZ;
+        double line2LengthX = line2EndX - line2StartX;
+        double line2LengthY = line2EndZ - line2StartZ;
+
+        double sDenominator = (-line2LengthX * line1LengthY + line1LengthX * line2LengthY);
+        if(sDenominator == 0) {
+            if(isLinesParallel(line1StartX,line1StartZ,line1EndX,line1EndZ,line2StartX,line2StartZ,line2EndX,line2EndZ)) {
+                //check if collinear
+                return isCollinearAndTouching(line1StartX,line1StartZ,line1EndX,line1EndZ,line2StartX,line2StartZ,line2EndX,line2EndZ);
+            } else {
+                return false;
+            }
+        }
+
+        double s, t;
+        double tDenominator = (-line2LengthX * line1LengthY + line1LengthX * line2LengthY);
+        double sNumerator = (-line1LengthY * (line1StartX - line2StartX) + line1LengthX * (line1StartZ - line2StartZ));
+        double tNumerator = ( line2LengthX * (line1StartZ - line2StartZ) - line2LengthY * (line1StartX - line2StartX));
+
+        s = sNumerator / sDenominator;
+        t = tNumerator / tDenominator;
+
+        // Return true if collision detected
+        return s >= 0 && s <= 1 && t >= 0 && t <= 1;
     }
 
 }
