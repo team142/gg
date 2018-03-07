@@ -94,14 +94,15 @@ public class MathUtils {
     /**
      * Checks if vertical lines intersects, using the Z values
      *
-     * Do not use this method without checking for parallel lines using isLinesParallel first, should only be used on lines
-     * with an undefined gradient.
+     * Do not use this method without checking for parallel and collinear lines using isCollinearAndTouching first,
+     * should only be used on lines with an undefined gradient.
      *
-     * @param line1StartZ
-     * @param line1EndZ
-     * @param line2StartZ
-     * @param line2EndZ
-     * @return
+     * @param line1StartZ Z-coordinate of line 1 start point
+     * @param line1EndZ Z-coordinate of line 1 end point
+     * @param line2StartZ Z-coordinate of line 2 start point
+     * @param line2EndZ Z-coordinate of line 2 end point
+     *
+     * @return true if two vertical line segments intersect
      */
     private boolean isVerticalLinesIntersect(double line1StartZ, double line1EndZ, double line2StartZ, double line2EndZ) {
         double line1Start = Math.min(line1StartZ, line1EndZ);
@@ -112,18 +113,15 @@ public class MathUtils {
 
         if(line1Start == line2Start) {
             //line1 and line2 share start point
-            System.out.println("vertical lines intersected!1");
             return true;
         } else if(line1Start < line2Start) {
             //Line1 lower
             //line2 starts along line1
-            System.out.println("vertical lines intersected!2");
-            return line2Start >= line1Start && line2Start <= line1End;
+            return (line2Start >= line1Start) && (line2Start <= line1End);
         } else if(line1Start > line2Start) {
             //Line2 lower
             //returns true if line1 starts along line2
-            System.out.println("vertical lines intersected!3");
-            return line1Start >= line2Start && line1Start <= line2End;
+            return (line1Start >= line2Start) && (line1Start <= line2End);
         }
         return false;
     }
@@ -133,15 +131,16 @@ public class MathUtils {
      *
      * Do not use this method without checking for parallel lines using isLinesParallel first
      *
-     * @param line1StartX
-     * @param line1StartZ
-     * @param line1EndX
-     * @param line1EndZ
-     * @param line2StartX
-     * @param line2StartZ
-     * @param line2EndX
-     * @param line2EndZ
-     * @return
+     * @param line1StartX X-coordinate of line 1 start point
+     * @param line1StartZ Z-coordinate of line 1 start point
+     * @param line1EndX X-coordinate of line 1 end point
+     * @param line1EndZ Z-coordinate of line 1 end point
+     * @param line2StartX X-coordinate of line 2 start point
+     * @param line2StartZ Z-coordinate of line 2 start point
+     * @param line2EndX X-coordinate of line 2 end point
+     * @param line2EndZ Z-coordinate of line 2 end point
+     *
+     * @return true if two lines are collinear and touch or overlap
      */
     private boolean isCollinearAndTouching(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
                                            double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
@@ -234,6 +233,7 @@ public class MathUtils {
 
         double sDenominator = (-line2LengthX * line1LengthY + line1LengthX * line2LengthY);
         if(sDenominator == 0) {
+            //check if parallel
             if(isLinesParallel(line1StartX,line1StartZ,line1EndX,line1EndZ,line2StartX,line2StartZ,line2EndX,line2EndZ)) {
                 //check if collinear
                 return isCollinearAndTouching(line1StartX,line1StartZ,line1EndX,line1EndZ,line2StartX,line2StartZ,line2EndX,line2EndZ);
