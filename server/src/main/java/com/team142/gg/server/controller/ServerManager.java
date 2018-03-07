@@ -20,7 +20,6 @@ import com.team142.gg.server.utils.Reporter;
 import com.team142.gg.server.view.ViewManager;
 import org.springframework.web.socket.WebSocketSession;
 
-import javax.websocket.Session;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
