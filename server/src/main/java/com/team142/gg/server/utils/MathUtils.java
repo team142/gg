@@ -3,6 +3,9 @@ package com.team142.gg.server.utils;
 import com.team142.gg.server.model.mappable.meta.PlaceableElement;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class MathUtils {
 
     public static double getRadiusFromElement(PlaceableElement element) {
@@ -122,6 +125,102 @@ public class MathUtils {
         }
 
         return false; // No collision
+    }
+
+    private boolean isCollinearAndTouching(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
+                                           double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
+
+        double slopeLine1 = 0, slopeLine2 = 0;
+
+        //(delta y)/(delta x)
+        //delta x
+        double slopeDenominator = (line1EndX - line1StartX);
+        if (slopeDenominator == 0) {
+            //Line is vertical! No change in x
+            //TODO Check if the lines touch, otherwise return false
+        } else {
+            slopeLine1 = (line1EndZ - line1StartZ) / slopeDenominator;
+            slopeLine1 = (Math.round(slopeLine1 * 10000));
+            slopeLine1 = slopeLine1 / 10000;
+        }
+
+        //delta x
+        slopeDenominator = (line2EndX - line2StartX);
+        if (slopeDenominator == 0) {
+            //Line is vertical! No change in x
+            //TODO Check if the lines touch, otherwise return false
+        } else {
+            slopeLine2 = (line2EndZ - line2StartZ) / slopeDenominator;
+            slopeLine2 = (Math.round(slopeLine2 * 10000));
+            slopeLine2 = slopeLine2 / 10000;
+        }
+
+
+        if (!(slopeLine1 == slopeLine2)) {
+            //Lines are not parallel, shouldn't have got into this method in the first place.
+            return false;
+        }
+
+        double zInterceptLine1 = -(slopeLine1 * line1StartX) + line1StartZ;
+        double zInterceptLine2 = -(slopeLine2 * line2StartX) + line2StartZ;
+
+        if (!(zInterceptLine1 == zInterceptLine2)) {
+            //Lines don't share a z-intercept, do not have the same equation, lines are not collinear.
+            //Shouldn't have gotten into this method in the first place.
+            return false;
+        }
+
+
+        double[][] line1 = new double[2][2];
+        line1[0][0] = line1StartX;
+        line1[0][1] = line1StartZ;
+        line1[1][0] = line1EndX;
+        line1[1][1] = line1EndZ;
+        Arrays.sort(line1, Comparator.comparingDouble(a -> a[0]));
+
+        double[][] line2 = new double[2][2];
+        line2[0][0] = line2StartX;
+        line2[0][1] = line2StartZ;
+        line2[1][0] = line2EndX;
+        line2[1][1] = line2EndZ;
+        Arrays.sort(line2, Comparator.comparingDouble(a -> a[0]));
+
+//        TODO Don't need to check this separately, below method will cover it.
+//        if (slopeLine1 == 0) {
+//            //line is horizontal
+//        }
+
+        if (line1[0][0] == line2[0][0] && line1[0][1] == line2[0][1]) {
+            //Lines share a start coordinate
+            return true;
+        } else if(line1[0][0] < line2[0][0]) {
+            //Line1 starts further left
+            if(line1[1][0] == line2[0][0]) {
+                //line2 starts at the end of line 1
+                return true;
+            } else if(line2[0][0] >= line1[0][0] && line2[0][0] <= line1[1][0]) {
+                //Line 2 start fits between the start and end of line 1
+                return true;
+            } else {
+                //Lines are not collinear, should never have gotten here. Check the logic before here.
+                return false;
+            }
+        } else if(line1[0][0] > line2[0][0]) {
+            //Line2 starts further left
+            if(line2[1][0] == line1[0][0]) {
+                //Line 1 starts at the end of line 2
+                return true;
+            } else if(line1[0][0] >= line2[0][0] && line1[0][0] <= line2[1][0]) {
+                //Line 1 fits between the start and end of line 1
+                return true;
+            } else {
+                //Lines are not collinear, should never have gotten here. Check the logic before here.
+                return false;
+            }
+        } else {
+            //Lines are not collinear, should never have gotten here. Check the logic before here.
+            return false;
+        }
     }
 
 }
