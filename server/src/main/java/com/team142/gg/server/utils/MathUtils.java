@@ -243,9 +243,9 @@ public class MathUtils {
         }
 
         double s, t;
-        double tDenominator = (-line2LengthX * line1LengthY + line1LengthX * line2LengthY);
-        double sNumerator = (-line1LengthY * (line1StartX - line2StartX) + line1LengthX * (line1StartZ - line2StartZ));
-        double tNumerator = ( line2LengthX * (line1StartZ - line2StartZ) - line2LengthY * (line1StartX - line2StartX));
+        double tDenominator = ((-line2LengthX * line1LengthY) + (line1LengthX * line2LengthY));
+        double sNumerator = ((-line1LengthY * (line1StartX - line2StartX)) + (line1LengthX * (line1StartZ - line2StartZ)));
+        double tNumerator = ((line2LengthX * (line1StartZ - line2StartZ)) - (line2LengthY * (line1StartX - line2StartX)));
 
         s = sNumerator / sDenominator;
         t = tNumerator / tDenominator;
