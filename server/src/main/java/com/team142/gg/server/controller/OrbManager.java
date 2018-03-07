@@ -14,7 +14,6 @@ import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageDeleteOrb;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageNewOrb;
 import com.team142.gg.server.utils.PhysicsUtils;
-import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
