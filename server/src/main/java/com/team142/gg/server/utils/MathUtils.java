@@ -73,7 +73,7 @@ public class MathUtils {
         return false;
     }
 
-    private boolean isLinesParallel(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
+    private static boolean isLinesParallel(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
                                     double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
         double slopeLine1, slopeLine2;
         slopeLine1 = (line1EndZ - line1StartZ) / (line1EndX - line1StartX);
@@ -81,7 +81,7 @@ public class MathUtils {
         return slopeLine1 == slopeLine2;
     }
 
-    private boolean isCollinearLinesIntersect(double start, double end, double pointChecking) {
+    private static boolean isCollinearLinesIntersect(double start, double end, double pointChecking) {
         if(end == pointChecking) {
             //Point is at the end of the line
             return true;
@@ -104,7 +104,7 @@ public class MathUtils {
      *
      * @return true if two vertical line segments intersect
      */
-    private boolean isVerticalLinesIntersect(double line1StartZ, double line1EndZ, double line2StartZ, double line2EndZ) {
+    private static boolean isVerticalLinesIntersect(double line1StartZ, double line1EndZ, double line2StartZ, double line2EndZ) {
         double line1Start = Math.min(line1StartZ, line1EndZ);
         double line1End = Math.max(line1StartZ, line1EndZ);
 
@@ -142,7 +142,7 @@ public class MathUtils {
      *
      * @return true if two lines are collinear and touch or overlap
      */
-    private boolean isCollinearAndTouching(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
+    private static boolean isCollinearAndTouching(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
                                            double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
 
         double slopeLine1 = 0, slopeLine2 = 0;
@@ -223,7 +223,7 @@ public class MathUtils {
         }
     }
 
-    public boolean isLinesIntersect(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
+    public static boolean isLinesIntersect(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
                                     double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
 
         double line1LengthX = line1EndX - line1StartX;
