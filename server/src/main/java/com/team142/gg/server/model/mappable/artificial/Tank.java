@@ -33,6 +33,7 @@ public class Tank extends MovableElement {
 
     @Getter
     @Setter
+    @JsonIgnore
     private double distanceToVertex;
 
     @Getter
