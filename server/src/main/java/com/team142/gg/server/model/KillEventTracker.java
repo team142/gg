@@ -8,12 +8,16 @@ package com.team142.gg.server.model;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author just1689
  */
 public class KillEventTracker {
+
+    private static final Logger LOG = Logger.getLogger(KillEventTracker.class.getName());
 
     private static final ConcurrentHashMap<String, LinkedList<Long>> EVENTS = new ConcurrentHashMap<>();
     private static final long EXPIRES_MS = 1 * 60 * 1000;
@@ -29,6 +33,7 @@ public class KillEventTracker {
     }
 
     public static void pruneAll() {
+        LOG.log(Level.INFO, "PRUNING ALL TIME EVENTS...");
         EVENTS
                 .values()
                 .forEach(KillEventTracker::pruneList);
@@ -45,6 +50,7 @@ public class KillEventTracker {
         long rightNow = System.currentTimeMillis();
         if (rightNow - EXPIRES_MS > iterator.next()) {
             iterator.remove();
+            LOG.log(Level.INFO, "REMOVED element -> timed out...");
         }
 
     }
