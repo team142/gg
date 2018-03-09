@@ -50,6 +50,6 @@ public class SpaceTimePoint {
     }
 
     public String toString() {
-        return "[x: " + getX() +", z: " + getZ() + "] radius: " + getRadius();
+        return "[x: " + getX() +", z: " + getZ() + "] radius: " + getRadius() + ", rotation: " + getRotation();
     }
 }

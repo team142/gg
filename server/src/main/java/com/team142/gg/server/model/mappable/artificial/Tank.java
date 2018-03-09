@@ -8,6 +8,7 @@ package com.team142.gg.server.model.mappable.artificial;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
+import com.team142.gg.server.model.mappable.meta.Rectangle;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ import lombok.Setter;
  *
  * @author just1689
  */
-public class Tank extends MovableElement {
+public class Tank extends MovableElement implements Rectangle {
 
     @Getter
     @Setter

@@ -38,7 +38,15 @@ public class MovableElement extends PlaceableElement {
         if (getPoint().getRotation() < 0) {
             getPoint().setRotation(MAX_ROTATE - getPoint().getRotation());
         }
+    }
 
+    public float getRotatedLeft(float rotation, float radians) {
+        float newRotation = rotation - radians;
+        if(newRotation < 0) {
+            newRotation = MAX_ROTATE - newRotation;
+        }
+
+        return newRotation;
     }
 
     public void rotateLeft() {

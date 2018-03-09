@@ -1,6 +1,8 @@
 package com.team142.gg.server.utils;
 
+import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.mappable.meta.PlaceableElement;
+import com.team142.gg.server.model.mappable.meta.Rectangle;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 
 import java.util.Arrays;
@@ -252,6 +254,59 @@ public class MathUtils {
 
         // Return true if collision detected
         return s >= 0 && s <= 1 && t >= 0 && t <= 1;
+    }
+
+//    public double getFrontLeftX(Tank tank) {
+//        return getFrontLeftX(tank.getWidth() /2, tank.getDistanceToVertex());
+//    }
+
+    //let a be direct distance (width) to point
+    //let A be the angle that the point is away from origin
+    //let b be length to point, perpendicular to origin
+    //let B be angle opposite b
+
+    //Formula: A = arcsin( (a * sin(B)) / b )
+    //In our case, B is always 90, sin(90) = 1, so excluding from formula.
+    //New formula: A = arcsin( a / b )
+//    public static double getFrontLeftX(double a, double b) {
+//        double angle = getAngleRadians((a), b);
+//        System.out.println("Angle: " + angle);
+//
+//
+//
+//        return angle;
+//    }
+
+    public static double getAngleRadians(double a, double b) {
+        return Math.asin(a/b);
+    }
+
+    public static double getTopLeftZ(Tank tank) {
+        return 0;
+    }
+
+    public static double getTopRightX(Tank tank) {
+        return 0;
+    }
+
+    public static double getTopRightZ(Tank tank) {
+        return 0;
+    }
+
+    public static double getBottomLeftX(Tank tank) {
+        return 0;
+    }
+
+    public static double getBottomLeftZ(Tank tank) {
+        return 0;
+    }
+
+    public static double getBottomRightX(Tank tank) {
+        return 0;
+    }
+
+    public static double getBottomRightZ(Tank tank) {
+        return 0;
     }
 
 }
