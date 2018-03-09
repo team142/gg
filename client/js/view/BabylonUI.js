@@ -24,6 +24,14 @@ export class BabylonUI {
         match.healthBar.left = 0 - (di / 2)
     }
 
+    static setHealth(obj) {
+        const rect1 = match.getHealthBarByTag(t.tag)
+        if (rect1) {
+            BabylonUI.setHealthRectangle(rect1, t.health, t.maxHealth)
+        }
+    
+    }
+
     static setHealthRectangle(rect1, health, totalHealth) {
         rect1.width = health / totalHealth * 0.2
         if (match.miniMapOn != rect1.isVisible) {
