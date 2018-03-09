@@ -1,6 +1,8 @@
 package com.team142.gg.server.utils;
 
+import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.mappable.meta.PlaceableElement;
+import com.team142.gg.server.model.mappable.meta.Rectangle;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 
 import java.util.Arrays;
@@ -73,7 +75,7 @@ public class MathUtils {
         return false;
     }
 
-    private boolean isLinesParallel(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
+    private static boolean isLinesParallel(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
                                     double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
         double slopeLine1, slopeLine2;
         slopeLine1 = (line1EndZ - line1StartZ) / (line1EndX - line1StartX);
@@ -81,7 +83,7 @@ public class MathUtils {
         return slopeLine1 == slopeLine2;
     }
 
-    private boolean isCollinearLinesIntersect(double start, double end, double pointChecking) {
+    private static boolean isCollinearLinesIntersect(double start, double end, double pointChecking) {
         if(end == pointChecking) {
             //Point is at the end of the line
             return true;
@@ -104,7 +106,7 @@ public class MathUtils {
      *
      * @return true if two vertical line segments intersect
      */
-    private boolean isVerticalLinesIntersect(double line1StartZ, double line1EndZ, double line2StartZ, double line2EndZ) {
+    private static boolean isVerticalLinesIntersect(double line1StartZ, double line1EndZ, double line2StartZ, double line2EndZ) {
         double line1Start = Math.min(line1StartZ, line1EndZ);
         double line1End = Math.max(line1StartZ, line1EndZ);
 
@@ -142,7 +144,7 @@ public class MathUtils {
      *
      * @return true if two lines are collinear and touch or overlap
      */
-    private boolean isCollinearAndTouching(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
+    private static boolean isCollinearAndTouching(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
                                            double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
 
         double slopeLine1 = 0, slopeLine2 = 0;
@@ -223,7 +225,7 @@ public class MathUtils {
         }
     }
 
-    public boolean isLinesIntersect(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
+    public static boolean isLinesIntersect(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
                                     double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
 
         double line1LengthX = line1EndX - line1StartX;
@@ -252,6 +254,59 @@ public class MathUtils {
 
         // Return true if collision detected
         return s >= 0 && s <= 1 && t >= 0 && t <= 1;
+    }
+
+//    public double getFrontLeftX(Tank tank) {
+//        return getFrontLeftX(tank.getWidth() /2, tank.getDistanceToVertex());
+//    }
+
+    //let a be direct distance (width) to point
+    //let A be the angle that the point is away from origin
+    //let b be length to point, perpendicular to origin
+    //let B be angle opposite b
+
+    //Formula: A = arcsin( (a * sin(B)) / b )
+    //In our case, B is always 90, sin(90) = 1, so excluding from formula.
+    //New formula: A = arcsin( a / b )
+//    public static double getFrontLeftX(double a, double b) {
+//        double angle = getAngleRadians((a), b);
+//        System.out.println("Angle: " + angle);
+//
+//
+//
+//        return angle;
+//    }
+
+    public static double getAngleRadians(double a, double b) {
+        return Math.asin(a/b);
+    }
+
+    public static double getTopLeftZ(Tank tank) {
+        return 0;
+    }
+
+    public static double getTopRightX(Tank tank) {
+        return 0;
+    }
+
+    public static double getTopRightZ(Tank tank) {
+        return 0;
+    }
+
+    public static double getBottomLeftX(Tank tank) {
+        return 0;
+    }
+
+    public static double getBottomLeftZ(Tank tank) {
+        return 0;
+    }
+
+    public static double getBottomRightX(Tank tank) {
+        return 0;
+    }
+
+    public static double getBottomRightZ(Tank tank) {
+        return 0;
     }
 
 }
