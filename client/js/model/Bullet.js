@@ -20,9 +20,9 @@ export class Bullet {
         this.bBullet = babylonObject
         this.bBullet.visibility = true
 
-        this.bBullet.position.x = obj.point.x
-        this.bBullet.position.y = obj.point.y
-        this.bBullet.position.z = obj.point.z
+        this.bBullet.position.x = +obj.point.x
+        this.bBullet.position.y = +obj.point.y
+        this.bBullet.position.z = +obj.point.z
         this.bBullet.rotation.y = obj.point.rotation + Math.PI
 
         this.tick()
