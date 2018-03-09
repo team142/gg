@@ -16,7 +16,11 @@ public enum SoundType {
     PEW("sounds/pew.mp3"),
     DING("sounds/ding.mp3"),
     EXPLODE("sounds/explode.mp3"),
-    SHHHA("sounds/shhha.mp3");
+    SHHHA("sounds/shhha.mp3"),
+    X2("sounds/2x.mp3"),
+    X3("sounds/3x.mp3"),
+    X4("sounds/4x.mp3"),
+    X5("sounds/5x.mp3");
 
     @Getter
     private final String FILE;

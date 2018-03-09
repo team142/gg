@@ -12,12 +12,9 @@ import com.team142.gg.server.model.messages.base.ConversationMap;
 import com.team142.gg.server.utils.JsonUtils;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
-
 import java.io.EOFException;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.websocket.Session;
 
 /**
  * @author just1689
