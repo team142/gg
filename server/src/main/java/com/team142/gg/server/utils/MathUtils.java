@@ -258,10 +258,6 @@ public class MathUtils {
         return s >= 0 && s <= 1 && t >= 0 && t <= 1;
     }
 
-//    public double getFrontLeftX(Tank tank) {
-//        return getFrontLeftX(tank.getWidth() /2, tank.getDistanceToVertex());
-//    }
-
     //let a be direct distance (width) to point
     //let A be the angle that the point is away from origin
     //let b be length to point, perpendicular to origin
@@ -270,27 +266,10 @@ public class MathUtils {
     //Formula: A = arcsin( (a * sin(B)) / b )
     //In our case, B is always 90, sin(90) = 1, so excluding from formula.
     //New formula: A = arcsin( a / b )
-//    public static double getFrontLeftX(double a, double b) {
-//        double angle = getAngleRadians((a), b);
-//        System.out.println("Angle: " + angle);
-//
-//
-//
-//        return angle;
-//    }
 
     public static double getAngleRadians(double a, double b) {
         return Math.asin(a/b);
     }
-
-    //let a be direct distance (width) to point
-    //let A be the angle that the point is away from origin
-    //let b be length to point, perpendicular to origin
-    //let B be angle opposite b
-
-    //Formula: A = arcsin( (a * sin(B)) / b )
-    //In our case, B is always 90, sin(90) = 1, so excluding from formula.
-    //New formula: A = arcsin( a / b )
 
     public static double getFrontLeftX(Tank tank, double angle) {
         return getFrontLeftX(tank.getPoint().getRotation(), tank.getPoint().getX(), tank.getDistanceToVertex(), angle);
@@ -457,6 +436,53 @@ public class MathUtils {
     public static double getAmountToChangedZ(double rotation, double speed) {
         double coefficientZ = Math.cos(rotation);
         return coefficientZ * speed;
+    }
+
+    public static boolean isIntersectTank(Tank tank, double startX, double startZ, double endX, double endZ) {
+
+        boolean doesIntersect = false;
+        double angle = MathUtils.getAngleRadians(tank.getWidth() /2, tank.getDistanceToVertex());
+        //Front
+        doesIntersect = MathUtils.isLinesIntersect(
+                startX, startZ,
+                endX, endZ,
+                MathUtils.getFrontLeftX(tank, angle), MathUtils.getFrontLeftZ(tank, angle),
+                MathUtils.getFrontRightX(tank, angle), MathUtils.getFrontRightZ(tank, angle));
+
+        if(doesIntersect) {
+            return true;
+        }
+
+        //Left
+        doesIntersect = MathUtils.isLinesIntersect(
+                startX, startZ,
+                endX, endZ,
+                MathUtils.getFrontLeftX(tank, angle), MathUtils.getFrontLeftZ(tank, angle),
+                MathUtils.getBackLeftX(tank, angle), MathUtils.getBackLeftZ(tank, angle));
+
+        if(doesIntersect) {
+            return true;
+        }
+
+        //Right
+        doesIntersect = MathUtils.isLinesIntersect(
+                startX, startZ,
+                endX, endZ,
+                MathUtils.getFrontRightX(tank, angle), MathUtils.getFrontRightZ(tank, angle),
+                MathUtils.getBackRightX(tank, angle), MathUtils.getBackRightZ(tank, angle));
+
+        if(doesIntersect) {
+            return true;
+        }
+
+        //Back
+        doesIntersect = MathUtils.isLinesIntersect(
+                startX, startZ,
+                endX, endZ,
+                MathUtils.getBackLeftX(tank, angle), MathUtils.getBackLeftZ(tank, angle),
+                MathUtils.getBackRightX(tank, angle), MathUtils.getBackRightZ(tank, angle));
+
+        return doesIntersect;
     }
 
 
