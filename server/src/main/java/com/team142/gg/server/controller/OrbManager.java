@@ -47,6 +47,11 @@ public class OrbManager {
         findRandomLocationForOrb(orb, game.getMap());
         game.getOrbs().put(orb.getName(), orb);
         MessageManager.sendPlayersAMessage(game, new MessageNewOrb(orb));
+        
+        new Thread(() -> {
+            game.getSoundManager().sendNie();
+        }).start();
+        
     }
 
     public static Orb isTankInOrb(Tank tank, String gameId) {

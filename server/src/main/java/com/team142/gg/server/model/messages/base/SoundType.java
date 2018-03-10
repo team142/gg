@@ -20,7 +20,9 @@ public enum SoundType {
     X2("sounds/2x.mp3"),
     X3("sounds/3x.mp3"),
     X4("sounds/4x.mp3"),
-    X5("sounds/5x.mp3");
+    X5("sounds/5x.mp3"),
+    YIPEE("sounds/yipee.mp3"),
+    NIE("sounds/nie.mp3");
 
     @Getter
     private final String FILE;

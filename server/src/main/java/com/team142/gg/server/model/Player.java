@@ -161,6 +161,10 @@ public final class Player {
         if (orb != null) {
             PowerManager.givePlayerRandomPower(this);
             OrbManager.remove(orb);
+            new Thread(() -> {
+                Repository.GAMES_ON_SERVER.get(getGameId()).getSoundManager().sendYipee();
+            }).start();
+
         }
     }
 
