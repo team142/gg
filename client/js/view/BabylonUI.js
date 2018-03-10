@@ -104,7 +104,7 @@ export class BabylonUI {
         powerBack.width = w + "px"
         powerBack.height = "95px"
         powerBack.cornerRadius = 20
-        powerBack.color = "Black"
+        powerBack.color = "White"
         powerBack.thickness = 4
         powerBack.background = "Black"
         powerBack.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
@@ -158,7 +158,7 @@ export class BabylonUI {
 
         const text1 = new BABYLON.GUI.TextBlock("textblock" + n)
         text1.text = key
-        text1.color = "black"
+        text1.color = "white"
         text1.fontSize = 24
 
         text1.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
@@ -171,7 +171,7 @@ export class BabylonUI {
 
         const text2 = new BABYLON.GUI.TextBlock("textblockLevel" + n)
         text2.text = (+level).toString()
-        text2.color = "black"
+        text2.color = "white"
         text2.fontSize = 24
 
         text2.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
