@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.team142.gg.server.model.GameMap;
 import com.team142.gg.server.model.jackson.DoubleContextualSerializer;
+import com.team142.gg.server.utils.MathUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,7 +42,15 @@ public class MovableElement extends PlaceableElement {
         if (getPoint().getRotation() < 0) {
             getPoint().setRotation(MAX_ROTATE - getPoint().getRotation());
         }
+    }
 
+    public float getRotatedLeft(float rotation, float radians) {
+        float newRotation = rotation - radians;
+        if(newRotation < 0) {
+            newRotation = MAX_ROTATE - newRotation;
+        }
+
+        return newRotation;
     }
 
     public void rotateLeft() {
@@ -67,13 +76,10 @@ public class MovableElement extends PlaceableElement {
     private boolean move(GameMap map, double rotation) {
         boolean hasMoved = false;
 
-        double coefficientX = Math.sin(rotation);
-        double coefficientZ = Math.cos(rotation);
+        double amountChangeX = MathUtils.getAmountToChangedX(rotation, getSpeed());
+        double newX = MathUtils.getNewX(getPoint().getX(), amountChangeX);
 
-        double amountChangeX = coefficientX * getSpeed();
-        double newX = getPoint().getX() + amountChangeX;
-
-        double amountChangeZ = coefficientZ * getSpeed();
+        double amountChangeZ = MathUtils.getAmountToChangedZ(rotation, getSpeed());
         double newZ = getPoint().getZ() + amountChangeZ;
 
         if (isCoordValidMove(amountChangeX, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {

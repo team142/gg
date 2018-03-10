@@ -51,6 +51,13 @@ public class SpaceTimePoint {
         setRadius(radius);
     }
 
+    public SpaceTimePoint(double x, double z, double radius, float rotation) {
+        setX(x);
+        setZ(z);
+        setRadius(radius);
+        setRotation(rotation);
+    }
+
     public SpaceTimePoint(SpaceTimePoint point) {
         setX(point.getX());
         setY(point.getY());
@@ -59,6 +66,6 @@ public class SpaceTimePoint {
     }
 
     public String toString() {
-        return "[x: " + getX() +", z: " + getZ() + "] radius: " + getRadius();
+        return "[x: " + getX() +", z: " + getZ() + "] radius: " + getRadius() + ", rotation: " + getRotation();
     }
 }

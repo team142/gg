@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.GameMap;
-import com.team142.gg.server.model.mappable.meta.PlaceableElement;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.Player;
@@ -18,7 +17,6 @@ import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.utils.PhysicsUtils;
 
-import java.awt.geom.Line2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.Data;
@@ -115,7 +113,11 @@ public class Bullet extends MovableElement {
         if (!ok) {
             return;
         }
+
+//        double angle = MathUtils.getAngleRadians(tank.getWidth() /2, tank.getDistanceToVertex());
+
         System.out.println("was inside of tank!");
+
         ok = false;
         BulletHitResult result = tank.damage(damage, player);
 
@@ -135,13 +137,6 @@ public class Bullet extends MovableElement {
         if (result.isLethal()) {
             GameManager.handleKill(game, player, toPlayer);
         }
-    }
-
-
-
-    private boolean isIntersect(double point1x, double point1z, double point2x, double point2y, MovableElement object) {
-
-        return false;
     }
 
 }
