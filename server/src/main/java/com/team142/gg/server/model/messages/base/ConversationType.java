@@ -36,6 +36,7 @@ public enum ConversationType {
     , S_ORB_N
     , S_P_LEVEL
     , S_SHARE_RADAR
+    , S_SHARE_HEALTH
     
 
 }

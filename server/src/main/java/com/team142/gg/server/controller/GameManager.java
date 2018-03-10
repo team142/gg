@@ -10,9 +10,11 @@ import com.team142.gg.server.model.KillEventTracker;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
+import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.incoming.MessageJoinGame;
 import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageBullet;
+import com.team142.gg.server.model.messages.outgoing.rendered.MessageHealth;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareMap;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageSpray;
@@ -159,6 +161,12 @@ public class GameManager {
                 break;
         }
 
+    }
+
+    public static void notifyHealthChange(String gameId, Tank tank) {
+        Game game = Repository.GAMES_ON_SERVER.get(gameId);
+        MessageManager.sendPlayersAMessage(game, new MessageHealth(tank));
+        
     }
 
 }
