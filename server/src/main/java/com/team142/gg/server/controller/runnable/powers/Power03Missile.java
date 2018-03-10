@@ -41,7 +41,6 @@ public class Power03Missile extends Power {
         GameManager.sendBullet(game, bullet);
         game.getSoundManager().sendShoot();
 
-
     }
 
     @Override

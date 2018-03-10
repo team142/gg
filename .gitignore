@@ -20,7 +20,6 @@ target/
 server/bin/
 server/.gradle/
 server/build/
-server/src/main/resources/
+server/src/main/resources/public
 server/.settings/org.eclipse.buildship.core.prefs
 .vscode/settings.json
-/client/nbproject/private/

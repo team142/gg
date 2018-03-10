@@ -18,7 +18,7 @@ The goal of this project is to build an MMO tank game implemented in JS with Bab
 - Install rollup `npm install rollup -g`
 - Install uglify-es `npm install uglify-es -g`
 - Install an http file server `npm install http-server -g`
-- Install maven (ensure mvn is in path)
+- Install gradle (ensure gradle is in path)
 
 ## Running the client only
 
@@ -31,17 +31,17 @@ The goal of this project is to build an MMO tank game implemented in JS with Bab
 
 ## Running the client & the server
 
-For the server you will need Java 8, maven (in path) and docker. There are two ways you can run the the project:
+For the server you will need Java 8, gradle (in path) and docker. There are two ways you can run the the project:
 
 You will now be running the client locally and connecting to the shared development server.
 
 ### Build and run locally in docker (easy and fast)
 
-Run `./run.sh` or `./run.bat`. This will remove any references to the docker image in your local registry, use maven to build the war, build a docker image and run the image exposing the application locally on port 8080. See the source of those files for more details.
+Run `./run.sh` or `./run.bat`. This will remove any references to the docker image in your local registry, use gradle to build the jar, build a docker image and run the image exposing the application locally on port 8080. See the source of those files for more details.
 
 ### Build and run in your own Java servlet container
 
-Run `mvn clean install`. Deploy the resulting war to a JEE 8 compliant web container running Java 8. 
+Run `gradle bootRun`. Deploy the resulting war to a JEE 8 compliant web container running Java 8. 
 
 ## Official Docker images
 <a href="https://hub.docker.com/r/team142/gg/tags/"><img src="docs/docker.png" height="80"></a>

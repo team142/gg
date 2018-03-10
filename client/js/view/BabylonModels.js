@@ -13,9 +13,9 @@ export class BabylonModels {
                 if (!baby.camera) {
                     return
                 }
-                baby.camera.position.x = t.point.x
-                baby.camera.position.y = t.point.y + 0.25
-                baby.camera.position.z = t.point.z
+                baby.camera.position.x = +t.point.x
+                baby.camera.position.y = +t.point.y + 0.25
+                baby.camera.position.z = +t.point.z
                 baby.camera.rotation.y = t.point.rotation
 
                 //Move the healthbar
@@ -23,9 +23,9 @@ export class BabylonModels {
             }
             const s = match.getPlayerByTag(t.tag)
             if (s) {
-                s.position.x = t.point.x
-                s.position.y = t.point.y
-                s.position.z = t.point.z
+                s.position.x = +t.point.x
+                s.position.y = +t.point.y
+                s.position.z = +t.point.z
                 s.rotation.y = t.point.rotation - 1.57
             }
             const rect1 = match.getHealthBarByTag(t.tag)

@@ -6,7 +6,9 @@
 package com.team142.gg.server.model.mappable.meta;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.team142.gg.server.model.GameMap;
+import com.team142.gg.server.model.jackson.DoubleContextualSerializer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +20,7 @@ public class MovableElement extends PlaceableElement {
 
     @Getter
     @Setter
+    @JsonSerialize(using = DoubleContextualSerializer.class)
     private double speed;
 
     @JsonIgnore
@@ -73,12 +76,12 @@ public class MovableElement extends PlaceableElement {
         double amountChangeZ = coefficientZ * getSpeed();
         double newZ = getPoint().getZ() + amountChangeZ;
 
-        if(isCoordValidMove(amountChangeX, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
+        if (isCoordValidMove(amountChangeX, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
             changeX(newX);
             hasMoved = true;
         }
 
-        if(isCoordValidMove(amountChangeZ, getPoint().getX(), newZ, map, SpaceTimePoint.Z_COORD)) {
+        if (isCoordValidMove(amountChangeZ, getPoint().getX(), newZ, map, SpaceTimePoint.Z_COORD)) {
             changeZ(newZ);
             hasMoved = true;
         }
@@ -113,25 +116,26 @@ public class MovableElement extends PlaceableElement {
     }
 
     private boolean isShootoverValid(double amt, double x, double z, GameMap map, short coordinateType) {
-        if(coordinateType == SpaceTimePoint.Z_COORD) {
+        if (coordinateType == SpaceTimePoint.Z_COORD) {
             return (((amt > 0) && (map.isShootover(x, z + 1))) || ((amt < 0 && map.isShootover(x, z))));
-        } else if(coordinateType == SpaceTimePoint.X_COORD) {
+        } else if (coordinateType == SpaceTimePoint.X_COORD) {
             return ((amt > 0 && map.isShootover(x + 1, z)) || (amt < 0 && map.isShootover(x, z)));
         }
         return false;
     }
 
     private boolean isMovementValid(double amt, double x, double z, GameMap map, short coordinateType) {
-        if(coordinateType == SpaceTimePoint.X_COORD) {
+        if (coordinateType == SpaceTimePoint.X_COORD) {
             return ((amt > 0) && map.isMovable(x + 1, z)) || ((amt < 0) && map.isMovable(x, z));
-        } else if (coordinateType == SpaceTimePoint.Z_COORD)
+        } else if (coordinateType == SpaceTimePoint.Z_COORD) {
             return (amt > 0 && map.isMovable(x, z + 1)) || (amt < 0 && map.isMovable(x, z));
+        }
         return false;
     }
 
     private boolean isCoordValidMove(double amt, double x, double z, GameMap map, short coordType) {
-        return ((isWalkOnWater() && (isShootoverValid(amt, x, z, map, coordType))) ||
-                ((isMovementValid(amt, x, z, map, coordType))));
+        return ((isWalkOnWater() && (isShootoverValid(amt, x, z, map, coordType)))
+                || ((isMovementValid(amt, x, z, map, coordType))));
     }
 
     //Check before changing...
@@ -140,11 +144,12 @@ public class MovableElement extends PlaceableElement {
     }
 
     //Check before changing...
-
     /**
      * Change the value of the Z-Co-ordinate.
      *
-     * Check whether the move is valid before changing it with {@link #isCoordValidMove(double, double, double, GameMap, short) isCoordValidMove()} method.
+     * Check whether the move is valid before changing it with
+     * {@link #isCoordValidMove(double, double, double, GameMap, short) isCoordValidMove()}
+     * method.
      *
      * @param newZ The Z-Coordinate to move to.
      */

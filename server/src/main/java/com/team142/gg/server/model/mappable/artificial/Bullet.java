@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.GameMap;
+import com.team142.gg.server.model.mappable.meta.PlaceableElement;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.model.Player;
@@ -17,6 +18,7 @@ import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.utils.PhysicsUtils;
 
+import java.awt.geom.Line2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.Data;
@@ -56,6 +58,10 @@ public class Bullet extends MovableElement {
             return ok; //False
         }
 
+        double oldX = getPoint().getX();
+        double oldZ = getPoint().getZ();
+
+
         GameMap map = (Repository.GAMES_ON_SERVER.get(player.getGameId()).getMap());
         boolean success = moveForward(map);
         if (!success) {
@@ -63,12 +69,18 @@ public class Bullet extends MovableElement {
             return ok;
         }
 
+
+
+        double newX = getPoint().getX();
+        double newZ = getPoint().getZ();
+
         Repository.GAMES_ON_SERVER
                 .get(player.getGameId())
                 .getTANKS()
                 .values()
                 .stream()
                 .filter((tank) -> tank.getTAG() != player.getTAG())
+                .filter((tank) -> PhysicsUtils.isWithinElementBoundaries(this.getPoint(), tank))
                 .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank.getPoint(), getPoint(), tank.getWidth()))
                 .forEach(this::damage);
 
@@ -76,19 +88,7 @@ public class Bullet extends MovableElement {
             return false;
         }
 
-        if (getPoint().getX() < 0) {
-            ok = false;
-            return ok;
-        }
-        if (getPoint().getZ() < 0) {
-            ok = false;
-            return ok;
-        }
-        if (getPoint().getX() > map.getMaxX() + 1) {
-            ok = false;
-            return ok;
-        }
-        if (getPoint().getZ() > map.getMaxZ() + 1) {
+        if(isBulletOutBounds(map)) {
             ok = false;
             return ok;
         }
@@ -101,10 +101,21 @@ public class Bullet extends MovableElement {
 
     }
 
+    private boolean isBulletOutBounds(GameMap map) {
+        if (getPoint().getX() < 0 || getPoint().getZ() < 0) {
+            return true;
+        }
+        if (getPoint().getX() > map.getMaxX() + 1 || getPoint().getZ() > map.getMaxZ() + 1) {
+            return true;
+        }
+        return false;
+    }
+
     public void damage(Tank tank) {
         if (!ok) {
             return;
         }
+        System.out.println("was inside of tank!");
         ok = false;
         BulletHitResult result = tank.damage(damage, player);
 
@@ -122,6 +133,13 @@ public class Bullet extends MovableElement {
         if (result.isLethal()) {
             GameManager.handleKill(game, player, toPlayer);
         }
+    }
+
+
+
+    private boolean isIntersect(double point1x, double point1z, double point2x, double point2y, MovableElement object) {
+
+        return false;
     }
 
 }

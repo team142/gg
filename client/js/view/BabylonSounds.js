@@ -7,7 +7,12 @@ const sounds = [
     "pew.mp3",
     "ding.mp3",
     "explode.mp3",
-    "shhha.mp3"
+    "shhha.mp3",
+    "2x.mp3",
+    "3x.mp3",
+    "4x.mp3",
+    "5x.mp3"
+
 ]
 
 export class BabylonSounds {

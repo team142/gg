@@ -1,5 +1,5 @@
 language: java
 sudo: false
 
-script: mvn -f server/pom.xml clean install
+script: gradle -p server/ bootRun
 

@@ -6,6 +6,7 @@
 package com.team142.gg.server.controller;
 
 import com.team142.gg.server.model.Game;
+import com.team142.gg.server.model.KillEventTracker;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
@@ -55,22 +56,30 @@ public class GameManager {
         //Start threads
         player.start();
 
-        //Commnuicate
+        //Communicate
+        ViewManager.changePlayerView(player.getId(), ViewType.VIEW_GAMES);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         welcomePlayerToGame(player.getId());
         announcePlayerJoins(game, player);
         sendMapToPlayer(player.getId(), game);
         game.getSoundManager().sendSpawn();
-        Reporter.report(player.getName());
-        
+        Reporter.reportJoins(player.getName());
+
         PowerManager.givePlayerRandomPower(player);
         PowerManager.givePlayerRandomPower(player);
         PowerManager.givePlayerRandomPower(player);
 
     }
-    
+
     public static void setHealthFull(Player player) {
         player.getTANK().setHealth(player.getTANK().getMaxHealth());
-        
+
     }
 
     public static void spawn(Game game, Player player) {
@@ -129,6 +138,26 @@ public class GameManager {
         new Thread(() -> {
             OrbManager.possiblySpawnOrb(game);
         }).start();
+
+        game.getSoundManager().sendExplode();
+
+        int killAndReport = KillEventTracker.killAndReport(game, fromPlayer);
+        switch (killAndReport) {
+            case 5:
+                game.getSoundManager().sendPentaKill();
+                break;
+            case 4:
+                game.getSoundManager().sendQuadKill();
+                break;
+            case 3:
+                game.getSoundManager().sendTripleKill();
+                break;
+            case 2:
+                game.getSoundManager().sendDoubleKill();
+                break;
+            default:
+                break;
+        }
 
     }
 
