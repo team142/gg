@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.team142.gg.server.model.GameMap;
 import com.team142.gg.server.model.jackson.DoubleContextualSerializer;
+import com.team142.gg.server.utils.MathUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -72,41 +73,13 @@ public class MovableElement extends PlaceableElement {
         return move(map, getReversedDirection());
     }
 
-    protected double getNewX(double x, double amountToChange) {
-        return x + amountToChange;
-    }
-
-    protected double getNewX(double x, double rotation, double speed) {
-        double amountChangeX = getAmountToChangedX(rotation, speed);
-        return getNewX(x, amountChangeX);
-    }
-
-    protected double getAmountToChangedX(double rotation, double speed) {
-        double coefficientX = Math.sin(rotation);
-        return coefficientX * speed;
-    }
-
-    protected double getNewZ(double z, double amountToChange) {
-        return z + amountToChange;
-    }
-
-    protected double getNewZ(double z, double rotation, double speed) {
-        double amountChangeZ = getAmountToChangedZ(rotation, speed);
-        return getNewZ(z, amountChangeZ);
-    }
-
-    protected double getAmountToChangedZ(double rotation, double speed) {
-        double coefficientZ = Math.cos(rotation);
-        return coefficientZ * speed;
-    }
-
     private boolean move(GameMap map, double rotation) {
         boolean hasMoved = false;
 
-        double amountChangeX = getAmountToChangedX(rotation, getSpeed());
-        double newX = getNewX(getPoint().getX(), amountChangeX);
+        double amountChangeX = MathUtils.getAmountToChangedX(rotation, getSpeed());
+        double newX = MathUtils.getNewX(getPoint().getX(), amountChangeX);
 
-        double amountChangeZ = getAmountToChangedZ(rotation, getSpeed());
+        double amountChangeZ = MathUtils.getAmountToChangedZ(rotation, getSpeed());
         double newZ = getPoint().getZ() + amountChangeZ;
 
         if (isCoordValidMove(amountChangeX, newX, getPoint().getZ(), map, SpaceTimePoint.X_COORD)) {
