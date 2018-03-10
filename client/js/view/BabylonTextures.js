@@ -1,6 +1,7 @@
 import { baby } from '../model/Baby.js'
 
 export const TEXTURES_DIR = "textures/"
+export const ICONS_DIR = "textures/icons/"
 
 const textureFiles = [
     "grass1-min.jpg",
