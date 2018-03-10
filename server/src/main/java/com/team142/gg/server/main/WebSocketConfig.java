@@ -12,7 +12,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(greetingHandler(), "/websocket");
+        registry.addHandler(greetingHandler(), "/websocket").setAllowedOrigins("*");
     }
 
     @Bean
