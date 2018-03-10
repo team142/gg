@@ -8,6 +8,8 @@ import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import static com.team142.gg.server.model.mappable.meta.MovableElement.MAX_ROTATE;
+
 public class MathUtils {
 
     public static double getRadiusFromElement(PlaceableElement element) {
@@ -281,32 +283,181 @@ public class MathUtils {
         return Math.asin(a/b);
     }
 
-    public static double getTopLeftZ(Tank tank) {
-        return 0;
+    //let a be direct distance (width) to point
+    //let A be the angle that the point is away from origin
+    //let b be length to point, perpendicular to origin
+    //let B be angle opposite b
+
+    //Formula: A = arcsin( (a * sin(B)) / b )
+    //In our case, B is always 90, sin(90) = 1, so excluding from formula.
+    //New formula: A = arcsin( a / b )
+
+    public static double getFrontLeftX(Tank tank, double angle) {
+        return getFrontLeftX(tank.getPoint().getRotation(), tank.getPoint().getX(), tank.getDistanceToVertex(), angle);
     }
 
-    public static double getTopRightX(Tank tank) {
-        return 0;
+    public static double getFrontLeftX(double rotation, double coord, double distanceToVertex, double angle) {
+        double newRotation = getClockwiseRotation(rotation, angle);
+        return getNewX(coord, newRotation, distanceToVertex);
     }
 
-    public static double getTopRightZ(Tank tank) {
-        return 0;
+    public static double getFrontLeftZ(Tank tank, double angle) {
+        return getFrontLeftZ(tank.getPoint().getRotation(), tank.getPoint().getZ(), tank.getDistanceToVertex(), angle);
     }
 
-    public static double getBottomLeftX(Tank tank) {
-        return 0;
+    public static double getFrontLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
+        double newRotation = getClockwiseRotation(rotation, angle);
+        return getNewZ(coord, newRotation, distanceToVertex);
     }
 
-    public static double getBottomLeftZ(Tank tank) {
-        return 0;
+    public static double getFrontRightX(Tank tank, double angle) {
+        return getFrontRightX(
+                tank.getPoint().getRotation(),
+                tank.getPoint().getX(),
+                tank.getDistanceToVertex(),
+                angle);
     }
 
-    public static double getBottomRightX(Tank tank) {
-        return 0;
+    public static double getFrontRightX(double rotation, double coord, double distanceToVertex, double angle) {
+        double newRotation = rotation;
+        if(newRotation  >= MAX_ROTATE - angle) {
+            newRotation = 0;
+        } else {
+            newRotation = newRotation + angle;
+        }
+        return getNewX(coord, newRotation, distanceToVertex);
     }
 
-    public static double getBottomRightZ(Tank tank) {
-        return 0;
+    public static double getFrontRightZ(Tank tank, double angle) {
+        return getFrontRightZ(
+                tank.getPoint().getRotation(),
+                tank.getPoint().getZ(),
+                tank.getDistanceToVertex(),
+                angle);
     }
+
+    public static double getFrontRightZ(double rotation, double coord, double distanceToVertex, double angle) {
+        double newRotation = rotation;
+        if(newRotation  >= MAX_ROTATE - angle) {
+            newRotation = 0;
+        } else {
+            newRotation = newRotation + angle;
+        }
+        return getNewZ(coord, newRotation, distanceToVertex);
+    }
+
+    public static double getBackLeftX(Tank tank, double angle) {
+        return getBackLeftX(
+                tank.getPoint().getRotation(),
+                tank.getPoint().getX(),
+                tank.getDistanceToVertex(),
+                angle);
+    }
+
+    public static double getBackLeftX(double rotation, double coord, double distanceToVertex, double angle) {
+        double newRotation = rotation - Math.PI;
+        if (newRotation < 0) {
+            newRotation = MAX_ROTATE + newRotation;
+        }
+        if(newRotation  >= MAX_ROTATE - angle) {
+            newRotation = 0;
+        } else {
+            newRotation = newRotation + angle;
+        }
+        return getNewX(coord, newRotation, distanceToVertex);
+    }
+
+    public static double getBackLeftZ(Tank tank, double angle) {
+        return getBackLeftZ(
+                tank.getPoint().getRotation(),
+                tank.getPoint().getZ(),
+                tank.getDistanceToVertex(),
+                angle);
+    }
+
+    public static double getBackLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
+        double newRotation = rotation - Math.PI;
+        if (newRotation < 0) {
+            newRotation = MAX_ROTATE + newRotation;
+        }
+        if(newRotation  >= MAX_ROTATE - angle) {
+            newRotation = 0;
+        } else {
+            newRotation = newRotation + angle;
+        }
+        return getNewZ(coord, newRotation, distanceToVertex);
+    }
+
+    public static double getBackRightX(Tank tank, double angle) {
+        return getBackRightX(
+                tank.getPoint().getRotation(),
+                tank.getPoint().getX(),
+                tank.getDistanceToVertex(),
+                angle);
+    }
+
+    public static double getBackRightX(double rotation, double coord, double distanceToVertex, double angle) {
+        double newRotation = rotation - Math.PI;
+        if (newRotation < 0) {
+            newRotation = MAX_ROTATE + newRotation;
+        }
+        newRotation = getClockwiseRotation(newRotation, angle);
+        return getNewX(coord, newRotation, distanceToVertex);
+    }
+
+    public static double getBackRightZ(Tank tank, double angle) {
+        return getBackRightZ(
+                tank.getPoint().getRotation(),
+                tank.getPoint().getZ(),
+                tank.getDistanceToVertex(),
+                angle);
+    }
+
+    public static double getBackRightZ(double rotation, double coord, double distanceToVertex, double angle) {
+        double newRotation = rotation - Math.PI;
+        if (newRotation < 0) {
+            newRotation = MAX_ROTATE + newRotation;
+        }
+        newRotation = getClockwiseRotation(newRotation, angle);
+        return getNewZ(coord, newRotation, distanceToVertex);
+    }
+
+    public static double getClockwiseRotation(double orientation, double angle) {
+        double newRotation = orientation - angle;
+        if(newRotation < 0) {
+            //TODO May not need -1, just don't do MAX_ROTATE - rotate
+            newRotation = (MAX_ROTATE - newRotation) * -1;
+        }
+        return newRotation;
+    }
+
+    public static double getNewX(double x, double amountToChange) {
+        return x + amountToChange;
+    }
+
+    public static double getNewX(double x, double rotation, double speed) {
+        double amountChangeX = getAmountToChangedX(rotation, speed);
+        return getNewX(x, amountChangeX);
+    }
+
+    public static double getAmountToChangedX(double rotation, double speed) {
+        double coefficientX = Math.sin(rotation);
+        return coefficientX * speed;
+    }
+
+    public static double getNewZ(double z, double amountToChange) {
+        return z + amountToChange;
+    }
+
+    public static double getNewZ(double z, double rotation, double speed) {
+        double amountChangeZ = getAmountToChangedZ(rotation, speed);
+        return getNewZ(z, amountChangeZ);
+    }
+
+    public static double getAmountToChangedZ(double rotation, double speed) {
+        double coefficientZ = Math.cos(rotation);
+        return coefficientZ * speed;
+    }
+
 
 }

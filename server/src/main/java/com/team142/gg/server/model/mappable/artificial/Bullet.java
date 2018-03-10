@@ -15,7 +15,6 @@ import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
-import com.team142.gg.server.utils.MathUtils;
 import com.team142.gg.server.utils.PhysicsUtils;
 
 import java.util.logging.Level;
@@ -115,19 +114,9 @@ public class Bullet extends MovableElement {
             return;
         }
 
+//        double angle = MathUtils.getAngleRadians(tank.getWidth() /2, tank.getDistanceToVertex());
 
-        double angle = MathUtils.getAngleRadians(tank.getWidth() /2, tank.getDistanceToVertex());
-
-        System.out.println("tank: " + tank.getPoint());
-        System.out.println("rotation: " + tank.getPoint().getRotation());
-        System.out.println(String.format("Front Left: [x: %f, z: %f]", getFrontLeftX(tank, angle), getFrontLeftZ(tank, angle)));
-        System.out.println(String.format("Front Right: [x: %f, z: %f]", getFrontRightX(tank, angle), getFrontRightZ(tank, angle)));
-        System.out.println(String.format("Back Left: [x: %f, z: %f]", getBackLeftX(tank, angle), getBackLeftZ(tank, angle)));
-        System.out.println(String.format("Back Right: [x: %f, z: %f]", getBackRightX(tank, angle), getBackRightZ(tank, angle)));
         System.out.println("was inside of tank!");
-
-
-
 
         ok = false;
         BulletHitResult result = tank.damage(damage, player);
@@ -146,112 +135,6 @@ public class Bullet extends MovableElement {
         if (result.isLethal()) {
             GameManager.handleKill(game, player, toPlayer);
         }
-    }
-
-    //let a be direct distance (width) to point
-    //let A be the angle that the point is away from origin
-    //let b be length to point, perpendicular to origin
-    //let B be angle opposite b
-
-    //Formula: A = arcsin( (a * sin(B)) / b )
-    //In our case, B is always 90, sin(90) = 1, so excluding from formula.
-    //New formula: A = arcsin( a / b )
-
-    public double getFrontLeftX(Tank tank, double angle) {
-        double newRotation = getClockwiseRotation(tank.getPoint().getRotation(), angle);
-        System.out.println("Tank point: " + tank.getPoint());
-        return getNewX(tank.getPoint().getX(), newRotation, tank.getDistanceToVertex());
-    }
-
-    public double getFrontLeftZ(Tank tank, double angle) {
-        double newRotation = getClockwiseRotation(tank.getPoint().getRotation(), angle);
-        return getNewZ(tank.getPoint().getZ(), newRotation, tank.getDistanceToVertex());
-    }
-
-    public double getFrontRightX(Tank tank, double angle) {
-        double newRotation = tank.getPoint().getRotation();
-        if(newRotation  >= MAX_ROTATE - angle) {
-            newRotation = 0;
-        } else {
-            newRotation = newRotation + angle;
-        }
-        return getNewX(tank.getPoint().getX(), newRotation, tank.getDistanceToVertex());
-    }
-
-    public double getFrontRightZ(Tank tank, double angle) {
-        double newRotation = tank.getPoint().getRotation();
-        if(newRotation  >= MAX_ROTATE - angle) {
-            newRotation = 0;
-        } else {
-            newRotation = newRotation + angle;
-        }
-        return getNewZ(tank.getPoint().getZ(), newRotation, tank.getDistanceToVertex());
-    }
-
-    public double getBackLeftX(Tank tank, double angle) {
-        double newRotation = tank.getPoint().getRotation() - Math.PI;
-        if (newRotation < 0) {
-            newRotation = MAX_ROTATE + newRotation;
-        }
-        if(newRotation  >= MAX_ROTATE - angle) {
-            newRotation = 0;
-        } else {
-            newRotation = newRotation + angle;
-        }
-        return getNewX(tank.getPoint().getX(), newRotation, tank.getDistanceToVertex());
-    }
-
-    public double getBackLeftZ(Tank tank, double angle) {
-        double newRotation = tank.getPoint().getRotation() - Math.PI;
-        if (newRotation < 0) {
-            newRotation = MAX_ROTATE + newRotation;
-        }
-        if(newRotation  >= MAX_ROTATE - angle) {
-            newRotation = 0;
-        } else {
-            newRotation = newRotation + angle;
-        }
-        return getNewZ(tank.getPoint().getZ(), newRotation, tank.getDistanceToVertex());
-    }
-
-    public double getBackRightX(Tank tank, double angle) {
-        double newRotation = tank.getPoint().getRotation() - Math.PI;
-        if (newRotation < 0) {
-            newRotation = MAX_ROTATE + newRotation;
-        }
-        newRotation = newRotation - angle;
-
-        if(newRotation < 0) {
-            newRotation = MAX_ROTATE - newRotation;
-        }
-        return getNewX(tank.getPoint().getX(), newRotation, tank.getDistanceToVertex());
-    }
-
-    public double getBackRightZ(Tank tank, double angle) {
-        double newRotation = tank.getPoint().getRotation() - Math.PI;
-        if (newRotation < 0) {
-            newRotation = MAX_ROTATE + newRotation;
-        }
-        newRotation = newRotation - angle;
-        if(newRotation < 0) {
-            newRotation = MAX_ROTATE - newRotation;
-        }
-        return getNewZ(tank.getPoint().getZ(), newRotation, tank.getDistanceToVertex());
-    }
-
-    private boolean isIntersect(double point1x, double point1z, double point2x, double point2y, MovableElement object) {
-
-        return false;
-    }
-
-    private double getClockwiseRotation(double orientation, double angle) {
-        double newRotation = orientation - angle;
-        if(newRotation < 0) {
-            System.out.println("Old rotation: " + newRotation);//TODO May not need -1, just don't do MAX_ROTATE - rotate
-            newRotation = (MAX_ROTATE - newRotation) * -1;
-            System.out.println("New rotation: " + newRotation);
-        }
-        return newRotation;
     }
 
 }
