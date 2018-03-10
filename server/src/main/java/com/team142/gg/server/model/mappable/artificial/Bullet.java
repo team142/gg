@@ -116,8 +116,6 @@ public class Bullet extends MovableElement {
 
 //        double angle = MathUtils.getAngleRadians(tank.getWidth() /2, tank.getDistanceToVertex());
 
-        System.out.println("was inside of tank!");
-
         ok = false;
         BulletHitResult result = tank.damage(damage, player);
 
