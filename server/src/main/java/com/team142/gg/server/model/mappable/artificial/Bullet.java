@@ -79,8 +79,7 @@ public class Bullet extends MovableElement {
                 .values()
                 .stream()
                 .filter((tank) -> tank.getTAG() != player.getTAG())
-                .filter((tank) -> PhysicsUtils.isWithinElementBoundaries(this.getPoint(), tank))
-                .filter((tank) -> PhysicsUtils.isTinyObjectInLarger(tank.getPoint(), getPoint(), tank.getWidth()))
+                .filter((tank) -> MathUtils.doesIntersectCircle(oldX, oldZ, newX, newZ, tank))
                 .filter((tank) -> MathUtils.isIntersectTank(tank, oldX, oldZ, newX, newZ))
                 .forEach(this::damage);
 
@@ -110,53 +109,6 @@ public class Bullet extends MovableElement {
         }
         return false;
     }
-
-//    private boolean isIntersectTank(Tank tank, double startX, double startZ, double endX, double endZ) {
-//
-//        boolean doesIntersect = false;
-//        double angle = MathUtils.getAngleRadians(tank.getWidth() /2, tank.getDistanceToVertex());
-//        //Front
-//        doesIntersect = MathUtils.isLinesIntersect(
-//                startX, startZ,
-//                endX, endZ,
-//                MathUtils.getFrontLeftX(tank, angle), MathUtils.getFrontLeftZ(tank, angle),
-//                MathUtils.getFrontRightX(tank, angle), MathUtils.getFrontRightZ(tank, angle));
-//
-//        if(doesIntersect) {
-//            return true;
-//        }
-//
-//        //Left
-//        doesIntersect = MathUtils.isLinesIntersect(
-//                startX, startZ,
-//                endX, endZ,
-//                MathUtils.getFrontLeftX(tank, angle), MathUtils.getFrontLeftZ(tank, angle),
-//                MathUtils.getBackLeftX(tank, angle), MathUtils.getBackLeftZ(tank, angle));
-//
-//        if(doesIntersect) {
-//            return true;
-//        }
-//
-//        //Right
-//        doesIntersect = MathUtils.isLinesIntersect(
-//                startX, startZ,
-//                endX, endZ,
-//                MathUtils.getFrontRightX(tank, angle), MathUtils.getFrontRightZ(tank, angle),
-//                MathUtils.getBackRightX(tank, angle), MathUtils.getBackRightZ(tank, angle));
-//
-//        if(doesIntersect) {
-//            return true;
-//        }
-//
-//        //Back
-//        doesIntersect = MathUtils.isLinesIntersect(
-//                startX, startZ,
-//                endX, endZ,
-//                MathUtils.getBackLeftX(tank, angle), MathUtils.getBackLeftZ(tank, angle),
-//                MathUtils.getBackRightX(tank, angle), MathUtils.getBackRightZ(tank, angle));
-//
-//        return doesIntersect;
-//    }
 
     public void damage(Tank tank) {
         if (!ok) {
