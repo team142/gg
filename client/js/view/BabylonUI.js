@@ -16,6 +16,10 @@ export class BabylonUI {
 
 
     static changeMyHealthBar(health, maxHealth) {
+        if (!match.healthBar) {
+            return
+        }
+
         let potentialWidth = 8 * 80
         let actualWidth = health / maxHealth * potentialWidth
         let di = potentialWidth - actualWidth
