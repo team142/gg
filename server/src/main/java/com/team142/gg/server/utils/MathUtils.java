@@ -2,7 +2,6 @@ package com.team142.gg.server.utils;
 
 import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.mappable.meta.PlaceableElement;
-import com.team142.gg.server.model.mappable.meta.Rectangle;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 
 import java.util.Arrays;
@@ -28,11 +27,11 @@ public class MathUtils {
         return getGradientOfLine(pointA.getX(), pointA.getZ(), pointB.getX(), pointB.getZ());
     }
 
-    public static double getGradientOfLine(double x1, double z1, double x2, double z2) {
+    private static double getGradientOfLine(double x1, double z1, double x2, double z2) {
         return ((z2-z1)/(x2-x1));
     }
 
-    public static double getYIntersectOfLine(double x1, double z1, double gradient) {
+    private static double getYIntersectOfLine(double x1, double z1, double gradient) {
         double c = z1 - (gradient*x1);
         return c;
     }
@@ -73,8 +72,7 @@ public class MathUtils {
         double sqrtDiscriminant = Math.sqrt(discriminant);
         double t1 = (-b + sqrtDiscriminant) / (2 * a);
         double t2 = (-b - sqrtDiscriminant) / (2 * a);
-        if((0 < t1 && t1 < 1) || (0 < t2 && t2 < 1)) return true;
-        return false;
+        return (0 < t1 && t1 < 1) || (0 < t2 && t2 < 1);
     }
 
     private static boolean isLinesParallel(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
@@ -149,19 +147,14 @@ public class MathUtils {
     private static boolean isCollinearAndTouching(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
                                            double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
 
-        double slopeLine1 = 0, slopeLine2 = 0;
+        double slopeLine1, slopeLine2;
 
         //(delta y)/(delta x)
         //delta x
         double slopeDenominator = (line1EndX - line1StartX);
         if (slopeDenominator == 0) {
             //Line is vertical! No change in x
-
-            if(line1EndX == line2StartX) {
-                return isVerticalLinesIntersect(line1StartZ, line1EndZ, line2StartZ, line2EndZ);
-            } else {
-                return false;
-            }
+            return line1EndX == line2StartX && isVerticalLinesIntersect(line1StartZ, line1EndZ, line2StartZ, line2EndZ);
         } else {
             slopeLine1 = (line1EndZ - line1StartZ) / slopeDenominator;
             slopeLine1 = (Math.round(slopeLine1 * 10000));
@@ -172,11 +165,7 @@ public class MathUtils {
         slopeDenominator = (line2EndX - line2StartX);
         if (slopeDenominator == 0) {
             //Line is vertical! No change in x
-            if(line1EndX == line2StartX) {
-                return isVerticalLinesIntersect(line1StartZ, line1EndZ, line2StartZ, line2EndZ);
-            } else {
-                return false;
-            }
+            return line1EndX == line2StartX && isVerticalLinesIntersect(line1StartZ, line1EndZ, line2StartZ, line2EndZ);
         } else {
             slopeLine2 = (line2EndZ - line2StartZ) / slopeDenominator;
             slopeLine2 = (Math.round(slopeLine2 * 10000));
@@ -217,18 +206,17 @@ public class MathUtils {
         } else if (line1[1][0] == line2[1][0]){
             //lines share end coordinate
             return true;
-        } else if(line1[0][0] < line2[0][0]) {
-            return  isCollinearLinesIntersect(line1[0][0], line1[1][0], line2[0][0]);
-        } else if(line1[0][0] > line2[0][0]) {
-            return  isCollinearLinesIntersect(line2[0][0], line2[1][0], line1[0][0]);
-        } else {
+        } else if (line1[0][0] < line2[0][0]) {
+            return isCollinearLinesIntersect(line1[0][0], line1[1][0], line2[0][0]);
+        } else
             //Lines are not collinear, should never have gotten here. Check the logic before here.
-            return false;
-        }
+            return line1[0][0] > line2[0][0] && isCollinearLinesIntersect(line2[0][0], line2[1][0], line1[0][0]);
+
+
     }
 
-    public static boolean isLinesIntersect(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
-                                    double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
+    private static boolean isLinesIntersect(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
+                                            double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
 
         double line1LengthX = line1EndX - line1StartX;
         double line1LengthY = line1EndZ - line1StartZ;
@@ -238,12 +226,17 @@ public class MathUtils {
         double sDenominator = (-line2LengthX * line1LengthY + line1LengthX * line2LengthY);
         if(sDenominator == 0) {
             //check if parallel
-            if(isLinesParallel(line1StartX,line1StartZ,line1EndX,line1EndZ,line2StartX,line2StartZ,line2EndX,line2EndZ)) {
-                //check if collinear
-                return isCollinearAndTouching(line1StartX,line1StartZ,line1EndX,line1EndZ,line2StartX,line2StartZ,line2EndX,line2EndZ);
-            } else {
-                return false;
-            }
+            //check if collinear
+            return isLinesParallel(
+                    line1StartX, line1StartZ,
+                    line1EndX, line1EndZ,
+                    line2StartX, line2StartZ,
+                    line2EndX, line2EndZ) &&
+                    isCollinearAndTouching(
+                            line1StartX, line1StartZ,
+                            line1EndX, line1EndZ,
+                            line2StartX, line2StartZ,
+                            line2EndX, line2EndZ);
         }
 
         double s, t;
@@ -275,7 +268,7 @@ public class MathUtils {
         return getFrontLeftX(tank.getPoint().getRotation(), tank.getPoint().getX(), tank.getDistanceToVertex(), angle);
     }
 
-    public static double getFrontLeftX(double rotation, double coord, double distanceToVertex, double angle) {
+    private static double getFrontLeftX(double rotation, double coord, double distanceToVertex, double angle) {
         double newRotation = getClockwiseRotation(rotation, angle);
         return getNewX(coord, newRotation, distanceToVertex);
     }
@@ -284,7 +277,7 @@ public class MathUtils {
         return getFrontLeftZ(tank.getPoint().getRotation(), tank.getPoint().getZ(), tank.getDistanceToVertex(), angle);
     }
 
-    public static double getFrontLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
+    private static double getFrontLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
         double newRotation = getClockwiseRotation(rotation, angle);
         return getNewZ(coord, newRotation, distanceToVertex);
     }
@@ -297,7 +290,7 @@ public class MathUtils {
                 angle);
     }
 
-    public static double getFrontRightX(double rotation, double coord, double distanceToVertex, double angle) {
+    private static double getFrontRightX(double rotation, double coord, double distanceToVertex, double angle) {
         double newRotation = rotation;
         if(newRotation  >= MAX_ROTATE - angle) {
             newRotation = 0;
@@ -315,7 +308,7 @@ public class MathUtils {
                 angle);
     }
 
-    public static double getFrontRightZ(double rotation, double coord, double distanceToVertex, double angle) {
+    private static double getFrontRightZ(double rotation, double coord, double distanceToVertex, double angle) {
         double newRotation = rotation;
         if(newRotation  >= MAX_ROTATE - angle) {
             newRotation = 0;
@@ -333,7 +326,7 @@ public class MathUtils {
                 angle);
     }
 
-    public static double getBackLeftX(double rotation, double coord, double distanceToVertex, double angle) {
+    private static double getBackLeftX(double rotation, double coord, double distanceToVertex, double angle) {
         double newRotation = rotation - Math.PI;
         if (newRotation < 0) {
             newRotation = MAX_ROTATE + newRotation;
@@ -354,7 +347,7 @@ public class MathUtils {
                 angle);
     }
 
-    public static double getBackLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
+    private static double getBackLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
         double newRotation = rotation - Math.PI;
         if (newRotation < 0) {
             newRotation = MAX_ROTATE + newRotation;
@@ -375,7 +368,7 @@ public class MathUtils {
                 angle);
     }
 
-    public static double getBackRightX(double rotation, double coord, double distanceToVertex, double angle) {
+    private static double getBackRightX(double rotation, double coord, double distanceToVertex, double angle) {
         double newRotation = rotation - Math.PI;
         if (newRotation < 0) {
             newRotation = MAX_ROTATE + newRotation;
@@ -392,7 +385,7 @@ public class MathUtils {
                 angle);
     }
 
-    public static double getBackRightZ(double rotation, double coord, double distanceToVertex, double angle) {
+    private static double getBackRightZ(double rotation, double coord, double distanceToVertex, double angle) {
         double newRotation = rotation - Math.PI;
         if (newRotation < 0) {
             newRotation = MAX_ROTATE + newRotation;
@@ -401,7 +394,7 @@ public class MathUtils {
         return getNewZ(coord, newRotation, distanceToVertex);
     }
 
-    public static double getClockwiseRotation(double orientation, double angle) {
+    private static double getClockwiseRotation(double orientation, double angle) {
         double newRotation = orientation - angle;
         if(newRotation < 0) {
             //TODO May not need -1, just don't do MAX_ROTATE - rotate
@@ -414,7 +407,7 @@ public class MathUtils {
         return x + amountToChange;
     }
 
-    public static double getNewX(double x, double rotation, double speed) {
+    private static double getNewX(double x, double rotation, double speed) {
         double amountChangeX = getAmountToChangedX(rotation, speed);
         return getNewX(x, amountChangeX);
     }
@@ -424,11 +417,11 @@ public class MathUtils {
         return coefficientX * speed;
     }
 
-    public static double getNewZ(double z, double amountToChange) {
+    private static double getNewZ(double z, double amountToChange) {
         return z + amountToChange;
     }
 
-    public static double getNewZ(double z, double rotation, double speed) {
+    private static double getNewZ(double z, double rotation, double speed) {
         double amountChangeZ = getAmountToChangedZ(rotation, speed);
         return getNewZ(z, amountChangeZ);
     }
@@ -439,15 +432,15 @@ public class MathUtils {
     }
 
     public static boolean isIntersectTank(Tank tank, double startX, double startZ, double endX, double endZ) {
-
-        boolean doesIntersect = false;
         double angle = MathUtils.getAngleRadians(tank.getWidth() /2, tank.getDistanceToVertex());
+        boolean doesIntersect;
         //Front
         doesIntersect = MathUtils.isLinesIntersect(
                 startX, startZ,
                 endX, endZ,
                 MathUtils.getFrontLeftX(tank, angle), MathUtils.getFrontLeftZ(tank, angle),
                 MathUtils.getFrontRightX(tank, angle), MathUtils.getFrontRightZ(tank, angle));
+
 
         if(doesIntersect) {
             return true;
