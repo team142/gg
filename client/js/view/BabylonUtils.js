@@ -32,10 +32,10 @@ export class BabylonUtils {
             baby.engine.resize()
         })
         window.addEventListener("keyup", (data) => {
-            NetworkController.sendKeyUp(data.key)
+            NetworkController.sendKeyUp(data.key, data.KeyCode)
         })
         window.addEventListener("keydown", (data) => {
-            NetworkController.sendKeyDown(data.key)
+            NetworkController.sendKeyDown(data.key, data.keyCode) 
         })
 
         BabylonModels.loadBaseFlatTile()

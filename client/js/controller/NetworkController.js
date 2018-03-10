@@ -37,8 +37,10 @@ export class NetworkController {
         sio.socket.send(msg)
     }
 
-    static sendKeyUp(key) {
-        NetworkController.send(JSON.stringify(
+    static sendKeyUp(key, keyCode) {
+       console.log(keyCode)
+       
+       NetworkController.send(JSON.stringify(
             {
                 conversation: "P_KU",
                 key: key
@@ -46,7 +48,7 @@ export class NetworkController {
         ))
     }
 
-    static sendKeyDown(key) {
+    static sendKeyDown(key, keyCode) {
         NetworkController.send(JSON.stringify(
             {
                 conversation: "P_KD",
