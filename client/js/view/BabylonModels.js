@@ -19,7 +19,7 @@ export class BabylonModels {
                 baby.camera.rotation.y = t.point.rotation
 
                 //Move the healthbar
-                BabylonUI.changeMyHealthBar(t.health, t.maxHealth)
+                // BabylonUI.changeMyHealthBar(t.health, t.maxHealth)
             }
             const s = match.getPlayerByTag(t.tag)
             if (s) {
@@ -28,10 +28,10 @@ export class BabylonModels {
                 s.position.z = +t.point.z
                 s.rotation.y = t.point.rotation - 1.57
             }
-            const rect1 = match.getHealthBarByTag(t.tag)
-            if (rect1) {
-                BabylonUI.setHealthRectangle(rect1, t.health, t.maxHealth)
-            }
+            // const rect1 = match.getHealthBarByTag(t.tag)
+            // if (rect1) {
+            //     BabylonUI.setHealthRectangle(rect1, t.health, t.maxHealth)
+            // }
 
 
         }

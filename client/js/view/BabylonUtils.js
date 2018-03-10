@@ -6,7 +6,7 @@ import { BabylonModels } from './BabylonModels.js'
 import { BabylonTextures } from './BabylonTextures.js'
 import { baby } from '../model/Baby.js'
 import { GameMap } from '../model/GameMap.js'
-import { BabylonUI} from './BabylonUI.js'
+import { BabylonUI } from './BabylonUI.js'
 
 /*
     This class is specifically for setting up Babylon base
@@ -147,6 +147,9 @@ export class BabylonUtils {
 
             rect1.linkWithMesh(box)
             rect1.linkOffsetY = -80
+
+            rect1.isVisible = match.miniMapOn
+
 
         }
 
