@@ -24,8 +24,8 @@ export class BabylonUI {
         match.healthBar.left = 0 - (di / 2)
     }
 
-    static setHealth(obj) {
-        if (match.tag == obj.tag) {
+    static setHealth(t) {
+        if (match.tag == t.tag) {
             BabylonUI.changeMyHealthBar(t.health, t.maxHealth)
         }                
     
