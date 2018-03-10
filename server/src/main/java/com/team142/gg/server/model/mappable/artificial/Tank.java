@@ -20,10 +20,12 @@ public class Tank extends MovableElement {
 
     @Getter
     @Setter
+    @JsonIgnore
     private double health;
 
     @Getter
     @Setter
+    @JsonIgnore
     private double maxHealth;
 
     @Getter

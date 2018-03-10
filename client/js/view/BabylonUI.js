@@ -3,7 +3,7 @@ import { baby } from '../model/Baby.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 import { BabylonUtils } from './BabylonUtils.js'
 import { match } from '../model/Match.js'
-import { passiveIconInfo, powerIconInfo} from '../model/Power.js'
+import { passiveIconInfo, powerIconInfo } from '../model/Power.js'
 import { TEXTURES_DIR } from './BabylonTextures.js'
 
 const BLOCK_SIZE = 5
@@ -16,12 +16,28 @@ export class BabylonUI {
 
 
     static changeMyHealthBar(health, maxHealth) {
+        if (!match.healthBar) {
+            return
+        }
+
         let potentialWidth = 8 * 80
         let actualWidth = health / maxHealth * potentialWidth
         let di = potentialWidth - actualWidth
 
         match.healthBar.width = actualWidth + "px"
         match.healthBar.left = 0 - (di / 2)
+    }
+
+    static setHealth(t) {
+        if (match.tag == t.tag) {
+            BabylonUI.changeMyHealthBar(t.health, t.maxHealth)
+        }                
+    
+        const rect1 = match.getHealthBarByTag(t.tag)
+        if (rect1) {
+            BabylonUI.setHealthRectangle(rect1, t.health, t.maxHealth)
+        }
+
     }
 
     static setHealthRectangle(rect1, health, totalHealth) {
@@ -293,6 +309,6 @@ export class BabylonUI {
         const textLabel = baby.levelLabels.get(key)
         textLabel.text = (+level).toString()
     }
-    
+
 
 }

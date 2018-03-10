@@ -50,6 +50,11 @@ export class BabylonController {
         item.useIt()
     }
 
+    static handleHealth(obj) {
+        BabylonUI.setHealth(obj)
+    }
+
+
     static setPowerLevel(key, level) {
         const p = powerIconInfo
             .find(power => power.key == key)
@@ -76,4 +81,5 @@ export class BabylonController {
     static stopRadar() {
         BabylonUI.stopRadar()
     }
+
 }
