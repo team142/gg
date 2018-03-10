@@ -4,14 +4,14 @@ import { PowerCooldownBar } from './PowerCooldownBar.js'
 
 export const powerIconInfo = [
     { powerNumber: 1, level: 0, ico: TEXTURES_DIR + "ico-shoot.png", cooldown: 20, usable: true, key: "1" },
-    { powerNumber: 2, level: 0, ico: TEXTURES_DIR + "ico-tail2.png", cooldown: 20, usable: false, key: "2" },
+    { powerNumber: 2, level: 0, ico: TEXTURES_DIR + "ico-tail.png", cooldown: 20, usable: false, key: "2" },
     { powerNumber: 3, level: 0, ico: TEXTURES_DIR + "ico-missile.png", cooldown: 20, usable: false, key: "3" },
     { powerNumber: 4, level: 0, ico: TEXTURES_DIR + "ico-seeker.png", cooldown: 20, usable: false, key: "4" },
     { powerNumber: 5, level: 0, ico: TEXTURES_DIR + "ico-bomb.png", cooldown: 20, usable: false, key: "5" },
     { powerNumber: 6, level: 0, ico: TEXTURES_DIR + "ico-radar.png", cooldown: 20, usable: false, key: "6" },
     { powerNumber: 7, level: 0, ico: TEXTURES_DIR + "ico-intel.png", cooldown: 20, usable: false, key: "7" },
     { powerNumber: 8, level: 0, ico: TEXTURES_DIR + "ico-safety.png", cooldown: 20, usable: false, key: "8" },
-    { powerNumber: 9, level: 0, ico: TEXTURES_DIR + "ico-behind2.png", cooldown: 20, usable: false, key: "9" },
+    { powerNumber: 9, level: 0, ico: TEXTURES_DIR + "ico-behind.png", cooldown: 20, usable: false, key: "9" },
     { powerNumber: 10, level: 0, ico: TEXTURES_DIR + "ico-hp-mech2.png", cooldown: 20, usable: false, key: "0" }
 ]
 
