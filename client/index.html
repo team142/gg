@@ -28,7 +28,9 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #edeff2;
+            background-image: url("textures/GGLogo.jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
         }
 
         #VIEW_CANVAS {
@@ -39,15 +41,18 @@
     </style>
 </head>
 
+
+
 <body>
 
-
+     
+  
 
     <div id="view-debug">
 
     </div>
 
-
+    
     <div id="VIEW_SERVERS">
         <div style="margin: 0 auto; width: 100%;">
             <div class="row">
@@ -58,27 +63,25 @@
                 <div class="col-4">
 
                     <div class="card text-white bg-secondary mb-3" style="margin-top: 40%">
-                        <div class="card-header">
-                            GG
-                        </div>
+
                         <div class="card-body">
                             <form>
                                 <fieldset>
                                     <div class="form-group">
-                                        <label for="inputName">Name</label>
-                                        <input type="name" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter a nick or name" value=""
+                                        <b><center><label for="inputName">Nickname</label></center></b>
+                                        <input type="name" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter a nickname (My name Jeff)" value=""
                                         />
-                                        <small id="nameHelp" class="form-text text-muted">Your name in the game.</small>
+                                        <small id="nameHelp" class="form-text text-muted">Your name within the game of no name.</small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="selectServer">Server</label>
+                                        <b><center><label for="selectServer">Server</label></b></center>
                                         <select class="form-control" name="selectServer" id="selectServer">
                                             <option value="team142.co.za/">team142.co.za/</option>
                                             <option value="localhost:8080/">localhost:8080/</option>
                                         </select>
                                     </div>
-                                    <button type="button" id="btnJoinServer" class="btn btn-success btn-lg">Join</button>&nbsp;
-                                    <button type="button" id="btnJoinServerCustom" class="btn btn-success btn-lg">Custom</button>
+                                    <button type="button" id="btnJoinServer" class="btn btn-success btn-lg" style="background-color:lime">Join</button>&nbsp;
+                                    <button type="button" id="btnJoinServerCustom" class="btn btn-success btn-lg" style="background-color:lime">Custom</button>
                                     <br />
                                     <p style="font-style: italic;" align="right">Version 0.14 Alpha</p>
                                 </fieldset>
@@ -110,5 +113,7 @@
 
 
 </body>
+
+
 
 </html>
