@@ -81,6 +81,7 @@ public class GameManager {
 
     public static void setHealthFull(Player player) {
         player.getTANK().setHealth(player.getTANK().getMaxHealth());
+        MessageManager.sendPlayerAMessage(player.getId(), new MessageHealth(player.getTANK()));
 
     }
 
@@ -166,7 +167,12 @@ public class GameManager {
     public static void notifyHealthChange(String gameId, Tank tank) {
         Game game = Repository.GAMES_ON_SERVER.get(gameId);
         MessageManager.sendPlayersAMessage(game, new MessageHealth(tank));
-        
+
+    }
+
+    public static void notifyHealthChange(Player player, Tank tank) {
+        MessageManager.sendPlayerAMessage(player.getId(), new MessageHealth(tank));
+
     }
 
 }
