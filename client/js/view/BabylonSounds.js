@@ -11,7 +11,9 @@ const sounds = [
     "2x.mp3",
     "3x.mp3",
     "4x.mp3",
-    "5x.mp3"
+    "5x.mp3",
+    "yipee.mp3",
+    "nie.mp3"
 
 ]
 

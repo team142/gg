@@ -67,4 +67,12 @@ public class SoundManager {
         sendSound(SoundType.X5);
     }
 
+    public void sendNie() {
+        sendSound(SoundType.NIE);
+    }
+
+    public void sendYipee() {
+        sendSound(SoundType.YIPEE);
+    }
+
 }
