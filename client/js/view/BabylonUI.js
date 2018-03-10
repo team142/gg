@@ -3,7 +3,7 @@ import { baby } from '../model/Baby.js'
 import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
 import { BabylonUtils } from './BabylonUtils.js'
 import { match } from '../model/Match.js'
-import { passiveIconInfo, powerIconInfo} from '../model/Power.js'
+import { passiveIconInfo, powerIconInfo } from '../model/Power.js'
 import { TEXTURES_DIR } from './BabylonTextures.js'
 
 const BLOCK_SIZE = 5
@@ -16,12 +16,28 @@ export class BabylonUI {
 
 
     static changeMyHealthBar(health, maxHealth) {
+        if (!match.healthBar) {
+            return
+        }
+
         let potentialWidth = 8 * 80
         let actualWidth = health / maxHealth * potentialWidth
         let di = potentialWidth - actualWidth
 
         match.healthBar.width = actualWidth + "px"
         match.healthBar.left = 0 - (di / 2)
+    }
+
+    static setHealth(t) {
+        if (match.tag == t.tag) {
+            BabylonUI.changeMyHealthBar(t.health, t.maxHealth)
+        }                
+    
+        const rect1 = match.getHealthBarByTag(t.tag)
+        if (rect1) {
+            BabylonUI.setHealthRectangle(rect1, t.health, t.maxHealth)
+        }
+
     }
 
     static setHealthRectangle(rect1, health, totalHealth) {
@@ -104,7 +120,7 @@ export class BabylonUI {
         powerBack.width = w + "px"
         powerBack.height = "95px"
         powerBack.cornerRadius = 20
-        powerBack.color = "Black"
+        powerBack.color = "White"
         powerBack.thickness = 4
         powerBack.background = "Black"
         powerBack.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
@@ -158,7 +174,7 @@ export class BabylonUI {
 
         const text1 = new BABYLON.GUI.TextBlock("textblock" + n)
         text1.text = key
-        text1.color = "black"
+        text1.color = "white"
         text1.fontSize = 24
 
         text1.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
@@ -171,7 +187,7 @@ export class BabylonUI {
 
         const text2 = new BABYLON.GUI.TextBlock("textblockLevel" + n)
         text2.text = (+level).toString()
-        text2.color = "black"
+        text2.color = "white"
         text2.fontSize = 24
 
         text2.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER
@@ -293,6 +309,6 @@ export class BabylonUI {
         const textLabel = baby.levelLabels.get(key)
         textLabel.text = (+level).toString()
     }
-    
+
 
 }

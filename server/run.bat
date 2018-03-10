@@ -11,7 +11,7 @@ rmdir src/main/resources/public /s /q
 
 
 del /F /Q src/main/resources/public
-ROBOCOPY ../client/build/ src/main/resources/public /MIR
+ROBOCOPY ../client/build/ src/main/resources/public /MIR /E
 
 gradle clean bootRepackage
 

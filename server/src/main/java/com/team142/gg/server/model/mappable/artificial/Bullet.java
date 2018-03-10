@@ -142,6 +142,8 @@ public class Bullet extends MovableElement {
                         "{0} hit {1}",
                         new String[]{player.getName(), toPlayer.getName()}
                 );
+        
+        GameManager.notifyHealthChange(game.getId(), tank);
 
         if (result.isLethal()) {
             GameManager.handleKill(game, player, toPlayer);

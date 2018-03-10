@@ -21,10 +21,12 @@ public class Tank extends MovableElement implements Rectangle {
 
     @Getter
     @Setter
+    @JsonIgnore
     private double health;
 
     @Getter
     @Setter
+    @JsonIgnore
     private double maxHealth;
 
     @Getter
@@ -34,6 +36,7 @@ public class Tank extends MovableElement implements Rectangle {
 
     @Getter
     @Setter
+    @JsonIgnore
     private double distanceToVertex;
 
     @Getter

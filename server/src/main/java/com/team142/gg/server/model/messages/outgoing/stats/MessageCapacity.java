@@ -25,7 +25,7 @@ public class MessageCapacity {
         this.joinUrl = Server.SERVER_NAME;
         this.currentPlayers = Server.countPlayers();
         this.maxPlayers = Server.MAX_PLAYERS_ON_SERVER;
-        
+
     }
 
 }

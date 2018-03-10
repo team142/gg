@@ -17,14 +17,11 @@ import org.springframework.web.socket.*;
  *
  * @author just1689
  */
-
 public class GameWebSocket implements WebSocketHandler {
+
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         String id = session.getId();
-        //The wildcard type might cause issues
-
-        Logger.getLogger(Server.class.getName()).log(Level.FINE, "the message is: " + message);
         MessageManager.handleIncoming(id, message.getPayload().toString());
     }
 

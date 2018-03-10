@@ -51,4 +51,28 @@ public class SoundManager {
 
     }
 
+    public void sendDoubleKill() {
+        sendSound(SoundType.X2);
+    }
+
+    public void sendTripleKill() {
+        sendSound(SoundType.X3);
+    }
+
+    public void sendQuadKill() {
+        sendSound(SoundType.X4);
+    }
+
+    public void sendPentaKill() {
+        sendSound(SoundType.X5);
+    }
+
+    public void sendNie() {
+        sendSound(SoundType.NIE);
+    }
+
+    public void sendYipee() {
+        sendSound(SoundType.YIPEE);
+    }
+
 }
