@@ -27,7 +27,7 @@ public class Power09Hop180 extends Power {
 
     @Override
     public void nofityLevelChange() {
-        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
+        setRefreshTime(INITIAL_COOLDOWN / getLevel());
     }
 
 }

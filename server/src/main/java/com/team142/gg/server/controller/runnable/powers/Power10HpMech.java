@@ -28,7 +28,7 @@ public class Power10HpMech extends Power {
     
     @Override
     public void nofityLevelChange() {
-        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 15));
+        setRefreshTime(INITIAL_COOLDOWN / getLevel());
         
     }
     

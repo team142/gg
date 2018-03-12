@@ -9,6 +9,7 @@ import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
+import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 
 /**
@@ -34,7 +35,9 @@ public class Power01Shoot extends Power {
 
         //Change state
         Bullet bullet = getPlayer().createBullet();
-        bullet.setDamage(bullet.getDamage() + getLevel() * 10);
+
+        bullet.setDamage(bullet.getDamage() + getLevelLessOne() * 10);
+        bullet.setSpeed(bullet.getSpeed() + getLevelLessOne() * Server.BULLET_INCREMENT_SPEED);
 
         //Communicate
         GameManager.sendBullet(game, bullet);
@@ -44,7 +47,7 @@ public class Power01Shoot extends Power {
 
     @Override
     public void nofityLevelChange() {
-        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
+        setRefreshTime(INITIAL_COOLDOWN / getLevel());
     }
 
 }
