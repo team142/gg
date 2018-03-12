@@ -273,7 +273,7 @@ public class MathUtils {
     }
 
     private static double getFrontLeftX(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = getClockwiseRotation(rotation, angle);
+        double newRotation = getAntiClockwiseRotation(rotation, angle);
         return getNewX(coord, newRotation, distanceToVertex);
     }
 
@@ -282,7 +282,7 @@ public class MathUtils {
     }
 
     private static double getFrontLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = getClockwiseRotation(rotation, angle);
+        double newRotation = getAntiClockwiseRotation(rotation, angle);
         return getNewZ(coord, newRotation, distanceToVertex);
     }
 
@@ -296,11 +296,7 @@ public class MathUtils {
 
     private static double getFrontRightX(double rotation, double coord, double distanceToVertex, double angle) {
         double newRotation = rotation;
-        if(newRotation  >= MAX_ROTATE - angle) {
-            newRotation = 0;
-        } else {
-            newRotation = newRotation + angle;
-        }
+        newRotation = getClockwiseRotation(newRotation, angle);
         return getNewX(coord, newRotation, distanceToVertex);
     }
 
@@ -314,11 +310,7 @@ public class MathUtils {
 
     private static double getFrontRightZ(double rotation, double coord, double distanceToVertex, double angle) {
         double newRotation = rotation;
-        if(newRotation  >= MAX_ROTATE - angle) {
-            newRotation = 0;
-        } else {
-            newRotation = newRotation + angle;
-        }
+        newRotation = getClockwiseRotation(newRotation, angle);
         return getNewZ(coord, newRotation, distanceToVertex);
     }
 
@@ -331,15 +323,8 @@ public class MathUtils {
     }
 
     private static double getBackLeftX(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = rotation - Math.PI;
-        if (newRotation < 0) {
-            newRotation = MAX_ROTATE + newRotation;
-        }
-        if(newRotation  >= MAX_ROTATE - angle) {
-            newRotation = 0;
-        } else {
-            newRotation = newRotation + angle;
-        }
+        double newRotation = getReversedRotation(rotation);
+        newRotation = getClockwiseRotation(newRotation, angle);
         return getNewX(coord, newRotation, distanceToVertex);
     }
 
@@ -352,15 +337,8 @@ public class MathUtils {
     }
 
     private static double getBackLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = rotation - Math.PI;
-        if (newRotation < 0) {
-            newRotation = MAX_ROTATE + newRotation;
-        }
-        if(newRotation  >= MAX_ROTATE - angle) {
-            newRotation = 0;
-        } else {
-            newRotation = newRotation + angle;
-        }
+        double newRotation = getReversedRotation(rotation);
+        newRotation = getClockwiseRotation(newRotation, angle);
         return getNewZ(coord, newRotation, distanceToVertex);
     }
 
@@ -373,11 +351,8 @@ public class MathUtils {
     }
 
     private static double getBackRightX(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = rotation - Math.PI;
-        if (newRotation < 0) {
-            newRotation = MAX_ROTATE + newRotation;
-        }
-        newRotation = getClockwiseRotation(newRotation, angle);
+        double newRotation = getReversedRotation(rotation);
+        newRotation = getAntiClockwiseRotation(newRotation, angle);
         return getNewX(coord, newRotation, distanceToVertex);
     }
 
@@ -390,29 +365,9 @@ public class MathUtils {
     }
 
     private static double getBackRightZ(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = rotation - Math.PI;
-        if (newRotation < 0) {
-            newRotation = MAX_ROTATE + newRotation;
-        }
-        newRotation = getClockwiseRotation(newRotation, angle);
+        double newRotation = getReversedRotation(rotation);
+        newRotation = getAntiClockwiseRotation(newRotation, angle);
         return getNewZ(coord, newRotation, distanceToVertex);
-    }
-
-    private static double getClockwiseRotation(double orientation, double angle) {
-        double newRotation = orientation - angle;
-        if(newRotation < 0) {
-            //TODO May not need -1, just don't do MAX_ROTATE - rotate
-            newRotation = (MAX_ROTATE - newRotation) * -1;
-        }
-        return newRotation;
-    }
-
-    private static double getReversedRotation(double orientation) {
-        double newRotation = orientation - Math.PI;
-        if (newRotation < 0) {
-            return MAX_ROTATE + newRotation;
-        }
-        return newRotation;
     }
 
     public static double getNewX(double x, double amountToChange) {
@@ -441,6 +396,32 @@ public class MathUtils {
     public static double getAmountToChangedZ(double rotation, double speed) {
         double coefficientZ = Math.cos(rotation);
         return coefficientZ * speed;
+    }
+
+    private static double getAntiClockwiseRotation(double orientation, double angle) {
+        double newRotation = orientation - angle;
+        if(newRotation < 0) {
+            //TODO May not need -1, just don't do MAX_ROTATE - rotate
+            newRotation = (MAX_ROTATE - newRotation) * -1;
+        }
+        return newRotation;
+    }
+
+    private static double getClockwiseRotation(double orientation, double angle) {
+        if(orientation  >= MAX_ROTATE - angle) {
+            orientation = 0;
+        } else {
+            orientation = orientation + angle;
+        }
+        return orientation;
+    }
+
+    private static double getReversedRotation(double orientation) {
+        double newRotation = orientation - Math.PI;
+        if (newRotation < 0) {
+            return MAX_ROTATE + newRotation;
+        }
+        return newRotation;
     }
 
     public static boolean isIntersectRectangle(Rectangle rectangle, double startX, double startZ, double endX, double endZ) {
