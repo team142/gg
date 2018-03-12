@@ -1,7 +1,6 @@
 package com.team142.gg.server.utils;
 
 import com.team142.gg.server.model.mappable.meta.PlaceableElement;
-import com.team142.gg.server.model.mappable.meta.Rectangle;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 
 import java.util.Arrays;
@@ -23,28 +22,10 @@ public class MathUtils {
         return element.getPoint().getZ();
     }
 
-    public static double getGradientOfLine(SpaceTimePoint pointA, SpaceTimePoint pointB) {
-        return getGradientOfLine(pointA.getX(), pointA.getZ(), pointB.getX(), pointB.getZ());
-    }
-
-    private static double getGradientOfLine(double x1, double z1, double x2, double z2) {
-        return ((z2-z1)/(x2-x1));
-    }
-
     private static double getYIntersectOfLine(double x1, double z1, double gradient) {
         double c = z1 - (gradient*x1);
         return c;
     }
-
-    public static double getYIntersectOfLine(double x1, double z1, double x2, double z2) {
-        double gradient = getGradientOfLine(x1, z1, x2, z2);
-        return getYIntersectOfLine(x1, z1, gradient);
-    }
-
-    public static double getYIntersectOfLine(SpaceTimePoint point, double gradient) {
-        return getYIntersectOfLine(point.getX(), point.getZ(), gradient);
-    }
-
 
     /**
      * quadratic equation -
@@ -215,7 +196,7 @@ public class MathUtils {
 
     }
 
-    private static boolean isLinesIntersect(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
+    public static boolean isLinesIntersect(double line1StartX, double line1StartZ, double line1EndX, double line1EndZ,
                                             double line2StartX, double line2StartZ, double line2EndX, double line2EndZ) {
 
         double line1LengthX = line1EndX - line1StartX;
@@ -264,117 +245,12 @@ public class MathUtils {
         return Math.asin(a/b);
     }
 
-    public static double getFrontLeftX(Rectangle rectangle, double angle) {
-        return getFrontLeftX(
-                rectangle.getPoint().getRotation(),
-                rectangle.getPoint().getX(),
-                rectangle.getDistanceToVertex(),
-                angle);
-    }
-
-    private static double getFrontLeftX(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = getAntiClockwiseRotation(rotation, angle);
-        return getNewX(coord, newRotation, distanceToVertex);
-    }
-
-    public static double getFrontLeftZ(Rectangle rectangle, double angle) {
-        return getFrontLeftZ(rectangle.getPoint().getRotation(), rectangle.getPoint().getZ(), rectangle.getDistanceToVertex(), angle);
-    }
-
-    private static double getFrontLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = getAntiClockwiseRotation(rotation, angle);
-        return getNewZ(coord, newRotation, distanceToVertex);
-    }
-
-    public static double getFrontRightX(Rectangle rectangle, double angle) {
-        return getFrontRightX(
-                rectangle.getPoint().getRotation(),
-                rectangle.getPoint().getX(),
-                rectangle.getDistanceToVertex(),
-                angle);
-    }
-
-    private static double getFrontRightX(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = rotation;
-        newRotation = getClockwiseRotation(newRotation, angle);
-        return getNewX(coord, newRotation, distanceToVertex);
-    }
-
-    public static double getFrontRightZ(Rectangle rectangle, double angle) {
-        return getFrontRightZ(
-                rectangle.getPoint().getRotation(),
-                rectangle.getPoint().getZ(),
-                rectangle.getDistanceToVertex(),
-                angle);
-    }
-
-    private static double getFrontRightZ(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = rotation;
-        newRotation = getClockwiseRotation(newRotation, angle);
-        return getNewZ(coord, newRotation, distanceToVertex);
-    }
-
-    public static double getBackLeftX(Rectangle rectangle, double angle) {
-        return getBackLeftX(
-                rectangle.getPoint().getRotation(),
-                rectangle.getPoint().getX(),
-                rectangle.getDistanceToVertex(),
-                angle);
-    }
-
-    private static double getBackLeftX(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = getReversedRotation(rotation);
-        newRotation = getClockwiseRotation(newRotation, angle);
-        return getNewX(coord, newRotation, distanceToVertex);
-    }
-
-    public static double getBackLeftZ(Rectangle rectangle, double angle) {
-        return getBackLeftZ(
-                rectangle.getPoint().getRotation(),
-                rectangle.getPoint().getZ(),
-                rectangle.getDistanceToVertex(),
-                angle);
-    }
-
-    private static double getBackLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = getReversedRotation(rotation);
-        newRotation = getClockwiseRotation(newRotation, angle);
-        return getNewZ(coord, newRotation, distanceToVertex);
-    }
-
-    public static double getBackRightX(Rectangle rectangle, double angle) {
-        return getBackRightX(
-                rectangle.getPoint().getRotation(),
-                rectangle.getPoint().getX(),
-                rectangle.getDistanceToVertex(),
-                angle);
-    }
-
-    private static double getBackRightX(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = getReversedRotation(rotation);
-        newRotation = getAntiClockwiseRotation(newRotation, angle);
-        return getNewX(coord, newRotation, distanceToVertex);
-    }
-
-    public static double getBackRightZ(Rectangle rectangle, double angle) {
-        return getBackRightZ(
-                rectangle.getPoint().getRotation(),
-                rectangle.getPoint().getZ(),
-                rectangle.getDistanceToVertex(),
-                angle);
-    }
-
-    private static double getBackRightZ(double rotation, double coord, double distanceToVertex, double angle) {
-        double newRotation = getReversedRotation(rotation);
-        newRotation = getAntiClockwiseRotation(newRotation, angle);
-        return getNewZ(coord, newRotation, distanceToVertex);
-    }
 
     public static double getNewX(double x, double amountToChange) {
         return x + amountToChange;
     }
 
-    private static double getNewX(double x, double rotation, double speed) {
+    public static double getNewX(double x, double rotation, double speed) {
         double amountChangeX = getAmountToChangedX(rotation, speed);
         return getNewX(x, amountChangeX);
     }
@@ -383,7 +259,7 @@ public class MathUtils {
         return z + amountToChange;
     }
 
-    private static double getNewZ(double z, double rotation, double speed) {
+    public static double getNewZ(double z, double rotation, double speed) {
         double amountChangeZ = getAmountToChangedZ(rotation, speed);
         return getNewZ(z, amountChangeZ);
     }
@@ -398,16 +274,11 @@ public class MathUtils {
         return coefficientZ * speed;
     }
 
-    private static double getAntiClockwiseRotation(double orientation, double angle) {
-        double newRotation = orientation - angle;
-        if(newRotation < 0) {
-            //TODO May not need -1, just don't do MAX_ROTATE - rotate
-            newRotation = (MAX_ROTATE - newRotation) * -1;
-        }
-        return newRotation;
+    public static double getAntiClockwiseRotation(double orientation, double angle) {
+        return orientation - angle;
     }
 
-    private static double getClockwiseRotation(double orientation, double angle) {
+    public static double getClockwiseRotation(double orientation, double angle) {
         if(orientation  >= MAX_ROTATE - angle) {
             orientation = 0;
         } else {
@@ -416,60 +287,12 @@ public class MathUtils {
         return orientation;
     }
 
-    private static double getReversedRotation(double orientation) {
+    public static double getReversedRotation(double orientation) {
         double newRotation = orientation - Math.PI;
         if (newRotation < 0) {
             return MAX_ROTATE + newRotation;
         }
         return newRotation;
     }
-
-    public static boolean isIntersectRectangle(Rectangle rectangle, double startX, double startZ, double endX, double endZ) {
-        double angle = MathUtils.getAngleRadians(rectangle.getWidth() /2, rectangle.getDistanceToVertex());
-        boolean doesIntersect;
-        //Front
-        doesIntersect = MathUtils.isLinesIntersect(
-                startX, startZ,
-                endX, endZ,
-                MathUtils.getFrontLeftX(rectangle, angle), MathUtils.getFrontLeftZ(rectangle, angle),
-                MathUtils.getFrontRightX(rectangle, angle), MathUtils.getFrontRightZ(rectangle, angle));
-
-
-        if(doesIntersect) {
-            return true;
-        }
-
-        //Left
-        doesIntersect = MathUtils.isLinesIntersect(
-                startX, startZ,
-                endX, endZ,
-                MathUtils.getFrontLeftX(rectangle, angle), MathUtils.getFrontLeftZ(rectangle, angle),
-                MathUtils.getBackLeftX(rectangle, angle), MathUtils.getBackLeftZ(rectangle, angle));
-
-        if(doesIntersect) {
-            return true;
-        }
-
-        //Right
-        doesIntersect = MathUtils.isLinesIntersect(
-                startX, startZ,
-                endX, endZ,
-                MathUtils.getFrontRightX(rectangle, angle), MathUtils.getFrontRightZ(rectangle, angle),
-                MathUtils.getBackRightX(rectangle, angle), MathUtils.getBackRightZ(rectangle, angle));
-
-        if(doesIntersect) {
-            return true;
-        }
-
-        //Back
-        doesIntersect = MathUtils.isLinesIntersect(
-                startX, startZ,
-                endX, endZ,
-                MathUtils.getBackLeftX(rectangle, angle), MathUtils.getBackLeftZ(rectangle, angle),
-                MathUtils.getBackRightX(rectangle, angle), MathUtils.getBackRightZ(rectangle, angle));
-
-        return doesIntersect;
-    }
-
 
 }

@@ -19,6 +19,8 @@ import com.team142.gg.server.utils.MathUtils;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.team142.gg.server.utils.RectangleUtils;
 import lombok.Data;
 
 /**
@@ -79,7 +81,7 @@ public class Bullet extends MovableElement {
                 .stream()
                 .filter((tank) -> tank.getTAG() != player.getTAG())
                 .filter((tank) -> MathUtils.doesIntersectCircle(oldX, oldZ, newX, newZ, tank))
-                .filter((tank) -> MathUtils.isIntersectRectangle(tank, oldX, oldZ, newX, newZ))
+                .filter((tank) -> RectangleUtils.isIntersectRectangle(tank, oldX, oldZ, newX, newZ))
                 .forEach(this::damage);
 
         if (!ok) {
