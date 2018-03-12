@@ -37,7 +37,7 @@ public class Tank extends MovableElement implements Rectangle {
     @Getter
     @Setter
     @JsonIgnore
-    private double distanceToVertex;
+    public double distanceToVertex;
 
     @Getter
     @Setter
@@ -63,7 +63,7 @@ public class Tank extends MovableElement implements Rectangle {
 
     }
 
-    private double calculateDistanceToVertex() {
+    public double calculateDistanceToVertex() {
         double distance = Math.sqrt(Math.pow((getWidth() / 2), 2) + Math.pow((getHeight() / 2), 2));
         return distance;
     }
