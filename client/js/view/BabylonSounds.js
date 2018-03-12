@@ -2,7 +2,7 @@ import {
     baby
 } from '../model/Baby.js'
 
-const SOUNDS_DIR = "sounds/"
+const SOUNDS_DIR = "https://storage.googleapis.com/gg-static-content/sounds/"
 const sounds = [
     "pew.mp3",
     "ding.mp3",

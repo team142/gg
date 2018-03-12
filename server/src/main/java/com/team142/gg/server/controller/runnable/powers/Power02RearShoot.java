@@ -9,6 +9,7 @@ import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
+import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 
 /**
@@ -35,8 +36,8 @@ public class Power02RearShoot extends Power {
         bullet.rotateLeft((float) Math.PI);
 
         //Nerf rear bullets by 50% for now
-        bullet.setDamage(bullet.getDamage() / 2 + getLevel() * 10);
-        bullet.setSpeed(bullet.getSpeed() / 2);
+        bullet.setDamage(bullet.getDamage() / 2 + getLevelLessOne() * (10 / 2));
+        bullet.setSpeed(bullet.getSpeed() / 2 + getLevelLessOne() * (Server.BULLET_INCREMENT_SPEED / 2));
 
         //Communicate
         GameManager.sendBullet(game, bullet);
@@ -46,7 +47,7 @@ public class Power02RearShoot extends Power {
 
     @Override
     public void nofityLevelChange() {
-        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
+        setRefreshTime(INITIAL_COOLDOWN / getLevel());
     }
 
 }

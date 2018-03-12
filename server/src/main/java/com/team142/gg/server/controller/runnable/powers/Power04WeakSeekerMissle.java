@@ -9,6 +9,7 @@ import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
+import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.utils.PhysicsUtils;
 import java.util.concurrent.ThreadLocalRandom;
@@ -36,20 +37,21 @@ public class Power04WeakSeekerMissle extends Power {
 
         //Change state
         Bullet bullet = getPlayer().createBullet();
-        bullet.setSpeed(bullet.getSpeed() * 2);
-        bullet.setDamage(100 + getLevel() * 10);
+
+        bullet.setDamage(100 + getLevelLessOne() * 10);
+        bullet.setSpeed(bullet.getSpeed() * 2 + getLevelLessOne() * Server.BULLET_INCREMENT_SPEED);
 
         int which = ThreadLocalRandom.current().nextInt(0, game.getPlayers().size());
 
         boolean found = false;
         int triesLeft = 10;
         while (!found && triesLeft > 0) {
-            Player player = game.getPlayers().get(which);
-            if (getPlayer().getId().equals(player.getId())) {
+            Player playerToTarget = game.getPlayers().get(which);
+            if (getPlayer().getId().equals(playerToTarget.getId())) {
                 triesLeft--;
                 continue;
             }
-            float radians = PhysicsUtils.getRadians(getPlayer().getTANK().getPoint(), player.getTANK().getPoint());
+            float radians = PhysicsUtils.getRadians(getPlayer().getTANK().getPoint(), playerToTarget.getTANK().getPoint());
             bullet.getPoint().setRotation(radians);
             found = true;
         }
@@ -61,7 +63,7 @@ public class Power04WeakSeekerMissle extends Power {
 
     @Override
     public void nofityLevelChange() {
-        setRefreshTime(INITIAL_COOLDOWN * (1 - getLevel() / 11));
+        //Not sure
     }
 
 }
