@@ -16,7 +16,6 @@ import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.utils.MathUtils;
-import com.team142.gg.server.utils.PhysicsUtils;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
