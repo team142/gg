@@ -8,12 +8,18 @@ buildscript {
     }
 }
 
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '1.11'
+    id 'java'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'io.franzbecker.gradle-lombok'
 
 jar {
     baseName = 'gg-server'
@@ -43,8 +49,6 @@ configurations {
 }
 
 dependencies {
-
-    compileOnly 'org.projectlombok:lombok:1.16.20'
     
     compile("org.springframework.boot:spring-boot-starter-websocket")
     compile("org.springframework.boot:spring-boot-starter-jetty")
