@@ -16,7 +16,6 @@ import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.utils.MathUtils;
-import com.team142.gg.server.utils.PhysicsUtils;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,7 +79,7 @@ public class Bullet extends MovableElement {
                 .stream()
                 .filter((tank) -> tank.getTAG() != player.getTAG())
                 .filter((tank) -> MathUtils.doesIntersectCircle(oldX, oldZ, newX, newZ, tank))
-                .filter((tank) -> MathUtils.isIntersectTank(tank, oldX, oldZ, newX, newZ))
+                .filter((tank) -> MathUtils.isIntersectRectangle(tank, oldX, oldZ, newX, newZ))
                 .forEach(this::damage);
 
         if (!ok) {

@@ -1,7 +1,7 @@
 package com.team142.gg.server.utils;
 
-import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.mappable.meta.PlaceableElement;
+import com.team142.gg.server.model.mappable.meta.Rectangle;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 
 import java.util.Arrays;
@@ -253,7 +253,7 @@ public class MathUtils {
 
     //let a be direct distance (width) to point
     //let A be the angle that the point is away from origin
-    //let b be length to point, perpendicular to origin
+    //let b be length to point, directly
     //let B be angle opposite b
 
     //Formula: A = arcsin( (a * sin(B)) / b )
@@ -264,8 +264,12 @@ public class MathUtils {
         return Math.asin(a/b);
     }
 
-    public static double getFrontLeftX(Tank tank, double angle) {
-        return getFrontLeftX(tank.getPoint().getRotation(), tank.getPoint().getX(), tank.getDistanceToVertex(), angle);
+    public static double getFrontLeftX(Rectangle rectangle, double angle) {
+        return getFrontLeftX(
+                rectangle.getPoint().getRotation(),
+                rectangle.getPoint().getX(),
+                rectangle.getDistanceToVertex(),
+                angle);
     }
 
     private static double getFrontLeftX(double rotation, double coord, double distanceToVertex, double angle) {
@@ -273,8 +277,8 @@ public class MathUtils {
         return getNewX(coord, newRotation, distanceToVertex);
     }
 
-    public static double getFrontLeftZ(Tank tank, double angle) {
-        return getFrontLeftZ(tank.getPoint().getRotation(), tank.getPoint().getZ(), tank.getDistanceToVertex(), angle);
+    public static double getFrontLeftZ(Rectangle rectangle, double angle) {
+        return getFrontLeftZ(rectangle.getPoint().getRotation(), rectangle.getPoint().getZ(), rectangle.getDistanceToVertex(), angle);
     }
 
     private static double getFrontLeftZ(double rotation, double coord, double distanceToVertex, double angle) {
@@ -282,11 +286,11 @@ public class MathUtils {
         return getNewZ(coord, newRotation, distanceToVertex);
     }
 
-    public static double getFrontRightX(Tank tank, double angle) {
+    public static double getFrontRightX(Rectangle rectangle, double angle) {
         return getFrontRightX(
-                tank.getPoint().getRotation(),
-                tank.getPoint().getX(),
-                tank.getDistanceToVertex(),
+                rectangle.getPoint().getRotation(),
+                rectangle.getPoint().getX(),
+                rectangle.getDistanceToVertex(),
                 angle);
     }
 
@@ -300,11 +304,11 @@ public class MathUtils {
         return getNewX(coord, newRotation, distanceToVertex);
     }
 
-    public static double getFrontRightZ(Tank tank, double angle) {
+    public static double getFrontRightZ(Rectangle rectangle, double angle) {
         return getFrontRightZ(
-                tank.getPoint().getRotation(),
-                tank.getPoint().getZ(),
-                tank.getDistanceToVertex(),
+                rectangle.getPoint().getRotation(),
+                rectangle.getPoint().getZ(),
+                rectangle.getDistanceToVertex(),
                 angle);
     }
 
@@ -318,11 +322,11 @@ public class MathUtils {
         return getNewZ(coord, newRotation, distanceToVertex);
     }
 
-    public static double getBackLeftX(Tank tank, double angle) {
+    public static double getBackLeftX(Rectangle rectangle, double angle) {
         return getBackLeftX(
-                tank.getPoint().getRotation(),
-                tank.getPoint().getX(),
-                tank.getDistanceToVertex(),
+                rectangle.getPoint().getRotation(),
+                rectangle.getPoint().getX(),
+                rectangle.getDistanceToVertex(),
                 angle);
     }
 
@@ -339,11 +343,11 @@ public class MathUtils {
         return getNewX(coord, newRotation, distanceToVertex);
     }
 
-    public static double getBackLeftZ(Tank tank, double angle) {
+    public static double getBackLeftZ(Rectangle rectangle, double angle) {
         return getBackLeftZ(
-                tank.getPoint().getRotation(),
-                tank.getPoint().getZ(),
-                tank.getDistanceToVertex(),
+                rectangle.getPoint().getRotation(),
+                rectangle.getPoint().getZ(),
+                rectangle.getDistanceToVertex(),
                 angle);
     }
 
@@ -360,11 +364,11 @@ public class MathUtils {
         return getNewZ(coord, newRotation, distanceToVertex);
     }
 
-    public static double getBackRightX(Tank tank, double angle) {
+    public static double getBackRightX(Rectangle rectangle, double angle) {
         return getBackRightX(
-                tank.getPoint().getRotation(),
-                tank.getPoint().getX(),
-                tank.getDistanceToVertex(),
+                rectangle.getPoint().getRotation(),
+                rectangle.getPoint().getX(),
+                rectangle.getDistanceToVertex(),
                 angle);
     }
 
@@ -377,11 +381,11 @@ public class MathUtils {
         return getNewX(coord, newRotation, distanceToVertex);
     }
 
-    public static double getBackRightZ(Tank tank, double angle) {
+    public static double getBackRightZ(Rectangle rectangle, double angle) {
         return getBackRightZ(
-                tank.getPoint().getRotation(),
-                tank.getPoint().getZ(),
-                tank.getDistanceToVertex(),
+                rectangle.getPoint().getRotation(),
+                rectangle.getPoint().getZ(),
+                rectangle.getDistanceToVertex(),
                 angle);
     }
 
@@ -403,6 +407,14 @@ public class MathUtils {
         return newRotation;
     }
 
+    private static double getReversedRotation(double orientation) {
+        double newRotation = orientation - Math.PI;
+        if (newRotation < 0) {
+            return MAX_ROTATE + newRotation;
+        }
+        return newRotation;
+    }
+
     public static double getNewX(double x, double amountToChange) {
         return x + amountToChange;
     }
@@ -410,11 +422,6 @@ public class MathUtils {
     private static double getNewX(double x, double rotation, double speed) {
         double amountChangeX = getAmountToChangedX(rotation, speed);
         return getNewX(x, amountChangeX);
-    }
-
-    public static double getAmountToChangedX(double rotation, double speed) {
-        double coefficientX = Math.sin(rotation);
-        return coefficientX * speed;
     }
 
     private static double getNewZ(double z, double amountToChange) {
@@ -426,20 +433,25 @@ public class MathUtils {
         return getNewZ(z, amountChangeZ);
     }
 
+    public static double getAmountToChangedX(double rotation, double speed) {
+        double coefficientX = Math.sin(rotation);
+        return coefficientX * speed;
+    }
+
     public static double getAmountToChangedZ(double rotation, double speed) {
         double coefficientZ = Math.cos(rotation);
         return coefficientZ * speed;
     }
 
-    public static boolean isIntersectTank(Tank tank, double startX, double startZ, double endX, double endZ) {
-        double angle = MathUtils.getAngleRadians(tank.getWidth() /2, tank.getDistanceToVertex());
+    public static boolean isIntersectRectangle(Rectangle rectangle, double startX, double startZ, double endX, double endZ) {
+        double angle = MathUtils.getAngleRadians(rectangle.getWidth() /2, rectangle.getDistanceToVertex());
         boolean doesIntersect;
         //Front
         doesIntersect = MathUtils.isLinesIntersect(
                 startX, startZ,
                 endX, endZ,
-                MathUtils.getFrontLeftX(tank, angle), MathUtils.getFrontLeftZ(tank, angle),
-                MathUtils.getFrontRightX(tank, angle), MathUtils.getFrontRightZ(tank, angle));
+                MathUtils.getFrontLeftX(rectangle, angle), MathUtils.getFrontLeftZ(rectangle, angle),
+                MathUtils.getFrontRightX(rectangle, angle), MathUtils.getFrontRightZ(rectangle, angle));
 
 
         if(doesIntersect) {
@@ -450,8 +462,8 @@ public class MathUtils {
         doesIntersect = MathUtils.isLinesIntersect(
                 startX, startZ,
                 endX, endZ,
-                MathUtils.getFrontLeftX(tank, angle), MathUtils.getFrontLeftZ(tank, angle),
-                MathUtils.getBackLeftX(tank, angle), MathUtils.getBackLeftZ(tank, angle));
+                MathUtils.getFrontLeftX(rectangle, angle), MathUtils.getFrontLeftZ(rectangle, angle),
+                MathUtils.getBackLeftX(rectangle, angle), MathUtils.getBackLeftZ(rectangle, angle));
 
         if(doesIntersect) {
             return true;
@@ -461,8 +473,8 @@ public class MathUtils {
         doesIntersect = MathUtils.isLinesIntersect(
                 startX, startZ,
                 endX, endZ,
-                MathUtils.getFrontRightX(tank, angle), MathUtils.getFrontRightZ(tank, angle),
-                MathUtils.getBackRightX(tank, angle), MathUtils.getBackRightZ(tank, angle));
+                MathUtils.getFrontRightX(rectangle, angle), MathUtils.getFrontRightZ(rectangle, angle),
+                MathUtils.getBackRightX(rectangle, angle), MathUtils.getBackRightZ(rectangle, angle));
 
         if(doesIntersect) {
             return true;
@@ -472,8 +484,8 @@ public class MathUtils {
         doesIntersect = MathUtils.isLinesIntersect(
                 startX, startZ,
                 endX, endZ,
-                MathUtils.getBackLeftX(tank, angle), MathUtils.getBackLeftZ(tank, angle),
-                MathUtils.getBackRightX(tank, angle), MathUtils.getBackRightZ(tank, angle));
+                MathUtils.getBackLeftX(rectangle, angle), MathUtils.getBackLeftZ(rectangle, angle),
+                MathUtils.getBackRightX(rectangle, angle), MathUtils.getBackRightZ(rectangle, angle));
 
         return doesIntersect;
     }
