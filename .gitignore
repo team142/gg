@@ -25,3 +25,5 @@ server/.settings/org.eclipse.buildship.core.prefs
 .vscode/settings.json
 server/server.iml
 out/
+*.iml
+.gradle/
