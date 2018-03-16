@@ -1,0 +1,19 @@
+.hero {
+  height: 100vh;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  min-height: 350px;
+  background-color: #252a30;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.btn-camo{
+  background-color: #726255;
+  color: #fefefe;
+}
+
+.noPad {
+  padding: 0px;
+}
