@@ -9,11 +9,18 @@
   background-position: center center;
   background-repeat: no-repeat;
 }
-.btn-camo{
+
+.btn-camo {
   background-color: #726255;
   color: #fefefe;
 }
 
 .noPad {
   padding: 0px;
+}
+
+#VIEW_CANVAS {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
 }
