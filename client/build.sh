@@ -5,6 +5,7 @@ mkdir build/js/
 cp index.html build
 cp favicon.ico build
 cp scene.babylon.manifest build
+cp -rf css build
 cp -rf textures build
 cp -rf sounds build
 cp -rf js/babylon build/js
