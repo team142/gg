@@ -23,3 +23,5 @@ server/build/
 server/src/main/resources/public
 server/.settings/org.eclipse.buildship.core.prefs
 .vscode/settings.json
+.gradle/
+*.iml
