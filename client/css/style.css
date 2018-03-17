@@ -1,18 +1,21 @@
-.hero {
-  height: 100vh;
-  position: relative;
-  text-align: left;
+html, body {
+  overflow: hidden;
   width: 100%;
-  min-height: 350px;
-  background-color: #252a30;
-  background-size: cover;
-  background-position: center center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-image: url("../textures/GGLogo.jpg");
+  background-size: 100%;
   background-repeat: no-repeat;
 }
 
 .btn-camo {
   background-color: #726255;
   color: #fefefe;
+}
+
+.login{
+  margin-top: 15em;
 }
 
 .noPad {
