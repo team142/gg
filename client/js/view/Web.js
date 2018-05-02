@@ -108,7 +108,7 @@ export class Web {
         const localHostname = window.location.hostname
         const port = window.location.port
         let s
-        if (port == 80) {
+        if (port === 80) {
             s = localHostname + "/"
         } else {
             s = localHostname + ":" + port + "/"

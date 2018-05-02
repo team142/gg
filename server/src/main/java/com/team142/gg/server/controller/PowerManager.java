@@ -10,6 +10,7 @@ import com.team142.gg.server.controller.runnable.powers.Power;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.outgoing.other.MessageCooldown;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessagePowerLevel;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ThreadLocalRandom;
@@ -17,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author just1689
  */
 public class PowerManager {
@@ -66,7 +66,7 @@ public class PowerManager {
                 if (wasLeveled) {
                     given = true;
                 }
-            } else if (!contains) {
+            } else {
                 //Give power to player
                 try {
                     Class powerClass = Repository.POWER_CLASSES.get(nextInt);
