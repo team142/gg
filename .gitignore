@@ -27,3 +27,4 @@ server/server.iml
 out/
 *.iml
 .gradle/
+client/node_modules/
