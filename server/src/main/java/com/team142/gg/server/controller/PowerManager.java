@@ -5,8 +5,8 @@
  */
 package com.team142.gg.server.controller;
 
-import com.team142.gg.server.model.Player;
 import com.team142.gg.server.controller.runnable.powers.Power;
+import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.outgoing.other.MessageCooldown;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessagePowerLevel;

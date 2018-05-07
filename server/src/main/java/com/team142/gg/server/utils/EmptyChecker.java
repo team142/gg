@@ -6,7 +6,6 @@
 package com.team142.gg.server.utils;
 
 /**
- *
  * @author just1689
  */
 public class EmptyChecker {

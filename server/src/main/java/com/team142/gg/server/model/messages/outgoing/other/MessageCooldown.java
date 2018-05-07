@@ -10,7 +10,6 @@ import com.team142.gg.server.model.messages.base.Message;
 import lombok.Getter;
 
 /**
- *
  * @author just1689
  */
 public class MessageCooldown extends Message {
@@ -20,7 +19,7 @@ public class MessageCooldown extends Message {
 
     @Getter
     private String key;
-    
+
     public MessageCooldown(int ticks, String key) {
         setConversation(ConversationType.S_SHARE_COOLDOWN.name());
         this.ticks = ticks;

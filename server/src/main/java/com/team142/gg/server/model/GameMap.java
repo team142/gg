@@ -6,11 +6,11 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.model.mappable.organic.MapTileElement;
-import java.util.HashMap;
 import lombok.Data;
 
+import java.util.HashMap;
+
 /**
- *
  * @author just1689
  */
 @Data

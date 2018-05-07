@@ -5,17 +5,12 @@
  */
 package com.team142.gg.server.controller;
 
-import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
-import com.team142.gg.server.model.mappable.organic.MapSettings;
-import com.team142.gg.server.model.mappable.organic.ModelType;
-import com.team142.gg.server.model.mappable.organic.SkinType;
-import com.team142.gg.server.model.mappable.organic.Tile;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.GameMap;
-import com.team142.gg.server.model.mappable.organic.MapTileElement;
+import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
+import com.team142.gg.server.model.mappable.organic.*;
 
 /**
- *
  * @author just1689
  */
 public class MapManager {

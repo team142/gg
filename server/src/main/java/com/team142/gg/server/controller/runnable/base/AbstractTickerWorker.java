@@ -7,14 +7,14 @@ package com.team142.gg.server.controller.runnable.base;
 
 import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Server;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
- *
  * @author just1689
  */
 public abstract class AbstractTickerWorker implements Runnable {

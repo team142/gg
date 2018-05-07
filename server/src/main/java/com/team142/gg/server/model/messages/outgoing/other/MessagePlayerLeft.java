@@ -10,7 +10,6 @@ import com.team142.gg.server.model.messages.base.Message;
 import lombok.Getter;
 
 /**
- *
  * @author just1689
  */
 public class MessagePlayerLeft extends Message {

@@ -8,11 +8,10 @@ package com.team142.gg.server.controller;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.base.SoundType;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlaySound;
+import lombok.AllArgsConstructor;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-
-import lombok.AllArgsConstructor;
 
 /**
  * @author just1689

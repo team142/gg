@@ -9,11 +9,11 @@ import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.mappable.organic.MapTileElement;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
-import java.util.Collection;
 import lombok.Getter;
 
+import java.util.Collection;
+
 /**
- *
  * @author just1689
  */
 public class MessageShareMap extends Message {

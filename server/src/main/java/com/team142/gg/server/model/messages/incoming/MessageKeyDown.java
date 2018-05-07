@@ -14,7 +14,6 @@ import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.MessageKey;
 
 /**
- *
  * @author just1689
  */
 public class MessageKeyDown extends MessageKey implements Runnable {

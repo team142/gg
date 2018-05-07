@@ -5,15 +5,15 @@
  */
 package com.team142.gg.server.model.messages.outgoing.rendered;
 
+import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
-import com.team142.gg.server.model.Game;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.Getter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- *
  * @author just1689
  */
 public class MessageScoreboard extends Message {

@@ -111,17 +111,17 @@ public class RectangleUtils {
     }
 
     public static boolean isIntersectRectangle(Rectangle rectangle, double startX, double startZ, double endX, double endZ) {
-        double angle = MathUtils.getAngleRadians(rectangle.getWidth() /2, rectangle.getDistanceToVertex());
+        double angle = MathUtils.getAngleRadians(rectangle.getWidth() / 2, rectangle.getDistanceToVertex());
         boolean doesIntersect;
         //Front
         doesIntersect = MathUtils.isLinesIntersect(
                 startX, startZ,
                 endX, endZ,
                 getFrontLeftX(rectangle, angle), getFrontLeftZ(rectangle, angle),
-                getFrontRightX(rectangle, angle),getFrontRightZ(rectangle, angle));
+                getFrontRightX(rectangle, angle), getFrontRightZ(rectangle, angle));
 
 
-        if(doesIntersect) {
+        if (doesIntersect) {
             return true;
         }
 
@@ -132,7 +132,7 @@ public class RectangleUtils {
                 getFrontLeftX(rectangle, angle), getFrontLeftZ(rectangle, angle),
                 getBackLeftX(rectangle, angle), getBackLeftZ(rectangle, angle));
 
-        if(doesIntersect) {
+        if (doesIntersect) {
             return true;
         }
 
@@ -143,7 +143,7 @@ public class RectangleUtils {
                 getFrontRightX(rectangle, angle), getFrontRightZ(rectangle, angle),
                 getBackRightX(rectangle, angle), getBackRightZ(rectangle, angle));
 
-        if(doesIntersect) {
+        if (doesIntersect) {
             return true;
         }
 

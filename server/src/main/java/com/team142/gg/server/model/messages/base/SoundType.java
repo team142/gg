@@ -8,7 +8,6 @@ package com.team142.gg.server.model.messages.base;
 import lombok.Getter;
 
 /**
- *
  * @author just1689
  */
 public enum SoundType {

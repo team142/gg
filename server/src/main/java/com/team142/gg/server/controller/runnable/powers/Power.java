@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- *
  * @author just1689
  */
 @AllArgsConstructor

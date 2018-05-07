@@ -11,7 +11,6 @@ import com.team142.gg.server.model.messages.base.SoundType;
 import lombok.Getter;
 
 /**
- *
  * @author just1689
  */
 public class MessagePlaySound extends Message {

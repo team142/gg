@@ -9,11 +9,11 @@ import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.messages.outgoing.stats.MessageCapacity;
 import com.team142.gg.server.model.messages.outgoing.stats.MessageNotifyPushover;
 import com.team142.gg.server.model.messages.outgoing.stats.MessagePlayerJoinStats;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
- *
  * @author just1689
  */
 public class Reporter {

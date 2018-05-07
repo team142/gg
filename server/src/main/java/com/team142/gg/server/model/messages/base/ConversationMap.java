@@ -9,10 +9,10 @@ import com.team142.gg.server.model.messages.incoming.MessageJoinGame;
 import com.team142.gg.server.model.messages.incoming.MessageJoinServer;
 import com.team142.gg.server.model.messages.incoming.MessageKeyDown;
 import com.team142.gg.server.model.messages.incoming.MessageKeyUp;
+
 import java.util.HashMap;
 
 /**
- *
  * @author just1689
  */
 public class ConversationMap {

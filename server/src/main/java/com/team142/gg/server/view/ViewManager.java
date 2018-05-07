@@ -10,7 +10,6 @@ import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.outgoing.other.MessageChangeView;
 
 /**
- *
  * @author just1689
  */
 public class ViewManager {

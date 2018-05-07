@@ -7,6 +7,7 @@ import com.team142.gg.server.utils.RectangleUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BulletTest {
@@ -21,12 +22,12 @@ class BulletTest {
         player = new Player("TestPlayerID");
         player.getTANK().setPoint(point);
         bullet = new Bullet(player);
-        angle = MathUtils.getAngleRadians(player.getTANK().getWidth() /2, player.getTANK().getDistanceToVertex());
+        angle = MathUtils.getAngleRadians(player.getTANK().getWidth() / 2, player.getTANK().getDistanceToVertex());
     }
 
     @AfterAll
     static void finish() {
-        System.out.println(BulletTest.class.getCanonicalName() +  ": Tests completed");
+        System.out.println(BulletTest.class.getCanonicalName() + ": Tests completed");
     }
 
     static SpaceTimePoint createSpaceTimePoint() {
@@ -40,36 +41,36 @@ class BulletTest {
 
     @Test
     void getFrontLeftZ() {
-        assertThat((float)RectangleUtils.getFrontLeftZ(player.getTANK(), angle)).isEqualTo(29.3f);
+        assertThat((float) RectangleUtils.getFrontLeftZ(player.getTANK(), angle)).isEqualTo(29.3f);
     }
 
     @Test
     void getFrontRightX() {
-        assertThat((float)RectangleUtils.getFrontRightX(player.getTANK(), angle)).isEqualTo(30.15f);
+        assertThat((float) RectangleUtils.getFrontRightX(player.getTANK(), angle)).isEqualTo(30.15f);
     }
 
     @Test
     void getFrontRightZ() {
-        assertThat((float)RectangleUtils.getFrontRightZ(player.getTANK(), angle)).isEqualTo(29.3f);
+        assertThat((float) RectangleUtils.getFrontRightZ(player.getTANK(), angle)).isEqualTo(29.3f);
     }
 
     @Test
     void getBackLeftX() {
-        assertThat((float)RectangleUtils.getBackLeftX(player.getTANK(), angle)).isEqualTo(29.85f);
+        assertThat((float) RectangleUtils.getBackLeftX(player.getTANK(), angle)).isEqualTo(29.85f);
     }
 
     @Test
     void getBackLeftZ() {
-        assertThat((float)RectangleUtils.getBackLeftZ(player.getTANK(), angle)).isEqualTo(28.7f);
+        assertThat((float) RectangleUtils.getBackLeftZ(player.getTANK(), angle)).isEqualTo(28.7f);
     }
 
     @Test
     void getBackRightX() {
-        assertThat((float)RectangleUtils.getBackRightX(player.getTANK(), angle)).isEqualTo(30.15f);
+        assertThat((float) RectangleUtils.getBackRightX(player.getTANK(), angle)).isEqualTo(30.15f);
     }
 
     @Test
     void getBackRightZ() {
-        assertThat((float)RectangleUtils.getBackRightZ(player.getTANK(), angle)).isEqualTo(28.7f);
+        assertThat((float) RectangleUtils.getBackRightZ(player.getTANK(), angle)).isEqualTo(28.7f);
     }
 }

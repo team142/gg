@@ -10,7 +10,6 @@ import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 
 /**
- *
  * @author just1689
  */
 public class TickerPhysics extends AbstractTickerWorker {

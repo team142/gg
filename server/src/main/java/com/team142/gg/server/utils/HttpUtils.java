@@ -5,18 +5,14 @@
  */
 package com.team142.gg.server.utils;
 
+import okhttp3.*;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
- *
  * @author just1689
  */
 public class HttpUtils {

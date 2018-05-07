@@ -8,13 +8,13 @@ package com.team142.gg.server.model.messages.outgoing.other;
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
+import lombok.Getter;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.Getter;
 
 /**
- *
  * @author just1689
  */
 public class MessageListOfGames extends Message {

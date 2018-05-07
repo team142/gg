@@ -11,11 +11,11 @@ import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.outgoing.other.MessageIntelChange;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author just1689
  */
 public class Power07Intel extends Power {

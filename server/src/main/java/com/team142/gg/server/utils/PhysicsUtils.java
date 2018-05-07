@@ -5,12 +5,10 @@
  */
 package com.team142.gg.server.utils;
 
-import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.mappable.meta.PlaceableElement;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 
 /**
- *
  * @author just1689
  */
 public class PhysicsUtils {
@@ -36,8 +34,8 @@ public class PhysicsUtils {
     }
 
     public static boolean isXWithinRadius(double x, PlaceableElement element) {
-        if(x <= (MathUtils.getXFromElement(element) + MathUtils.getRadiusFromElement(element))) {
-            if(x >= (MathUtils.getXFromElement(element) - MathUtils.getRadiusFromElement(element))) {
+        if (x <= (MathUtils.getXFromElement(element) + MathUtils.getRadiusFromElement(element))) {
+            if (x >= (MathUtils.getXFromElement(element) - MathUtils.getRadiusFromElement(element))) {
                 return true;
             }
         }
@@ -45,8 +43,8 @@ public class PhysicsUtils {
     }
 
     public static boolean isZWithinRadius(double z, PlaceableElement element) {
-        if(z <= MathUtils.getZFromElement(element) + MathUtils.getRadiusFromElement(element)) {
-            if(z >= MathUtils.getZFromElement(element) - MathUtils.getRadiusFromElement(element)) {
+        if (z <= MathUtils.getZFromElement(element) + MathUtils.getRadiusFromElement(element)) {
+            if (z >= MathUtils.getZFromElement(element) - MathUtils.getRadiusFromElement(element)) {
                 return true;
             }
         }

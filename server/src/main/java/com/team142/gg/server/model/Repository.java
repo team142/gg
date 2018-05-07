@@ -5,22 +5,13 @@
  */
 package com.team142.gg.server.model;
 
-import com.team142.gg.server.controller.runnable.powers.Power01Shoot;
-import com.team142.gg.server.controller.runnable.powers.Power02RearShoot;
-import com.team142.gg.server.controller.runnable.powers.Power03Missile;
-import com.team142.gg.server.controller.runnable.powers.Power04WeakSeekerMissle;
-import com.team142.gg.server.controller.runnable.powers.Power05DropBomb;
-import com.team142.gg.server.controller.runnable.powers.Power06Radar;
-import com.team142.gg.server.controller.runnable.powers.Power07Intel;
-import com.team142.gg.server.controller.runnable.powers.Power08Teleport;
-import com.team142.gg.server.controller.runnable.powers.Power09Hop180;
-import com.team142.gg.server.controller.runnable.powers.Power10HpMech;
-import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
+import com.team142.gg.server.controller.runnable.powers.*;
 import org.springframework.web.socket.WebSocketSession;
 
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
- *
  * @author just1689
  */
 public class Repository {

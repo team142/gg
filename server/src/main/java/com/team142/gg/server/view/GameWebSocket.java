@@ -8,13 +8,13 @@ package com.team142.gg.server.view;
 import com.team142.gg.server.controller.MessageManager;
 import com.team142.gg.server.controller.ServerManager;
 import com.team142.gg.server.model.Server;
+import org.springframework.web.socket.*;
+
 import java.io.EOFException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.web.socket.*;
 
 /**
- *
  * @author just1689
  */
 public class GameWebSocket implements WebSocketHandler {

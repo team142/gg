@@ -14,7 +14,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *
  * @author just1689
  */
 public class MovableElement extends PlaceableElement {
@@ -46,7 +45,7 @@ public class MovableElement extends PlaceableElement {
 
     public float getRotatedLeft(float rotation, float radians) {
         float newRotation = rotation - radians;
-        if(newRotation < 0) {
+        if (newRotation < 0) {
             newRotation = MAX_ROTATE - newRotation;
         }
 
@@ -150,9 +149,10 @@ public class MovableElement extends PlaceableElement {
     }
 
     //Check before changing...
+
     /**
      * Change the value of the Z-Co-ordinate.
-     *
+     * <p>
      * Check whether the move is valid before changing it with
      * {@link #isCoordValidMove(double, double, double, GameMap, short) isCoordValidMove()}
      * method.

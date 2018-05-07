@@ -6,12 +6,9 @@
 package com.team142.gg.server.model.messages.base;
 
 /**
- *
  * @author just1689
  */
 public enum ViewType {
-    VIEW_SERVERS
-    , VIEW_GAMES
-    , VIEW_CANVAS
+    VIEW_SERVERS, VIEW_GAMES, VIEW_CANVAS
 
 }

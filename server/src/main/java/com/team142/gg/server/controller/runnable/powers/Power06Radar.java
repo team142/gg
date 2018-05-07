@@ -9,10 +9,10 @@ import com.team142.gg.server.controller.MessageManager;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageRadar;
+
 import static java.lang.Math.toIntExact;
 
 /**
- *
  * @author just1689
  */
 public class Power06Radar extends Power {

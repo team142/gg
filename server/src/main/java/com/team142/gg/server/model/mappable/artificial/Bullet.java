@@ -7,24 +7,18 @@ package com.team142.gg.server.model.mappable.artificial;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team142.gg.server.controller.GameManager;
-import com.team142.gg.server.model.Game;
-import com.team142.gg.server.model.GameMap;
+import com.team142.gg.server.model.*;
+import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import com.team142.gg.server.model.mappable.organic.SkinType;
-import com.team142.gg.server.model.Player;
-import com.team142.gg.server.model.Repository;
-import com.team142.gg.server.model.Server;
-import com.team142.gg.server.model.mappable.meta.MovableElement;
 import com.team142.gg.server.utils.MathUtils;
+import com.team142.gg.server.utils.RectangleUtils;
+import lombok.Data;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.team142.gg.server.utils.RectangleUtils;
-import lombok.Data;
-
 /**
- *
  * @author just1689
  */
 @Data
@@ -70,7 +64,6 @@ public class Bullet extends MovableElement {
         }
 
 
-
         double newX = getPoint().getX();
         double newZ = getPoint().getZ();
 
@@ -88,7 +81,7 @@ public class Bullet extends MovableElement {
             return false;
         }
 
-        if(isBulletOutBounds(map)) {
+        if (isBulletOutBounds(map)) {
             ok = false;
             return ok;
         }
@@ -129,7 +122,7 @@ public class Bullet extends MovableElement {
                         "{0} hit {1}",
                         new String[]{player.getName(), toPlayer.getName()}
                 );
-        
+
         GameManager.notifyHealthChange(game.getId(), tank);
 
         if (result.isLethal()) {

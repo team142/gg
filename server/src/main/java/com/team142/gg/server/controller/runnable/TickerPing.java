@@ -7,13 +7,13 @@ package com.team142.gg.server.controller.runnable;
 
 import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
+import lombok.AllArgsConstructor;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lombok.AllArgsConstructor;
 
 /**
- *
  * @author just1689
  */
 @AllArgsConstructor

@@ -5,12 +5,12 @@
  */
 package com.team142.gg.server.model.messages.outgoing.other;
 
-import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.base.Message;
+import com.team142.gg.server.model.messages.base.ViewType;
+
 import static com.team142.gg.server.model.messages.base.ConversationType.S_CHANGE_VIEW;
 
 /**
- *
  * @author just1689
  */
 public class MessageChangeView extends Message {

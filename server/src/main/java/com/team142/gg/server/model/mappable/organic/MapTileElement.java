@@ -10,7 +10,6 @@ import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
 import lombok.Getter;
 
 /**
- *
  * @author just1689
  */
 public class MapTileElement extends PlaceableElement {

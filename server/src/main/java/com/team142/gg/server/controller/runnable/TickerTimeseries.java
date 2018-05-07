@@ -6,11 +6,11 @@
 package com.team142.gg.server.controller.runnable;
 
 import com.team142.gg.server.model.KillEventTracker;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author just1689
  */
 public class TickerTimeseries implements Runnable {

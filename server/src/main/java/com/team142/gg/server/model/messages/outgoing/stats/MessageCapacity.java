@@ -9,7 +9,6 @@ import com.team142.gg.server.model.Server;
 import lombok.Data;
 
 /**
- *
  * @author just1689
  */
 @Data

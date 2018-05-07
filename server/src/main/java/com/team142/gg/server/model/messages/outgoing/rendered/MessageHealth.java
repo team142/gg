@@ -11,7 +11,6 @@ import com.team142.gg.server.model.messages.base.Message;
 import lombok.Data;
 
 /**
- *
  * @author just1689
  */
 @Data
@@ -19,16 +18,15 @@ public class MessageHealth extends Message {
 
     private int tag;
     private double maxHealth, health;
-    
-    
+
+
     public MessageHealth(Tank tank) {
         setConversation(ConversationType.S_SHARE_HEALTH.name());
         this.tag = tank.getTAG();
         this.maxHealth = tank.getMaxHealth();
         this.health = tank.getHealth();
-    
+
     }
-    
-    
-    
+
+
 }

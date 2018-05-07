@@ -9,12 +9,10 @@ import com.team142.gg.server.model.Game;
 import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
-import static com.team142.gg.server.model.Server.REPORT_STATS;
-import static com.team142.gg.server.model.Server.SERVER_NAME;
 import com.team142.gg.server.model.mappable.organic.MapSettings;
+import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.incoming.MessageJoinServer;
 import com.team142.gg.server.model.messages.outgoing.other.MessageListOfGames;
-import com.team142.gg.server.model.messages.base.ViewType;
 import com.team142.gg.server.model.messages.outgoing.other.MessageShareTag;
 import com.team142.gg.server.utils.Reporter;
 import com.team142.gg.server.view.ViewManager;
@@ -23,8 +21,10 @@ import org.springframework.web.socket.WebSocketSession;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.team142.gg.server.model.Server.REPORT_STATS;
+import static com.team142.gg.server.model.Server.SERVER_NAME;
+
 /**
- *
  * @author just1689
  */
 public class ServerManager {

@@ -6,7 +6,6 @@
 package com.team142.gg.server.model.mappable.organic;
 
 /**
- *
  * @author just1689
  */
 public enum ModelType {

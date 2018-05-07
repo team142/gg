@@ -5,12 +5,12 @@
  */
 package com.team142.gg.server.model.mappable.organic;
 
-import java.util.concurrent.ThreadLocalRandom;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
- *
  * @author just1689
  */
 @AllArgsConstructor

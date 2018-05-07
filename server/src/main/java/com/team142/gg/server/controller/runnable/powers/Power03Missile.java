@@ -13,7 +13,6 @@ import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 
 /**
- *
  * @author just1689
  */
 public class Power03Missile extends Power {

@@ -8,7 +8,6 @@ package com.team142.gg.server.controller.runnable.powers;
 import com.team142.gg.server.model.Player;
 
 /**
- *
  * @author just1689
  */
 public class Power09Hop180 extends Power {

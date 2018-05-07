@@ -9,27 +9,26 @@ import com.team142.gg.server.controller.GameManager;
 import com.team142.gg.server.model.Player;
 
 /**
- *
  * @author just1689
  */
 public class Power10HpMech extends Power {
-    
+
     private static final long INITIAL_COOLDOWN = 10000;
-    
+
     public Power10HpMech(Player player) {
         super(10, player, 0, INITIAL_COOLDOWN, 1, "0");
     }
-    
+
     @Override
     public void execute() {
         getPlayer().getTANK().heal(50 + (getLevel() - 1) * 10);
         GameManager.notifyHealthChange(getPlayer().getGameId(), getPlayer().getTANK());
     }
-    
+
     @Override
     public void nofityLevelChange() {
         setRefreshTime(INITIAL_COOLDOWN / getLevel());
-        
+
     }
-    
+
 }

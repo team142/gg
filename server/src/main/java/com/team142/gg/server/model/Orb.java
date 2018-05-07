@@ -13,7 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *
  * @author just1689
  */
 public class Orb extends PlaceableElement {

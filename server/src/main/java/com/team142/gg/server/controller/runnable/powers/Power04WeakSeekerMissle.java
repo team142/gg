@@ -12,10 +12,10 @@ import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.Server;
 import com.team142.gg.server.model.mappable.artificial.Bullet;
 import com.team142.gg.server.utils.PhysicsUtils;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- *
  * @author just1689
  */
 public class Power04WeakSeekerMissle extends Power {

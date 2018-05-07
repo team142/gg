@@ -10,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- *
  * @author just1689
  */
 @NoArgsConstructor

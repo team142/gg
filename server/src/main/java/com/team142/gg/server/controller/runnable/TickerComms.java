@@ -6,12 +6,11 @@
 package com.team142.gg.server.controller.runnable;
 
 import com.team142.gg.server.controller.MessageManager;
+import com.team142.gg.server.controller.runnable.base.AbstractTickerWorker;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.outgoing.rendered.MessageShareThingsDynamic;
-import com.team142.gg.server.controller.runnable.base.AbstractTickerWorker;
 
 /**
- *
  * @author just1689
  */
 public class TickerComms extends AbstractTickerWorker {

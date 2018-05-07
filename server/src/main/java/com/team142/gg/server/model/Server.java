@@ -6,10 +6,10 @@
 package com.team142.gg.server.model;
 
 import com.team142.gg.server.utils.EmptyChecker;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- *
  * @author just1689
  */
 public class Server {

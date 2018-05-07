@@ -7,23 +7,23 @@ package com.team142.gg.server.model;
 
 import com.team142.gg.server.controller.OrbManager;
 import com.team142.gg.server.controller.PowerManager;
-import com.team142.gg.server.model.mappable.artificial.Bullet;
-import com.team142.gg.server.model.mappable.artificial.Tank;
-import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
-import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
 import com.team142.gg.server.controller.runnable.TickerComms;
 import com.team142.gg.server.controller.runnable.TickerPhysics;
 import com.team142.gg.server.controller.runnable.powers.Power;
 import com.team142.gg.server.controller.runnable.powers.Power01Shoot;
+import com.team142.gg.server.model.mappable.artificial.Bullet;
+import com.team142.gg.server.model.mappable.artificial.Tank;
+import com.team142.gg.server.model.mappable.meta.SpaceTimePoint;
+import com.team142.gg.server.model.messages.outgoing.rendered.MessageScoreboard;
+import lombok.Data;
+
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import lombok.Data;
 
 /**
- *
  * @author just1689
  */
 @Data

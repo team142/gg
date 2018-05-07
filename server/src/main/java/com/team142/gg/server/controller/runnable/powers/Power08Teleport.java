@@ -10,7 +10,6 @@ import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 
 /**
- *
  * @author just1689
  */
 public class Power08Teleport extends Power {
