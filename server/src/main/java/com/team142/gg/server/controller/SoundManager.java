@@ -8,6 +8,7 @@ package com.team142.gg.server.controller;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.base.SoundType;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlaySound;
+import com.team142.gg.server.model.messages.outgoing.rendered.MessageSpeech;
 import lombok.AllArgsConstructor;
 
 import java.util.concurrent.Executor;
@@ -26,6 +27,10 @@ public class SoundManager {
         thread.setDaemon(true);
         return thread;
     });
+
+    public void sendSpeech(String text) {
+        SOUND_MSG_THREAD_POOL.execute(() -> MessageManager.sendPlayersAMessage(Repository.GAMES_ON_SERVER.get(GAME_ID), new MessageSpeech(text)));
+    }
 
     public void sendSound(SoundType type) {
         SOUND_MSG_THREAD_POOL.execute(() -> MessageManager.sendPlayersAMessage(Repository.GAMES_ON_SERVER.get(GAME_ID), new MessagePlaySound(type)));

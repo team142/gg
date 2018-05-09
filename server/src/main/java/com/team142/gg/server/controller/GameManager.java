@@ -74,6 +74,8 @@ public class GameManager {
         PowerManager.givePlayerRandomPower(player);
         PowerManager.givePlayerRandomPower(player);
 
+        game.getSoundManager().sendSpeech("Welcome");
+
     }
 
     public static void setHealthFull(Player player) {
