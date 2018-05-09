@@ -36,4 +36,8 @@ export class BabylonSounds {
         BabylonSounds.playSound(SOUNDS_DIR + "pew.mp3")
     }
 
+    static playTextToSpeech(text) {
+        responsiveVoice.speak(text)
+    }
+
 }

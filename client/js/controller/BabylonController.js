@@ -54,6 +54,9 @@ export class BabylonController {
         BabylonUI.setHealth(obj)
     }
 
+    static handleSpeech(obj) {
+        BabylonSounds.playTextToSpeech(obj.text)
+    }
 
     static setPowerLevel(key, level) {
         const p = powerIconInfo

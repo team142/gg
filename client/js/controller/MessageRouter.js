@@ -66,6 +66,9 @@ export class MessageRouter {
         } else if (conversation === "S_SHARE_HEALTH") {
             BabylonController.handleHealth(obj)
 
+        } else if (conversation === "S_SHARE_SPEECH") {
+            BabylonController.handleSpeech(obj)
+
         } else {
             console.log("Don't know what to do with this:")
             console.log(obj)

@@ -1,5 +1,6 @@
 import { NetworkController } from '../controller/NetworkController.js'
 import { BabylonUtils } from './BabylonUtils.js'
+import { BabylonSounds } from './BabylonSounds.js'
 
 export class Web {
 
@@ -7,6 +8,7 @@ export class Web {
         Web.toggleElement("VIEW_SERVERS", true)
         Web.toggleElement("VIEW_CANVAS", false)
         Web.toggleElement("VIEW_GAMES", false)
+        BabylonSounds.playTextToSpeech("Are. You. Ready ")
 
     }
 
