@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.team142.gg.server.controller.OrbManager;
 import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.controller.runnable.TickerComms;
@@ -47,6 +48,8 @@ public final class Player {
     private final String KEY_LEFT = "A";
     private final String KEY_RIGHT = "D";
 
+    private final ConcurrentHashMap.KeySetView<String, Boolean> SPEECH_HEARD = new ConcurrentHashMap<String, String>().newKeySet();
+
     private ConcurrentSkipListSet<String> keyboard = new ConcurrentSkipListSet<>();
 
     public Player(String id) {
@@ -63,6 +66,14 @@ public final class Player {
         addPower(power1Shoot);
         addPower(" ", power1Shoot);
 
+    }
+
+    public boolean haveIHeard(String text) {
+        if (SPEECH_HEARD.contains(text)) {
+            return true;
+        }
+        SPEECH_HEARD.add(text);
+        return false;
     }
 
     public void populateScorebord(MessageScoreboard board) {

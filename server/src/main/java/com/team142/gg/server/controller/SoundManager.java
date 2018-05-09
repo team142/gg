@@ -5,6 +5,7 @@
  */
 package com.team142.gg.server.controller;
 
+import com.team142.gg.server.model.Player;
 import com.team142.gg.server.model.Repository;
 import com.team142.gg.server.model.messages.base.SoundType;
 import com.team142.gg.server.model.messages.outgoing.other.MessagePlaySound;
@@ -31,6 +32,14 @@ public class SoundManager {
     public void sendSpeech(String text) {
         SOUND_MSG_THREAD_POOL.execute(() -> MessageManager.sendPlayersAMessage(Repository.GAMES_ON_SERVER.get(GAME_ID), new MessageSpeech(text)));
     }
+
+    public void sendSpeechOnce(Player player, String text) {
+        if (player.haveIHeard(text)) {
+            return;
+        }
+        SOUND_MSG_THREAD_POOL.execute(() -> MessageManager.sendPlayerAMessage(player.getId(), new MessageSpeech(text)));
+    }
+
 
     public void sendSound(SoundType type) {
         SOUND_MSG_THREAD_POOL.execute(() -> MessageManager.sendPlayersAMessage(Repository.GAMES_ON_SERVER.get(GAME_ID), new MessagePlaySound(type)));
