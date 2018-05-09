@@ -50,6 +50,7 @@ public class OrbManager {
 
         new Thread(() -> {
             game.getSoundManager().sendNie();
+            game.getPlayers().forEach(player -> game.getSoundManager().sendSpeechOnce(player,"Gather orbs to upgrade your tank"));
         }).start();
 
     }
