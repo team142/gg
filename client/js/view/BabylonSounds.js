@@ -37,7 +37,7 @@ export class BabylonSounds {
     }
 
     static playTextToSpeech(text) {
-        responsiveVoice.speak(text)
+        responsiveVoice.speak(text, "UK English Female", { pitch: 1.1, rate: 1.2 })
     }
 
 }
