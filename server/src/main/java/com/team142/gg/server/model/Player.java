@@ -5,7 +5,6 @@
  */
 package com.team142.gg.server.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.team142.gg.server.controller.OrbManager;
 import com.team142.gg.server.controller.PowerManager;
 import com.team142.gg.server.controller.runnable.TickerComms;
