@@ -16,14 +16,12 @@ import lombok.Setter;
 public class PlaceableElement {
 
     @Getter
+    private final int TAG;
+    @Getter
     @Setter
     private SpaceTimePoint point;
-
     @Getter
     @Setter
     private String skin;
-
-    @Getter
-    private final int TAG;
 
 }

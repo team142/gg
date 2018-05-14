@@ -21,13 +21,12 @@ import java.util.concurrent.Executors;
 @AllArgsConstructor
 public class SoundManager {
 
-    private final String GAME_ID;
-
     public final Executor SOUND_MSG_THREAD_POOL = Executors.newFixedThreadPool(4, (Runnable r) -> {
         Thread thread = new Thread(r);
         thread.setDaemon(true);
         return thread;
     });
+    private final String GAME_ID;
 
     public void sendSpeech(String text) {
         SOUND_MSG_THREAD_POOL.execute(() -> MessageManager.sendPlayersAMessage(Repository.GAMES_ON_SERVER.get(GAME_ID), new MessageSpeech(text)));

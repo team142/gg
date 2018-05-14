@@ -18,15 +18,13 @@ import lombok.Setter;
 public class Orb extends PlaceableElement {
 
     @Getter
-    @Setter
-    private String name;
-
+    private final String gameId;
     @Getter
     @Setter
     SpaceTimePoint point;
-
     @Getter
-    private final String gameId;
+    @Setter
+    private String name;
 
     public Orb(String name, String gameId, SpaceTimePoint point, String skin, int TAG) {
         super(point, skin, TAG);

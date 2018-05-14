@@ -30,25 +30,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 public final class Player {
 
     private final String id;
-    private String name;
     private final long joinTimeMs;
     private final AtomicInteger kills;
     private final AtomicInteger deaths;
     private final Tank TANK;
     private final int TAG;
     private final List<Bullet> BULLETS;
-    private String gameId;
-    private TickerComms tickerComms;
-    private TickerPhysics tickerPhysics;
-    private ConcurrentHashMap<String, Power> powers;
-
     private final String KEY_FORWARD = "W";
     private final String KEY_BACKWARD = "S";
     private final String KEY_LEFT = "A";
     private final String KEY_RIGHT = "D";
-
     private final ConcurrentHashMap.KeySetView<String, Boolean> SPEECH_HEARD = new ConcurrentHashMap<String, String>().newKeySet();
-
+    private String name;
+    private String gameId;
+    private TickerComms tickerComms;
+    private TickerPhysics tickerPhysics;
+    private ConcurrentHashMap<String, Power> powers;
     private ConcurrentSkipListSet<String> keyboard = new ConcurrentSkipListSet<>();
 
     public Player(String id) {

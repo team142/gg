@@ -18,18 +18,16 @@ import lombok.Setter;
  */
 public class MovableElement extends PlaceableElement {
 
+    public static final float BASE_ROTATE = (float) Math.toRadians(1.25);
+    public static final float MAX_ROTATE = (float) (Math.PI * 2);
     @Getter
     @Setter
     @JsonSerialize(using = DoubleContextualSerializer.class)
     private double speed;
-
     @JsonIgnore
     @Getter
     @Setter
     private boolean walkOnWater;
-
-    public static final float BASE_ROTATE = (float) Math.toRadians(1.25);
-    public static final float MAX_ROTATE = (float) (Math.PI * 2);
 
     public MovableElement(SpaceTimePoint point, String skin, double speed, int tag) {
         super(point, skin, tag);

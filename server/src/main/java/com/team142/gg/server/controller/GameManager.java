@@ -74,7 +74,7 @@ public class GameManager {
         PowerManager.givePlayerRandomPower(player);
         PowerManager.givePlayerRandomPower(player);
 
-        game.getSoundManager().sendSpeechOnce(player,"Use W, A, S and D to move. Press space to fire");
+        game.getSoundManager().sendSpeechOnce(player, "Use W, A, S and D to move. Press space to fire");
 
     }
 

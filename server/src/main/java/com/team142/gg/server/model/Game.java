@@ -30,12 +30,10 @@ public class Game {
 
     private final String id;
     private final String name;
-    private GameMap map;
-
     private final List<Player> players = new CopyOnWriteArrayList<>();
     private final ConcurrentHashMap<String, Tank> TANKS = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, Orb> orbs = new ConcurrentHashMap<>();
-
+    private GameMap map;
     private SoundManager soundManager;
     private Thread pingThread;
 

@@ -30,6 +30,20 @@ public class StaticContentFilter implements Filter {
     public StaticContentFilter() {
     }
 
+    public static String getStackTrace(Throwable t) {
+        String stackTrace = null;
+        try {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            t.printStackTrace(pw);
+            pw.close();
+            sw.close();
+            stackTrace = sw.getBuffer().toString();
+        } catch (Exception ex) {
+        }
+        return stackTrace;
+    }
+
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
@@ -79,7 +93,7 @@ public class StaticContentFilter implements Filter {
         // Write code here to process the request and/or response after
         // the rest of the filter chain is invoked.
         // For example, a logging filter might log the attributes on the
-        // request object after the request has been processed. 
+        // request object after the request has been processed.
         /*
 	for (Enumeration en = request.getAttributeNames(); en.hasMoreElements(); ) {
 	    String name = (String)en.nextElement();
@@ -214,20 +228,6 @@ public class StaticContentFilter implements Filter {
             } catch (Exception ex) {
             }
         }
-    }
-
-    public static String getStackTrace(Throwable t) {
-        String stackTrace = null;
-        try {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            t.printStackTrace(pw);
-            pw.close();
-            sw.close();
-            stackTrace = sw.getBuffer().toString();
-        } catch (Exception ex) {
-        }
-        return stackTrace;
     }
 
     public void log(String msg) {
