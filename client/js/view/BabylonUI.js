@@ -27,7 +27,7 @@ export class BabylonUI {
     }
 
     static setHealth(t) {
-        if (match.tag == t.tag) {
+        if (match.tag === t.tag) {
             BabylonUI.changeMyHealthBar(t.health, t.maxHealth)
         }
 
@@ -40,7 +40,7 @@ export class BabylonUI {
 
     static setHealthRectangle(rect1, health, totalHealth) {
         rect1.width = health / totalHealth * 0.2
-        if (match.miniMapOn != rect1.isVisible) {
+        if (match.miniMapOn !== rect1.isVisible) {
             rect1.isVisible = match.miniMapOn
         }
 
@@ -279,7 +279,7 @@ export class BabylonUI {
     }
 
     static createTinyBlockFromThing(thing) {
-        if (thing.tag == match.tag) {
+        if (thing.tag === match.tag) {
             BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "blue")
         } else {
             BabylonUI.createTinyBlock(thing.point.x, thing.point.z, "red")

@@ -74,10 +74,10 @@ export class Web {
     }
 
     static changeView(view) {
-        Web.toggleElement("VIEW_SERVERS", view == "VIEW_SERVERS")
-        Web.toggleElement("VIEW_GAMES", view == "VIEW_GAMES")
-        Web.toggleElement("VIEW_CANVAS", view == "VIEW_CANVAS")
-        if (view == "VIEW_CANVAS") {
+        Web.toggleElement("VIEW_SERVERS", view === "VIEW_SERVERS")
+        Web.toggleElement("VIEW_GAMES", view === "VIEW_GAMES")
+        Web.toggleElement("VIEW_CANVAS", view === "VIEW_CANVAS")
+        if (view === "VIEW_CANVAS") {
             BabylonUtils.setup3D()
         }
 
