@@ -1,6 +1,7 @@
 # Good Game - A game with no name
 
 [![Build Status](https://travis-ci.org/team142/gg.svg?branch=master)](https://travis-ci.org/team142/gg)
+(https://img.shields.io/docker/stars/team142/gg.svg?maxAge=86400)](https://github.com/team142/gg) [![Docker Pulls]
 [![Pending Pull-Requests](http://githubbadges.herokuapp.com/team142/gg/pulls.svg?style=flat)](https://github.com/team142/gg/pulls)
 [![Github Issues](http://githubbadges.herokuapp.com/team142/gg/issues.svg?style=flat)](https://github.com/team142/gg/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](http://badges.mit-license.org)
