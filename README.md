@@ -4,7 +4,6 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/team142/gg.svg?maxAge=86400)](https://github.com/team142/gg)
 [![](https://images.microbadger.com/badges/image/team142/gg.svg)](https://microbadger.com/images/team142/gg "Get your own image badge on microbadger.com")
 [![](https://images.microbadger.com/badges/version/team142/gg.svg)](https://microbadger.com/images/team142/gg "Get your own version badge on microbadger.com")
-[![Pending Pull-Requests](http://githubbadges.herokuapp.com/team142/gg/pulls.svg?style=flat)](https://github.com/team142/gg/pulls)
 [![Github Issues](http://githubbadges.herokuapp.com/team142/gg/issues.svg?style=flat)](https://github.com/team142/gg/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](http://badges.mit-license.org)
 
