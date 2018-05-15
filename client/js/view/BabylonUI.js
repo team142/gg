@@ -8,7 +8,7 @@ import {TEXTURES_DIR} from './BabylonTextures.js'
 const BLOCK_SIZE = 5
 
 /*
-    This class is specfically for create / edit Babylon UI components
+    This class is specifically for create / edit Babylon UI components
 */
 export class BabylonUI {
 

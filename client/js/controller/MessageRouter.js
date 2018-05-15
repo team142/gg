@@ -14,7 +14,7 @@ export class MessageRouter {
 
         const obj = JSON.parse(event.data)
         const conversation = obj.conversation
-
+        
         if (conversation === "S_CHANGE_VIEW") {
             Web.changeView(obj.view)
 
@@ -46,7 +46,7 @@ export class MessageRouter {
             BabylonController.handleThingsMoving(obj)
 
         } else if (conversation === "S_SHARE_INTEL") {
-            match.setMiniMapOn(obj.on == true)
+            match.setMiniMapOn(obj.on === true)
 
         } else if (conversation === "S_ORB_N") {
             BabylonController.handleNewOrb(obj)
