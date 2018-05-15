@@ -1,6 +1,4 @@
-import {
-    baby
-} from './Baby.js'
+import {baby} from './Baby.js'
 
 const MIN_SIN_VAL = 1.57
 const MAX_SIN_VAL = 7.85

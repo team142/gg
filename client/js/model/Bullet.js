@@ -1,5 +1,5 @@
-import { BabylonUtils } from '../view/BabylonUtils.js'
-import { baby } from '../model/Baby.js'
+import {BabylonUtils} from '../view/BabylonUtils.js'
+import {baby} from '../model/Baby.js'
 
 export class Bullet {
 

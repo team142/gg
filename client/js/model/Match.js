@@ -1,4 +1,3 @@
-
 class Match {
     constructor() {
         this.gameInstance = Math.floor(Math.random() * 1000)
@@ -7,7 +6,7 @@ class Match {
         this.scores = []
         this.gameMap = {}
         this.players = new Map()
-        
+
         this.playerTanks = new Map()
         this.playerHealthBars = new Map()
         this.playerLabels = new Map()

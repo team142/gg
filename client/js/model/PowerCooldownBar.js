@@ -1,4 +1,4 @@
-import { baby } from './Baby.js'
+import {baby} from './Baby.js'
 
 const POWER_ICON_WIDTH = 75
 
@@ -7,6 +7,7 @@ export class PowerCooldownBar {
     static set(index, item) {
         baby.powerbarCooldownBars.set(index, item)
     }
+
     static get(index) {
         return baby.powerbarCooldownBars.get(index)
     }

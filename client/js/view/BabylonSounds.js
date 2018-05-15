@@ -1,6 +1,4 @@
-import {
-    baby
-} from '../model/Baby.js'
+import {baby} from '../model/Baby.js'
 
 const SOUNDS_DIR = "sounds/"
 const sounds = [
@@ -37,7 +35,7 @@ export class BabylonSounds {
     }
 
     static playTextToSpeech(text) {
-        responsiveVoice.speak(text, "UK English Female", { pitch: 1.1, rate: 1.2 })
+        responsiveVoice.speak(text, "UK English Female", {pitch: 1.1, rate: 1.2})
     }
 
 }

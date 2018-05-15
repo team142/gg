@@ -1,10 +1,9 @@
-
-import { baby } from '../model/Baby.js'
-import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
-import { BabylonUtils } from './BabylonUtils.js'
-import { match } from '../model/Match.js'
-import { passiveIconInfo, powerIconInfo } from '../model/Power.js'
-import { TEXTURES_DIR } from './BabylonTextures.js'
+import {baby} from '../model/Baby.js'
+import {PowerCooldownBar} from '../model/PowerCooldownBar.js'
+import {BabylonUtils} from './BabylonUtils.js'
+import {match} from '../model/Match.js'
+import {passiveIconInfo, powerIconInfo} from '../model/Power.js'
+import {TEXTURES_DIR} from './BabylonTextures.js'
 
 const BLOCK_SIZE = 5
 
@@ -12,7 +11,6 @@ const BLOCK_SIZE = 5
     This class is specfically for create / edit Babylon UI components
 */
 export class BabylonUI {
-
 
 
     static changeMyHealthBar(health, maxHealth) {
@@ -31,8 +29,8 @@ export class BabylonUI {
     static setHealth(t) {
         if (match.tag == t.tag) {
             BabylonUI.changeMyHealthBar(t.health, t.maxHealth)
-        }                
-    
+        }
+
         const rect1 = match.getHealthBarByTag(t.tag)
         if (rect1) {
             BabylonUI.setHealthRectangle(rect1, t.health, t.maxHealth)
@@ -47,6 +45,7 @@ export class BabylonUI {
         }
 
     }
+
     static displayScores() {
         baby.textScores.forEach(ro => {
             ro.dispose()
@@ -75,6 +74,7 @@ export class BabylonUI {
         BabylonUI.displayScores()
 
     }
+
     static createGui() {
         baby.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI")
         baby.panelScores = new BABYLON.GUI.StackPanel()

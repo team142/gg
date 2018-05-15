@@ -1,4 +1,5 @@
-import { match } from './Match'
+import {match} from './Match'
+
 export class Player {
 
     static create(tag) {

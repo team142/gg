@@ -1,13 +1,12 @@
-
-import { BabylonUtils } from '../view/BabylonUtils.js'
-import { BabylonSounds } from '../view/BabylonSounds.js'
-import { BabylonAnimations } from '../view/BabylonAnimations.js'
-import { Bullet } from '../model/Bullet.js'
-import { PowerCooldownBar } from '../model/PowerCooldownBar.js'
-import { Orb } from '../model/Orb.js'
-import { BabylonModels } from '../view/BabylonModels.js'
-import { BabylonUI } from '../view/BabylonUI.js'
-import { powerIconInfo } from '../model/Power.js'
+import {BabylonUtils} from '../view/BabylonUtils.js'
+import {BabylonSounds} from '../view/BabylonSounds.js'
+import {BabylonAnimations} from '../view/BabylonAnimations.js'
+import {Bullet} from '../model/Bullet.js'
+import {PowerCooldownBar} from '../model/PowerCooldownBar.js'
+import {Orb} from '../model/Orb.js'
+import {BabylonModels} from '../view/BabylonModels.js'
+import {BabylonUI} from '../view/BabylonUI.js'
+import {powerIconInfo} from '../model/Power.js'
 
 export class BabylonController {
 
@@ -75,7 +74,7 @@ export class BabylonController {
             }
         }
     }
-    
+
     static shareRadar(obj) {
         BabylonUI.createRadar(obj)
         setTimeout(BabylonController.stopRadar, obj.timeout)

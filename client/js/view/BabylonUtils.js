@@ -1,12 +1,12 @@
-import { match } from '../model/Match.js'
-import { BabylonSounds } from './BabylonSounds.js'
-import { NetworkController } from '../controller/NetworkController.js'
-import { Bullet } from '../model/Bullet.js'
-import { BabylonModels } from './BabylonModels.js'
-import { BabylonTextures } from './BabylonTextures.js'
-import { baby } from '../model/Baby.js'
-import { GameMap } from '../model/GameMap.js'
-import { BabylonUI } from './BabylonUI.js'
+import {match} from '../model/Match.js'
+import {BabylonSounds} from './BabylonSounds.js'
+import {NetworkController} from '../controller/NetworkController.js'
+import {Bullet} from '../model/Bullet.js'
+import {BabylonModels} from './BabylonModels.js'
+import {BabylonTextures} from './BabylonTextures.js'
+import {baby} from '../model/Baby.js'
+import {GameMap} from '../model/GameMap.js'
+import {BabylonUI} from './BabylonUI.js'
 
 /*
     This class is specifically for setting up Babylon base
@@ -66,7 +66,6 @@ export class BabylonUtils {
     }
 
 
-
     static createSphereIfNotExists(tagId, labelText) {
         if (tagId) {
 
@@ -86,22 +85,34 @@ export class BabylonUtils {
             if (match.playerTanks.size > 0) {
                 box = match.playerTanks.entries().next().value[1].clone(name)
             } else {
-                box = BABYLON.MeshBuilder.CreateBox("box" + name, { height: 0.3, width: 0.6, depth: 0.3 }, baby.scene)
+                box = BABYLON.MeshBuilder.CreateBox("box" + name, {height: 0.3, width: 0.6, depth: 0.3}, baby.scene)
                 box.position.y = 0.0
                 box.material = baby.matGrey
 
-                const boxBarrel = BABYLON.MeshBuilder.CreateBox("boxBarrel" + name, { height: 0.05, width: 0.6, depth: 0.05 }, baby.scene)
+                const boxBarrel = BABYLON.MeshBuilder.CreateBox("boxBarrel" + name, {
+                    height: 0.05,
+                    width: 0.6,
+                    depth: 0.05
+                }, baby.scene)
                 boxBarrel.position.y = 0.1
                 boxBarrel.position.x = 0.3
                 boxBarrel.material = baby.matBlack
 
-                const boxLeftWing = BABYLON.MeshBuilder.CreateBox("boxLeftWing" + name, { height: 0.1, width: 0.65, depth: 0.05 }, baby.scene)
+                const boxLeftWing = BABYLON.MeshBuilder.CreateBox("boxLeftWing" + name, {
+                    height: 0.1,
+                    width: 0.65,
+                    depth: 0.05
+                }, baby.scene)
                 boxLeftWing.position.y = -0.11
                 boxLeftWing.position.z = 0.15
                 boxLeftWing.material = baby.matWing
 
 
-                var boxRightWing = BABYLON.MeshBuilder.CreateBox("boxRightWing" + name, { height: 0.1, width: 0.65, depth: 0.05 }, baby.scene)
+                var boxRightWing = BABYLON.MeshBuilder.CreateBox("boxRightWing" + name, {
+                    height: 0.1,
+                    width: 0.65,
+                    depth: 0.05
+                }, baby.scene)
                 boxRightWing.position.y = -0.11
                 boxRightWing.position.z = -0.15
                 boxRightWing.material = baby.matWing

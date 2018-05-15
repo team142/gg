@@ -1,4 +1,4 @@
-import { match } from './Match.js'
+import {match} from './Match.js'
 
 export class GameMap {
 
@@ -6,6 +6,7 @@ export class GameMap {
         match.gameMap = new GameMap(obj)
         return match.gameMap
     }
+
     constructor(obj) {
         this.tiles = obj.map
         this.maxX = obj.maxX

@@ -1,6 +1,6 @@
-import { match } from '../model/Match.js'
-import { MessageRouter } from '../controller/MessageRouter.js'
-import { Web } from '../view/Web.js'
+import {match} from '../model/Match.js'
+import {MessageRouter} from '../controller/MessageRouter.js'
+import {Web} from '../view/Web.js'
 
 const sio = {}
 

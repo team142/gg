@@ -1,6 +1,6 @@
-import { match } from '../model/Match.js'
-import { baby } from '../model/Baby.js'
-import { TEXTURES_DIR } from './BabylonTextures.js'
+import {match} from '../model/Match.js'
+import {baby} from '../model/Baby.js'
+import {TEXTURES_DIR} from './BabylonTextures.js'
 
 const stopAbles = []
 const animations = new Map()

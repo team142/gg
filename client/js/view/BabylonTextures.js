@@ -1,4 +1,4 @@
-import { baby } from '../model/Baby.js'
+import {baby} from '../model/Baby.js'
 
 export const TEXTURES_DIR = "textures/"
 
@@ -49,19 +49,19 @@ export class BabylonTextures {
         material.emissiveColor = BABYLON.Color3.White()
         material.specularPower = 64
         material.alpha = 0.2
-    
+
         // Material for Random orbs
         material.emissiveFresnelParameters = new BABYLON.FresnelParameters()
         material.emissiveFresnelParameters.bias = 0.2
         material.emissiveFresnelParameters.leftColor = BABYLON.Color3.White()
         material.emissiveFresnelParameters.rightColor = BABYLON.Color3.Gray()
-    
+
         material.opacityFresnelParameters = new BABYLON.FresnelParameters()
         material.opacityFresnelParameters.power = 4
         material.opacityFresnelParameters.leftColor = BABYLON.Color3.White()
         material.opacityFresnelParameters.rightColor = BABYLON.Color3.Black()
 
-        baby.randomOrbMaterial = material        
+        baby.randomOrbMaterial = material
     }
 
 }

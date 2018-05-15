@@ -1,4 +1,3 @@
-
 export const baby = {
     materialsMap: new Map(),
     textScores: [],
@@ -11,6 +10,6 @@ export const baby = {
     orbs: new Map(),
     bullets: [],
     radar: []
-    
+
 }
 

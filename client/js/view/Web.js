@@ -1,6 +1,6 @@
-import { NetworkController } from '../controller/NetworkController.js'
-import { BabylonUtils } from './BabylonUtils.js'
-import { BabylonSounds } from './BabylonSounds.js'
+import {NetworkController} from '../controller/NetworkController.js'
+import {BabylonUtils} from './BabylonUtils.js'
+import {BabylonSounds} from './BabylonSounds.js'
 
 export class Web {
 
@@ -121,8 +121,12 @@ export class Web {
     }
 
     static assignJoinButton() {
-        document.getElementById("btnJoinServer").addEventListener("click", () => { Web.buttonJoinServer() })
-        document.getElementById("btnJoinServerCustom").addEventListener("click", () => { Web.buttonJoinServerCustom() })
+        document.getElementById("btnJoinServer").addEventListener("click", () => {
+            Web.buttonJoinServer()
+        })
+        document.getElementById("btnJoinServerCustom").addEventListener("click", () => {
+            Web.buttonJoinServerCustom()
+        })
 
     }
 
