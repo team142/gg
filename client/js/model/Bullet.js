@@ -11,10 +11,19 @@ export class Bullet {
         const bullet = new Bullet(obj.BULLET, newBullet)
         baby.bullets.push(bullet)
 
+        let ok = true
+        let rX = newBullet.position.x
+        let rZ = newBullet.position.z
+        while (ok) {
+            rX += Math.sin(bullet.sBullet.point.rotation) * bullet.sBullet.speed
+            rZ += Math.cos(bullet.sBullet.point.rotation) * bullet.sBullet.speed
+            if (rX > 50 || rX < 0 || rZ > 50 || rZ < 0) {
+                ok = false
+            }
+        }
 
-        const rX = newBullet.position.x + Math.sin(bullet.sBullet.point.rotation) * bullet.sBullet.speed * 200
+
         const height = 0.25
-        const rZ = newBullet.position.z + Math.cos(bullet.sBullet.point.rotation) * bullet.sBullet.speed * 200
         const path = [
             new BABYLON.Vector3(newBullet.position.x, height, newBullet.position.z),
             new BABYLON.Vector3(rX, height, rZ)
@@ -40,9 +49,11 @@ export class Bullet {
         const animationGroup = new BABYLON.AnimationGroup("Group" + c)
         animationGroup.addTargetedAnimation(animationPosition, newBullet)
 
-        animationGroup.onAnimationEndObservable.add(function () {
-            bullet.removeMe()
-        })
+        animationGroup.onAnimationEndObservable.add(
+            function () {
+                bullet.removeMe()
+            }
+        )
 
         animationGroup.play()
 
