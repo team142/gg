@@ -35,14 +35,17 @@ export class Bullet {
             )
         }
 
+
         animationPosition.setKeys(keysPosition)
         const animationGroup = new BABYLON.AnimationGroup("Group" + c)
         animationGroup.addTargetedAnimation(animationPosition, newBullet)
-        animationGroup.play(true)
 
-        window.setTimeout(() => {
+        animationGroup.onAnimationEndObservable.add(function () {
             bullet.removeMe()
-        }, 3000)
+        })
+
+        animationGroup.play()
+
     }
 
     constructor(obj, babylonObject) {
