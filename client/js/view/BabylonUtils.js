@@ -178,9 +178,9 @@ export class BabylonUtils {
 
     static createMapTile(x, z, skin, model) {
         let plane
-        if (model == "FLAT_TILE") {
+        if (model === "FLAT_TILE") {
             plane = baby.baseTile.clone(("plane" + x) + z)
-        } else if (model == "ROCK_TILE") {
+        } else if (model === "ROCK_TILE") {
             plane = baby.mountainTile.clone(("plane" + x) + z)
         }
         plane.position.z = (z * 1)

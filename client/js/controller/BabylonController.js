@@ -59,10 +59,10 @@ export class BabylonController {
 
     static setPowerLevel(key, level) {
         const p = powerIconInfo
-            .find(power => power.key == key)
+            .find(power => power.key === key)
         if (p) {
             p.level = level
-            if (level == 1) {
+            if (level === 1) {
                 BabylonUI.createBotPowerBarItem(p.powerNumber - 1, p.ico, p.key)
                 PowerCooldownBar.set(
                     (p.powerNumber).toString(),
