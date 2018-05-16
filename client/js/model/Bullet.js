@@ -14,14 +14,16 @@ export class Bullet {
         let ok = true
         let rX = newBullet.position.x
         let rZ = newBullet.position.z
-        while (ok) {
-            rX += Math.sin(bullet.sBullet.point.rotation) * bullet.sBullet.speed
-            rZ += Math.cos(bullet.sBullet.point.rotation) * bullet.sBullet.speed
-            if (rX > 50 || rX < 0 || rZ > 50 || rZ < 0) {
-                ok = false
+
+        if (bullet.sBullet.speed) {
+            while (ok) {
+                rX += Math.sin(bullet.sBullet.point.rotation) * bullet.sBullet.speed
+                rZ += Math.cos(bullet.sBullet.point.rotation) * bullet.sBullet.speed
+                if (rX > 50 || rX < 0 || rZ > 50 || rZ < 0) {
+                    ok = false
+                }
             }
         }
-
 
         const height = 0.25
         const path = [
