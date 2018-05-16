@@ -8,7 +8,6 @@ export const baby = {
     powerbarCooldownBars: new Map(),
     levelLabels: new Map(),
     orbs: new Map(),
-    bullets: [],
     radar: []
 
 }

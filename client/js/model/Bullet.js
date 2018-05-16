@@ -9,7 +9,6 @@ export class Bullet {
         const c = BabylonUtils.getCounter()
         const newBullet = baby.baseBullet.clone("bullet" + c)
         const bullet = new Bullet(obj.BULLET, newBullet)
-        baby.bullets.push(bullet)
 
         let ok = true
         let rX = newBullet.position.x
@@ -75,11 +74,7 @@ export class Bullet {
     }
 
     removeMe() {
-        clearInterval(this.bulletTimer)
         this.bBullet.dispose()
-        const index = baby.bullets.indexOf(this)
-        baby.bullets.splice(index, 1)
-
     }
 
 }
