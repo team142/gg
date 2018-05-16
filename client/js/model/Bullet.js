@@ -1,6 +1,8 @@
 import {BabylonUtils} from '../view/BabylonUtils.js'
 import {baby} from '../model/Baby.js'
 
+const height = 0.25
+
 export class Bullet {
 
 
@@ -24,7 +26,6 @@ export class Bullet {
             }
         }
 
-        const height = 0.25
         const path = [
             new BABYLON.Vector3(newBullet.position.x, height, newBullet.position.z),
             new BABYLON.Vector3(rX, height, rZ)
@@ -49,7 +50,6 @@ export class Bullet {
         animationPosition.setKeys(keysPosition)
         const animationGroup = new BABYLON.AnimationGroup("Group" + c)
         animationGroup.addTargetedAnimation(animationPosition, newBullet)
-
         animationGroup.onAnimationEndObservable.add(
             function () {
                 bullet.removeMe()
