@@ -55,7 +55,6 @@ public class MessageManager {
     }
 
     public static void sendPlayersAMessage(Game game, Message message) {
-        String json = JsonUtils.toJson(message);
         game.getPlayers().forEach((player) -> sendPlayerAMessage(player.getId(), message));
     }
 
