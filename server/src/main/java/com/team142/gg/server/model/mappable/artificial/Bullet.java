@@ -14,6 +14,7 @@ import com.team142.gg.server.model.mappable.organic.SkinType;
 import com.team142.gg.server.utils.MathUtils;
 import com.team142.gg.server.utils.RectangleUtils;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
 /**
  * @author just1689
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class Bullet extends MovableElement {
 

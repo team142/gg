@@ -9,7 +9,7 @@ buildscript {
 }
 
 plugins {
-    id 'io.franzbecker.gradle-lombok' version '1.11'
+    id 'io.franzbecker.gradle-lombok' version '1.14'
     id 'java'
 }
 

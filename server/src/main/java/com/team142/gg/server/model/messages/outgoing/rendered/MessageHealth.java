@@ -9,10 +9,12 @@ import com.team142.gg.server.model.mappable.artificial.Tank;
 import com.team142.gg.server.model.messages.base.ConversationType;
 import com.team142.gg.server.model.messages.base.Message;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author just1689
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class MessageHealth extends Message {
 

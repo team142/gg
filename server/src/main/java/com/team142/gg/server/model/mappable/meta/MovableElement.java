@@ -30,7 +30,7 @@ public class MovableElement extends PlaceableElement {
     private boolean walkOnWater;
 
     public MovableElement(SpaceTimePoint point, String skin, double speed, int tag) {
-        super(point, skin, tag);
+        super(tag, point, skin);
         this.speed = speed;
     }
 

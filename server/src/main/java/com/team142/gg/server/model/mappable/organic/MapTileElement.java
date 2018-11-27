@@ -18,7 +18,7 @@ public class MapTileElement extends PlaceableElement {
     private final String model;
 
     public MapTileElement(SpaceTimePoint point, Tile tile) {
-        super(point, tile.getSkin(), 0);
+        super(0, point, tile.getSkin());
         this.model = tile.getModelType().name();
     }
 

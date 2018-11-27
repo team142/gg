@@ -27,7 +27,7 @@ public class Orb extends PlaceableElement {
     private String name;
 
     public Orb(String name, String gameId, SpaceTimePoint point, String skin, int TAG) {
-        super(point, skin, TAG);
+        super(TAG, point, skin);
         this.name = name;
         this.point = point;
         this.gameId = gameId;
